@@ -1255,3 +1255,85 @@
   pub_date: 2026-04-13
   kind: Primary
   supports: Oracle–Bloom Energy 2.8 GW fuel-cell master agreement; 1.2 GW initial deployment operational late 2025 (completed in ~55 days); expansion to 2.8 GW total announced Apr 13 2026; Oracle warrant issued Apr 9 2026 on Oct 30 2025 terms
+
+# ---- LCOE historical sources (Lazard v15/v16, EIA AEO 2022/2023, BNEF, IRENA, LCOS v7) ----
+
+- id: S163
+  publisher: Lazard (direct PDF)
+  title: "Lazard's Levelized Cost of Energy Analysis — Version 15.0"
+  url: https://www.lazard.com/media/sptlfats/lazards-levelized-cost-of-energy-version-150-vf.pdf
+  pub_date: 2021-10
+  kind: Primary
+  supports: LCOE 2021 vintage; Solar-Utility, Wind-Onshore/Offshore, Gas-CC, Gas-Peaker, Nuclear-New, Geothermal, Coal; unsubsidized and ITC/PTC subsidized series
+
+- id: S164
+  publisher: Lazard (direct PDF)
+  title: "Lazard's Levelized Cost of Energy Analysis — Version 16.0 (LCOE+)"
+  url: https://www.lazard.com/media/typdgxmm/lazards-lcoeplus-april-2023.pdf
+  pub_date: 2023-04
+  kind: Primary
+  supports: LCOE 2022 vintage; first Lazard report to include hybrid Solar+Storage and Wind+Storage LCOE; also covers Gas-CC, Gas-Peaker, Nuclear-New, Geothermal, Coal, Wind-Offshore
+
+- id: S165
+  publisher: EIA
+  title: "Levelized Costs of New Generation Resources — Annual Energy Outlook 2022"
+  url: https://www.eia.gov/outlooks/aeo/pdf/electricity_generation.pdf
+  pub_date: 2022-03
+  kind: Primary
+  supports: Gas-Peaker (combustion turbine) and Geothermal LCOE; plants entering service 2027; 2021 dollars; subsidized (ITC/PTC) figures included; forward-looking modeled costs
+
+- id: S166
+  publisher: EIA
+  title: "Levelized Costs of New Generation Resources — Annual Energy Outlook 2023"
+  url: https://www.eia.gov/outlooks/aeo/electricity_generation/pdf/AEO2023_LCOE_report.pdf
+  pub_date: 2023-04
+  kind: Primary
+  supports: Gas-Peaker (combustion turbine) and Geothermal LCOE 2023; plants entering service 2028; 2022 dollars; forward-looking modeled costs
+
+- id: S167
+  publisher: BloombergNEF
+  title: 2H 2022 Levelized Cost of Electricity Update
+  url: https://about.bnef.com/blog/2h-2022-levelized-cost-of-electricity-update/
+  pub_date: 2022-12
+  kind: Primary
+  supports: Gas-CC global benchmark 2022 ($93/MWh peak); Solar-Utility global benchmark 2022 (~$45/MWh); public summary only — US-specific and low/high ranges paywalled
+
+- id: S168
+  publisher: BloombergNEF
+  title: "2H 2023 LCOE Update — An Uneven Recovery"
+  url: https://about.bnef.com/insights/commodities/2h-2023-lcoe-update-an-uneven-recovery/
+  pub_date: 2023-12
+  kind: Primary
+  supports: Solar-Utility global benchmark 2023 ($41/MWh record low); Battery-4hr 2023 record low (absolute value paywalled); public summary only
+
+- id: S169
+  publisher: BloombergNEF
+  title: "Global cost of renewables to continue falling in 2025 — BNEF LCOE 2025"
+  url: https://about.bnef.com/insights/clean-energy/global-cost-of-renewables-to-continue-falling-in-2025-as-china-extends-manufacturing-lead-bloombergnef/
+  pub_date: 2025-02
+  kind: Primary
+  supports: Battery-4hr global benchmark 2024 ($104/MWh, down ~33% YoY); public single midpoint figure
+
+- id: S170
+  publisher: Lazard (via Enovation Analytics)
+  title: "Lazard's Levelized Cost of Storage Analysis — Version 7.0"
+  url: https://enovationanalytics.com/images/LCOS-7.pdf
+  pub_date: 2021-10
+  kind: Primary
+  supports: Battery-4hr-Standalone 2021 ($131-$232/MWh unsubsidized); 100MW/400MWh grid-scale standalone using CAISO energy-arbitrage + capacity-market revenue model
+
+- id: S171
+  publisher: IRENA
+  title: Renewable Power Generation Costs in 2022
+  url: https://www.irena.org/Publications/2023/Aug/Renewable-Power-Generation-Costs-in-2022
+  pub_date: 2023-08
+  kind: Primary
+  supports: Solar-Utility global weighted avg 2022 ($49/MWh); Geothermal global weighted avg 2022 ($56/MWh for 10 commissioned projects); global figures, not US-specific
+
+- id: S172
+  publisher: IRENA
+  title: Renewable Power Generation Costs in 2023
+  url: https://www.irena.org/Publications/2024/Sep/Renewable-Power-Generation-Costs-in-2023
+  pub_date: 2024-09
+  kind: Primary
+  supports: Solar-Utility US weighted avg 2023 ($57/MWh, 33% above global avg of $44/MWh); Geothermal global weighted avg 2023 (~$72/MWh for 7 projects, up 23% vs 2022 due to project mix)

@@ -11,10 +11,51 @@ rows:
     report_date: 2021-10
     geography: US
     subsidized: 0
+    lcoe_low: 26
     lcoe_mid: 38
+    lcoe_high: 50
     currency_year: 2021 USD
-    notes: Historical midpoint only; range not recorded here.
-    source_id: S18
+    notes: Low/high read from bar chart p.3; mid = avg(26,50). The $83 figure on the same chart is the offshore wind implied midpoint, not the onshore high.
+    source_id: S163
+
+  - technology: Wind-Onshore
+    year_vintage: 2021
+    report_name: Lazard v15 (with PTC)
+    report_date: 2021-10
+    geography: US
+    subsidized: 1
+    lcoe_low: 9
+    lcoe_mid: 25
+    lcoe_high: 40
+    currency_year: 2021 USD
+    notes: PTC subsidy; from p.4 subsidy sensitivity chart. Mid = avg(9,40), not explicitly stated.
+    source_id: S163
+
+  - technology: Wind-Onshore
+    year_vintage: 2022
+    report_name: Lazard v16
+    report_date: 2023-04
+    geography: US
+    subsidized: 0
+    lcoe_low: 24
+    lcoe_mid: 50
+    lcoe_high: 75
+    currency_year: 2023 USD
+    notes: Mid confirmed from cost-of-capital sensitivity chart at 7.7% WACC. Read directly from v16 PDF p.5 and p.9.
+    source_id: S164
+
+  - technology: Wind-Onshore
+    year_vintage: 2022
+    report_name: Lazard v16 (with PTC)
+    report_date: 2023-04
+    geography: US
+    subsidized: 1
+    lcoe_low: 0
+    lcoe_mid: 33
+    lcoe_high: 66
+    currency_year: 2023 USD
+    notes: PTC subsidy (excl. domestic content adder). Low=$0 is a Lazard accounting artifact — PTC exceeds LCOE at best-resource sites.
+    source_id: S164
 
   - technology: Wind-Onshore
     year_vintage: 2023
@@ -58,9 +99,78 @@ rows:
     report_date: 2021-10
     geography: US
     subsidized: 0
+    lcoe_low: 28
     lcoe_mid: 36
+    lcoe_high: 41
     currency_year: 2021 USD
-    source_id: S18
+    notes: v15 reported two sub-types; composite range uses thin-film low ($28) and crystalline high ($41). Mid $36 = crystalline single-axis tracker midpoint.
+    source_id: S163
+
+  - technology: Solar-Utility
+    year_vintage: 2021
+    report_name: Lazard v15 (with ITC)
+    report_date: 2021-10
+    geography: US
+    subsidized: 1
+    lcoe_low: 23
+    lcoe_mid: 29
+    lcoe_high: 34
+    currency_year: 2021 USD
+    notes: ITC subsidy; composite of crystalline ($25-$34) and thin-film ($23-$31) sub-types from p.4 subsidy sensitivity chart.
+    source_id: S163
+
+  - technology: Solar-Utility
+    year_vintage: 2022
+    report_name: Lazard v16
+    report_date: 2023-04
+    geography: US
+    subsidized: 0
+    lcoe_low: 24
+    lcoe_mid: 60
+    lcoe_high: 96
+    currency_year: 2023 USD
+    notes: Wide range reflects high capex variability. Mid inferred from v17 historical chart (Lazard trend shows $36→$60→$29 for 2021→2023→2024). Read directly from Appendix B p.37.
+    source_id: S164
+
+  - technology: Solar-Utility
+    year_vintage: 2022
+    report_name: IRENA 2022
+    report_date: 2023-08
+    geography: Global
+    subsidized: 0
+    lcoe_mid: 49
+    notes: Global weighted avg $0.049/kWh; -3% YoY. No US-specific figure in public summary.
+    source_id: S171
+
+  - technology: Solar-Utility
+    year_vintage: 2022
+    report_name: BNEF H2 2022
+    report_date: 2022-12
+    geography: Global
+    subsidized: 0
+    lcoe_mid: 45
+    notes: Fixed-axis solar benchmark rose ~14% YoY due to supply-chain inflation. Global; US-specific not publicly available.
+    source_id: S167
+
+  - technology: Solar-Utility
+    year_vintage: 2023
+    report_name: IRENA 2023
+    report_date: 2024-09
+    geography: US
+    subsidized: 0
+    lcoe_mid: 57
+    notes: US weighted avg; 33% above global avg of $44/MWh. No low/high published.
+    source_id: S172
+
+  - technology: Solar-Utility
+    year_vintage: 2023
+    report_name: BNEF H2 2023
+    report_date: 2023-12
+    geography: Global
+    subsidized: 0
+    lcoe_mid: 41
+    notes: Record low global benchmark at publication, $2/MWh below 1H 2021 bottom. Global only; US-specific paywalled.
+    source_id: S168
 
   - technology: Solar-Utility
     year_vintage: 2023
@@ -116,8 +226,35 @@ rows:
     report_date: 2021-10
     geography: US
     subsidized: 0
+    lcoe_low: 45
     lcoe_mid: 60
-    source_id: S18
+    lcoe_high: 74
+    currency_year: 2021 USD
+    notes: Low/high from p.3 chart and p.19 assumptions table. Fuel assumption $3.45/MMBTU; capex $700-$1,300/kW.
+    source_id: S163
+
+  - technology: Gas-CC
+    year_vintage: 2022
+    report_name: Lazard v16
+    report_date: 2023-04
+    geography: US
+    subsidized: 0
+    lcoe_low: 39
+    lcoe_mid: 70
+    lcoe_high: 101
+    currency_year: 2023 USD
+    notes: Fuel held at $3.45/MMBTU for YoY comparability (not 2022 spot price). Wide range reflects capex variation. Mid from WACC sensitivity chart at 7.7%. 2022 Henry Hub avg ~$6.45/MMBTU not captured in headline.
+    source_id: S164
+
+  - technology: Gas-CC
+    year_vintage: 2022
+    report_name: BNEF H2 2022 (global)
+    report_date: 2022-12
+    geography: Global
+    subsidized: 0
+    lcoe_mid: 93
+    notes: BNEF 2H 2022 global CCGT benchmark; peak gas price environment. US Henry Hub ~$6.45/MMBTU vs $30+/MMBTU in Europe. Global, not US-specific.
+    source_id: S167
 
   - technology: Gas-CC
     year_vintage: 2023
@@ -165,6 +302,52 @@ rows:
 
   # ---- Gas — Peaking (combustion turbine) ----
   - technology: Gas-Peaker
+    year_vintage: 2021
+    report_name: Lazard v15
+    report_date: 2021-10
+    geography: US
+    subsidized: 0
+    lcoe_low: 151
+    lcoe_mid: 174
+    lcoe_high: 196
+    currency_year: 2021 USD
+    notes: From p.18 assumptions table. Mid = arithmetic average.
+    source_id: S163
+
+  - technology: Gas-Peaker
+    year_vintage: 2022
+    report_name: Lazard v16
+    report_date: 2023-04
+    geography: US
+    subsidized: 0
+    lcoe_low: 115
+    lcoe_mid: 168
+    lcoe_high: 221
+    currency_year: 2023 USD
+    notes: From p.39 assumptions table. Range widened significantly vs v15; reflects capital/financing cost variability. No 2022 gas price spike in headline (fuel assumption held constant).
+    source_id: S164
+
+  - technology: Gas-Peaker
+    year_vintage: 2022
+    report_name: EIA AEO2022
+    report_date: 2022-03
+    geography: US
+    subsidized: 0
+    lcoe_mid: 118
+    notes: Combustion turbine; simple avg LCOE for plants entering service 2027 in 2021 dollars. Capacity-weighted avg=$124. Forward-looking modeled costs; different methodology from Lazard.
+    source_id: S165
+
+  - technology: Gas-Peaker
+    year_vintage: 2023
+    report_name: EIA AEO2023
+    report_date: 2023-04
+    geography: US
+    subsidized: 0
+    lcoe_mid: 129
+    notes: Combustion turbine; simple avg LCOE for plants entering service 2028 in 2022 dollars. Capacity-weighted avg=$122. Forward-looking.
+    source_id: S166
+
+  - technology: Gas-Peaker
     year_vintage: 2024
     report_name: Lazard v17
     report_date: 2024-06
@@ -187,6 +370,44 @@ rows:
     source_id: S20
 
   # ---- Solar + 4-hr Battery ----
+  - technology: Solar+Storage-4hr
+    year_vintage: 2022
+    report_name: Lazard v16
+    report_date: 2023-04
+    geography: US
+    subsidized: 0
+    lcoe_low: 46
+    lcoe_mid: 74
+    lcoe_high: 102
+    currency_year: 2023 USD
+    notes: First Lazard report to include hybrid LCOE. 150MW net output; 4-hour storage (50% of PV MW).
+    source_id: S164
+
+  - technology: Solar+Storage-4hr
+    year_vintage: 2022
+    report_name: Lazard v16 (with ITC)
+    report_date: 2023-04
+    geography: US
+    subsidized: 1
+    lcoe_low: 31
+    lcoe_mid: 60
+    lcoe_high: 88
+    currency_year: 2023 USD
+    notes: ITC subsidy (excl. domestic content adder). First Lazard hybrid LCOE with subsidy series.
+    source_id: S164
+
+  - technology: Solar+Storage-4hr
+    year_vintage: 2024
+    report_name: Lazard v17 (with ITC)
+    report_date: 2024-06
+    geography: US
+    subsidized: 1
+    lcoe_low: 38
+    lcoe_mid: 105
+    lcoe_high: 171
+    notes: ITC subsidy; complements existing unsubsidized v17 row.
+    source_id: S18
+
   - technology: Solar+Storage-4hr
     year_vintage: 2024
     report_name: Lazard v17
@@ -224,6 +445,44 @@ rows:
 
   # ---- Wind + 4-hr Battery ----
   - technology: Wind+Storage-4hr
+    year_vintage: 2022
+    report_name: Lazard v16
+    report_date: 2023-04
+    geography: US
+    subsidized: 0
+    lcoe_low: 42
+    lcoe_mid: 78
+    lcoe_high: 114
+    currency_year: 2023 USD
+    notes: First Lazard report to include hybrid LCOE. 100MW net output; 45%-30% capacity factor; 4-hour storage.
+    source_id: S164
+
+  - technology: Wind+Storage-4hr
+    year_vintage: 2022
+    report_name: Lazard v16 (with PTC/ITC)
+    report_date: 2023-04
+    geography: US
+    subsidized: 1
+    lcoe_low: 12
+    lcoe_mid: 58
+    lcoe_high: 103
+    currency_year: 2023 USD
+    notes: PTC/ITC combo subsidy (excl. domestic content adder).
+    source_id: S164
+
+  - technology: Wind+Storage-4hr
+    year_vintage: 2024
+    report_name: Lazard v17 (with PTC/ITC)
+    report_date: 2024-06
+    geography: US
+    subsidized: 1
+    lcoe_low: 8
+    lcoe_mid: 66
+    lcoe_high: 123
+    notes: PTC/ITC subsidy; complements existing unsubsidized v17 row.
+    source_id: S18
+
+  - technology: Wind+Storage-4hr
     year_vintage: 2024
     report_name: Lazard v17
     report_date: 2024-06
@@ -246,6 +505,52 @@ rows:
     source_id: S22
 
   # ---- Battery storage — standalone 4-hr utility ----
+  - technology: Battery-4hr-Standalone
+    year_vintage: 2021
+    report_name: Lazard LCOS v7
+    report_date: 2021-10
+    geography: US
+    subsidized: 0
+    lcoe_low: 131
+    lcoe_high: 232
+    currency_year: 2021 USD
+    notes: 100MW/400MWh grid-scale standalone (front-of-meter, energy arbitrage + CAISO capacity market revenues). No labeled midpoint published. Last Lazard LCOS before the April 2023 v8 publication (Lazard skipped 2022 annual release).
+    source_id: S170
+
+  - technology: Battery-4hr-Standalone
+    year_vintage: 2024
+    report_name: BNEF LCOE 2025
+    report_date: 2025-02
+    geography: Global
+    subsidized: 0
+    lcoe_mid: 104
+    notes: Global benchmark 4-hour BESS; fell ~33% in 2024. Single midpoint; no range publicly disclosed.
+    source_id: S169
+
+  - technology: Battery-4hr-Standalone
+    year_vintage: 2025
+    report_name: Lazard LCOS v10
+    report_date: 2025-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 115
+    lcoe_high: 254
+    currency_year: 2025 USD
+    notes: 100MW 4-hour standalone BESS unsubsidized; Jun 2025. No labeled midpoint.
+    source_id: S22
+
+  - technology: Battery-4hr-Standalone
+    year_vintage: 2025
+    report_name: Lazard LCOS v10 (with ITC)
+    report_date: 2025-06
+    geography: US
+    subsidized: 1
+    lcoe_low: 83
+    lcoe_high: 192
+    currency_year: 2025 USD
+    notes: With IRA ITC including energy community adder at low end.
+    source_id: S22
+
   - technology: Battery-4hr-Standalone
     year_vintage: 2024
     report_name: Lazard v17 / LCOS v9
@@ -279,6 +584,32 @@ rows:
 
   # ---- Wind — Offshore ----
   - technology: Wind-Offshore
+    year_vintage: 2021
+    report_name: Lazard v15
+    report_date: 2021-10
+    geography: US
+    subsidized: 0
+    lcoe_low: 66
+    lcoe_mid: 83
+    lcoe_high: 100
+    currency_year: 2021 USD
+    notes: "Key assumptions table (p.17) — low=66 (210MW 53%CF $2500/kW), high=100 (385MW 49%CF $3600/kW). Mid=$83 stated as estimated implied midpoint in chart footnote p.3."
+    source_id: S163
+
+  - technology: Wind-Offshore
+    year_vintage: 2022
+    report_name: Lazard v16
+    report_date: 2023-04
+    geography: US
+    subsidized: 0
+    lcoe_low: 72
+    lcoe_mid: 106
+    lcoe_high: 140
+    currency_year: 2023 USD
+    notes: "Key assumptions table (p.48) — low=72 (55%CF $3000/kW), high=140 (45%CF $5000/kW). First report to capture 2022 supply-chain spike (+40% on high end vs v15)."
+    source_id: S164
+
+  - technology: Wind-Offshore
     year_vintage: 2024
     report_name: Lazard v17
     report_date: 2024-06
@@ -302,6 +633,32 @@ rows:
     source_id: S22
 
   # ---- Nuclear (US, new build) ----
+  - technology: Nuclear-New
+    year_vintage: 2021
+    report_name: Lazard v15
+    report_date: 2021-10
+    geography: US
+    subsidized: 0
+    lcoe_low: 131
+    lcoe_mid: 168
+    lcoe_high: 204
+    currency_year: 2021 USD
+    notes: Vogtle-based; US-focused. Mid = range midpoint (Lazard does not publish a labeled midpoint for nuclear on bar chart).
+    source_id: S163
+
+  - technology: Nuclear-New
+    year_vintage: 2022
+    report_name: Lazard v16
+    report_date: 2023-04
+    geography: US
+    subsidized: 0
+    lcoe_low: 141
+    lcoe_mid: 181
+    lcoe_high: 221
+    currency_year: 2023 USD
+    notes: v16 explicitly adjusts v15 for inflation. Mid = range midpoint = $181, consistent with v17 confirmed mid.
+    source_id: S164
+
   - technology: Nuclear-New
     year_vintage: 2024
     report_name: Lazard v17
@@ -328,6 +685,32 @@ rows:
 
   # ---- Coal ----
   - technology: Coal
+    year_vintage: 2021
+    report_name: Lazard v15
+    report_date: 2021-10
+    geography: US
+    subsidized: 0
+    lcoe_low: 65
+    lcoe_mid: 109
+    lcoe_high: 152
+    currency_year: 2021 USD
+    notes: Mid = arithmetic mean of low/high (Lazard does not publish a labeled midpoint for coal).
+    source_id: S163
+
+  - technology: Coal
+    year_vintage: 2022
+    report_name: Lazard v16
+    report_date: 2023-04
+    geography: US
+    subsidized: 0
+    lcoe_low: 68
+    lcoe_mid: 117
+    lcoe_high: 166
+    currency_year: 2023 USD
+    notes: Modest increase vs v15 despite 2022 global coal price spike; Lazard uses long-run fuel assumptions, not spot markets.
+    source_id: S164
+
+  - technology: Coal
     year_vintage: 2024
     report_name: Lazard v17
     report_date: 2024-06
@@ -351,6 +734,103 @@ rows:
 
   # ---- Geothermal ----
   - technology: Geothermal
+    year_vintage: 2021
+    report_name: Lazard v15
+    report_date: 2021-10
+    geography: US
+    subsidized: 0
+    lcoe_low: 56
+    lcoe_mid: 75
+    lcoe_high: 93
+    currency_year: 2021 USD
+    notes: Last year Lazard modeled geothermal from first principles. Cap cost $4,325-$5,575/kW; CF 90%/80%.
+    source_id: S163
+
+  - technology: Geothermal
+    year_vintage: 2021
+    report_name: Lazard v15 (with ITC)
+    report_date: 2021-10
+    geography: US
+    subsidized: 1
+    lcoe_low: 47
+    lcoe_mid: 68
+    lcoe_high: 89
+    currency_year: 2021 USD
+    source_id: S163
+
+  - technology: Geothermal
+    year_vintage: 2022
+    report_name: Lazard v16
+    report_date: 2023-04
+    geography: US
+    subsidized: 0
+    lcoe_low: 61
+    lcoe_mid: 82
+    lcoe_high: 102
+    currency_year: 2023 USD
+    notes: v16 explicitly adjusts v15 for inflation (limited new-build data available). Cap cost $4,700-$6,075/kW.
+    source_id: S164
+
+  - technology: Geothermal
+    year_vintage: 2022
+    report_name: Lazard v16 (with ITC)
+    report_date: 2023-04
+    geography: US
+    subsidized: 1
+    lcoe_low: 37
+    lcoe_mid: 62
+    lcoe_high: 87
+    currency_year: 2023 USD
+    notes: ITC 30% including Energy Community adder.
+    source_id: S164
+
+  - technology: Geothermal
+    year_vintage: 2022
+    report_name: IRENA 2022
+    report_date: 2023-08
+    geography: Global
+    subsidized: 0
+    lcoe_mid: 56
+    notes: Global weighted avg for 10 projects commissioned in 2022; -22% vs 2021 due to project mix. Global, not US-specific; few projects per year so high variance.
+    source_id: S171
+
+  - technology: Geothermal
+    year_vintage: 2023
+    report_name: IRENA 2023
+    report_date: 2024-09
+    geography: Global
+    subsidized: 0
+    lcoe_mid: 72
+    notes: Global weighted avg for 7 projects commissioned in 2023; +23% vs 2022 due to project mix. Global, not US-specific.
+    source_id: S172
+
+  - technology: Geothermal
+    year_vintage: 2024
+    report_name: Lazard v17
+    report_date: 2024-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 64
+    lcoe_mid: 85
+    lcoe_high: 106
+    currency_year: 2024 USD
+    notes: v17 adjusts v14 for inflation (Lazard's stated methodology for geothermal). Cap cost $4,860-$6,280/kW.
+    source_id: S18
+
+  - technology: Geothermal
+    year_vintage: 2024
+    report_name: Lazard v17 (with ITC)
+    report_date: 2024-06
+    geography: US
+    subsidized: 1
+    lcoe_low: 43
+    lcoe_mid: 67
+    lcoe_high: 90
+    currency_year: 2024 USD
+    notes: ITC 30% including Energy Community adder.
+    source_id: S18
+
+  - technology: Geothermal
     year_vintage: 2025
     report_name: EIA AEO2025
     report_date: 2025-04
@@ -359,5 +839,8 @@ rows:
     lcoe_low: 37
     lcoe_mid: 55
     lcoe_high: 71
-    notes: Capacity-weighted; plants entering service 2030.
+    notes: |
+      Capacity-weighted; plants entering service 2030. Note: EIA AEO2025 LCOE output (with ITC) is
+      $37.58-$37.82/MWh — the low/mid/high here may reflect the capital cost assumptions table rather
+      than the LCOE output table. Requires reconciliation against the primary AEO2025 PDF.
     source_id: S25
