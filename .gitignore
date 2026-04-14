@@ -9,7 +9,10 @@ __pycache__/
 data.db
 
 # Generated outputs — rebuild with: python scripts/dashboard.py / report.py / analyze.py
-output/
+# dashboard.html is tracked for GitHub Pages; other outputs are not
+output/*.csv
+output/*.png
+output/report.html
 
 # macOS
 .DS_Store
