@@ -1,0 +1,358 @@
+company: Microsoft
+rows:
+  - year: 2024
+    announced_date: 2024-05
+    generation_type: Solar
+    capacity_mw: 6300
+    confidence: Estimated
+    deal_name: Brookfield framework — solar share (assumed 60%)
+    counterparty: Brookfield Renewable
+    geography: US+Europe
+    cod_year: null
+    cod_note: Deliveries scheduled 2026–2030 (framework, not a single COD).
+    status: Framework
+    notes: |
+      Parent: 10,500 MW Brookfield framework agreement (2026–2030 delivery).
+      Solar/wind split 60/40 is an assumption — NOT disclosed by Brookfield/Microsoft.
+    source_id: S1
+
+  - year: 2024
+    announced_date: 2024-05
+    generation_type: Wind
+    capacity_mw: 4200
+    confidence: Estimated
+    deal_name: Brookfield framework — wind share (assumed 40%)
+    counterparty: Brookfield Renewable
+    geography: US+Europe
+    cod_year: null
+    cod_note: Deliveries 2026–2030 (framework).
+    status: Framework
+    notes: Sibling of Brookfield solar share. Same parent deal, same source.
+    source_id: S1
+
+  - year: 2024
+    announced_date: 2024-09
+    generation_type: Nuclear
+    capacity_mw: 835
+    confidence: Sourced
+    deal_name: Three Mile Island (Crane Clean Energy Center) restart
+    counterparty: Constellation Energy
+    contract_years: 20
+    geography: US
+    cod_year: 2028
+    cod_note: 2028 COD target; 20-yr PPA.
+    status: PPA
+    notes: 835 MW nuclear restart.
+    source_id: S2
+
+  - year: 2026
+    announced_date: 2026-04
+    generation_type: Gas
+    capacity_mw: 2500
+    confidence: Sourced
+    deal_name: West Texas combined-cycle (Engine No. 1 / Chevron)
+    counterparty: Chevron / Engine No. 1
+    geography: US
+    cod_year: 2027
+    cod_note: Exclusivity talks entered Apr 2026; no definitive agreement signed as of Apr 2026. Initial phase 2,500 MW (scalable to 5,000 MW ceiling). ~$7B estimated cost. Pecos TX (Permian Basin). Could begin coming online late 2027.
+    status: Announced
+    notes: Bloomberg (Mar 31 2026) and Fortune (Apr 1 2026) report Microsoft in exclusivity talks — not a signed deal. 5,000 MW is the scalability ceiling; 2,500 MW is Phase 1. Behind-the-meter campus power.
+    source_id: S4
+
+  - year: 2023
+    announced_date: 2023-05-10
+    generation_type: Other
+    capacity_mw: 50
+    confidence: Sourced
+    deal_name: Helion Energy fusion PPA — Orion plant (Chelan County WA)
+    counterparty: Helion Energy
+    cod_year: 2028
+    cod_note: World's first fusion PPA; Orion plant construction started Jul 2025 in Chelan County WA; 50 MW target after 1-yr ramp-up; penalty clause if Helion misses 2028 deadline.
+    status: PPA
+    geography: US
+    notes: Microsoft is an investor in Helion. Highly speculative technology risk.
+    source_id: S139
+
+  - year: 2023
+    announced_date: 2023-06-29
+    generation_type: Nuclear
+    capacity_mw: null
+    confidence: Sourced
+    deal_name: Constellation hourly CFE matching — Boydton data center (VA)
+    counterparty: Constellation Energy
+    cod_year: 2023
+    cod_note: Agreement in effect from signing; uses Constellation's existing nuclear fleet via hourly CFE matching platform.
+    status: PPA
+    geography: US
+    notes: Covers up to 35% of Boydton data center load via nuclear environmental attributes. No single named plant. Separate from TMI restart (already in DB).
+    source_id: S140
+
+  - year: 2023
+    announced_date: 2023-10-13
+    generation_type: Solar
+    capacity_mw: 100
+    confidence: Sourced
+    deal_name: Shizen Energy Japan solar portfolio (anchor 25 MW + three additional, total 100 MW)
+    counterparty: Shizen Energy
+    cod_year: 2025
+    cod_note: Anchor 25 MW Inuyama Aichi (COD Mar 2024); three additional 20-yr VPPAs across Kyushu and Chugoku by Oct 2025; total 100 MW milestone.
+    status: PPA
+    geography: Japan
+    contract_years: 20
+    source_id: S141
+
+  - year: 2023
+    announced_date: 2023-09-01
+    generation_type: Wind
+    capacity_mw: 154
+    confidence: Sourced
+    deal_name: AES Brasil Cajuína Wind Complex (Rio Grande do Norte)
+    counterparty: AES Brasil
+    cod_year: 2024
+    cod_note: PPA commenced July 2024; 15-yr term. Rio Grande do Norte Brazil.
+    status: PPA
+    geography: Brazil
+    contract_years: 15
+    source_id: S142
+
+  - year: 2024
+    announced_date: 2024-08-27
+    generation_type: Renewable
+    capacity_mw: 438
+    confidence: Sourced
+    deal_name: ReNew Power India hybrid solar+wind (437.6 MW)
+    counterparty: ReNew Power
+    cod_year: null
+    cod_note: Green attribute (REC-equivalent) contract; India. Supports rural electrification and community fund ($15M).
+    status: PPA
+    geography: India
+    notes: Among India's largest corporate renewable agreements.
+    source_id: S143
+
+  - year: 2024
+    announced_date: 2024-05-23
+    generation_type: Wind
+    capacity_mw: 446
+    confidence: Sourced
+    deal_name: RWE Texas wind — Peyton Creek II + Lane City (446 MW)
+    counterparty: RWE
+    cod_year: null
+    cod_note: Peyton Creek II 243 MW (Bay City TX) + Lane City 203 MW (TX); two 15-yr vPPAs.
+    status: PPA
+    geography: US
+    contract_years: 15
+    source_id: S144
+
+  - year: 2024
+    announced_date: 2024-08
+    generation_type: Solar
+    capacity_mw: 500
+    confidence: Sourced
+    deal_name: Pivot Energy US community solar framework (up to 500 MW)
+    counterparty: Pivot Energy
+    cod_year: null
+    cod_note: 5-yr framework 2025–2029; ~150 projects in ~100 communities in 20 states; 20-yr REC offtake per project.
+    status: Framework
+    geography: US
+    source_id: S145
+
+  - year: 2024
+    announced_date: 2024-06-12
+    generation_type: Renewable
+    capacity_mw: 181
+    confidence: Sourced
+    deal_name: European Energy Sweden/Denmark hybrid wind+solar (180.6 MW)
+    counterparty: European Energy
+    cod_year: null
+    cod_note: Portfolio of wind and solar in Sweden and Denmark; includes region's first utility-scale hybrid project; >3.6 TWh over contract term.
+    status: PPA
+    geography: Sweden/Denmark
+    source_id: S146
+
+  - year: 2024
+    announced_date: 2024-06-11
+    generation_type: Renewable
+    capacity_mw: 230
+    confidence: Sourced
+    deal_name: Repsol Spain wind+solar VPPAs (230 MW, 6 projects)
+    counterparty: Repsol
+    cod_year: 2025
+    cod_note: Six 12-yr VPPAs; 3 wind + 3 solar farms in Spain; all operational by Dec 2025.
+    status: PPA
+    geography: Spain
+    source_id: S147
+
+  - year: 2024
+    announced_date: 2024-05-02
+    generation_type: Wind
+    capacity_mw: 30
+    confidence: Sourced
+    deal_name: SSE Renewables / FuturEnergy Ireland Lenalea Wind Farm (Donegal)
+    counterparty: SSE Renewables / FuturEnergy Ireland
+    cod_year: 2023
+    cod_note: Farm commissioned Dec 2023; PPA effective immediately from signing May 2024; 7 Vestas V117-4.3MW turbines.
+    status: Operational
+    geography: Ireland
+    source_id: S148
+
+  - year: 2024
+    announced_date: 2024-10-01
+    generation_type: Solar
+    capacity_mw: 250
+    confidence: Sourced
+    deal_name: National Grid Renewables Portage Solar (Portage County WI)
+    counterparty: National Grid Renewables
+    cod_year: null
+    cod_note: Portage County WI; under construction 2025.
+    status: PPA
+    geography: US
+    source_id: S149
+
+  - year: 2025
+    announced_date: 2025-02-10
+    generation_type: Solar
+    capacity_mw: 389
+    confidence: Sourced
+    deal_name: EDPR North America — Wolf Run + Hickory + Cattlemen II (389 MW)
+    counterparty: EDP Renewables North America
+    cod_year: 2024
+    cod_note: All three operational — Wolf Run 140 MW (IL), Hickory 110 MW (IL), Cattlemen II 150 MW (TX). VPPAs; Hickory used Environmental Justice PPA structure.
+    status: Operational
+    geography: US
+    source_id: S150
+
+  - year: 2025
+    announced_date: 2025-03-20
+    generation_type: Solar
+    capacity_mw: 475
+    confidence: Sourced
+    deal_name: AES US solar portfolio — Michigan + Missouri + Illinois (475 MW)
+    counterparty: AES
+    cod_year: 2025
+    cod_note: Three projects; MI + MO expected online H1 2025; IL later. 15-yr PPAs.
+    status: PPA
+    geography: US
+    contract_years: 15
+    source_id: S151
+
+  - year: 2025
+    announced_date: 2025-03
+    generation_type: Wind
+    capacity_mw: 50
+    confidence: Sourced
+    deal_name: Energia Group Ireland wind — Ballylongford + Crossmore (50 MW)
+    counterparty: Energia Group
+    cod_year: 2026
+    cod_note: Ballylongford 25 MW (Co. Clare, COD mid-2026) + Crossmore 25 MW (Co. Kerry, operational ~end-2024). CPPAs.
+    status: PPA
+    geography: Ireland
+    source_id: S152
+
+  - year: 2025
+    announced_date: 2025-12-16
+    generation_type: Wind
+    capacity_mw: 150
+    confidence: Sourced
+    deal_name: Iberdrola Spain wind — Iglesias + El Escudo (150 MW)
+    counterparty: Iberdrola
+    cod_year: null
+    cod_note: Iglesias wind farm (Burgos) + El Escudo wind farm (Cantabria); first European PPAs between Microsoft and Iberdrola.
+    status: PPA
+    geography: Spain
+    source_id: S153
+
+  - year: 2025
+    announced_date: 2025-11-24
+    generation_type: Solar
+    capacity_mw: 270
+    confidence: Sourced
+    deal_name: Powertrust distributed solar — Mexico + Brazil (270 MW)
+    counterparty: Powertrust
+    cod_year: 2027
+    cod_note: REC purchase agreement; COD 2027–2029; Mexico + Brazil; distributed/community-focus model.
+    status: MOU
+    geography: Mexico/Brazil
+    source_id: S154
+
+  - year: 2026
+    announced_date: 2026-04-08
+    generation_type: Nuclear
+    capacity_mw: null
+    confidence: Sourced
+    deal_name: NextEra / TerraPower Natrium SMR fleet — Microsoft anchor tenant
+    counterparty: NextEra Energy / TerraPower
+    cod_year: null
+    cod_note: Multi-unit Natrium SMR fleet; Microsoft + Google as anchor tenants; site selection phase; sites in Iowa + SE US. First units planned late 2020s. No binding PPA yet.
+    status: MOU
+    geography: US
+    notes: Announced publicly Apr 2026; formalized late 2025. Natrium = 345 MW sodium-cooled fast reactor per unit.
+    source_id: S155
+
+  - year: 2021
+    announced_date: 2021
+    generation_type: Solar
+    capacity_mw: 300
+    confidence: Sourced
+    deal_name: FRV Australia Walla Walla Solar Farm (New South Wales)
+    counterparty: FRV Australia (Fotowatio Renewable Ventures)
+    cod_year: 2025
+    cod_note: PPA signed 2021; first power Nov 2024; fully operational Oct 2025. Largest solar farm in NSW.
+    status: Operational
+    geography: Australia
+    contract_years: 15
+    source_id: S157
+
+  - year: 2023
+    announced_date: 2023-09
+    generation_type: Solar
+    capacity_mw: 40
+    confidence: Sourced
+    deal_name: Lightsource bp Kotuń Solar Farm (Poland)
+    counterparty: Lightsource bp
+    cod_year: 2024
+    cod_note: Kotuń Poland; commercial operation July 2024. First solar PPA between the two companies in Poland.
+    status: Operational
+    geography: Poland
+    source_id: S158
+
+  - year: 2024
+    announced_date: 2024-05-22
+    generation_type: Geothermal
+    capacity_mw: 100
+    confidence: Sourced
+    deal_name: G42 / KenGen Kenya geothermal data center (100 MW initial, up to 1 GW)
+    counterparty: G42 / KenGen
+    cod_year: 2026
+    cod_note: 100 MW initial capacity powered 100% by geothermal (KenGen Olkaria fields); groundbreak Q3 2024; East Africa Cloud Region ~24 months; potential to expand to 1 GW.
+    status: Announced
+    geography: Kenya
+    notes: G42 leads $1B total investment; Microsoft is the cloud platform provider and co-investor. Data center + energy deal.
+    source_id: S159
+
+  - year: 2023
+    announced_date: 2023
+    generation_type: Geothermal
+    capacity_mw: 51
+    confidence: Sourced
+    deal_name: Contact Energy Te Huka Unit 3 geothermal (Taupō, New Zealand)
+    counterparty: Contact Energy
+    cod_year: 2024
+    cod_note: 51.4 MW; Taupō NZ; 10-yr PPA; Unit 3 came online late 2024.
+    status: PPA
+    geography: New Zealand
+    contract_years: 10
+    source_id: S160
+
+  - year: 2024
+    announced_date: 2024-05
+    generation_type: Other
+    capacity_mw: null
+    confidence: Sourced
+    deal_name: Ørsted BECCS carbon removal — 1 million tonnes (Kalundborg/Avedøre)
+    counterparty: Ørsted
+    cod_year: null
+    cod_note: 10-yr offtake for 1 Mt biogenic CO2 from Avedøre Power Station BECCS; adds to prior 2.67 Mt (total 3.67 Mt). CO2 stored in Norwegian North Sea. Denmark.
+    status: PPA
+    geography: Denmark
+    notes: Carbon removal agreement (BECCS), not electricity. Included as energy infrastructure deal.
+    source_id: S161

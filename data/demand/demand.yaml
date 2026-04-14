@@ -1,0 +1,122 @@
+# Demand-side metrics. Numeric facts go in value_num; quotes / narrative go in value_text.
+
+demand_metrics:
+  - metric: US data center utility power
+    value_num: 62
+    unit: GW
+    year: 2025
+    geography: US
+    source_id: S39
+
+  - metric: US data center utility power
+    value_num: 76
+    unit: GW
+    year: 2026
+    geography: US
+    notes: Projected.
+    source_id: S39
+
+  - metric: Global data center critical power
+    value_num: 96
+    unit: GW
+    year: 2026
+    geography: Global
+    notes: Projected.
+    source_id: S39
+
+  - metric: AI data center electricity
+    value_num: 90
+    unit: TWh/yr
+    year: 2026
+    geography: Global
+    notes: IEA via Energy IB; projected.
+    source_id: S39
+
+  - metric: Data center electricity
+    value_num: 460
+    unit: TWh/yr
+    year: 2024
+    geography: Global
+    source_id: S38
+
+  - metric: Data center electricity
+    value_num: 1300
+    unit: TWh/yr
+    year: 2035
+    geography: Global
+    notes: Projected.
+    source_id: S38
+
+  - metric: Jensen Huang quote on power limits
+    value_text: >
+      Every single data center in the future will be power limited.
+      We are now a power-limited industry.
+    year: 2025
+    geography: Global
+    source_id: S40
+
+grid_capacity_plan:
+  - technology: Solar-Utility
+    window_start: 2026
+    window_end: 2030
+    gw_planned: 119.1
+    source_id: S43
+
+  - technology: Battery-Storage
+    window_start: 2026
+    window_end: 2030
+    gw_planned: 65.5
+    source_id: S43
+
+  - technology: Wind-Onshore
+    window_start: 2026
+    window_end: 2030
+    gw_planned: 21.1
+    source_id: S43
+
+  - technology: Gas-Utility
+    window_start: 2026
+    window_end: 2030
+    gw_planned: 44.8
+    source_id: S43
+
+  - technology: Gas-BehindTheMeter-DataCenter
+    window_start: 2025
+    window_end: 2025
+    gw_planned: 50
+    notes: 2025 announcements alone; directional "~50+".
+    source_id: S43
+
+hyperscaler_cumulative:
+  - company: Microsoft
+    as_of: 2025-09
+    metric: Clean-Total
+    value_gw: 34.7
+    source_id: S41
+
+  - company: Amazon
+    as_of: 2026-01
+    metric: Clean-Total
+    value_gw: 40
+    notes: "40+ GW across 28 countries."
+    source_id: S9
+
+  - company: Meta
+    as_of: 2026-01
+    metric: Nuclear-Total
+    value_gw: 7.7
+    source_id: S42
+
+  - company: All-Four
+    as_of: 2025-12
+    metric: Clean-Total
+    value_gw: 80
+    notes: "80+ GW combined clean energy end-2025."
+    source_id: S41
+
+  - company: Amazon
+    as_of: 2024-10
+    metric: SMR-Target-2039
+    value_gw: 5
+    notes: "Aspirational 5 GW X-energy SMR target by 2039 (not contracted)."
+    source_id: S47

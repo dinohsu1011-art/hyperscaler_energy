@@ -1,0 +1,15 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.python-version
+
+# Generated database — rebuild with: python scripts/load.py
+data.db
+
+# Generated outputs — rebuild with: python scripts/dashboard.py / report.py / analyze.py
+output/
+
+# macOS
+.DS_Store

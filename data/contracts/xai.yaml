@@ -1,0 +1,119 @@
+company: xAI
+rows:
+  - year: 2024
+    generation_type: Gas
+    capacity_mw: 422
+    confidence: Sourced
+    deal_name: Colossus 1 — South Memphis Solaris turbines
+    counterparty: Solar Turbines (Caterpillar) / TVA grid tie 150 MW
+    cod_year: 2024
+    cod_note: ~35 Solaris turbines on-site; TVA 150 MW grid tie. Permit appealed by SELC.
+    status: Operational
+    notes: Behind-the-meter natural gas at South Memphis data center.
+    source_id: S52
+
+  - year: 2025
+    generation_type: Gas
+    capacity_mw: null
+    confidence: Estimated
+    deal_name: Colossus 2 — Whitehaven (second Memphis site)
+    counterparty: Solar Turbines (Caterpillar)
+    cod_year: null
+    cod_note: Data center site at Whitehaven Memphis TN. Power supplied by Stateline Power JV at Southaven MS (see Stateline row, 1,200 MW). The 1,560 MW figure cited in early reporting was an unverified third-party estimate of the data center's power draw — not a confirmed generator capacity. Do not sum with Stateline row.
+    status: Announced
+    notes: Whitehaven is the data center location, not the power plant. Capacity NULL — Stateline JV row carries the generation MW.
+    source_id: S52
+
+  - year: 2024
+    announced_date: 2024-11-07
+    generation_type: Other
+    capacity_mw: 150
+    confidence: Sourced
+    deal_name: TVA/MLGW grid supply — Colossus 1 Phase 1 (150 MW firm)
+    counterparty: Tennessee Valley Authority / Memphis Light Gas & Water
+    cod_year: 2025
+    cod_note: TVA Board approved unanimously Nov 7 2024; MLGW is distribution intermediary; energized May 2025. Paired with ~422 MW BTM gas (separate row).
+    status: Approved
+    notes: xAI committed to demand response, water recycling, and Tesla Megapack storage as conditions. SELC/NAACP objected but TVA approved.
+    source_id: S63
+
+  - year: 2024
+    generation_type: Storage
+    capacity_mw: 150
+    confidence: Sourced
+    deal_name: Colossus 1 — Tesla Megapack battery storage (168 units)
+    counterparty: Tesla Energy
+    cod_year: 2024
+    cod_note: 168 Megapacks deployed at South Memphis campus; ~$230M spent Jan 2024–Feb 2025.
+    status: Operational
+    notes: Additional ~$430M in Tesla Megapacks sold to xAI in full-year 2025 covering Colossus 1 + Colossus 2.
+    source_id: S64
+
+  - year: 2025
+    announced_date: 2025-04-29
+    generation_type: Gas
+    capacity_mw: 1200
+    confidence: Sourced
+    deal_name: Stateline Power JV — Southaven MS BTM gas (up to 1.2 GW permitted)
+    counterparty: Solaris Energy Infrastructure (SEI)
+    cod_year: 2027
+    cod_note: 50.1% SEI / 49.9% xAI (CTC Property LLC); $550M term loan. JV announced 900 MW buildout target (contract expanded from 500 MW mid-2025); MDEQ permit granted Mar 10 2026 for 41 turbines covering up to 1,200 MW (permit ceiling). Merged with MDEQ permit row — same physical turbines at Southaven. SELC/NAACP appeal filed Apr 2026.
+    status: Approved
+    notes: |
+      35 MW modular gas turbines at former Duke Energy site, Southaven (DeSoto County) MS.
+      Powers Colossus 2 (Whitehaven data center). JV buildout target was 900 MW; MDEQ
+      permit ceiling is 1,200 MW for 41 turbines — using 1,200 MW as authoritative (permit
+      is the more current and specific figure). Previously had two rows (JV + MDEQ permit)
+      which were double-counting the same asset; merged into one row at 1,200 MW.
+    source_id: S65
+
+  - year: 2026
+    announced_date: 2026-02-11
+    generation_type: Other
+    capacity_mw: 150
+    confidence: Sourced
+    deal_name: TVA/MLGW grid supply — Phase 2 (additional 150 MW)
+    counterparty: Tennessee Valley Authority / Memphis Light Gas & Water
+    cod_year: 2026
+    cod_note: TVA Board approved unanimously Feb 11 2026; requires second substation + transmission upgrades; brings total TVA grid supply to 300 MW.
+    status: Approved
+    source_id: S67
+
+  - year: 2025
+    announced_date: 2025-09-17
+    generation_type: Solar+Storage
+    capacity_mw: 100
+    confidence: Sourced
+    deal_name: Seven States Power — 100 MW solar + 100 MW storage (Port Commission land)
+    counterparty: Seven States Power Corporation
+    cod_year: 2027
+    cod_note: Construction start Q1 2026; grid connection targeted Q2 2027. 552 acres Memphis/Shelby County Port Commission land via EDGE board.
+    status: Announced
+    notes: Funded by $439M USDA Rural Utilities Service award ($24M grant + $415M zero-interest loan). Output benefits MLGW grid serving xAI.
+    source_id: S68
+
+  - year: 2025
+    announced_date: 2025-11-26
+    generation_type: Solar
+    capacity_mw: 30
+    confidence: Estimated
+    deal_name: Colossus 1 on-site 88-acre solar array
+    counterparty: Developer unnamed
+    cod_year: null
+    cod_note: Permit application filed Memphis/Shelby County planners Nov 2025; construction timeline not confirmed.
+    status: Announced
+    notes: 88 acres west/south of Colossus 1 campus. Developer not publicly named. Distinct from Seven States Port Commission project.
+    source_id: S69
+
+  - year: 2025
+    announced_date: 2025-07
+    generation_type: Gas
+    capacity_mw: 2000
+    confidence: Estimated
+    deal_name: Imported overseas CCGT plant (~2 GW)
+    counterparty: Unknown overseas seller
+    cod_year: null
+    cod_note: Country of origin not disclosed; intended for Colossus 3 / MACROHARDRR; no confirmed delivery or COD as of Apr 2026.
+    status: Announced
+    notes: Elon Musk confirmed Jul 2025 via social media (per SemiAnalysis/DCD reporting) that xAI purchased a full CCGT plant overseas and is shipping it to the US. Highly uncertain.
+    source_id: S70

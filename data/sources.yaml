@@ -1,0 +1,1257 @@
+# Sources index. Every numeric fact in this DB references one of these IDs.
+# IDs are stable (never renumber). Append new sources with S44, S45, ...
+# kind: Primary = filing / company release / official dataset
+#       Secondary = news article reporting primary numbers
+#       Aggregator = data provider summarising multiple primaries
+
+- id: S1
+  publisher: Brookfield / SEC (Form 6-K)
+  title: Brookfield–Microsoft 10.5 GW framework agreement
+  url: https://www.sec.gov/Archives/edgar/data/0001533232/000117184324002391/exh_991.htm
+  pub_date: 2024-05
+  kind: Primary
+  supports: Microsoft 2024 Brookfield framework (10,500 MW total renewable)
+
+- id: S2
+  publisher: "KuCoin News (re: Constellation/Microsoft)"
+  title: Meta, Google, Microsoft invest in nuclear power
+  url: https://www.kucoin.com/news/flash/meta-google-and-microsoft-invest-in-nuclear-power-to-fuel-ai-expansion
+  pub_date: 2024-09
+  kind: Secondary
+  supports: Microsoft Three Mile Island 835 MW restart
+
+- id: S4
+  publisher: NationalToday
+  title: Tech giants bet big on natural gas to power AI data centers
+  url: https://nationaltoday.com/us/ca/san-francisco/news/2026/04/03/tech-giants-bet-big-on-natural-gas-to-power-ai-data-centers/
+  pub_date: 2026-04
+  kind: Secondary
+  supports: Microsoft 5,000 MW West Texas gas plant; Google 933 MW North Texas (Crusoe) gas plant
+
+- id: S6
+  publisher: Fortune
+  title: Google, Amazon, Microsoft nuclear deals
+  url: https://fortune.com/2024/10/16/google-amazon-microsoft-nuclear-energy-ai-data-centers/
+  pub_date: 2024-10
+  kind: Secondary
+  supports: Google–Kairos 500 MW SMR; Amazon Dominion SMR MOU
+
+- id: S7
+  publisher: EE Power
+  title: Why are Microsoft, Google and Meta investing in nuclear
+  url: https://eepower.com/news/why-are-microsoft-google-and-meta-investing-in-nuclear-energy/
+  pub_date: 2024-12
+  kind: Secondary
+  supports: Google EnergyRe 435 MW Texas 12-yr PPA
+
+- id: S9
+  publisher: Saurenergy
+  title: Top 5 global corporate buyers of clean energy
+  url: https://www.saurenergy.com/solar-energy-blog/the-top-5-global-corporate-buyers-of-clean-energy-11457509
+  pub_date: 2026-04
+  kind: Secondary
+  supports: Amazon 2025 breakdown (~4 GW solar, ~2 GW wind, ~4 GW nuclear)
+
+- id: S11
+  publisher: Fortune (duplicate URL; kept as distinct citation)
+  title: Inside Google, Amazon, Microsoft nuclear deals (Amazon context)
+  url: https://fortune.com/2024/10/16/google-amazon-microsoft-nuclear-energy-ai-data-centers/
+  pub_date: 2024-10
+  kind: Secondary
+  supports: Amazon–Dominion SMR MOU near North Anna, VA
+
+- id: S15
+  publisher: AI Business
+  title: Meta signs deals with nuclear companies
+  url: https://aibusiness.com/data-centers/meta-signs-deals-with-nuclear-companies
+  pub_date: 2026-01
+  kind: Secondary
+  supports: Meta Vistra/Oklo/TerraPower 6.6 GW nuclear
+
+- id: S16
+  publisher: Trellis / CEBA
+  title: What Meta's big nuclear deals say about corporate clean-energy strategy
+  url: https://trellis.net/article/what-metas-big-nuclear-deals-say-about-corporate-clean-energy-strategy/
+  pub_date: 2026-01
+  kind: Secondary
+  supports: Meta–Constellation 1.1 GW; 7.7 GW cumulative nuclear
+
+- id: S17
+  publisher: Fortune
+  title: Meta Hyperion 10 gas power plants (Louisiana / Entergy)
+  url: https://fortune.com/2026/03/27/meta-hyperion-10-gas-power-plants-louisiana-entergy/
+  pub_date: 2026-03
+  kind: Secondary
+  supports: Hyperion — 2,300 MW Phase 1 + 5,200 MW Phase 2 gas; 2,500 MW solar+storage
+
+- id: S18
+  publisher: Utility Dive (on Lazard LCOE+ v17)
+  title: Higher renewable-energy costs — Lazard LCOE storage hydrogen
+  url: https://www.utilitydive.com/news/higher-renewable-energy-costs-lazard-lcoe-storage-hydrogen/720177/
+  pub_date: 2024-06
+  kind: Aggregator
+  supports: Lazard v17 midpoints & ranges (wind, solar, gas-CC, gas-peaker, solar+storage, wind+storage, storage standalone, offshore wind, nuclear, coal)
+
+- id: S19
+  publisher: PV Tech
+  title: US utility-scale solar PV LCOE tightens to $38–78/MWh in 2025 (Lazard v18)
+  url: https://www.pv-tech.org/us-utility-scale-solar-pv-lcoe-tightens-to-us38-78-mwh-in-2025-lazard/
+  pub_date: 2025-06
+  kind: Secondary
+  supports: Lazard v18 solar $38–78/MWh; wind $37–86/MWh; solar w/ PTC $20–45/MWh
+
+- id: S20
+  publisher: PV Magazine USA
+  title: Lazard v18 — gas/nuclear/coal LCOE
+  url: https://pv-magazine-usa.com/2025/06/17/despite-low-gas-prices-solar-wind-remain-cheapest-sources-of-power-in-u-s/
+  pub_date: 2025-06
+  kind: Secondary
+  supports: Lazard v18 gas-CC $48–109; peaking $149–251; nuclear $141–220; coal $71–173
+
+- id: S21
+  publisher: BloombergNEF
+  title: Battery storage costs hit record lows as other clean-power costs rose (LCOE 2026)
+  url: https://about.bnef.com/insights/clean-energy/battery-storage-costs-hit-record-lows-as-costs-of-other-clean-power-technologies-increased-bloombergnef/
+  pub_date: 2026-02
+  kind: Aggregator
+  supports: BNEF global gas-CC $102/MWh; battery 4-hr $78/MWh (record low, −27% YoY); offshore UK +69% vs 5yr
+
+- id: S22
+  publisher: Lazard (direct PDF)
+  title: Lazard LCOE+ June 2025
+  url: https://www.lazard.com/media/uounhon4/lazards-lcoeplus-june-2025.pdf
+  pub_date: 2025-06
+  kind: Primary
+  supports: Lazard v18 solar+storage $50–131, wind+storage $44–123, Vogtle nuclear $/kW
+
+- id: S23
+  publisher: IRENA
+  title: Renewable Power Generation Costs in 2024 — Summary 2025
+  url: https://www.irena.org/-/media/Files/IRENA/Agency/Publication/2025/Jul/IRENA_TEC_RPGC_in_2024_Summary_2025.pdf
+  pub_date: 2025-07
+  kind: Primary
+  supports: 17 US solar+storage hybrid projects $79/MWh weighted average (4,486 MW solar + 7,677 MWh storage)
+
+- id: S24
+  publisher: Energy Storage News
+  title: Lazard — US storage cost reduction in 2025 offsets prior pandemic increases
+  url: https://www.energy-storage.news/lazard-says-us-energy-storage-cost-reduction-in-2025-offsets-prior-pandemic-driven-increases/
+  pub_date: 2025-06
+  kind: Secondary
+  supports: Lazard storage ITC sensitivity $83–192/MWh
+
+- id: S25
+  publisher: EIA
+  title: AEO2025 LCOE Report
+  url: https://www.eia.gov/outlooks/aeo/electricity_generation/pdf/AEO2025_LCOE_report.pdf
+  pub_date: 2025-04
+  kind: Primary
+  supports: Geothermal $37–71/MWh (plants entering service 2030)
+
+- id: S26
+  publisher: Gas Outlook
+  title: Costs to build gas plants triple — NextEra CEO
+  url: https://gasoutlook.com/analysis/costs-to-build-gas-plants-triple-says-ceo-of-nextera-energy/
+  pub_date: 2025-03
+  kind: Secondary
+  supports: NextEra $785/kW (2022 actual) → $2,400/kW (2025 actual)
+
+- id: S27
+  publisher: EIA
+  title: Capital Cost and Performance Characteristics (AEO2025 input)
+  url: https://www.eia.gov/analysis/studies/powerplants/capitalcost/pdf/capital_cost_AEO2025.pdf
+  pub_date: 2024-01
+  kind: Primary
+  supports: $921/kW CCGT benchmark (2023)
+
+- id: S28
+  publisher: GridLab
+  title: The New Reality of Power Generation — gas turbine costs
+  url: https://gridlab.org/wp-content/uploads/2025/09/GridLab_Gas-Turbine-Costs-Report-1.pdf
+  pub_date: 2025-09
+  kind: Primary
+  supports: CCGT 2024 $1,116–1,427/kW planned; 2025 $2,000–2,500/kW procurement; CT 2025 $728–1,544/kW
+
+- id: S29
+  publisher: American Public Power Association
+  title: Rising cost of new gas plants outpacing planning assumptions
+  url: https://www.publicpower.org/periodical/article/new-report-finds-rising-cost-new-gas-plants-outpacing-planning-assumptions
+  pub_date: 2025-09
+  kind: Secondary
+  supports: Duke Indiana Cayuga CCGT $2,340/kW (36% above plan)
+
+- id: S30
+  publisher: Utility Dive
+  title: 5-year waits and rising costs — gas turbine market
+  url: https://www.utilitydive.com/news/5-year-waits-and-rising-costs-how-demand-is-redefining-the-gas-turbine-mar/813385/
+  pub_date: 2026-02
+  kind: Secondary
+  supports: EPRI $2,000 → $3,000/kW in 6 months; GE Vernova 5+ yr lead times, 83 GW backlog
+
+- id: S31
+  publisher: Power Engineering
+  title: Gas turbine prices climb 195% as supply crunch reshapes power development
+  url: https://www.power-eng.com/gas/turbines/gas-turbine-prices-climb-195-as-supply-crunch-reshapes-power-development/
+  pub_date: 2026-04
+  kind: Secondary
+  supports: Wood Mackenzie 2027 $3,000/kW turbine forecast; global orders 110 GW vs 60–70 GW capacity; Siemens €131B backlog
+
+- id: S32
+  publisher: OilPrice
+  title: US power boom triggers global gas turbine shortage
+  url: https://oilprice.com/Energy/Energy-General/US-Power-Boom-Triggers-Global-Gas-Turbine-Shortage.html
+  pub_date: 2026-02
+  kind: Secondary
+  supports: GE Vernova 83 GW on contract end-2025
+
+- id: S33
+  publisher: IEEFA
+  title: Global gas turbine shortages increase delays and costs
+  url: https://ieefa.org/articles/global-gas-turbine-shortages-set-increase-delays-and-costs-gas-power-projects-vietnam-and
+  pub_date: 2025-10
+  kind: Secondary
+  supports: Mitsubishi 7–8 yr lead times; capex $700–1,000 → $2,400/kW
+
+- id: S34
+  publisher: NREL
+  title: Annual Technology Baseline 2024
+  url: https://atb.nrel.gov/electricity/2024/index
+  pub_date: 2024
+  kind: Primary
+  supports: Solar PV utility $1,430/kW (2022), onshore wind $1,400–2,000/kW (2024), battery 4-hr benchmarks
+
+- id: S35
+  publisher: US DOE / NREL
+  title: Solar Photovoltaic System Cost Benchmarks (Q1 2024)
+  url: https://www.energy.gov/eere/solar/solar-photovoltaic-system-cost-benchmarks
+  pub_date: 2024
+  kind: Primary
+  supports: Utility-scale solar $1,060/kWdc (~$1,420/kWac, ILR 1.34)
+
+- id: S36
+  publisher: NREL
+  title: Cost Projections for Utility-Scale Battery Storage
+  url: https://docs.nrel.gov/docs/fy25osti/93281.pdf
+  pub_date: 2025
+  kind: Primary
+  supports: $334/kWh × 4 h = $1,336/kW (2024 benchmark)
+
+- id: S37
+  publisher: NREL
+  title: PV+Storage Cost Benchmarks Q1 2023
+  url: https://docs.nrel.gov/docs/fy23osti/87303.pdf
+  pub_date: 2023
+  kind: Primary
+  supports: $2.11/Wdc for 100 MWdc + 60 MW/240 MWh BESS (2024 benchmark baseline)
+
+- id: S38
+  publisher: Introl (citing Goldman Sachs)
+  title: Nuclear power for AI data centers
+  url: https://introl.com/blog/nuclear-power-ai-data-centers-microsoft-google-amazon-2025
+  pub_date: 2026-01
+  kind: Secondary
+  supports: Nuclear new-build $6,417–12,681/kW estimate; data-center demand 460 → 1,300 TWh/yr
+
+- id: S39
+  publisher: Energy IB
+  title: Data center power boom — AI demand and hyperscalers
+  url: https://ibinterviewquestions.com/guides/energy-investment-banking/data-center-power-boom-ai-demand-hyperscaler
+  pub_date: 2026-03
+  kind: Secondary
+  supports: US data center utility power 62 GW (2025) / 76 GW (2026); global critical power 96 GW (2026); AI data-center 90 TWh/yr (2026, IEA)
+
+- id: S40
+  publisher: Renewable Energy World
+  title: Data centers straining the grid — can they be forced to pay for it
+  url: https://www.renewableenergyworld.com/power-grid/data-centers-are-straining-the-grid-can-they-be-forced-to-pay-for-it/
+  pub_date: 2026-04
+  kind: Secondary
+  supports: Jensen Huang "power-limited industry" quote
+
+- id: S41
+  publisher: S&P Global Sustainable1
+  title: Hyperscaler procurement (cumulative totals)
+  url: https://www.spglobal.com/sustainable1/en/insights/special-editorial/hyperscaler-procurement-to-shape-us-power-investment
+  pub_date: 2025-12
+  kind: Aggregator
+  supports: All-four hyperscalers >80 GW clean energy cumulative end-2025
+
+- id: S42
+  publisher: Trellis / CEBA
+  title: Meta nuclear deals and corporate clean-energy strategy
+  url: https://trellis.net/article/what-metas-big-nuclear-deals-say-about-corporate-clean-energy-strategy/
+  pub_date: 2026-01
+  kind: Secondary
+  supports: Meta 7.7 GW nuclear commitment (Jan 2026)
+
+- id: S43
+  publisher: World Resources Institute
+  title: Clean energy progress — United States 2025
+  url: https://www.wri.org/insights/clean-energy-progress-united-states
+  pub_date: 2026
+  kind: Aggregator
+  supports: EIA planned capacity 2026–2030 — solar 119.1 GW, storage 65.5 GW, wind 21.1 GW, gas 44.8 GW; +50 GW behind-the-meter gas 2025
+
+- id: S44
+  publisher: Williams Companies
+  title: Socrates Power Solution Facilities (Meta / New Albany, Ohio)
+  url: https://www.williams.com/expansion-project/socrates-power-solution-facilities/
+  pub_date: 2025-06
+  kind: Primary
+  supports: Meta Prometheus / Socrates 200 MW Phase 1 (Q3 2026), Socrates North 200 MW planned; total 400 MW BTM gas via Williams subsidiary Will-Power OH
+
+- id: S45
+  publisher: POWER Magazine
+  title: Talen-Amazon launch $18B nuclear PPA — grid-connected IPP model
+  url: https://www.powermag.com/talen-amazon-launch-18b-nuclear-ppa-a-grid-connected-ipp-model-for-the-data-center-era/
+  pub_date: 2025-06
+  kind: Secondary
+  supports: Amazon–Talen restructured PPA, 1,920 MW grid-connected Susquehanna nuclear, ramp through 2032
+
+- id: S46
+  publisher: Energy Northwest
+  title: Amazon & Energy Northwest plan advanced nuclear in Washington (Cascade)
+  url: https://www.energy-northwest.com/news-releases/amazon-energy-northwest-announce-plans-to-develop-advanced-nuclear-technology-in-washington/
+  pub_date: 2024-10
+  kind: Primary
+  supports: Amazon Cascade X-energy Xe-100 SMR, Richland WA — Phase 1 320 MW (4 modules), full build 960 MW (12 modules), early 2030s
+
+- id: S47
+  publisher: Amazon (About Amazon)
+  title: Amazon signs nuclear SMR agreements — 5 GW by 2039 target
+  url: https://www.aboutamazon.com/news/sustainability/amazon-smr-nuclear-energy
+  pub_date: 2024-10
+  kind: Primary
+  supports: Amazon 5 GW X-energy SMR fleet target by 2039 (aspirational, not contracted)
+
+- id: S48
+  publisher: Google (blog)
+  title: Google's first carbon-capture-and-storage project — Broadwing Energy, Decatur IL
+  url: https://blog.google/company-news/outreach-and-initiatives/sustainability/first-carbon-capture-storage-project/
+  pub_date: 2025-10
+  kind: Primary
+  supports: Google–Broadwing 400 MW gas+CCS Decatur IL, online 2029, CCS by early 2030, Mitsubishi turbines (Google buys "most" of output)
+
+- id: S49
+  publisher: Google (blog)
+  title: Google, Kairos Power and TVA collaborate on first advanced nuclear project
+  url: https://blog.google/outreach-initiatives/sustainability/google-first-advanced-nuclear-reactor-project-with-kairos-power-and-tennessee-valley-authority/
+  pub_date: 2025-08
+  kind: Primary
+  supports: Kairos Hermes 2, Oak Ridge TN — 50 MW, 2030 target, TVA PPA (first unit of the 500 MW Google-Kairos fleet)
+
+- id: S50
+  publisher: Google (blog)
+  title: Google–Fervo Energy enhanced geothermal partnership
+  url: https://blog.google/company-news/outreach-and-initiatives/sustainability/google-fervo-geothermal-energy-partnership/
+  pub_date: 2024
+  kind: Primary
+  supports: Google Fervo Project Red 3.5 MW (operational 2023, Nevada); NV Energy Clean Transition Tariff expansion to 115 MW (~2028)
+
+- id: S51
+  publisher: Google (blog)
+  title: A new approach to data-center and clean-energy growth (Intersect Power / TPG Rise)
+  url: https://blog.google/inside-google/infrastructure/new-approach-to-data-center-and-clean-energy-growth/
+  pub_date: 2024-12
+  kind: Primary
+  supports: Google–Intersect Power–TPG Rise partnership; first co-located site Haskell County TX; framed as multi-GW / $20B (no specific MW)
+
+- id: S52
+  publisher: SELC
+  title: Groups appeal permit for xAI's South Memphis data center methane gas turbines
+  url: https://www.selc.org/press-release/groups-appeal-permit-for-xais-south-memphis-data-center-decisions-around-unpermitted-methane-gas-turbines/
+  pub_date: 2025-07
+  kind: Secondary
+  supports: xAI Memphis Colossus ~35 Solaris turbines (~422 MW); TVA 150 MW grid tie; second site 40–90 turbines up to 1.56 GW
+
+- id: S53
+  publisher: XGS Energy / BusinessWire
+  title: XGS Energy and Meta to partner on 150 MW advanced geothermal project
+  url: https://www.businesswire.com/news/home/20250612778008/en/XGS-Energy-and-Meta-to-Partner-on-150-MW-Advanced-Geothermal-Project
+  pub_date: 2025-06
+  kind: Primary
+  supports: Meta–XGS Energy 150 MW geothermal, New Mexico, COD 2030
+
+- id: S54
+  publisher: Canary Media
+  title: Sage Geosystems and Meta sign 150 MW geothermal power agreement
+  url: https://www.canarymedia.com/articles/geothermal/sage-geosystems-and-meta-sign-150mw-geothermal-power-agreement
+  pub_date: 2024-08
+  kind: Secondary
+  supports: Meta–Sage Geosystems 150 MW geothermal, location undisclosed (east of Rockies), Phase 1 by 2027
+
+- id: S55
+  publisher: Crusoe
+  title: Crusoe announces flagship Abilene data center is live
+  url: https://www.crusoe.ai/resources/newsroom/crusoe-announces-flagship-abilene-data-center-is-live
+  pub_date: 2025-09
+  kind: Primary
+  supports: Stargate Abilene (Oracle/OpenAI) — 1.2 GW Lancium/ERCOT interconnect, Phase 1 operational
+
+- id: S56
+  publisher: DatacenterDynamics
+  title: Natural gas plant planned for Stargate Abilene AI campus
+  url: https://www.datacenterdynamics.com/en/news/natural-gas-plant-planned-for-stargate-ai-data-center-campus-report/
+  pub_date: 2025-03
+  kind: Secondary
+  supports: Stargate Abilene onsite gas microgrid ~360 MW (5x Solar Turbines Titan 350 + 5x GE LM2500), behind-the-meter
+
+- id: S57
+  publisher: VoltaGrid
+  title: VoltaGrid collaborates with Oracle to power next-gen AI data centers
+  url: https://voltagrid.com/voltagrid-collaborates-with-oracle-to-power-next-gen-ai-data-centers
+  pub_date: 2025-10
+  kind: Primary
+  supports: Oracle–VoltaGrid 2,300 MW Texas behind-the-meter gas framework (INNIO Jenbacher engines)
+
+- id: S58
+  publisher: Bloom Energy
+  title: Oracle and Bloom Energy collaborate to deliver power to data centers at the speed of AI
+  url: https://www.bloomenergy.com/news/oracle-and-bloom-energy-collaborate-to-deliver-power-to-data-centers-at-the-speed-of-ai/
+  pub_date: 2025-07
+  kind: Primary
+  supports: Oracle–Bloom Energy fuel-cell deployment framework (capacity not disclosed)
+
+- id: S59
+  publisher: Argus Media
+  title: Energy Transfer to supply gas for Oracle AI
+  url: https://www.argusmedia.com/en/news-and-insights/latest-market-news/2750558-energy-transfer-to-supply-gas-for-oracle-ai
+  pub_date: 2025-11
+  kind: Secondary
+  supports: Oracle–Energy Transfer gas supply ~900 MMcf/d for 3 US sites (fuel-supply, not generation)
+
+- id: S60
+  publisher: Bridge Michigan
+  title: Michigan regulators approve contract for Michigan's first hyperscale data center
+  url: https://bridgemi.com/michigan-environment-watch/michigan-regulators-approve-contract-for-michigans-first-hyperscale-data-center/
+  pub_date: 2025-12
+  kind: Secondary
+  supports: Oracle (Green Chile Ventures) – DTE Energy Saline Township 1,400 MW PPA, MPSC-approved 2025-12-19, 19-yr term
+
+- id: S61
+  publisher: DatacenterDynamics
+  title: Vantage breaks ground on Texas gigawatt data center campus for OpenAI
+  url: https://www.datacenterdynamics.com/en/news/vantage-breaks-ground-on-texas-gigawatt-data-center-campus-for-openai/
+  pub_date: 2025
+  kind: Secondary
+  supports: Stargate Shackelford County (Oracle/OpenAI/Vantage) — 700 MW VoltaGrid BTM gas approved, campus target 1,400 MW
+
+- id: S62
+  publisher: Utility Dive
+  title: NIPSCO to supply 3 GW to Amazon data centers in northern Indiana
+  url: https://www.utilitydive.com/news/nisource-nipsco-amazon-data-centers-indiana/806396/
+  pub_date: 2025-11
+  kind: Secondary
+  supports: Amazon–NIPSCO/GenCo Indiana — 2.6 GW gas (2x 1.3 GW at Schahfer site) + 400 MW 4-hr storage; IURC-approved Nov 2025; 15-yr PPA; power delivery Jan 2027 ramping to 2.4 GW by end 2032; ~$7B spend
+
+# ── xAI new sources ──────────────────────────────────────────────────────────
+
+- id: S63
+  publisher: Southern Environmental Law Center
+  title: TVA dismisses community concerns, approves power agreement for xAI facility
+  url: https://www.selc.org/press-release/tva-dismisses-community-concerns-approves-power-agreement-for-controversial-xai-facility/
+  pub_date: 2024-11
+  kind: Secondary
+  supports: xAI Colossus 1 — TVA/MLGW 150 MW firm grid supply approved Nov 7 2024
+
+- id: S64
+  publisher: Data Center Dynamics
+  title: xAI deploys 168 Tesla Megapacks to power its Colossus supercomputer in Memphis
+  url: https://www.datacenterdynamics.com/en/news/xai-deploys-168-tesla-megapacks-to-power-its-colossus-supercomputer-in-memphis/
+  pub_date: 2025-01
+  kind: Secondary
+  supports: xAI Colossus 1 — 168 Tesla Megapacks ~150 MW storage deployed; ~$230M Jan 2024–Feb 2025
+
+- id: S65
+  publisher: Data Center Dynamics
+  title: Solaris to supply 900 MW of natural gas power to major data center operator as part of joint venture
+  url: https://www.datacenterdynamics.com/en/news/solaris-to-supply-900mw-of-natural-gas-power-to-major-data-center-operator-as-part-of-joint-venture-agreement/
+  pub_date: 2025-05
+  kind: Secondary
+  supports: xAI Stateline Power JV (50.1% Solaris/49.9% xAI CTC Property) — 900 MW BTM gas, Southaven MS, COD Q2 2027
+
+- id: S66
+  publisher: CNBC
+  title: Elon Musk's xAI gets permit for Mississippi turbine plant despite pollution concerns
+  url: https://www.cnbc.com/2026/03/10/elon-musk-xai-permit-for-mississippi-plant-despite-pollution-concerns.html
+  pub_date: 2026-03
+  kind: Secondary
+  supports: xAI Southaven MS — 41 gas turbines (~1,200 MW) MDEQ permit approved Mar 10 2026; SELC/NAACP appealing
+
+- id: S67
+  publisher: Chattanooga Times Free Press
+  title: TVA board doubles Elon Musk's xAI power allowance
+  url: https://www.timesfreepress.com/news/2026/feb/11/tva-board-doubles-elon-musks-xai-power-allowance/
+  pub_date: 2026-02
+  kind: Secondary
+  supports: xAI TVA/MLGW Phase 2 — additional 150 MW grid supply approved Feb 11 2026; total TVA allocation 300 MW
+
+- id: S68
+  publisher: Daily Memphian
+  title: Seven States Power / xAI Memphis Port Commission solar+storage
+  url: https://dailymemphian.com/article/55222
+  pub_date: 2025-09
+  kind: Secondary
+  supports: xAI Seven States Power — 100 MW solar + 100 MW storage on 552 acres Port Commission land; USDA $439M loan; COD Q2 2027
+
+- id: S69
+  publisher: Data Center Dynamics
+  title: xAI submits application for 88-acre solar array at Colossus supercomputer in Memphis
+  url: https://www.datacenterdynamics.com/en/news/xai-submits-application-for-88-acre-solar-array-at-colossus-supercomputer-in-memphis-tennessee/
+  pub_date: 2025-11
+  kind: Secondary
+  supports: xAI Colossus 1 on-site 88-acre solar ~30 MW; permit application Nov 2025
+
+- id: S70
+  publisher: Data Center Dynamics
+  title: xAI importing power plant from abroad for new Memphis data center — Elon Musk claims
+  url: https://www.datacenterdynamics.com/en/news/xai-importing-power-plant-from-abroad-for-new-memphis-data-center-elon-musk-claims/
+  pub_date: 2025-07
+  kind: Secondary
+  supports: xAI imported overseas CCGT ~2 GW; origin country undisclosed; intended for Colossus 3 / MACROHARDRR
+
+# ── Oracle new sources ────────────────────────────────────────────────────────
+
+- id: S71
+  publisher: Oracle
+  title: Oracle advances American AI innovation in New Mexico
+  url: https://www.oracle.com/news/announcement/blog/oracle-advances-american-ai-innovation-in-new-mexico-2026-01-23/
+  pub_date: 2026-01
+  kind: Primary
+  supports: Oracle Project Jupiter (Santa Teresa NM) — 18-yr anchor tenant; BTM gas microgrid 700–900 MW; Doña Ana County IRB approved Sep 2025
+
+- id: S72
+  publisher: BusinessWire / Vantage Data Centers
+  title: OpenAI, Oracle and Vantage Data Centers announce Stargate data center site in Wisconsin
+  url: https://www.businesswire.com/news/home/20251022873578/en/OpenAI-Oracle-and-Vantage-Data-Centers-Announce-Stargate-Data-Center-Site-in-Wisconsin
+  pub_date: 2025-10
+  kind: Primary
+  supports: Oracle Stargate Wisconsin Lighthouse — ~1.3 GW IT load; WEC Energy Group (We Energies) ~2 GW new generation (1.1 GW solar, 180 MW storage, ~1.4 GW gas backup); PSCW approval pending
+
+# ── Meta new nuclear sub-deal sources ────────────────────────────────────────
+
+- id: S73
+  publisher: Vistra Corp
+  title: Vistra and Meta announce agreements to support nuclear plants in PJM
+  url: https://investor.vistracorp.com/2026-01-09-Vistra-and-Meta-Announce-Agreements-to-Support-Nuclear-Plants-in-PJM-and-Add-New-Nuclear-Generation-to-the-Grid
+  pub_date: 2026-01
+  kind: Primary
+  supports: Meta–Vistra nuclear PPAs — 2,609 MW (Perry OH + Davis-Besse OH + Beaver Valley PA uprates); 20-year PPAs; part of Jan 2026 6.6 GW package
+
+- id: S74
+  publisher: TerraPower
+  title: TerraPower announces deal with Meta
+  url: https://www.terrapower.com/terrapower-announces-deal-with-meta
+  pub_date: 2026-01
+  kind: Primary
+  supports: Meta–TerraPower Natrium nuclear — initial 2 units 690 MW (COD ~2032), rights for 6 more (2,070 MW) by 2035; 345 MW/unit baseload
+
+- id: S75
+  publisher: Oklo Inc.
+  title: Oklo and Meta announce agreement in support of 1.2 GW nuclear energy development in Southern Ohio
+  url: https://oklo.com/newsroom/news-details/2026/Oklo-Meta-Announce-Agreement-in-Support-of-1.2-GW-Nuclear-Energy-Development-in-Southern-Ohio/default.aspx
+  pub_date: 2026-01
+  kind: Primary
+  supports: Meta–Oklo Aurora nuclear — 1.2 GW, Pike County OH (former DOE site); Phase 1 target as early as 2030
+
+- id: S76
+  publisher: NextEra Energy Resources
+  title: NextEra Energy Resources and Meta strengthen American energy leadership — 2.5 GW
+  url: https://newsroom.nexteraenergy.com/2025-12-08-NextEra-Energy-Resources-and-Meta-Strengthen-American-Energy-Leadership?l=12
+  pub_date: 2025-12
+  kind: Primary
+  supports: Meta–NextEra 2.5 GW solar+storage portfolio (11 PPAs + 2 ESAs); 2,100 MW solar + 168 MW BESS; Star Light / Windy Lane NM projects; COD 2026–2028
+
+- id: S77
+  publisher: ENGIE North America
+  title: ENGIE and Meta expand PPA to more than 1.3 GW — Swenson Ranch Solar 600 MW
+  url: https://www.engie-na.com/engie-and-meta-expand-ppa-to-more-than-1-3-gw/
+  pub_date: 2025-10
+  kind: Primary
+  supports: Meta–ENGIE Swenson Ranch Solar 600 MW; Stonewall County TX; COD 2027; $900M project
+
+- id: S78
+  publisher: ENGIE North America
+  title: ENGIE and Meta announce 260 MW renewable energy agreement — Sypert Branch Solar
+  url: https://www.engie-na.com/engie-and-meta-announce-260-mw-renewable-energy-agreement/
+  pub_date: 2024-10
+  kind: Primary
+  supports: Meta–ENGIE Sypert Branch Solar 260 MW; Milam County TX; COD late 2025
+
+- id: S79
+  publisher: RWE Americas
+  title: RWE signs long-term power purchase agreements with Meta — County Run + Lafitte
+  url: https://americas.rwe.com/press/2024-08-13-rwe-signs-long-term-power-purchase-agreements-with-meta/
+  pub_date: 2024-08
+  kind: Primary
+  supports: Meta–RWE County Run Solar 274 MW (IL, COD 2025) + Lafitte Solar 100 MW (LA, COD 2025)
+
+- id: S80
+  publisher: RWE Clean Energy
+  title: RWE signs long-term PPA with Meta — Waterloo Solar 200 MW
+  url: https://www.rwe.com/en/press/rwe-clean-energy/2025-03-18-rwe-signs-long-term-ppa-with-meta/
+  pub_date: 2025-03
+  kind: Primary
+  supports: Meta–RWE Waterloo Solar 200 MW; Bastrop County TX; COD late 2027; 15-yr PPA
+
+- id: S81
+  publisher: Invenergy (PR Newswire)
+  title: Invenergy to provide over 760 MW in renewable energy supporting Meta — Batch 1
+  url: https://www.prnewswire.com/news-releases/invenergy-to-provide-over-760mw-in-renewable-energy-supporting-metas-energy-needs-in-line-with-its-clean-and-renewable-energy-goals-302323252.html
+  pub_date: 2024-12
+  kind: Primary
+  supports: Meta–Invenergy Batch 1 — 760 MW (Hardin II OH 150, Delilah II TX 150, Tip Top NM 110, Chalk Bluff AR 350); EAPAs; CODs 2024–2027
+
+- id: S82
+  publisher: Invenergy (PR Newswire)
+  title: Invenergy to provide Meta with nearly 800 MW — Batch 2
+  url: https://www.prnewswire.com/news-releases/invenergy-to-provide-meta-with-nearly-800-mw-supporting-data-center-operations-302492175.html
+  pub_date: 2025-06
+  kind: Primary
+  supports: Meta–Invenergy Batch 2 — 791 MW (Yellow Wood OH 300, Pleasant Prairie OH 140, Decoy AR 155, Seaway Wind TX 196); CODs 2027–2028
+
+- id: S83
+  publisher: El Paso Matters
+  title: El Paso Electric and Meta — $473M McCloud natural gas power plant
+  url: https://elpasomatters.org/2026/01/18/el-paso-electric-meta-data-center-new-473-million-natural-gas-power-plant/
+  pub_date: 2026-01
+  kind: Secondary
+  supports: Meta–El Paso Electric McCloud gas facility 366 MW; 813 Enchanted Rock modular generators; COD 2027; PUC TX/TCEQ filing Dec 2025
+
+- id: S84
+  publisher: NextEra Energy Resources
+  title: Sky Ranch Solar Energy Center — operational May 2024
+  url: https://www.nexteraenergyresources.com/sky-ranch-solar.html
+  pub_date: 2024-05
+  kind: Primary
+  supports: Meta–NextEra Sky Ranch Solar 190 MW + 50 MW BESS, Valencia County NM; PPA via PNM Rate 36B; operational May 2024
+
+# ── Google new sources ────────────────────────────────────────────────────────
+
+- id: S85
+  publisher: Offshore Wind Biz
+  title: Google signs its largest offshore wind PPAs to date — Netherlands
+  url: https://www.offshorewind.biz/2024/02/01/google-signs-its-largest-offshore-wind-ppas-to-date/
+  pub_date: 2024-02
+  kind: Secondary
+  supports: Google–Shell/Eneco offshore wind 478 MW (HKN + HKW VI), Netherlands
+
+- id: S86
+  publisher: ERG
+  title: ERG and Google sign a 20-year agreement for renewable energy — Roccapalumba Wind Farm
+  url: https://www.erg.eu/en/-/erg-and-google-sign-a-20-year-agreement-for-the-supply-of-approximately-2twh-of-renewable-energy
+  pub_date: 2024-02
+  kind: Primary
+  supports: Google–ERG Roccapalumba wind 47 MW, Sicily Italy; 20-yr PPA; ~100 GWh/yr
+
+- id: S87
+  publisher: GoldenPeaks Capital
+  title: GoldenPeaks Capital signs power purchase agreement with Google — Poland solar
+  url: https://goldenpeakscapital.com/news/goldenpeaks-capital-signs-power-purchase-agreement-with-google
+  pub_date: 2024-02
+  kind: Primary
+  supports: Google–GoldenPeaks Poland solar portfolio 177 MW; 10-yr PPA; ~125 GWh/yr
+
+- id: S88
+  publisher: Aspiravi
+  title: Aspiravi Google — Belgium onshore wind PPA
+  url: https://www.aspiravi.com/en/cases/google/
+  pub_date: 2024-02
+  kind: Primary
+  supports: Google–Aspiravi Belgium onshore wind 59.2 MW; 9 wind farms targeted 2024
+
+- id: S89
+  publisher: ENGIE Newsroom
+  title: ENGIE and Google CPPA — Ocean Winds Moray West offshore wind 100 MW
+  url: https://en.newsroom.engie.com/news/engie-and-google-conclude-a-corporate-ppa-relying-on-ocean-winds-offshore-wind-development-06b1-314df.html
+  pub_date: 2022-11
+  kind: Primary
+  supports: Google–ENGIE Moray West 100 MW CPPA, Scotland; 12-yr; COD 2025; 882 MW total project
+
+- id: S90
+  publisher: Elawan Energy
+  title: Elawan Energy will supply renewable energy to Google — Hill County Texas solar 37 MW
+  url: https://www.elawan.com/en/noticias/elawan-energy-will-supply-renewable-energy-to-google-under-a-corporate-power-purchase-agreement-ppa-for-the-energy-generated-by-a-37-mwdc-solar-project-in-hill-county-texas-usa/
+  pub_date: 2024-09
+  kind: Primary
+  supports: Google–Elawan Energy 37 MW solar; Hill County TX; COD 2026
+
+- id: S91
+  publisher: Data Center Dynamics
+  title: Google signs solar energy deals in Nebraska and Texas
+  url: https://www.datacenterdynamics.com/en/news/google-signs-solar-energy-deals-in-nebraska-and-texas/
+  pub_date: 2024-09
+  kind: Secondary
+  supports: Google–NextEra Pierce County NE solar+storage 420 MW + 680 MWh BESS; COD 2027
+
+- id: S92
+  publisher: ENGIE North America
+  title: Google PPA — Chillingham Solar 90 MW, Bell County TX
+  url: https://www.engie-na.com/google-ppa-chillingham-solar/
+  pub_date: 2024-10
+  kind: Primary
+  supports: Google–ENGIE Chillingham Solar 90 MW (of 350 MW total); Bell County TX; COD late 2024
+
+- id: S93
+  publisher: Adani Group
+  title: Adani and Google announce clean energy collaboration in India — Khavda hybrid
+  url: https://www.adani.com/newsroom/media-releases/adani-and-google-announce-clean-energy-collaboration-in-india
+  pub_date: 2024-10
+  kind: Primary
+  supports: Google–Adani Khavda Gujarat solar-wind hybrid; MW not disclosed; COD Q3 2025
+
+- id: S94
+  publisher: CleanMax
+  title: Google collaborates with CleanMax to add clean energy capacity in India
+  url: https://www.cleanmax.com/media/google-collaborates-with-cleanmax-to-add-clean-energy-capacity-in-india.php
+  pub_date: 2024-10
+  kind: Primary
+  supports: Google–CleanMax India hybrid 125.4 MW (66 MW solar Rajasthan + 59.4 MW wind Karnataka); COD Q4 2025
+
+- id: S95
+  publisher: Elementl Power (PR Newswire)
+  title: Elementl Power and Google sign strategic agreement to develop advanced nuclear projects
+  url: https://www.prnewswire.com/news-releases/elementl-power-and-google-sign-strategic-agreement-to-develop-locations-for-advanced-nuclear-projects-302447957.html
+  pub_date: 2025-05
+  kind: Primary
+  supports: Google–Elementl Power nuclear site development — 3 sites ≥600 MW each; technology-agnostic; option to purchase power when operational
+
+- id: S96
+  publisher: Kairos Power
+  title: Google, Kairos Power and TVA collaborate — Hermes 2 TVA PPA 50 MW
+  url: https://kairospower.com/external_updates/google-kairos-power-tva-collaborate-to-meet-americas-growing-energy-needs
+  pub_date: 2025-08
+  kind: Primary
+  supports: Google–Kairos–TVA Hermes 2 PPA — 50 MW Oak Ridge TN; COD 2030; first unit of broader 500 MW fleet deal (already in DB as S6)
+
+- id: S97
+  publisher: Baseload Capital
+  title: Baseload Capital and Google forge corporate PPA — Taiwan geothermal 10 MW
+  url: https://www.baseloadcap.com/major-step-for-geothermal-energy-in-asia-baseload-capital-and-google-forge-corporate-ppa/
+  pub_date: 2025-04
+  kind: Primary
+  supports: Google–Baseload Capital Taiwan geothermal 10 MW; first corporate geothermal PPA in Taiwan; COD 2029
+
+- id: S98
+  publisher: Exus Renewables
+  title: Exus Renewables announces PPA with Google — Cascante wind farm 35 MW, Spain
+  url: https://www.exusrenewables.com/news/exus-renewables-announces-long-term-power-purchase-agreement-ppa-with-google-for-spanish-wind-farm
+  pub_date: 2025-03
+  kind: Primary
+  supports: Google–Exus Cascante wind 35 MW, Navarra Spain; 10-yr PPA; ~136 GWh/yr
+
+- id: S99
+  publisher: Google Blog
+  title: Google–Shell NoordzeeWind PPA Netherlands — life extension 108 MW
+  url: https://blog.google/feed/google-shell-ppa-netherlands-windfarm/
+  pub_date: 2025-05
+  kind: Primary
+  supports: Google–Shell NoordzeeWind 108 MW; extends offshore wind farm life to 2031; Egmond aan Zee, Netherlands
+
+- id: S100
+  publisher: NextEra Energy
+  title: NextEra Energy and Google — Duane Arnold nuclear plant restart 615 MW Iowa
+  url: https://newsroom.nexteraenergy.com/NextEra-Energy-and-Google-Announce-New-Collaboration-to-Accelerate-Nuclear-Energy-Deployment-in-the-U-S?l=12
+  pub_date: 2025-10
+  kind: Primary
+  supports: Google–NextEra Duane Arnold nuclear restart 615 MW; Palo IA; COD early 2029; 25-yr PPA; $1.6B+ restart
+
+- id: S101
+  publisher: TotalEnergies
+  title: TotalEnergies to supply renewable power to Google data centers — Montpelier Solar Ohio 49 MW
+  url: https://totalenergies.com/news/press-releases/united-states-totalenergies-supply-renewable-power-googles-data-centers-15
+  pub_date: 2025-11
+  kind: Primary
+  supports: Google–TotalEnergies Montpelier Solar 49 MW; Williams County OH; COD early 2026; 15-yr PPA
+
+- id: S102
+  publisher: ReNew Energy
+  title: ReNew announces long-term agreement with Google — 150 MW solar, Rajasthan India
+  url: https://investor.renew.com/news-releases/news-release-details/renew-announces-long-term-agreement-google-enable-150-mw-solar/
+  pub_date: 2025-12
+  kind: Primary
+  supports: Google–ReNew Rajasthan solar 150 MW India; COD 2026; ~425,000 MWh/yr
+
+- id: S103
+  publisher: TotalEnergies
+  title: TotalEnergies signs renewable power agreement with Google — Malaysia 20 MW
+  url: https://totalenergies.com/news/press-releases/malaysia-totalenergies-signs-new-renewable-power-agreement-google-supply-data
+  pub_date: 2025-12
+  kind: Primary
+  supports: Google–TotalEnergies Malaysia Citra Energies 20 MW solar; Kedah; 21-yr PPA; COD 2026
+
+- id: S104
+  publisher: Alphabet Investor Relations
+  title: Alphabet announces agreement to acquire Intersect Power
+  url: https://abc.xyz/investor/news/news-details/2025/Alphabet-Announces-Agreement-to-Acquire-Intersect-to-Advance-U-S--Energy-Innovation-2025-DVIuVDM9wW/default.aspx
+  pub_date: 2025-12
+  kind: Primary
+  supports: Google–Intersect Power acquisition — $4.75B cash; closed Mar 12 2026; TX/CA solar+storage assets spun off to IPX Power (TPG); Google retains development pipeline
+
+- id: S105
+  publisher: Clearway Energy Group
+  title: Clearway signs portfolio of PPAs with Google totaling nearly 1.2 GW across three states
+  url: https://www.clearwayenergygroup.com/press-releases/clearway-signs-portfolio-of-power-purchase-agreements-with-google-totaling-nearly-1-2-gw-across-three-states/
+  pub_date: 2026-01
+  kind: Primary
+  supports: Google–Clearway portfolio — Swan Solar MO 650 MW (COD 2028), Catamount Wind WV 147 MW (COD 2028), Goat Mountain Wind TX 150 MW repowering (COD 2027)
+
+- id: S106
+  publisher: Ormat Technologies
+  title: Ormat announces geothermal portfolio PPA of up to 150 MW to support Google via NV Energy
+  url: https://investor.ormat.com/news-events/news/news-details/2026/Ormat-Technologies-Announces-the-Signing-of-Geothermal-Portfolio-PPA-of-Up-to-150-MW-to-Support-Googles-Data-Center-Operations-Through-NV-Energy/default.aspx
+  pub_date: 2026-02
+  kind: Primary
+  supports: Google–Ormat Nevada geothermal portfolio up to 150 MW via NV Energy CTT; PUCN approval pending; COD 2028–2030
+
+- id: S107
+  publisher: TotalEnergies
+  title: TotalEnergies to provide 1 GW solar capacity to power Google's data centers — Texas
+  url: https://totalenergies.com/news/press-releases/united-states-totalenergies-provide-1-gw-solar-capacity-power-googles-data
+  pub_date: 2026-02
+  kind: Primary
+  supports: Google–TotalEnergies Texas 1 GW solar (Wichita 805 MWp + Mustang Creek 195 MWp); two 15-yr PPAs; 28 TWh total
+
+- id: S108
+  publisher: Xcel Energy
+  title: Xcel Energy to power new Google data center in Minnesota — 1,900 MW clean energy
+  url: https://newsroom.xcelenergy.com/news/xcel-energy-to-power-new-google-data-center-in-minnesota
+  pub_date: 2026-02
+  kind: Primary
+  supports: Google–Xcel Energy Minnesota 1,900 MW (1,400 MW wind + 200 MW solar + 300 MW Form Energy iron-air battery); Pine Island MN; COD 2028–2029
+
+- id: S109
+  publisher: EnBW
+  title: EnBW and Google PPA — He Dreiht offshore wind 100 MW, Germany
+  url: https://www.enbw.com/press/enbw-ppa-offshore-wind-power-google.html
+  pub_date: 2026-02
+  kind: Primary
+  supports: Google–EnBW He Dreiht 100 MW (of 960 MW), German North Sea; 15-yr PPA; COD 2026; first power Nov 2025
+
+- id: S110
+  publisher: Google Blog
+  title: Clean energy and reliability in Michigan — DTE Energy 1,600 MW solar+storage
+  url: https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/clean-energy-reliability-michigan/
+  pub_date: 2026-03
+  kind: Primary
+  supports: Google–DTE Michigan 1,600 MW solar + 400 MW BESS + 50 MW LDES; Project Cannoli; 20-yr CCEA; MPSC approval pending; COD Dec 2027
+
+- id: S111
+  publisher: Data Center Dynamics
+  title: Google signs 54 MW PPA with Eneco in Belgium
+  url: https://www.datacenterdynamics.com/en/news/google-signs-54mw-ppa-with-eneco-in-belgium/
+  pub_date: 2025-10
+  kind: Secondary
+  supports: Google–Eneco Belgium onshore wind 54 MW; 10-yr PPA; tied to Saint-Ghislain and Farciennes DC expansion
+
+# ── Amazon new sources ────────────────────────────────────────────────────────
+
+- id: S112
+  publisher: Data Center Dynamics
+  title: AWS acquires Talen's nuclear data center campus in Pennsylvania
+  url: https://www.datacenterdynamics.com/en/news/aws-acquires-talens-nuclear-data-center-campus-in-pennsylvania/
+  pub_date: 2024-03
+  kind: Secondary
+  supports: Amazon acquisition of Cumulus Data campus adjacent to Susquehanna nuclear plant, PA — $650M; distinct from the June 2025 1,920 MW grid PPA (already in DB as S45)
+
+- id: S113
+  publisher: X-energy
+  title: X-energy, Amazon, KHNP and Doosan Enerbility announce partnership to scale advanced nuclear
+  url: https://x-energy.com/media/news-releases/x-energy-amazon-korea-hydro-amp-nuclear-power-and-doosan-enerbility-announce-partnership-to-scale-advanced-nuclear-energy-for-ai-infrastructure
+  pub_date: 2025-08
+  kind: Primary
+  supports: Amazon–X-energy–KHNP–Doosan global SMR scale-up MOU; targeting $50B deployment; Doosan committed new fabrication facility (16-unit reservation)
+
+- id: S114
+  publisher: Avangrid
+  title: Avangrid and Amazon expand US partnership — Leaning Juniper IIA 98.4 MW wind, Oregon
+  url: https://www.avangrid.com/w/avangrid-and-amazon-expand-u.s.-partnership-with-98.4-mw-wind-project-in-oregon
+  pub_date: 2024-02
+  kind: Primary
+  supports: Amazon–Avangrid Leaning Juniper IIA 98.4 MW wind repowering; Gilliam County OR; 20-yr PPA
+
+- id: S115
+  publisher: Avangrid
+  title: Avangrid announces construction of fifth wind farm in Illinois — Osagrove Flats 150 MW
+  url: https://www.avangrid.com/w/avangrid-announces-construction-of-its-fifth-wind-farm-in-illinois
+  pub_date: 2024-03
+  kind: Primary
+  supports: Amazon–Avangrid Osagrove Flats 150 MW wind; LaSalle County IL; construction started Mar 2024
+
+- id: S116
+  publisher: Solar Power World
+  title: Baldy Mesa solar+storage project now online — Amazon PPA, Adelanto CA 150 MW
+  url: https://www.solarpowerworldonline.com/2024/05/baldy-mesa-solar-storage-project-now-online-and-supporting-amazon-operations/
+  pub_date: 2024-05
+  kind: Secondary
+  supports: Amazon–AES Baldy Mesa 150 MW solar + 75 MW / 300 MWh BESS; Adelanto CA; operational May 2024
+
+- id: S117
+  publisher: Renewables Now
+  title: Amazon adds 150 MW Ohio solar farm to PPA portfolio — Fox Squirrel Phase 1
+  url: https://renewablesnow.com/news/amazon-adds-150-mw-ohio-solar-farm-to-ppa-portfolio-858631/
+  pub_date: 2024-05
+  kind: Secondary
+  supports: Amazon–EDF Renewables Fox Squirrel Solar Phase 1 150 MW; Van Wert County OH; operational mid-2024
+
+- id: S118
+  publisher: Primergy Solar
+  title: Primergy's Prairie Mist solar project reaches commercial operation
+  url: https://www.primergysolar.com/news/primergys-prairie-mist-solar-project-reaches-commercial-operation
+  pub_date: 2024-12
+  kind: Primary
+  supports: Amazon Solar Farm Arkansas — Prairie Mist 100 MW; Ashley County AR; COD December 2024; 20-yr PPA
+
+- id: S119
+  publisher: Data Center Dynamics
+  title: Amazon signs 15-year PPA with EDP for 100 MW of power in Mississippi — Ragsdale
+  url: https://www.datacenterdynamics.com/en/news/amazon-signs-15-year-ppa-with-edp-for-100mw-of-power-in-mississippi/
+  pub_date: 2025-02
+  kind: Secondary
+  supports: Amazon–EDP Renewables Ragsdale Solar Park 100 MW; Madison County MS; operational Q4 2024; 15-yr PPA
+
+- id: S120
+  publisher: Avangrid
+  title: Avangrid announces new Oregon solar project to help power data centers — Oregon Trail Solar 57 MW
+  url: https://www.avangrid.com/w/avangrid-announces-new-oregon-solar-project-to-help-power-data-centers
+  pub_date: 2025-09
+  kind: Primary
+  supports: Amazon–Avangrid Oregon Trail Solar 57 MW; Gilliam County OR; COD 2027
+
+- id: S121
+  publisher: PV Magazine USA
+  title: Amazon acquires 1.2 GW Sunstone solar project from bankrupt Pine Gate Renewables
+  url: https://pv-magazine-usa.com/2026/01/16/amazon-acquires-1-2-gw-sunstone-solar-project-from-bankrupt-pine-gate-renewables/
+  pub_date: 2026-01
+  kind: Secondary
+  supports: Amazon Sunstone Solar acquisition 1,200 MW solar + up to 7,200 MWh storage; Morrow County OR; $83M bankruptcy purchase; all permits cleared; build must start by Nov 2027
+
+- id: S122
+  publisher: About Amazon
+  title: AWS sustainability and renewable energy in Mississippi — Entergy 650 MW framework
+  url: https://www.aboutamazon.com/news/aws/aws-training-programs-sustainability-projects-mississippi
+  pub_date: 2024-08
+  kind: Primary
+  supports: Amazon–Entergy Mississippi 650 MW renewable energy framework; Delta Wind + solar; linked to $10B MS data center investment
+
+- id: S123
+  publisher: RWE Americas
+  title: RWE and AWS sign strategic collaboration — 1.1 GW US renewable portfolio
+  url: https://americas.rwe.com/press/2025-06-12-rwe-and-aws-sign-strategic-collaboration/
+  pub_date: 2025-06
+  kind: Primary
+  supports: Amazon–RWE strategic framework covering 7 existing US PPAs ~1.1 GW wind+solar; first international extension = Nordseecluster B (S129)
+
+- id: S124
+  publisher: ENGIE Newsroom
+  title: Amazon signs agreement with ENGIE for 473 MW from Moray West offshore wind farm, Scotland
+  url: https://en.newsroom.engie.com/news/amazon-signs-agreement-with-engie-to-procure-473mw-of-renewable-energy-from-the-moray-west-offshore-wind-farm-in-scotland-314df.html
+  pub_date: 2024-01
+  kind: Primary
+  supports: Amazon–ENGIE Moray West 473 MW offshore wind; Moray Firth Scotland; COD 2025
+
+- id: S125
+  publisher: Iberdrola
+  title: Iberdrola confirms agreement with Amazon — East Anglia THREE 159 MW offshore wind
+  url: https://www.iberdrola.com/press-room/news/detail/iberdrola-confirms-new-agreement-with-amazon-to-procure-159-mw-of-renewable-energy-from-east-anglia-three-worlds-second-largest-offshore-wind-farm
+  pub_date: 2024-03
+  kind: Primary
+  supports: Amazon–Iberdrola East Anglia THREE 159 MW; Suffolk UK offshore; COD 2026; 1.4 GW total farm
+
+- id: S126
+  publisher: About Amazon EU
+  title: Amazon invests in first utility-scale wind energy projects in Greece — Aer Soléir 360 MW
+  url: https://www.aboutamazon.eu/news/sustainability/amazon-invests-in-first-utility-scale-wind-energy-projects-in-greece
+  pub_date: 2024-11
+  kind: Primary
+  supports: Amazon–Aer Soléir Greece 360 MW wind (Vermio 293 MW + Mesokorfi + Koukouras); 15-yr PPAs; COD 2026
+
+- id: S127
+  publisher: Data Center Dynamics
+  title: Amazon signs PPA with OX2 for 472 MW of onshore wind power in Finland
+  url: https://www.datacenterdynamics.com/en/news/amazon-signs-ppa-with-ox2-for-472mw-of-onshore-wind-power-in-finland/
+  pub_date: 2025-04
+  kind: Secondary
+  supports: Amazon–OX2 Finland wind 472 MW (Rajamäenkylä 367 MW + Honkakangas 105 MW); CODs 2027–2028
+
+- id: S128
+  publisher: Data Center Dynamics
+  title: Amazon signs 28 MW PPA with OX2 in Poland
+  url: https://www.datacenterdynamics.com/en/news/amazon-signs-28mw-ppa-with-ox2-in-poland/
+  pub_date: 2025-11
+  kind: Secondary
+  supports: Amazon–OX2 Poland onshore wind 28 MW
+
+- id: S129
+  publisher: RWE
+  title: RWE and Amazon sign PPA for offshore wind power — Nordseecluster B 110 MW Germany
+  url: https://www.rwe.com/en/press/rwe-supply-and-trading/2026-02-03-rwe-and-amazon-sign-power-purchase-agreement-for-offshore-wind-power/
+  pub_date: 2026-02
+  kind: Primary
+  supports: Amazon–RWE Nordseecluster B 110 MW; German North Sea; 15-yr PPA; COD 2029
+
+- id: S130
+  publisher: Iberdrola
+  title: Iberdrola and Amazon expand renewable energy partnership — Tâmega PT + Ciudad Rodrigo ES + Valdemoro ES
+  url: https://www.iberdrola.com/press-room/news/detail/iberdrola-amazon-expand-renewable-energy-partnership-aws
+  pub_date: 2025-02
+  kind: Primary
+  supports: Amazon–Iberdrola Feb 2025 package — Tâmega Wind 219 MW (Portugal) + Ciudad Rodrigo Solar 212 MW (Spain) + Valdemoro Wind 45 MW (Spain); total 476 MW
+
+- id: S131
+  publisher: Greek City Times
+  title: Amazon renewable energy Greece — Greenvolt Elzet solar + Menelou wind 657 MW
+  url: https://greekcitytimes.com/2025/02/04/amazon-renewable-energy-greece/
+  pub_date: 2025-02
+  kind: Secondary
+  supports: Amazon–Greenvolt Greece 657 MW (Elzet solar Thessaly + Menelou wind W. Greece); COD 2026
+
+- id: S132
+  publisher: PR Newswire / CleanMax
+  title: CleanMax and Amazon sign PPA for 100 MW of wind energy in India
+  url: https://www.prnewswire.com/apac/news-releases/cleanmax-and-amazon-sign-ppa-for-100mw-of-wind-energy-302370092.html
+  pub_date: 2025-02
+  kind: Primary
+  supports: Amazon–CleanMax 100 MW wind; Koppal Karnataka India; COD Q2 2026
+
+- id: S133
+  publisher: Data Center Dynamics
+  title: Amazon signs two PPAs in India with CleanMax and BluPine Energy
+  url: https://www.datacenterdynamics.com/en/news/amazon-signs-two-ppas-in-india-with-cleanmax-and-blupine-energy/
+  pub_date: 2025-02
+  kind: Secondary
+  supports: Amazon–BluPine Energy 99 MW wind; Solapur Maharashtra India; ~360 GWh/yr
+
+- id: S134
+  publisher: Data Center Dynamics
+  title: Amazon signs 180 MW PPA in India with JSW Energy
+  url: https://www.datacenterdynamics.com/en/news/amazon-signs-180mw-ppa-in-india-with-jsw-energy/
+  pub_date: 2025-02
+  kind: Secondary
+  supports: Amazon–JSW Neo Energy 180 MW wind India; location not disclosed
+
+- id: S135
+  publisher: ENEOS Renewable Energy
+  title: ENEOS RE and Amazon PPA — Kudamatsu Fourth Mega Solar 9.5 MW, Yamaguchi Japan
+  url: https://www.eneos-re.com/news/pdf/news_20240802_E.pdf?001=
+  pub_date: 2024-08
+  kind: Primary
+  supports: Amazon–ENEOS Kudamatsu solar 9.5 MW; Yamaguchi Prefecture Japan; COD autumn 2025; ~20,000 MWh/yr
+
+- id: S136
+  publisher: EDP
+  title: EDP signs power purchase agreement with Amazon — Japan 44 MW solar
+  url: https://edp.com/en/media/news/edp-signs-power-purchase-agreement-amazon-japan
+  pub_date: 2025-01
+  kind: Primary
+  supports: Amazon–EDP APAC Fukushima solar 44 MW; 20-yr PPA; COD Q3 2025
+
+- id: S137
+  publisher: PV Magazine
+  title: X-ELIO signs 20-year PPA with Amazon for 14 MW of solar in Japan
+  url: https://www.pv-magazine.com/2025/01/29/x-elio-signs-20-year-ppa-with-amazon-for-14-mw-of-solar-in-japan/
+  pub_date: 2025-01
+  kind: Secondary
+  supports: Amazon–X-ELIO Funaki Solar 14 MW; Ube Yamaguchi Japan; 20-yr PPA; commissioned July 2025
+
+- id: S138
+  publisher: Renewables Now
+  title: Amazon unveils 49.5 MW wind project in Brazil — Elera Renováveis
+  url: https://renewablesnow.com/news/amazon-unveils-49-5-mw-wind-project-in-brazil-840323/
+  pub_date: 2024
+  kind: Secondary
+  supports: Amazon–Elera Renováveis 49.5 MW wind; Rio Grande do Norte Brazil; ~255 GWh/yr
+
+# ── Microsoft new sources ─────────────────────────────────────────────────────
+
+- id: S139
+  publisher: Helion Energy
+  title: Helion announces world's first fusion PPA with Microsoft — 50 MW Orion plant
+  url: https://www.helionenergy.com/articles/helion-announces-worlds-first-fusion-ppa-with-microsoft/
+  pub_date: 2023-05
+  kind: Primary
+  supports: Microsoft–Helion Energy fusion PPA 50 MW; Chelan County WA; COD 2028 target; construction started Jul 2025
+
+- id: S140
+  publisher: Constellation Energy
+  title: Constellation signs hourly carbon-free energy matching agreement with Microsoft — Boydton data center
+  url: https://www.constellationenergy.com/newsroom/2023/Constellation-signs-hourly-carbon-free-energy-matching-agreement-with-Microsoft-to-support-a-clean-powered-data-center.html
+  pub_date: 2023-06
+  kind: Primary
+  supports: Microsoft–Constellation hourly CFE matching for Boydton VA data center; covers up to 35% of load via existing nuclear fleet; no single named plant
+
+- id: S141
+  publisher: Shizen Energy
+  title: Shizen Energy Japan VPPA with Microsoft — Inuyama Solar 25 MW (2023) + 100 MW portfolio (2025)
+  url: https://www.shizenenergy.net/en/2025/10/03/seg_vppa_microsoft_100mw/
+  pub_date: 2025-10
+  kind: Primary
+  supports: Microsoft–Shizen Energy Japan portfolio — 4 projects totaling 100 MW across Kyushu and Chugoku; anchor 25 MW Inuyama Aichi (2024), plus 3 additional 20-yr VPPAs by Oct 2025
+
+- id: S142
+  publisher: Data Center Dynamics
+  title: Microsoft signs 154 MW wind PPA in Brazil with AES — Cajuína Wind Complex
+  url: https://www.datacenterdynamics.com/en/news/microsoft-signs-154mw-wind-ppa-in-brazil-with-aes/
+  pub_date: 2023-09
+  kind: Secondary
+  supports: Microsoft–AES Brasil Cajuína Wind 154 MW; Rio Grande do Norte Brazil; 15-yr PPA; COD July 2024
+
+- id: S143
+  publisher: ReNew Power
+  title: ReNew signs 437.6 MW green attribute contract with Microsoft — India hybrid
+  url: https://www.renew.com/press-release/renew-signs-437-6-mw-green-attribute-contract-with-microsoft
+  pub_date: 2024-09
+  kind: Primary
+  supports: Microsoft–ReNew Power India hybrid wind+solar 437.6 MW; green attribute (REC-equivalent) structure
+
+- id: S144
+  publisher: RWE
+  title: RWE signs PPA with Microsoft — Peyton Creek II + Lane City Wind, Texas 446 MW
+  url: https://www.rwe.com/en/press/rwe-ag/2024-05-23-rwe-signs-ppa-with-microsoft/
+  pub_date: 2024-05
+  kind: Primary
+  supports: Microsoft–RWE Texas wind 446 MW (Peyton Creek II 243 MW + Lane City 203 MW); two 15-yr vPPAs
+
+- id: S145
+  publisher: Pivot Energy
+  title: Pivot Energy collaborates with Microsoft — up to 500 MW community solar framework
+  url: https://www.pivotenergy.net/news-releases/pivot-energy-collaborates-with-microsoft-to-develop-up-to-500-mwac-of-community-scale-solar-projects-that-will-deliver-significant-benefits-to-local-communities
+  pub_date: 2024-08
+  kind: Primary
+  supports: Microsoft–Pivot Energy 500 MW community solar framework; 5-yr 2025–2029; ~150 projects in 20 states; 20-yr REC offtake per project
+
+- id: S146
+  publisher: European Energy
+  title: European Energy enters PPAs with Microsoft — Sweden/Denmark hybrid 180.6 MW
+  url: https://europeanenergy.com/2024/06/12/european-energy-enter-ppas-with-microsoft/
+  pub_date: 2024-06
+  kind: Primary
+  supports: Microsoft–European Energy Sweden/Denmark wind+solar 180.6 MW; region's first utility-scale hybrid project; >3.6 TWh over term
+
+- id: S147
+  publisher: Repsol
+  title: Repsol signs long-term renewable PPA with Microsoft — Spain 230 MW (6 projects)
+  url: https://www.repsol.com/en/press-room/press-releases/2024/repsol-signs-long-term-renewable-power-purchase-agreement-with-microsoft/index.cshtml
+  pub_date: 2024-06
+  kind: Primary
+  supports: Microsoft–Repsol Spain 230 MW (3 wind + 3 solar farms); 12-yr VPPAs; all operational by Dec 2025
+
+- id: S148
+  publisher: SSE Renewables
+  title: Power purchase deal inked with Microsoft for Lenalea Wind Farm — Ireland 30 MW
+  url: https://www.sserenewables.com/news-and-views/2024/05/power-purchase-deal-inked-with-microsoft-for-lenalea-wind-farm/
+  pub_date: 2024-05
+  kind: Primary
+  supports: Microsoft–SSE Renewables / FuturEnergy Ireland Lenalea wind 30 MW; Donegal Ireland; operational Dec 2023
+
+- id: S149
+  publisher: National Grid Renewables
+  title: National Grid Renewables signs PPA with Microsoft — Portage Solar Wisconsin 250 MW
+  url: https://nationalgridrenewables.com/press-release/national-grid-renewables-signs-power-purchase-agreement-with-microsoft/
+  pub_date: 2024-10
+  kind: Primary
+  supports: Microsoft–National Grid Renewables Portage Solar 250 MW; Portage County WI; under construction 2025
+
+- id: S150
+  publisher: PV Tech
+  title: Microsoft and EDPR VPPAs — 389 MW US solar (Wolf Run IL + Hickory IL + Cattlemen II TX)
+  url: https://www.pv-tech.org/microsoft-edpr-vppas-389mw-us-solar-capacity/
+  pub_date: 2025-02
+  kind: Secondary
+  supports: Microsoft–EDP Renewables NA 389 MW (Wolf Run 140 MW IL, Hickory 110 MW IL, Cattlemen II 150 MW TX); all operational; VPPAs
+
+- id: S151
+  publisher: TechCrunch
+  title: Solar notches another win as Microsoft adds 475 MW to power its AI data centers — AES portfolio
+  url: https://techcrunch.com/2025/03/20/solar-notches-another-win-as-microsoft-adds-475-mw-to-power-its-ai-data-centers/
+  pub_date: 2025-03
+  kind: Secondary
+  supports: Microsoft–AES US solar 475 MW portfolio (MI + MO + IL); 3 projects; 15-yr PPAs; COD H1 2025+
+
+- id: S152
+  publisher: Energia Group
+  title: Energia Group and Microsoft CPPA — Ballylongford + Crossmore Wind Farms Ireland 50 MW
+  url: https://www.energiagroup.com/news-media/energia-group-and-microsoft-announce-corporate-power-purchase-agreement-for-new-renewable-energy-in-ireland/
+  pub_date: 2025-03
+  kind: Primary
+  supports: Microsoft–Energia Group Ireland wind 50 MW (Ballylongford 25 MW + Crossmore 25 MW); COD 2025–2026
+
+- id: S153
+  publisher: Iberdrola
+  title: Iberdrola and Microsoft strengthen alliance — Iglesias + El Escudo wind Spain 150 MW
+  url: https://www.iberdrola.com/press-room/news/detail/iberdrola-microsoft-strengthen-alliance-two-long-term-ppas-150-mw-use-new-global-ai-solutions
+  pub_date: 2025-12
+  kind: Primary
+  supports: Microsoft–Iberdrola Spain wind 150 MW (Iglesias Burgos + El Escudo Cantabria); first EU PPAs between the two companies
+
+- id: S154
+  publisher: Data Center Dynamics
+  title: Microsoft partners with Powertrust — 270 MW solar portfolio Mexico + Brazil
+  url: https://www.datacenterdynamics.com/en/news/microsoft-partners-with-powertrust-to-support-construction-of-270mw-solar-portfolio-in-mexico-and-brazil/
+  pub_date: 2025-11
+  kind: Secondary
+  supports: Microsoft–Powertrust 270 MW solar REC purchase; Mexico + Brazil; COD 2027–2029; distributed/community-focus model
+
+- id: S155
+  publisher: FinancialContent / MarketMinute
+  title: NextEra Energy and TerraPower announce SMR partnership — Google and Microsoft anchor tenants
+  url: https://markets.financialcontent.com/stocks/article/marketminute-2026-4-8-nextera-energy-and-terrapower-announce-landmark-smr-partnership-to-fuel-google-and-microsoft-ai-data-centers
+  pub_date: 2026-04
+  kind: Secondary
+  supports: Microsoft+Google co-anchor tenant — NextEra/TerraPower Natrium SMR fleet; Iowa + SE US sites; MOU stage; first units late 2020s; no binding PPA
+
+- id: S156
+  publisher: Nscale
+  title: Nscale West Virginia AI factory — Monarch Compute Campus 1.35 GW compute (~2 GW BTM gas)
+  url: https://www.nscale.com/press-releases/nscale-west-virginia-ai-factory
+  pub_date: 2026-03
+  kind: Primary
+  supports: Microsoft (via Nscale compute LOI) — Monarch Compute Campus Mason County WV; ~2 GW Caterpillar BTM gas; first deployments late 2027; compute services LOI not direct power PPA
+
+- id: S157
+  publisher: PV Tech
+  title: FRV Australia brings 300 MW Walla Walla solar to full operation — Microsoft PPA
+  url: https://www.pv-tech.org/frv-australia-brings-300mw-solar-pv-power-plant-with-microsoft-ppa-to-full-operation/
+  pub_date: 2025-10
+  kind: Secondary
+  supports: Microsoft–FRV Australia Walla Walla Solar 300 MW; New South Wales; PPA signed 2021; fully operational Oct 2025
+
+- id: S158
+  publisher: Lightsource bp
+  title: Lightsource bp signs first solar contract with Microsoft in Poland — Kotuń 40 MW
+  url: https://lightsourcebp.com/news/poland-lightsource-bp-signs-first-solar-contract-with-microsoft/
+  pub_date: 2023-09
+  kind: Primary
+  supports: Microsoft–Lightsource bp Kotuń Solar 40 MW; Poland; PPA Sep 2023; COD July 2024
+
+- id: S159
+  publisher: Microsoft
+  title: Microsoft and G42 announce $1B digital ecosystem initiative for Kenya — KenGen geothermal DC
+  url: https://news.microsoft.com/source/2024/05/22/microsoft-and-g42-announce-1-billion-comprehensive-digital-ecosystem-initiative-for-kenya/
+  pub_date: 2024-05
+  kind: Primary
+  supports: Microsoft+G42+KenGen Kenya geothermal data center 100 MW initial (up to 1 GW); Olkaria geothermal; East Africa cloud region; COD ~2026
+
+- id: S160
+  publisher: Contact Energy
+  title: Contact signs 10-year renewable energy agreement with Microsoft — Te Huka geothermal NZ
+  url: https://contact.co.nz/investor-centre/news/2023/contact-signs-ten-year-renewable-energy-agreement-with-microsoft
+  pub_date: 2023
+  kind: Primary
+  supports: Microsoft–Contact Energy Te Huka Unit 3 geothermal 51 MW; Taupō NZ; 10-yr PPA; COD late 2024
+
+- id: S161
+  publisher: Ørsted
+  title: Ørsted enters major agreement on carbon removal — Microsoft BECCS 1 million tonnes
+  url: https://orsted.com/en/media/news/2024/05/oersted-enters-into-new-major-agreement-on-carbon--13859979
+  pub_date: 2024-05
+  kind: Primary
+  supports: Microsoft–Ørsted BECCS carbon removal 1 Mt (adds to prior 2.67 Mt; total 3.67 Mt); Avedøre Power Station Denmark; CO2 stored in Norwegian North Sea; 10-yr offtake
+
+- id: S162
+  publisher: Bloom Energy (IR)
+  title: Bloom Energy and Oracle Expand Strategic Partnership to Deploy up to 2.8 GW to Accelerate AI Infrastructure Build-Out
+  url: https://investor.bloomenergy.com/press-releases/press-release-details/2025/Oracle-and-Bloom-Energy-Collaborate-to-Deliver-Power-to-Data-Centers-at-the-Speed-of-AI/default.aspx
+  pub_date: 2026-04-13
+  kind: Primary
+  supports: Oracle–Bloom Energy 2.8 GW fuel-cell master agreement; 1.2 GW initial deployment operational late 2025 (completed in ~55 days); expansion to 2.8 GW total announced Apr 13 2026; Oracle warrant issued Apr 9 2026 on Oct 30 2025 terms

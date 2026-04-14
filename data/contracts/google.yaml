@@ -1,0 +1,460 @@
+company: Google
+rows:
+  - year: 2024
+    announced_date: 2024-10
+    generation_type: Nuclear
+    capacity_mw: 500
+    confidence: Sourced
+    deal_name: Kairos Power SMR fleet
+    counterparty: Kairos Power
+    cod_year: null
+    cod_note: Fleet delivery 2030–2035 (range). First unit (Hermes 2, 50 MW, Oak Ridge TN via TVA) targets 2030 — see S49.
+    status: PPA
+    notes: First SMR fleet deal by a US corporation.
+    source_id: S6
+
+  - year: 2024
+    generation_type: Solar
+    capacity_mw: 435
+    confidence: Sourced
+    deal_name: EnergyRe Texas 12-yr PPA
+    counterparty: EnergyRe
+    contract_years: 12
+    geography: US
+    cod_year: null
+    cod_note: COD not disclosed in cited source.
+    status: PPA
+    source_id: S7
+
+  - year: 2026
+    announced_date: 2026-04
+    generation_type: Gas
+    capacity_mw: 933
+    confidence: Sourced
+    deal_name: North Texas combined-cycle (Crusoe)
+    counterparty: Crusoe Energy
+    geography: US
+    cod_year: null
+    cod_note: COD not disclosed at announcement.
+    status: Announced
+    notes: Announced same week as Microsoft West Texas (Apr 2026).
+    source_id: S4
+
+  - year: 2025
+    announced_date: 2025-10
+    generation_type: Gas+CCS
+    capacity_mw: 400
+    confidence: Sourced
+    deal_name: Broadwing Energy CCS plant (Decatur, IL)
+    counterparty: Low Carbon Infrastructure / Mitsubishi
+    cod_year: 2029
+    cod_note: Plant online 2029; CCS operational by early 2030.
+    status: PPA
+    notes: Google buys "most" of plant output. First Google CCS-equipped power deal.
+    source_id: S48
+
+  - year: 2024
+    generation_type: Geothermal
+    capacity_mw: 3.5
+    confidence: Sourced
+    deal_name: Fervo Project Red (Nevada)
+    counterparty: Fervo Energy
+    cod_year: 2023
+    cod_note: Operational since 2023; supplies NV Energy grid serving Google data centers.
+    status: Operational
+    notes: First commercial enhanced-geothermal plant.
+    source_id: S50
+
+  - year: 2024
+    generation_type: Geothermal
+    capacity_mw: 115
+    confidence: Sourced
+    deal_name: NV Energy Clean Transition Tariff geothermal expansion (Fervo)
+    counterparty: Fervo Energy / NV Energy
+    cod_year: 2028
+    cod_note: ~115 MW expansion targeted ~2028.
+    status: PPA
+    source_id: S50
+
+  - year: 2024
+    announced_date: 2024-12
+    generation_type: Renewable
+    capacity_mw: null
+    confidence: Sourced
+    deal_name: Intersect Power / TPG Rise co-located clean-energy framework
+    counterparty: Intersect Power / TPG Rise Climate
+    cod_year: null
+    cod_note: First site Haskell County TX; framed as multi-GW / ~$20B; specific MW per site not disclosed.
+    status: Operational
+    notes: "Co-location model — gigawatt-scale renewables built alongside data centers. No primary source confirms a specific 3 GW figure. Alphabet acquired Intersect Power for $4.75B cash (deal Dec 2025, closed Mar 12 2026). TX/CA operating solar+storage assets spun off to IPX Power (TPG). Google retains development pipeline. Source: S104."
+    source_id: S51
+
+  - year: 2024
+    announced_date: 2024-02-01
+    generation_type: Wind
+    capacity_mw: 478
+    confidence: Sourced
+    deal_name: Netherlands offshore wind PPAs — HKN + HKW VI (Shell/Eneco)
+    counterparty: Shell / Eneco (CrossWind & Ecowende JVs)
+    cod_year: 2026
+    cod_note: HKN 759 MW total (operational Dec 2023); HKW VI 760 MW total (under construction, expected 2026). Google off-takes 478 MW combined.
+    status: PPA
+    geography: Netherlands
+    source_id: S85
+
+  - year: 2024
+    announced_date: 2024-02-01
+    generation_type: Wind
+    capacity_mw: 47
+    confidence: Sourced
+    deal_name: ERG Roccapalumba wind farm (Sicily)
+    counterparty: ERG Power Generation
+    cod_year: 2024
+    cod_note: 13 Vestas V136 turbines; ~100 GWh/yr; Q1 2024 commissioning.
+    status: PPA
+    geography: Italy
+    contract_years: 20
+    source_id: S86
+
+  - year: 2024
+    announced_date: 2024-02-01
+    generation_type: Solar
+    capacity_mw: 177
+    confidence: Sourced
+    deal_name: GoldenPeaks Poland solar portfolio
+    counterparty: GoldenPeaks Capital
+    cod_year: null
+    cod_note: 10-yr PPA; ~125 GWh/yr virtual supply; one of largest PV cPPAs in Poland at signing.
+    status: PPA
+    geography: Poland
+    source_id: S87
+
+  - year: 2024
+    announced_date: 2024-02-01
+    generation_type: Wind
+    capacity_mw: 59
+    confidence: Sourced
+    deal_name: Aspiravi Belgium onshore wind portfolio (59 MW)
+    counterparty: Aspiravi
+    cod_year: 2024
+    cod_note: 9 high-performance wind farms in Belgium; targeted operational 2024.
+    status: PPA
+    geography: Belgium
+    source_id: S88
+
+  - year: 2022
+    announced_date: 2022-11-24
+    generation_type: Wind
+    capacity_mw: 100
+    confidence: Sourced
+    deal_name: ENGIE Moray West offshore wind CPPA (Scotland)
+    counterparty: ENGIE / Ocean Winds (EDP Renewables + ENGIE JV)
+    cod_year: 2025
+    cod_note: 12-yr CPPA; Moray Firth Scotland; 882 MW total farm; Google off-takes 100 MW. Farm generating from 2025.
+    status: PPA
+    geography: UK
+    source_id: S89
+
+  - year: 2024
+    announced_date: 2024-09-19
+    generation_type: Solar
+    capacity_mw: 37
+    confidence: Sourced
+    deal_name: Elawan Energy Hill County Texas solar (37 MW)
+    counterparty: Elawan Energy
+    cod_year: 2026
+    cod_note: Hill County TX; commercial operations expected 2026.
+    status: PPA
+    geography: US
+    source_id: S90
+
+  - year: 2024
+    announced_date: 2024-09-19
+    generation_type: Solar+Storage
+    capacity_mw: 420
+    confidence: Sourced
+    deal_name: Pierce County Energy Center Nebraska (NextEra/OPPD)
+    counterparty: NextEra Energy Resources / OPPD
+    cod_year: 2027
+    cod_note: 420 MW solar + 680 MWh BESS; Pierce County NE; COD 2027.
+    status: PPA
+    geography: US
+    source_id: S91
+
+  - year: 2024
+    announced_date: 2024-10-24
+    generation_type: Solar
+    capacity_mw: 90
+    confidence: Sourced
+    deal_name: ENGIE Chillingham Solar (Bell County TX)
+    counterparty: ENGIE North America
+    cod_year: 2024
+    cod_note: Bell County TX; 350 MW total project; Google off-takes 90 MW; operational late 2024.
+    status: PPA
+    geography: US
+    source_id: S92
+
+  - year: 2024
+    announced_date: 2024-10-03
+    generation_type: Renewable
+    capacity_mw: null
+    confidence: Sourced
+    deal_name: Adani Khavda solar-wind hybrid (Gujarat India)
+    counterparty: Adani Green Energy
+    cod_year: 2025
+    cod_note: Solar-wind hybrid at Khavda Gujarat; specific MW not disclosed; expected Q3 2025 commercial operations.
+    status: PPA
+    geography: India
+    notes: MW not publicly disclosed; third Google India PPA at world's largest RE park.
+    source_id: S93
+
+  - year: 2024
+    announced_date: 2024-10-03
+    generation_type: Renewable
+    capacity_mw: 125
+    confidence: Sourced
+    deal_name: CleanMax India hybrid wind-solar (125.4 MW)
+    counterparty: CleanMax Enviro Energy Solutions
+    cod_year: 2025
+    cod_note: 66 MW solar (Rajasthan) + 59.4 MW wind (Karnataka); national grid; COD Q4 2025.
+    status: PPA
+    geography: India
+    source_id: S94
+
+  - year: 2025
+    announced_date: 2025-05-07
+    generation_type: Nuclear
+    capacity_mw: 1800
+    confidence: Sourced
+    deal_name: Elementl Power nuclear site development — 3 sites (≥600 MW each)
+    counterparty: Elementl Power
+    cod_year: null
+    cod_note: Early-stage; technology-agnostic; Google funds permitting and interconnection; option to purchase power when operational. No COD set.
+    status: Framework
+    geography: US
+    notes: Three sites ≥600 MW each; site locations undisclosed. Not a PPA yet — option to purchase.
+    source_id: S95
+
+  - year: 2025
+    announced_date: 2025-04-15
+    generation_type: Geothermal
+    capacity_mw: 10
+    confidence: Sourced
+    deal_name: Baseload Capital Taiwan geothermal PPA (10 MW)
+    counterparty: Baseload Capital
+    cod_year: 2029
+    cod_note: First corporate geothermal PPA in Taiwan; doubles Taiwan installed geothermal capacity; COD 2029.
+    status: PPA
+    geography: Taiwan
+    notes: Includes equity investment by Google into Baseload Capital; first geothermal deal in Asia for Google.
+    source_id: S97
+
+  - year: 2025
+    announced_date: 2025-03-20
+    generation_type: Wind
+    capacity_mw: 35
+    confidence: Sourced
+    deal_name: Exus Renewables Cascante wind farm (Navarra Spain)
+    counterparty: Exus Renewables Europe
+    cod_year: null
+    cod_note: 51 MW total farm; Google off-takes 35 MW; Navarra Spain; 10-yr PPA; ~136 GWh/yr.
+    status: PPA
+    geography: Spain
+    source_id: S98
+
+  - year: 2025
+    announced_date: 2025-05-06
+    generation_type: Wind
+    capacity_mw: 108
+    confidence: Sourced
+    deal_name: Shell NoordzeeWind offshore wind life-extension (Netherlands)
+    counterparty: Shell
+    cod_year: 2027
+    cod_note: Extends farm life to 2031 (4+ yr beyond original 2027 decommission). 36 turbines; Google buys 100% of output. Egmond aan Zee NL.
+    status: PPA
+    geography: Netherlands
+    notes: First corporate PPA to extend lifespan of an offshore wind farm.
+    source_id: S99
+
+  - year: 2025
+    announced_date: 2025-10-27
+    generation_type: Nuclear
+    capacity_mw: 615
+    confidence: Sourced
+    deal_name: NextEra Duane Arnold nuclear plant restart (Palo IA)
+    counterparty: NextEra Energy
+    cod_year: 2029
+    cod_note: Iowa's only nuclear plant; COD early 2029; $1.6B+ restart. CIPCO (Central Iowa Power Cooperative, 30% minority owner being acquired by NextEra) also purchases a share of plant output — exact Google vs. CIPCO MW split not publicly disclosed. 615 MW is the plant gross capacity; Google's actual contracted offtake is likely somewhat less.
+    status: PPA
+    geography: US
+    contract_years: 25
+    notes: Boiling water reactor shut Oct 2020. Google planning up to 6 data centers near site. FLAG — 615 MW is full plant nameplate; Google shares output with CIPCO. Actual Google MW unknown; use 615 MW as upper bound.
+    source_id: S100
+
+  - year: 2025
+    announced_date: 2025-11-12
+    generation_type: Solar
+    capacity_mw: 49
+    confidence: Sourced
+    deal_name: TotalEnergies Montpelier Solar (Williams County OH)
+    counterparty: TotalEnergies
+    cod_year: 2026
+    cod_note: Williams County OH; PJM grid; expected full operation early 2026.
+    status: PPA
+    geography: US
+    contract_years: 15
+    source_id: S101
+
+  - year: 2025
+    announced_date: 2025-12-16
+    generation_type: Solar
+    capacity_mw: 150
+    confidence: Sourced
+    deal_name: ReNew Energy Rajasthan solar (India)
+    counterparty: ReNew Energy Global
+    cod_year: 2026
+    cod_note: Rajasthan India; COD 2026; ~425,000 MWh/yr.
+    status: PPA
+    geography: India
+    source_id: S102
+
+  - year: 2025
+    announced_date: 2025-12-16
+    generation_type: Solar
+    capacity_mw: 20
+    confidence: Sourced
+    deal_name: TotalEnergies Malaysia Citra Energies solar (Kedah)
+    counterparty: TotalEnergies / MK Land (Citra Energies)
+    cod_year: 2026
+    cod_note: Kedah province Malaysia; 21-yr PPA; financial close Q1 2026; COD 2026. Malaysia CGPP programme.
+    status: PPA
+    geography: Malaysia
+    contract_years: 21
+    source_id: S103
+
+  - year: 2025
+    announced_date: 2026-01-15
+    generation_type: Solar
+    capacity_mw: 650
+    confidence: Sourced
+    deal_name: Clearway Swan Solar (Missouri)
+    counterparty: Clearway Energy Group
+    cod_year: 2028
+    cod_note: New construction solar in Missouri; SPP grid; COD 2028.
+    status: PPA
+    geography: US
+    contract_years: 20
+    source_id: S105
+
+  - year: 2025
+    announced_date: 2026-01-15
+    generation_type: Wind
+    capacity_mw: 147
+    confidence: Sourced
+    deal_name: Clearway Catamount Wind (West Virginia)
+    counterparty: Clearway Energy Group
+    cod_year: 2028
+    cod_note: New construction wind in WV; PJM grid; 2027 construction start; COD 2028.
+    status: PPA
+    geography: US
+    contract_years: 20
+    source_id: S105
+
+  - year: 2025
+    announced_date: 2026-01-15
+    generation_type: Wind
+    capacity_mw: 150
+    confidence: Sourced
+    deal_name: Clearway Goat Mountain Wind repowering (Texas)
+    counterparty: Clearway Energy Group
+    cod_year: 2027
+    cod_note: Existing operational TX wind project; repowering targeted 2027; ERCOT.
+    status: PPA
+    geography: US
+    contract_years: 15
+    source_id: S105
+
+  - year: 2026
+    announced_date: 2026-02-17
+    generation_type: Geothermal
+    capacity_mw: 150
+    confidence: Sourced
+    deal_name: Ormat Nevada geothermal portfolio (via NV Energy CTT)
+    counterparty: Ormat Technologies / NV Energy
+    cod_year: 2028
+    cod_note: Multi-project portfolio COD 2028–2030; via NV Energy Clean Transition Tariff; PUCN approval pending H2 2026. Distinct from Fervo NV Energy CTT row.
+    status: PPA
+    geography: US
+    contract_years: 15
+    source_id: S106
+
+  - year: 2026
+    announced_date: 2026-02-09
+    generation_type: Solar
+    capacity_mw: 1000
+    confidence: Sourced
+    deal_name: TotalEnergies Texas solar 1 GW — Wichita + Mustang Creek
+    counterparty: TotalEnergies
+    cod_year: null
+    cod_note: Wichita 805 MWp (Wichita County) + Mustang Creek 195 MWp (Johnson County); construction starts Q2 2026; COD not specified.
+    status: PPA
+    geography: US
+    notes: Two 15-yr PPAs; 28 TWh total over term. TotalEnergies' largest US renewable PPA volume ever.
+    source_id: S107
+
+  - year: 2026
+    announced_date: 2026-02-24
+    generation_type: Renewable
+    capacity_mw: 1900
+    confidence: Sourced
+    deal_name: Xcel Energy Minnesota Clean Energy Accelerator — wind + solar + Form Energy storage
+    counterparty: Xcel Energy / Form Energy
+    cod_year: 2028
+    cod_note: 1,400 MW wind + 200 MW solar + 300 MW Form Energy iron-air battery (~30 GWh, ~100-hr); COD 2028–2029. Pine Island MN.
+    status: Announced
+    geography: US
+    notes: Clean Energy Accelerator Charge tariff. World's largest iron-air battery by capacity. Google covers all incremental costs. Tied to Google's first MN data center.
+    source_id: S108
+
+  - year: 2026
+    announced_date: 2026-02-05
+    generation_type: Wind
+    capacity_mw: 100
+    confidence: Sourced
+    deal_name: EnBW He Dreiht offshore wind (Germany)
+    counterparty: EnBW
+    cod_year: 2026
+    cod_note: He Dreiht 960 MW total; Google off-takes 100 MW; German North Sea ~85 km NW of Borkum; first power Nov 2025; all turbines expected commissioned summer 2026.
+    status: PPA
+    geography: Germany
+    contract_years: 15
+    source_id: S109
+
+  - year: 2026
+    announced_date: 2026-03-17
+    generation_type: Solar+Storage
+    capacity_mw: 2750
+    confidence: Sourced
+    deal_name: DTE Michigan Clean Capacity Accelerator — 2.7 GW total (solar + storage + clean resources)
+    counterparty: DTE Energy
+    cod_year: 2027
+    cod_note: Full package — 1,600 MW solar + 450 MW BESS (4-hr) + 50 MW LDES + ~300 MW additional clean resources (wind/hydro/nuclear/geo) + ~350 MW demand response = ~2,750 MW total. Van Buren Township Wayne County MI; data center service begins Dec 2027; MPSC approval pending. Google funds 1,600 MW solar + BESS directly.
+    status: Announced
+    geography: US
+    contract_years: 20
+    notes: '"Project Cannoli" 1 GW data center. 1,600 MW was previously recorded — that is only the solar layer. Full Clean Capacity Accelerator agreement is ~2.7 GW (~2,750 MW). $10M community energy fund.'
+    source_id: S110
+
+  - year: 2025
+    announced_date: 2025-10-09
+    generation_type: Wind
+    capacity_mw: 54
+    confidence: Sourced
+    deal_name: Eneco Belgium onshore wind portfolio (54 MW)
+    counterparty: Eneco
+    cod_year: null
+    cod_note: Three undisclosed wind farms in Belgium; 10-yr PPA.
+    status: PPA
+    geography: Belgium
+    notes: Tied to Google data center expansions in Saint-Ghislain and Farciennes.
+    source_id: S111

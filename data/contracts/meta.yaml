@@ -1,0 +1,261 @@
+company: Meta
+rows:
+  - year: 2026
+    announced_date: 2026-01-09
+    generation_type: Nuclear
+    capacity_mw: 2609
+    confidence: Sourced
+    deal_name: Vistra nuclear PPAs — Perry + Davis-Besse + Beaver Valley uprates
+    counterparty: Vistra Corp
+    cod_year: 2026
+    cod_note: Purchases begin late 2026; 2,176 MW from existing Perry (OH) + Davis-Besse (OH); 433 MW from uprates at those plants and Beaver Valley (PA). Full 2,609 MW by 2034.
+    status: PPA
+    notes: 20-year PPAs in PJM region. Part of Jan 9 2026 6.6 GW package.
+    source_id: S73
+
+  - year: 2026
+    announced_date: 2026-01-09
+    generation_type: Nuclear
+    capacity_mw: 2800
+    confidence: Sourced
+    deal_name: TerraPower Natrium nuclear — 8-reactor agreement
+    counterparty: TerraPower
+    cod_year: 2032
+    cod_note: Initial 2 Natrium units (~690 MW) targeted ~2032; rights for 6 more (~2,070 MW) by 2035. 345 MW/unit baseload; upgradeable to 500 MW with thermal storage. Site TBD. Official stated capacity "up to 2.8 GW" — 8 × 345 MW = 2,760 MW baseload, rounded to 2,800 MW in all press releases.
+    status: MOU
+    notes: Part of Jan 2026 6.6 GW package. Official figure is "up to 2.8 GW"; 2,760 MW was an arithmetic derivation not used in primary sources.
+    source_id: S74
+
+  - year: 2026
+    announced_date: 2026-01-09
+    generation_type: Nuclear
+    capacity_mw: 1200
+    confidence: Sourced
+    deal_name: Oklo Aurora — Pike County nuclear campus (Southern Ohio)
+    counterparty: Oklo Inc.
+    cod_year: 2030
+    cod_note: Phase 1 targeted as early as 2030; full 1.2 GW by 2034. Meta prepaying for power; Oklo using funds to secure nuclear fuel and advance 206-acre former DOE site.
+    status: MOU
+    notes: Part of Jan 2026 6.6 GW package. S15 (original source) still relevant but S75 is the Oklo primary.
+    source_id: S75
+
+  - year: 2025
+    generation_type: Nuclear
+    capacity_mw: 1100
+    confidence: Sourced
+    deal_name: Constellation Illinois 1.1 GW (20-yr PPA)
+    counterparty: Constellation Energy
+    contract_years: 20
+    cod_year: null
+    cod_note: Clinton plant is existing operational nuclear; PPA offtake begins mid-2027.
+    status: PPA
+    source_id: S16
+
+  - year: 2026
+    announced_date: 2025
+    generation_type: Gas
+    capacity_mw: 2300
+    confidence: Sourced
+    deal_name: Hyperion Louisiana — Phase 1 (3 plants, approved 2025)
+    counterparty: Entergy Louisiana
+    cod_year: 2028
+    cod_note: Phase 1 approved by LA PSC 2025; online 2028–2029 per reporting.
+    status: Approved
+    notes: Part of 10-plant, 7,500 MW Hyperion campus.
+    source_id: S17
+
+  - year: 2026
+    announced_date: 2026-03-27
+    generation_type: Gas
+    capacity_mw: 5200
+    confidence: Sourced
+    deal_name: Hyperion Louisiana — Phase 2 (7 additional plants)
+    counterparty: Entergy Louisiana
+    cod_year: null
+    cod_note: Requires Louisiana PSC approval; COD not disclosed.
+    status: Announced
+    source_id: S17
+
+  - year: 2026
+    announced_date: 2026-03-27
+    generation_type: Solar+Storage
+    capacity_mw: 2500
+    confidence: Sourced
+    deal_name: Hyperion campus renewables + BESS
+    counterparty: Entergy Louisiana
+    cod_year: null
+    cod_note: COD aligned with Hyperion campus build-out; not disclosed.
+    status: Announced
+    source_id: S17
+
+  - year: 2025
+    announced_date: 2025-06
+    generation_type: Gas
+    capacity_mw: 200
+    confidence: Sourced
+    deal_name: Socrates South (Prometheus / New Albany OH) — Phase 1
+    counterparty: Williams Companies (Will-Power OH)
+    cod_year: 2026
+    cod_note: Q3 2026 in-service per Williams.
+    status: Approved
+    notes: Behind-the-meter gas via Williams subsidiary.
+    source_id: S44
+
+  - year: 2025
+    announced_date: 2025-06
+    generation_type: Gas
+    capacity_mw: 200
+    confidence: Sourced
+    deal_name: Socrates North (New Albany OH)
+    counterparty: Williams Companies (Will-Power OH)
+    cod_year: null
+    cod_note: COD not disclosed; planned but timing TBD.
+    status: Announced
+    source_id: S44
+
+  - year: 2025
+    announced_date: 2025-06
+    generation_type: Geothermal
+    capacity_mw: 150
+    confidence: Sourced
+    deal_name: XGS Energy advanced geothermal (New Mexico)
+    counterparty: XGS Energy
+    cod_year: 2030
+    cod_note: COD targeted 2030 per XGS.
+    status: PPA
+    source_id: S53
+
+  - year: 2024
+    announced_date: 2024-08
+    generation_type: Geothermal
+    capacity_mw: 150
+    confidence: Sourced
+    deal_name: Sage Geosystems geopressured geothermal
+    counterparty: Sage Geosystems
+    cod_year: 2027
+    cod_note: Phase 1 by 2027; site location undisclosed (east of Rockies).
+    status: PPA
+    source_id: S54
+
+  - year: 2025
+    announced_date: 2025-12-08
+    generation_type: Solar+Storage
+    capacity_mw: 2500
+    confidence: Sourced
+    deal_name: NextEra 2.5 GW solar+storage US portfolio (11 PPAs + 2 ESAs)
+    counterparty: NextEra Energy Resources
+    cod_year: 2028
+    cod_note: 13 projects online 2026–2028; ~2,100 MW solar across ERCOT/SPP/MISO; 190 MW solar + 168 MW BESS in NM via PNM Rate 36B.
+    status: PPA
+    notes: Includes Star Light Energy Centre (100 MW/400 MWh BESS, NM) and Windy Lane Energy Centre (68 MW/272 MWh BESS, NM). Portfolio spans TX, central US, Midwest, NM.
+    source_id: S76
+
+  - year: 2021
+    generation_type: Solar+Storage
+    capacity_mw: 240
+    confidence: Sourced
+    deal_name: Sky Ranch Solar Energy Center (NM) — operational
+    counterparty: NextEra Energy Resources / PNM
+    cod_year: 2024
+    cod_note: 190 MW solar + 50 MW / 4-hr BESS; commissioned May 23 2024; Valencia County NM; PPA via PNM Rate 36B.
+    status: Operational
+    notes: PPA signed 2021 (when company was still Facebook). Included in Dec 2025 NextEra 2.5 GW announcement as an existing operational asset.
+    source_id: S84
+
+  - year: 2025
+    announced_date: 2025-10-27
+    generation_type: Solar
+    capacity_mw: 600
+    confidence: Sourced
+    deal_name: ENGIE Swenson Ranch Solar (Stonewall County TX)
+    counterparty: ENGIE North America
+    cod_year: 2027
+    cod_note: Stonewall County TX; $900M project; COD 2027. Brings Meta–ENGIE total to 1.3+ GW across 4 TX projects.
+    status: PPA
+    source_id: S77
+
+  - year: 2024
+    announced_date: 2024-10-31
+    generation_type: Solar
+    capacity_mw: 260
+    confidence: Sourced
+    deal_name: ENGIE Sypert Branch Solar (Milam County TX)
+    counterparty: ENGIE North America
+    cod_year: 2025
+    cod_note: Milam County TX, ~70 mi NE of Austin; expected operations late 2025. Environmental Attributes Purchase Agreement.
+    status: PPA
+    source_id: S78
+
+  - year: 2025
+    announced_date: 2025-03-18
+    generation_type: Solar
+    capacity_mw: 200
+    confidence: Sourced
+    deal_name: RWE Waterloo Solar (Bastrop County TX)
+    counterparty: RWE Clean Energy
+    contract_years: 15
+    cod_year: 2027
+    cod_note: Bastrop County TX; construction began late 2025; online late 2027.
+    status: PPA
+    source_id: S80
+
+  - year: 2024
+    announced_date: 2024-08-13
+    generation_type: Solar
+    capacity_mw: 274
+    confidence: Sourced
+    deal_name: RWE County Run Solar (Clark/Cumberland/Coles Counties IL)
+    counterparty: RWE Clean Energy
+    cod_year: 2025
+    cod_note: Clark, Cumberland, and Coles Counties IL; commissioning planned late 2025.
+    status: PPA
+    source_id: S79
+
+  - year: 2024
+    announced_date: 2024-08-13
+    generation_type: Solar
+    capacity_mw: 100
+    confidence: Sourced
+    deal_name: RWE Lafitte Solar (Ouachita Parish LA)
+    counterparty: RWE Clean Energy
+    cod_year: 2025
+    cod_note: Ouachita Parish LA; commissioning planned late 2025.
+    status: PPA
+    source_id: S79
+
+  - year: 2024
+    announced_date: 2024-12-05
+    generation_type: Solar
+    capacity_mw: 760
+    confidence: Sourced
+    deal_name: Invenergy Batch 1 — Hardin II / Delilah II / Tip Top / Chalk Bluff (760 MW)
+    counterparty: Invenergy
+    cod_year: 2027
+    cod_note: Hardin II OH 150 MW (COD 2024), Delilah II TX 150 MW (COD 2025), Tip Top NM 110 MW (COD 2026), Chalk Bluff AR 350 MW (COD 2027). EAPAs.
+    status: PPA
+    source_id: S81
+
+  - year: 2025
+    announced_date: 2025-06-26
+    generation_type: Renewable
+    capacity_mw: 791
+    confidence: Sourced
+    deal_name: Invenergy Batch 2 — Yellow Wood / Pleasant Prairie / Decoy / Seaway (791 MW)
+    counterparty: Invenergy
+    cod_year: 2028
+    cod_note: Yellow Wood Solar OH 300 MW (COD 2027), Pleasant Prairie Solar OH 140 MW (COD 2027), Decoy Solar AR 155 MW (COD 2027), Seaway Wind TX 196 MW (COD 2028). EAPAs.
+    status: PPA
+    source_id: S82
+
+  - year: 2025
+    announced_date: 2025-12
+    generation_type: Gas
+    capacity_mw: 366
+    confidence: Sourced
+    deal_name: El Paso Electric McCloud gas facility (El Paso TX)
+    counterparty: El Paso Electric / Enchanted Rock
+    cod_year: 2027
+    cod_note: 813 modular Enchanted Rock generators × 450 kW = 366 MW. Meta funds plant exclusively for first 5-yr bridge period then connects to grid. PUC TX + TCEQ approval pending (filed Dec 2025).
+    status: Announced
+    notes: $473M facility. El Paso Electric builds and owns; Enchanted Rock operates. Announcement via PUC filing.
+    source_id: S83

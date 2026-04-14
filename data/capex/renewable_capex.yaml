@@ -1,0 +1,67 @@
+rows:
+  - technology: Solar-Utility
+    year: 2022
+    cost_mid_kw: 1430
+    data_type: Benchmark
+    label: NREL-ATB-2024-base
+    notes: $/kWAC basis.
+    source_id: S34
+
+  - technology: Solar-Utility
+    year: 2024
+    cost_mid_kw: 1420
+    data_type: Benchmark
+    label: NREL-Q1-2024
+    notes: ~$1,060/kWdc at ILR 1.34.
+    source_id: S35
+
+  - technology: Battery-4hr
+    year: 2024
+    cost_mid_kw: 1336
+    data_type: Benchmark
+    label: NREL-2024-334kWh-x4h
+    notes: Total system cost ($334/kWh × 4 h).
+    source_id: S36
+
+  - technology: Solar+Battery-4hr
+    year: 2024
+    cost_mid_kw: 2110
+    data_type: Benchmark
+    label: NREL-2023-100MWdc-60MW-240MWh
+    notes: $2.11/Wdc for 100 MWdc + 60 MW / 240 MWh BESS.
+    source_id: S37
+
+  - technology: Wind-Onshore
+    year: 2024
+    cost_low_kw: 1400
+    cost_mid_kw: 1600
+    cost_high_kw: 2000
+    data_type: Benchmark
+    label: NREL-ATB-2024-wind
+    notes: Range reflects site variation.
+    source_id: S34
+
+  - technology: Battery-4hr
+    year: 2025
+    cost_mid_kw: 975
+    data_type: Derived
+    label: BNEF-derived-2025
+    notes: Derived by applying BNEF −27% YoY to 2024 $1,336/kW benchmark.
+    source_id: S21
+
+  - technology: Nuclear-New
+    year: 2025
+    cost_low_kw: 6417
+    cost_high_kw: 12681
+    data_type: Estimate
+    label: Introl-GS-2025
+    notes: New-build only; SMRs unproven at scale.
+    source_id: S38
+
+  - technology: Nuclear-Vogtle
+    year: 2025
+    cost_mid_kw: 14700
+    data_type: Actual
+    label: Vogtle-actual
+    notes: ~$32.3B for 2.2 GW Vogtle units.
+    source_id: S22

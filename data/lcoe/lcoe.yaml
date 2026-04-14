@@ -1,0 +1,363 @@
+# LCOE observations. One row = one (technology, vintage, report) observation.
+# Uniqueness: (technology, year_vintage, report_name, subsidized, geography) must not repeat.
+# If you load two observations of the same tech-year from different reports (e.g. Lazard + BNEF),
+# use distinct report_name values — both will load and analyze.py will show them side-by-side.
+
+rows:
+  # ---- Wind — Onshore (standalone) ----
+  - technology: Wind-Onshore
+    year_vintage: 2021
+    report_name: Lazard v15
+    report_date: 2021-10
+    geography: US
+    subsidized: 0
+    lcoe_mid: 38
+    currency_year: 2021 USD
+    notes: Historical midpoint only; range not recorded here.
+    source_id: S18
+
+  - technology: Wind-Onshore
+    year_vintage: 2023
+    report_name: Lazard v17 (historical reference)
+    report_date: 2023-04
+    geography: US
+    subsidized: 0
+    lcoe_mid: 50
+    currency_year: 2023 USD
+    notes: Historical midpoint only.
+    source_id: S18
+
+  - technology: Wind-Onshore
+    year_vintage: 2024
+    report_name: Lazard v17
+    report_date: 2024-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 27
+    lcoe_mid: 50
+    lcoe_high: 73
+    currency_year: 2024 USD
+    source_id: S18
+
+  - technology: Wind-Onshore
+    year_vintage: 2025
+    report_name: Lazard v18
+    report_date: 2025-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 37
+    lcoe_mid: 62
+    lcoe_high: 86
+    currency_year: 2025 USD
+    source_id: S19
+
+  # ---- Solar PV — Utility Scale (standalone) ----
+  - technology: Solar-Utility
+    year_vintage: 2021
+    report_name: Lazard v15
+    report_date: 2021-10
+    geography: US
+    subsidized: 0
+    lcoe_mid: 36
+    currency_year: 2021 USD
+    source_id: S18
+
+  - technology: Solar-Utility
+    year_vintage: 2023
+    report_name: Lazard v17 (historical reference)
+    report_date: 2023-04
+    geography: US
+    subsidized: 0
+    lcoe_mid: 60
+    currency_year: 2023 USD
+    source_id: S18
+
+  - technology: Solar-Utility
+    year_vintage: 2024
+    report_name: Lazard v17
+    report_date: 2024-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 29
+    lcoe_mid: 61
+    lcoe_high: 92
+    currency_year: 2024 USD
+    notes: Mid confirmed in Utility Dive; low/high estimated from range commentary.
+    source_id: S18
+
+  - technology: Solar-Utility
+    year_vintage: 2025
+    report_name: Lazard v18
+    report_date: 2025-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 38
+    lcoe_mid: 58
+    lcoe_high: 78
+    currency_year: 2025 USD
+    source_id: S19
+
+  - technology: Solar-Utility
+    year_vintage: 2025
+    report_name: Lazard v18 (with PTC)
+    report_date: 2025-06
+    geography: US
+    subsidized: 1
+    lcoe_low: 20
+    lcoe_high: 45
+    currency_year: 2025 USD
+    notes: With IRA production tax credit; mid not published in secondary source.
+    source_id: S19
+
+  # ---- Gas — Combined Cycle (new build) ----
+  - technology: Gas-CC
+    year_vintage: 2021
+    report_name: Lazard v15
+    report_date: 2021-10
+    geography: US
+    subsidized: 0
+    lcoe_mid: 60
+    source_id: S18
+
+  - technology: Gas-CC
+    year_vintage: 2023
+    report_name: Lazard v17 (historical reference)
+    report_date: 2023-04
+    geography: US
+    subsidized: 0
+    lcoe_mid: 70
+    source_id: S18
+
+  - technology: Gas-CC
+    year_vintage: 2024
+    report_name: Lazard v17
+    report_date: 2024-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 44
+    lcoe_mid: 76
+    lcoe_high: 108
+    source_id: S18
+
+  - technology: Gas-CC
+    year_vintage: 2025
+    report_name: Lazard v18
+    report_date: 2025-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 48
+    lcoe_mid: 79
+    lcoe_high: 109
+    notes: |
+      Lazard uses last-twelve-months project data. Real-world 2026 US procurement
+      (see gas_capex) implies ~$90–150/MWh depending on capacity factor.
+    source_id: S20
+
+  - technology: Gas-CC
+    year_vintage: 2025
+    report_name: BNEF LCOE 2026
+    report_date: 2026-02
+    geography: Global
+    subsidized: 0
+    lcoe_mid: 102
+    notes: Global benchmark; US-specific expected to be higher.
+    source_id: S21
+
+  # ---- Gas — Peaking (combustion turbine) ----
+  - technology: Gas-Peaker
+    year_vintage: 2024
+    report_name: Lazard v17
+    report_date: 2024-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 110
+    lcoe_mid: 169
+    lcoe_high: 228
+    source_id: S18
+
+  - technology: Gas-Peaker
+    year_vintage: 2025
+    report_name: Lazard v18
+    report_date: 2025-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 149
+    lcoe_mid: 200
+    lcoe_high: 251
+    source_id: S20
+
+  # ---- Solar + 4-hr Battery ----
+  - technology: Solar+Storage-4hr
+    year_vintage: 2024
+    report_name: Lazard v17
+    report_date: 2024-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 60
+    lcoe_mid: 135
+    lcoe_high: 210
+    source_id: S18
+
+  - technology: Solar+Storage-4hr
+    year_vintage: 2025
+    report_name: Lazard v18
+    report_date: 2025-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 50
+    lcoe_mid: 91
+    lcoe_high: 131
+    notes: From Lazard PDF direct; less independent confirmation than solar/wind ranges.
+    source_id: S22
+
+  - technology: Solar+Storage-4hr
+    year_vintage: 2024
+    report_name: IRENA hybrid projects
+    report_date: 2025-07
+    geography: US
+    subsidized: 0
+    lcoe_mid: 79
+    notes: |
+      17 actual operational US hybrid projects, 4,486 MW solar + 7,677 MWh storage.
+      Weighted average, not a modeled LCOE.
+    source_id: S23
+
+  # ---- Wind + 4-hr Battery ----
+  - technology: Wind+Storage-4hr
+    year_vintage: 2024
+    report_name: Lazard v17
+    report_date: 2024-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 45
+    lcoe_mid: 89
+    lcoe_high: 133
+    source_id: S18
+
+  - technology: Wind+Storage-4hr
+    year_vintage: 2025
+    report_name: Lazard v18
+    report_date: 2025-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 44
+    lcoe_mid: 84
+    lcoe_high: 123
+    source_id: S22
+
+  # ---- Battery storage — standalone 4-hr utility ----
+  - technology: Battery-4hr-Standalone
+    year_vintage: 2024
+    report_name: Lazard v17 / LCOS v9
+    report_date: 2024-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 170
+    lcoe_mid: 233
+    lcoe_high: 296
+    source_id: S18
+
+  - technology: Battery-4hr-Standalone
+    year_vintage: 2024
+    report_name: Lazard v17 (with ITC)
+    report_date: 2024-06
+    geography: US
+    subsidized: 1
+    lcoe_low: 83
+    lcoe_high: 192
+    source_id: S24
+
+  - technology: Battery-4hr-Standalone
+    year_vintage: 2025
+    report_name: BNEF LCOE 2026
+    report_date: 2026-02
+    geography: Global
+    subsidized: 0
+    lcoe_mid: 78
+    notes: Record low; down 27% YoY.
+    source_id: S21
+
+  # ---- Wind — Offshore ----
+  - technology: Wind-Offshore
+    year_vintage: 2024
+    report_name: Lazard v17
+    report_date: 2024-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 66
+    lcoe_mid: 112
+    lcoe_high: 157
+    source_id: S18
+
+  - technology: Wind-Offshore
+    year_vintage: 2025
+    report_name: Lazard v18
+    report_date: 2025-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 66
+    lcoe_mid: 112
+    lcoe_high: 157
+    notes: Broadly unchanged vs v17; UK offshore up 69% vs 5yr ago per BNEF.
+    source_id: S22
+
+  # ---- Nuclear (US, new build) ----
+  - technology: Nuclear-New
+    year_vintage: 2024
+    report_name: Lazard v17
+    report_date: 2024-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 141
+    lcoe_mid: 181
+    lcoe_high: 220
+    notes: Vogtle-based; adjusted for inflation.
+    source_id: S18
+
+  - technology: Nuclear-New
+    year_vintage: 2025
+    report_name: Lazard v18
+    report_date: 2025-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 141
+    lcoe_mid: 181
+    lcoe_high: 220
+    notes: Down ~1% vs v17 (Vogtle learning curve).
+    source_id: S20
+
+  # ---- Coal ----
+  - technology: Coal
+    year_vintage: 2024
+    report_name: Lazard v17
+    report_date: 2024-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 71
+    lcoe_mid: 122
+    lcoe_high: 173
+    source_id: S18
+
+  - technology: Coal
+    year_vintage: 2025
+    report_name: Lazard v18
+    report_date: 2025-06
+    geography: US
+    subsidized: 0
+    lcoe_low: 71
+    lcoe_mid: 122
+    lcoe_high: 173
+    source_id: S20
+
+  # ---- Geothermal ----
+  - technology: Geothermal
+    year_vintage: 2025
+    report_name: EIA AEO2025
+    report_date: 2025-04
+    geography: US
+    subsidized: 0
+    lcoe_low: 37
+    lcoe_mid: 55
+    lcoe_high: 71
+    notes: Capacity-weighted; plants entering service 2030.
+    source_id: S25

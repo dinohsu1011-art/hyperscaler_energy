@@ -1,0 +1,82 @@
+rows:
+  # ---- Gas CCGT ----
+  - year: 2022
+    plant_type: CCGT
+    cost_mid_kw: 785
+    data_type: Actual
+    label: NextEra-2022-actual
+    notes: Last CCGT NextEra built (cited by CEO March 2025).
+    source_id: S26
+
+  - year: 2023
+    plant_type: CCGT
+    cost_mid_kw: 921
+    data_type: Benchmark
+    label: EIA-AEO2025-benchmark
+    notes: EIA / Sargent & Lundy planning benchmark for AEO2025.
+    source_id: S27
+
+  - year: 2024
+    plant_type: CCGT
+    cost_low_kw: 1116
+    cost_mid_kw: 1290
+    cost_high_kw: 1427
+    data_type: Procurement
+    label: GridLab-IRP-2026-2027-completion
+    notes: Utility IRP data for plants completing 2026–2027.
+    source_id: S28
+
+  - year: 2025
+    plant_type: CCGT
+    cost_low_kw: 2000
+    cost_mid_kw: 2200
+    cost_high_kw: 2500
+    data_type: Procurement
+    label: GridLab-2025-contracts
+    notes: Recent CCGT contracts reported by GridLab.
+    source_id: S28
+
+  - year: 2025
+    plant_type: CCGT
+    cost_mid_kw: 2340
+    data_type: Procurement
+    label: Duke-Cayuga-actual
+    notes: Duke Indiana Cayuga CCGT; 36% above plan.
+    source_id: S29
+
+  - year: 2025
+    plant_type: CCGT
+    cost_mid_kw: 2400
+    data_type: Actual
+    label: NextEra-2025-actual
+    notes: NextEra CEO quote — current equivalent of 2022 $785/kW plant.
+    source_id: S26
+
+  - year: 2026
+    plant_type: CCGT
+    cost_low_kw: 2000
+    cost_mid_kw: 2500
+    cost_high_kw: 3000
+    data_type: Procurement
+    label: EPRI-2026-early
+    notes: Up ~50% in six months from ~$2,000/kW (EPRI via Utility Dive).
+    source_id: S30
+
+  - year: 2027
+    plant_type: CCGT
+    cost_mid_kw: 3000
+    data_type: Forecast
+    label: WoodMac-2027-turbine-equipment
+    notes: Turbine equipment only; total plant cost higher.
+    source_id: S31
+
+  # ---- Gas CT (peaker) ----
+  - year: 2025
+    plant_type: CT
+    cost_low_kw: 728
+    cost_mid_kw: 1136
+    cost_high_kw: 1544
+    data_type: Procurement
+    label: GridLab-2025-CT
+    notes: CT plants entering service 2025.
+    source_id: S28

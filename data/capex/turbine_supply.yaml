@@ -1,0 +1,24 @@
+rows:
+  - manufacturer: GE Vernova
+    as_of: 2025-12
+    backlog_note: 5+ years delivery; 83 GW on contract end-2025
+    notes: Targeting 70–80 turbines/yr from Greenville SC by H2 2026.
+    source_id: S30
+
+  - manufacturer: GE Vernova
+    as_of: 2026-02
+    backlog_note: 83 GW on contract (confirmed)
+    notes: OilPrice re-confirmation of GE Vernova 83 GW backlog end-2025.
+    source_id: S32
+
+  - manufacturer: Siemens Energy
+    as_of: 2026-04
+    backlog_note: €131B order backlog (~$148B)
+    notes: Around-the-clock operations; $1B US investment.
+    source_id: S31
+
+  - manufacturer: Mitsubishi Power
+    as_of: 2025-10
+    backlog_note: 7–8 year lead times for large turbines
+    notes: Plans to double capacity through 2028.
+    source_id: S33
