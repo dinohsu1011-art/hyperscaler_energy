@@ -1,35 +1,111 @@
 rows:
+  # ---- Solar-Utility ($/kW_DC, NREL Q1 benchmark series) ----
+  - technology: Solar-Utility
+    year: 2018
+    cost_mid_kw: 1060
+    data_type: Benchmark
+    label: NREL-Q1-2018
+    notes: $/kW_DC; 100 MW fixed-tilt utility-scale PV; 2018 USD real.
+    source_id: S173
+
+  - technology: Solar-Utility
+    year: 2019
+    cost_mid_kw: 1000
+    data_type: Benchmark
+    label: NREL-Q1-2019
+    notes: $/kW_DC; 100 MW one-axis tracking utility-scale; 2019 USD real.
+    source_id: S174
+
+  - technology: Solar-Utility
+    year: 2020
+    cost_mid_kw: 940
+    data_type: Benchmark
+    label: NREL-Q1-2020
+    notes: $/kW_DC; 100 MW one-axis tracking; 2020 USD real.
+    source_id: S175
+
+  - technology: Solar-Utility
+    year: 2021
+    cost_mid_kw: 890
+    data_type: Benchmark
+    label: NREL-Q1-2021
+    notes: $/kW_DC; 100 MW one-axis tracking; 2021 USD real.
+    source_id: S176
+
   - technology: Solar-Utility
     year: 2022
-    cost_mid_kw: 1430
+    cost_mid_kw: 1130
     data_type: Benchmark
-    label: NREL-ATB-2024-base
-    notes: $/kWAC basis.
-    source_id: S34
+    label: NREL-Q1-2022
+    notes: $/kW_DC; price inversion vs 2021 on module/supply-chain costs.
+    source_id: S177
+
+  - technology: Solar-Utility
+    year: 2023
+    cost_mid_kw: 1160
+    data_type: Benchmark
+    label: NREL-Q1-2023
+    notes: $/kW_DC; 100 MW one-axis tracking utility-scale PV.
+    source_id: S37
 
   - technology: Solar-Utility
     year: 2024
     cost_mid_kw: 1420
     data_type: Benchmark
     label: NREL-Q1-2024
-    notes: ~$1,060/kWdc at ILR 1.34.
+    notes: ~$1,060/kW_DC at ILR 1.34 -> $/kWAC basis.
     source_id: S35
 
-  - technology: Battery-4hr
-    year: 2024
-    cost_mid_kw: 1336
-    data_type: Benchmark
-    label: NREL-2024-334kWh-x4h
-    notes: Total system cost ($334/kWh × 4 h).
-    source_id: S36
+  - technology: Solar-Utility
+    year: 2025
+    cost_mid_kw: 1331
+    data_type: Forecast
+    label: NREL-ATB-2024-moderate-2025
+    notes: Utility-scale PV class 5, Moderate scenario, 2022 USD real.
+    source_id: S34
 
-  - technology: Solar+Battery-4hr
-    year: 2024
-    cost_mid_kw: 2110
-    data_type: Benchmark
-    label: NREL-2023-100MWdc-60MW-240MWh
-    notes: $2.11/Wdc for 100 MWdc + 60 MW / 240 MWh BESS.
-    source_id: S37
+  # ---- Wind-Onshore (LBNL capacity-weighted installed cost series) ----
+  - technology: Wind-Onshore
+    year: 2018
+    cost_mid_kw: 1470
+    data_type: Actual
+    label: LBNL-WTMR-2018
+    notes: Capacity-weighted avg installed cost, 2018 US projects; 2018 USD.
+    source_id: S194
+
+  - technology: Wind-Onshore
+    year: 2019
+    cost_mid_kw: 1440
+    data_type: Actual
+    label: LBNL-WETDU-2019
+    notes: Capacity-weighted avg installed cost, 2019 US projects; 2019 USD.
+    source_id: S195
+
+  - technology: Wind-Onshore
+    year: 2020
+    cost_mid_kw: 1460
+    data_type: Actual
+    label: LBNL-LBW-2020
+    notes: Capacity-weighted avg installed cost, 2020 US projects; 2020 USD.
+    source_id: S196
+
+  - technology: Wind-Onshore
+    year: 2021
+    cost_low_kw: 1350
+    cost_mid_kw: 1500
+    cost_high_kw: 1600
+    data_type: Actual
+    label: LBNL-LBW-2021
+    notes: Capacity-weighted avg installed cost, 2021 US projects; regional range ERCOT/West.
+    source_id: S197
+
+  - technology: Wind-Onshore
+    year: 2022
+    cost_mid_kw: 1370
+    data_type: Actual
+    label: LBNL-LBW-2022
+    notes: Capacity-weighted avg installed cost, 2022 US projects; 2022 USD.
+    source_id: S198
 
   - technology: Wind-Onshore
     year: 2024
@@ -41,13 +117,116 @@ rows:
     notes: Range reflects site variation.
     source_id: S34
 
+  # ---- Battery-4hr (NREL benchmark $/kWh x 4h) ----
+  - technology: Battery-4hr
+    year: 2018
+    cost_mid_kw: 1446
+    data_type: Benchmark
+    label: NREL-2019-ATB-4hr
+    notes: $361/kWh x 4h; 2018 USD; utility-scale Li-ion total installed cost.
+    source_id: S178
+
+  - technology: Battery-4hr
+    year: 2020
+    cost_mid_kw: 1316
+    data_type: Benchmark
+    label: NREL-Cole-2021-4hr
+    notes: $329/kWh x 4h; 2020 USD; Cole/Frazier NREL cost projections base year.
+    source_id: S179
+
+  - technology: Battery-4hr
+    year: 2021
+    cost_mid_kw: 1556
+    data_type: Benchmark
+    label: NREL-Q1-2021-4hr
+    notes: $389/kWh x 4h; 60 MW / 240 MWh standalone BESS.
+    source_id: S176
+
+  - technology: Battery-4hr
+    year: 2022
+    cost_mid_kw: 1708
+    data_type: Benchmark
+    label: NREL-Q1-2022-4hr
+    notes: $427/kWh x 4h; 60 MW / 240 MWh standalone BESS.
+    source_id: S177
+
+  - technology: Battery-4hr
+    year: 2023
+    cost_mid_kw: 1676
+    data_type: Benchmark
+    label: NREL-Q1-2023-4hr
+    notes: $419/kWh x 4h; 60 MW / 240 MWh standalone BESS.
+    source_id: S37
+
+  - technology: Battery-4hr
+    year: 2024
+    cost_mid_kw: 1336
+    data_type: Benchmark
+    label: NREL-2024-334kWh-x4h
+    notes: Total system cost ($334/kWh x 4 h).
+    source_id: S36
+
   - technology: Battery-4hr
     year: 2025
     cost_mid_kw: 975
     data_type: Derived
     label: BNEF-derived-2025
-    notes: Derived by applying BNEF −27% YoY to 2024 $1,336/kW benchmark.
+    notes: Applied BNEF -27% YoY to 2024 $1,336/kW benchmark.
     source_id: S21
+
+  # ---- Solar+Battery-4hr ----
+  - technology: Solar+Battery-4hr
+    year: 2024
+    cost_mid_kw: 2110
+    data_type: Benchmark
+    label: NREL-2023-100MWdc-60MW-240MWh
+    notes: $2.11/Wdc for 100 MWdc + 60 MW / 240 MWh BESS.
+    source_id: S37
+
+  # ---- Nuclear-New (NREL ATB / Lazard / EIA AEO) ----
+  - technology: Nuclear-New
+    year: 2020
+    cost_mid_kw: 6034
+    data_type: Benchmark
+    label: ATB-2020-LWR
+    notes: Large LWR overnight capital cost; 2018 USD.
+    source_id: S180
+
+  - technology: Nuclear-New
+    year: 2021
+    cost_mid_kw: 7442
+    data_type: Benchmark
+    label: ATB-2021-LWR
+    notes: Nuclear large overnight capex; 2019 USD.
+    source_id: S181
+
+  - technology: Nuclear-New
+    year: 2022
+    cost_mid_kw: 7551
+    data_type: Benchmark
+    label: ATB-2022-LWR
+    notes: Large (AP1000-class) overnight capital cost; 2020 USD.
+    source_id: S182
+
+  - technology: Nuclear-New
+    year: 2023
+    cost_low_kw: 6695
+    cost_mid_kw: 7569
+    cost_high_kw: 8475
+    data_type: Benchmark
+    label: ATB-2023-LWR
+    notes: Conservative/moderate/advanced overnight capex; 2021 USD.
+    source_id: S183
+
+  - technology: Nuclear-New
+    year: 2024
+    cost_low_kw: 7989
+    cost_mid_kw: 8475
+    cost_high_kw: 9221
+    data_type: Benchmark
+    label: ATB-2024-LWR
+    notes: Nuclear large overnight capex; 2022 USD.
+    source_id: S34
 
   - technology: Nuclear-New
     year: 2025
@@ -58,6 +237,47 @@ rows:
     notes: New-build only; SMRs unproven at scale.
     source_id: S38
 
+  # ---- Nuclear-Vogtle (all-in project cost / 2,234 MW net) ----
+  - technology: Nuclear-Vogtle
+    year: 2018
+    cost_low_kw: 12000
+    cost_mid_kw: 12500
+    cost_high_kw: 13000
+    data_type: Estimate
+    label: Vogtle-2018
+    notes: Aug 2018 Ga. Power budget update post-Westinghouse bankruptcy re-baseline.
+    source_id: S191
+
+  - technology: Nuclear-Vogtle
+    year: 2022
+    cost_low_kw: 13500
+    cost_mid_kw: 14500
+    cost_high_kw: 15000
+    data_type: Estimate
+    label: Vogtle-2022
+    notes: VCM updates showed total project cost past $30B.
+    source_id: S191
+
+  - technology: Nuclear-Vogtle
+    year: 2023
+    cost_low_kw: 14500
+    cost_mid_kw: 15500
+    cost_high_kw: 16000
+    data_type: Actual
+    label: Vogtle-2023
+    notes: Unit 3 COD Jul 2023; all-in >$30B / 2,234 MW.
+    source_id: S192
+
+  - technology: Nuclear-Vogtle
+    year: 2024
+    cost_low_kw: 15000
+    cost_mid_kw: 16000
+    cost_high_kw: 17000
+    data_type: Actual
+    label: Vogtle-2024
+    notes: Unit 4 COD Apr 2024; all-in ~$35B across co-owners / 2,234 MW.
+    source_id: S193
+
   - technology: Nuclear-Vogtle
     year: 2025
     cost_mid_kw: 14700
@@ -65,3 +285,87 @@ rows:
     label: Vogtle-actual
     notes: ~$32.3B for 2.2 GW Vogtle units.
     source_id: S22
+
+  # ---- Solar+Battery-4hr (additional EIA/S&L benchmarks) ----
+  - technology: Solar+Battery-4hr
+    year: 2019
+    cost_mid_kw: 1755
+    data_type: Benchmark
+    label: EIA-SL-AEO2020-SolarBESS-4hr
+    notes: 150 MW_AC PV + 50 MW / 200 MWh BESS (4-hr); AC-coupled; 2019 USD. EIA/S&L SL-014940.
+    source_id: S200
+
+  - technology: Solar+Battery-4hr
+    year: 2023
+    cost_mid_kw: 2175
+    data_type: Benchmark
+    label: EIA-AEO2025-SolarBESS-AC
+    notes: Utility-scale solar + 4-hr BESS; AC-coupled; 2023 USD. EIA/S&L AEO2025 capital cost report.
+    source_id: S190
+
+  # ---- Coal-USC (Ultra-Supercritical, no CCS) ----
+  - technology: Coal-USC
+    year: 2019
+    cost_mid_kw: 3676
+    data_type: Benchmark
+    label: EIA-SL-AEO2020-Coal-USC
+    notes: 650 MW net USC coal greenfield w/o carbon capture; 2019 USD. EIA/S&L SL-014940.
+    source_id: S200
+
+  - technology: Coal-USC
+    year: 2021
+    cost_mid_kw: 4074
+    data_type: Benchmark
+    label: EIA-AEO2022-Coal-USC
+    notes: 650 MW USC coal overnight capital cost; 2021 USD. EIA/S&L AEO2022 table_8.2.
+    source_id: S188
+
+  - technology: Coal-USC
+    year: 2023
+    cost_mid_kw: 4103
+    data_type: Benchmark
+    label: EIA-AEO2025-Coal-USC
+    notes: 650 MW USC coal overnight capital cost; 2023 USD. EIA/S&L AEO2025 capital cost report.
+    source_id: S190
+
+  # ---- Coal-CCS (90-95% carbon capture) ----
+  - technology: Coal-CCS
+    year: 2019
+    cost_mid_kw: 5876
+    data_type: Benchmark
+    label: EIA-SL-AEO2020-Coal-CCS90
+    notes: 650 MW USC coal w/ 90% CO2 capture; 2019 USD. EIA/S&L SL-014940.
+    source_id: S200
+
+  - technology: Coal-CCS
+    year: 2021
+    cost_mid_kw: 6625
+    data_type: Benchmark
+    label: EIA-AEO2022-Coal-CCS90
+    notes: 650 MW USC coal w/ 90% CO2 capture; 2021 USD. EIA/S&L AEO2022 table_8.2.
+    source_id: S188
+
+  - technology: Coal-CCS
+    year: 2023
+    cost_mid_kw: 7346
+    data_type: Benchmark
+    label: EIA-AEO2025-Coal-CCS95
+    notes: 650 MW USC coal w/ 95% CO2 capture; 2023 USD. EIA/S&L AEO2025 capital cost report.
+    source_id: S190
+
+  # ---- Fuel-Cell-SOFC (Solid Oxide Fuel Cell) ----
+  - technology: Fuel-Cell-SOFC
+    year: 2019
+    cost_mid_kw: 6700
+    data_type: Benchmark
+    label: EIA-SL-AEO2020-SOFC
+    notes: 34 x 300 kW gross (10 MW net) solid oxide fuel cell; 2019 USD. EIA/S&L SL-014940.
+    source_id: S200
+
+  - technology: Fuel-Cell-SOFC
+    year: 2021
+    cost_mid_kw: 6639
+    data_type: Benchmark
+    label: EIA-AEO2022-SOFC
+    notes: 10 MW net SOFC; 2021 USD. EIA/S&L AEO2022 table_8.2.
+    source_id: S188

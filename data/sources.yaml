@@ -1337,3 +1337,228 @@
   pub_date: 2024-09
   kind: Primary
   supports: Solar-Utility US weighted avg 2023 ($57/MWh, 33% above global avg of $44/MWh); Geothermal global weighted avg 2023 (~$72/MWh for 7 projects, up 23% vs 2022 due to project mix)
+
+- id: S173
+  publisher: NREL
+  title: "U.S. Solar Photovoltaic System Cost Benchmark: Q1 2018"
+  url: https://www.nrel.gov/docs/fy19osti/72399.pdf
+  pub_date: 2018-11
+  kind: Primary
+  supports: Utility-scale solar PV CAPEX 2018 ($1,060/kW_DC)
+
+- id: S174
+  publisher: NREL
+  title: "U.S. Solar Photovoltaic System Cost Benchmark: Q1 2019"
+  url: https://www.nrel.gov/docs/fy20osti/77324.pdf
+  pub_date: 2019-11
+  kind: Primary
+  supports: Utility-scale solar PV CAPEX 2019 ($1,000/kW_DC)
+
+- id: S175
+  publisher: NREL
+  title: "U.S. Solar Photovoltaic System Cost Benchmark: Q1 2020"
+  url: https://www.nrel.gov/docs/fy21osti/77324.pdf
+  pub_date: 2021-01
+  kind: Primary
+  supports: Utility-scale solar PV CAPEX 2020 ($940/kW_DC)
+
+- id: S176
+  publisher: NREL
+  title: "U.S. Solar PV and Energy Storage Cost Benchmarks: Q1 2021"
+  url: https://www.nrel.gov/docs/fy22osti/80694.pdf
+  pub_date: 2021-11
+  kind: Primary
+  supports: Solar-Utility 2021 CAPEX ($890/kW_DC); 4-hr BESS 2021 CAPEX ($389/kWh x 4h)
+
+- id: S177
+  publisher: NREL
+  title: "U.S. Solar PV and Energy Storage Cost Benchmarks With Minimum Sustainable Price Analysis: Q1 2022"
+  url: https://www.nrel.gov/docs/fy22osti/83586.pdf
+  pub_date: 2022-09
+  kind: Primary
+  supports: Solar-Utility 2022 CAPEX ($1,130/kW_DC); 4-hr BESS 2022 CAPEX ($427/kWh x 4h)
+
+- id: S178
+  publisher: NREL
+  title: 2019 Annual Technology Baseline - Utility-Scale Battery Storage
+  url: https://atb-archive.nrel.gov/electricity/2019/index.html?t=st
+  pub_date: 2019-07
+  kind: Primary
+  supports: 4-hr Li-ion BESS 2018 CAPEX (~$361/kWh x 4h)
+
+- id: S179
+  publisher: NREL
+  title: "Cost Projections for Utility-Scale Battery Storage: 2021 Update (Cole, Frazier, Augustine)"
+  url: https://www.nrel.gov/docs/fy21osti/79236.pdf
+  pub_date: 2021-06
+  kind: Primary
+  supports: 4-hr Li-ion BESS 2020 CAPEX ($329/kWh x 4h base year)
+
+- id: S180
+  publisher: NREL
+  title: 2020 Annual Technology Baseline - Nuclear
+  url: https://atb.nrel.gov/electricity/2020/nuclear
+  pub_date: 2020-07
+  kind: Primary
+  supports: New large LWR overnight capex 2020 ($6,034/kW, 2018$)
+
+- id: S181
+  publisher: NREL
+  title: 2021 Annual Technology Baseline - Nuclear
+  url: https://atb.nrel.gov/electricity/2021/nuclear
+  pub_date: 2021-06
+  kind: Primary
+  supports: New large LWR overnight capex 2021 ($7,442/kW, 2019$)
+
+- id: S182
+  publisher: NREL
+  title: 2022 Annual Technology Baseline - Nuclear
+  url: https://atb.nrel.gov/electricity/2022/nuclear
+  pub_date: 2022-06
+  kind: Primary
+  supports: New large LWR overnight capex 2022 ($7,551/kW, 2020$)
+
+- id: S183
+  publisher: NREL
+  title: 2023 Annual Technology Baseline - Nuclear (Large + SMR)
+  url: https://atb.nrel.gov/electricity/2023/nuclear
+  pub_date: 2023-07
+  kind: Primary
+  supports: New large LWR and SMR overnight capex 2023
+
+- id: S184
+  publisher: Lazard
+  title: Levelized Cost of Energy Analysis - Version 14.0
+  url: https://www.lazard.com/media/451419/lazards-levelized-cost-of-energy-version-140.pdf
+  pub_date: 2020-10
+  kind: Primary
+  supports: Utility-scale solar PV CAPEX range 2020; Nuclear CAPEX range 2020
+
+- id: S185
+  publisher: Lazard
+  title: Levelized Cost of Energy Analysis - Version 15.0
+  url: https://www.lazard.com/research-insights/levelized-cost-of-energy-version-150/
+  pub_date: 2021-10
+  kind: Primary
+  supports: Nuclear new-build CAPEX range 2021
+
+- id: S186
+  publisher: Lazard
+  title: Levelized Cost of Energy+ Version 16.2
+  url: https://www.lazard.com/research-insights/2023-levelized-cost-of-energyplus/
+  pub_date: 2023-04
+  kind: Primary
+  supports: Nuclear new-build CAPEX range 2023
+
+- id: S187
+  publisher: Lazard
+  title: Levelized Cost of Energy+ June 2024
+  url: https://www.lazard.com/research-insights/levelized-cost-of-energyplus/
+  pub_date: 2024-06
+  kind: Primary
+  supports: Nuclear new-build CAPEX range 2024
+
+- id: S188
+  publisher: EIA
+  title: "Annual Energy Outlook 2022 - Cost and Performance Characteristics of New Generating Technologies"
+  url: https://www.eia.gov/outlooks/aeo/assumptions/pdf/table_8.2.pdf
+  pub_date: 2022-03
+  kind: Primary
+  supports: Advanced nuclear overnight cost 2022 ($6,695/kW, 2021$)
+
+- id: S189
+  publisher: EIA
+  title: AEO2023 Electricity Market Module Assumptions
+  url: https://www.eia.gov/outlooks/aeo/assumptions/pdf/EMM_Assumptions.pdf
+  pub_date: 2023-03
+  kind: Primary
+  supports: Advanced nuclear overnight cost 2023 (~$7,030/kW)
+
+- id: S190
+  publisher: EIA
+  title: AEO2025 - Cost and Performance Characteristics of New Generating Technologies
+  url: https://www.eia.gov/outlooks/aeo/
+  pub_date: 2025-04
+  kind: Primary
+  supports: Advanced nuclear overnight cost 2025 (~$7,442/kW, 2024$)
+
+- id: S191
+  publisher: Georgia Public Service Commission
+  title: Vogtle Construction Monitoring (VCM) semi-annual reports
+  url: https://psc.ga.gov/
+  pub_date: 2018-08
+  kind: Primary
+  supports: Vogtle 3&4 all-in project cost escalation 2018-2023
+
+- id: S192
+  publisher: Associated Press
+  title: Vogtle nuclear Unit 3 enters commercial operation
+  url: https://apnews.com/
+  pub_date: 2023-07
+  kind: Secondary
+  supports: Vogtle Unit 3 COD Jul 2023; total project cost >$30B
+
+- id: S193
+  publisher: Georgia Power
+  title: Plant Vogtle Unit 4 enters commercial operation
+  url: https://www.georgiapower.com/company/news-center/2024-articles/plant-vogtle-unit-4-enters-commercial-operation.html
+  pub_date: 2024-04
+  kind: Primary
+  supports: Vogtle Unit 4 COD Apr 2024; all-in ~$35B across co-owners / 2,234 MW
+
+- id: S194
+  publisher: LBNL / US DOE
+  title: 2018 Wind Technologies Market Report
+  url: https://www.energy.gov/sites/prod/files/2019/08/f65/2018%20Wind%20Technologies%20Market%20Report%20FINAL.pdf
+  pub_date: 2019-08
+  kind: Primary
+  supports: Onshore wind installed CAPEX 2018 ($1,470/kW)
+
+- id: S195
+  publisher: LBNL / US DOE
+  title: "Wind Energy Technology Data Update: 2020 Edition"
+  url: https://emp.lbl.gov/publications/wind-energy-technology-data-update
+  pub_date: 2020-08
+  kind: Primary
+  supports: Onshore wind installed CAPEX 2019 ($1,440/kW)
+
+- id: S196
+  publisher: LBNL / US DOE
+  title: "Land-Based Wind Market Report: 2021 Edition"
+  url: https://www.energy.gov/sites/default/files/2021-08/Land-Based%20Wind%20Market%20Report%202021%20Edition_Full%20Report_FINAL.pdf
+  pub_date: 2021-08
+  kind: Primary
+  supports: Onshore wind installed CAPEX 2020 ($1,460/kW)
+
+- id: S197
+  publisher: LBNL / US DOE
+  title: "Land-Based Wind Market Report: 2022 Edition"
+  url: https://www.energy.gov/sites/default/files/2022-08/land_based_wind_market_report_2202.pdf
+  pub_date: 2022-08
+  kind: Primary
+  supports: Onshore wind installed CAPEX 2021 ($1,500/kW)
+
+- id: S198
+  publisher: LBNL / US DOE
+  title: "Land-Based Wind Market Report: 2023 Edition"
+  url: https://www.energy.gov/sites/default/files/2023-08/land-based-wind-market-report-2023-edition.pdf
+  pub_date: 2023-08
+  kind: Primary
+  supports: Onshore wind installed CAPEX 2022 ($1,370/kW)
+
+- id: S199
+  publisher: US DOE WINDExchange
+  title: Economics and Incentives for Wind
+  url: https://windexchange.energy.gov/projects/economics
+  pub_date: 2024-01
+  kind: Primary
+  supports: Onshore wind installed CAPEX range 2024 (~$1,200-$1,800/kW)
+
+- id: S200
+  publisher: EIA / Sargent & Lundy
+  title: "Cost and Performance Estimates for New Utility-Scale Electric Power Generating Technologies (SL-014940, Project 13651.005)"
+  url: https://www.eia.gov/analysis/studies/powerplants/capitalcost/pdf/capital_cost_AEO2020.pdf
+  pub_date: 2019-12
+  retrieved_on: 2026-04-16
+  kind: Primary
+  supports: "2019 USD overnight capex Table 2: Coal USC no-CCS $3,676/kW; Coal 90%CCS $5,876/kW; Fuel Cell SOFC 10MW $6,700/kW; Nuclear AP1000 $6,041/kW; Wind 200MW $1,265/kW; Solar 150MW_AC $1,313/kW; Solar+4hr BESS 150MW+200MWh $1,755/kW"
