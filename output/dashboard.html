@@ -158,11 +158,12 @@
       </div>
       <div class="card">
         <h2>Gas plant CAPEX ($/kW)</h2>
-        <div class="hint">By plant type and data vintage.</div>
+        <div class="hint">By plant type and data vintage. <b>Click any dot</b> to open its source.</div>
         <div class="chart-wrap"><canvas id="chartGasCapex"></canvas></div>
       </div>
       <div class="card">
         <h2>Renewable &amp; nuclear CAPEX ($/kW)</h2>
+        <div class="hint"><b>Click any dot</b> to open its source.</div>
         <div class="chart-wrap"><canvas id="chartRenCapex"></canvas></div>
       </div>
     </div>
@@ -360,18 +361,29 @@ document.querySelectorAll('.tab').forEach(t => {
 // ---- Chart: Gas CAPEX ----
 (function(){
   const G = DATA.gas_capex.sort((a,b)=>a.year-b.year);
-  new Chart(document.getElementById('chartGasCapex'), {
+  const el = document.getElementById('chartGasCapex');
+  const gasChart = new Chart(el, {
     type:'scatter',
     data:{ datasets: [...new Set(G.map(r=>r.plant_type))].map(pt => ({
       label: pt,
-      data: G.filter(r=>r.plant_type===pt).map(r => ({x:r.year, y:r.cost_mid_kw||r.cost_low_kw||r.cost_high_kw, label:r.label})),
-      backgroundColor:'#e07a5f', borderColor:'#e07a5f', pointRadius:5
+      data: G.filter(r=>r.plant_type===pt).map(r => {
+        const src = SRC[r.source_id];
+        return {x:r.year, y:r.cost_mid_kw||r.cost_low_kw||r.cost_high_kw, label:r.label, url: src ? src.url : null, publisher: src ? src.publisher : ''};
+      }),
+      backgroundColor:'#e07a5f', borderColor:'#e07a5f', pointRadius:5, pointHoverRadius:8
     }))},
     options:{ maintainAspectRatio:false, responsive:true,
       scales:{ x:{type:'linear', ticks:{stepSize:1, callback:v=>v}},
                y:{ticks:{callback:v=>'$'+v.toLocaleString()+'/kW'}} },
       plugins:{ legend:{position:'bottom'},
-                tooltip:{callbacks:{label:c=>`${c.raw.label}: $${c.raw.y.toLocaleString()}/kW (${c.raw.x})`}} }
+                tooltip:{callbacks:{label:c=>`${c.raw.label}: $${c.raw.y.toLocaleString()}/kW (${c.raw.x})${c.raw.url ? ' ↗ '+c.raw.publisher : ''}`}} },
+      onClick(evt){
+        const pts = gasChart.getElementsAtEventForMode(evt,'nearest',{intersect:true},false);
+        if (!pts.length) return;
+        const url = gasChart.data.datasets[pts[0].datasetIndex].data[pts[0].index].url;
+        if (url) window.open(url,'_blank');
+      },
+      onHover(evt, items){ el.style.cursor = items.length ? 'pointer' : 'default'; }
     }
   });
 })();
@@ -380,19 +392,30 @@ document.querySelectorAll('.tab').forEach(t => {
 (function(){
   const R = DATA.renewable_capex.sort((a,b)=>a.year-b.year);
   const techs = [...new Set(R.map(r=>r.technology))];
-  new Chart(document.getElementById('chartRenCapex'), {
+  const el = document.getElementById('chartRenCapex');
+  const renChart = new Chart(el, {
     type:'scatter',
     data:{ datasets: techs.map(t => ({
       label:t,
-      data: R.filter(r=>r.technology===t).map(r => ({x:r.year, y:r.cost_mid_kw||r.cost_low_kw||r.cost_high_kw, label:r.label})),
+      data: R.filter(r=>r.technology===t).map(r => {
+        const src = SRC[r.source_id];
+        return {x:r.year, y:r.cost_mid_kw||r.cost_low_kw||r.cost_high_kw, label:r.label, url: src ? src.url : null, publisher: src ? src.publisher : ''};
+      }),
       backgroundColor: colorFor(t.split('-')[0]),
-      borderColor: colorFor(t.split('-')[0]), pointRadius:5
+      borderColor: colorFor(t.split('-')[0]), pointRadius:5, pointHoverRadius:8
     }))},
     options:{ maintainAspectRatio:false, responsive:true,
       scales:{ x:{type:'linear', ticks:{stepSize:1, callback:v=>v}},
                y:{ticks:{callback:v=>'$'+v.toLocaleString()+'/kW'}} },
       plugins:{ legend:{position:'bottom', labels:{boxWidth:10, boxHeight:10}},
-                tooltip:{callbacks:{label:c=>`${c.raw.label}: $${c.raw.y.toLocaleString()}/kW (${c.raw.x})`}} }
+                tooltip:{callbacks:{label:c=>`${c.raw.label}: $${c.raw.y.toLocaleString()}/kW (${c.raw.x})${c.raw.url ? ' ↗ '+c.raw.publisher : ''}`}} },
+      onClick(evt){
+        const pts = renChart.getElementsAtEventForMode(evt,'nearest',{intersect:true},false);
+        if (!pts.length) return;
+        const url = renChart.data.datasets[pts[0].datasetIndex].data[pts[0].index].url;
+        if (url) window.open(url,'_blank');
+      },
+      onHover(evt, items){ el.style.cursor = items.length ? 'pointer' : 'default'; }
     }
   });
 })();
