@@ -337,19 +337,20 @@ document.querySelectorAll('.tab').forEach(t => {
 (function(){
   const C = DATA.contracts.filter(r=>r.cod_year);
   const years = [...new Set(C.map(r=>r.cod_year))].sort((a,b)=>a-b);
-  const gas  = years.map(y=>C.filter(r=>r.cod_year===y && (r.generation_type==='Gas'||r.generation_type==='Gas+CCS'))
-                             .reduce((s,r)=>s+(r.capacity_mw||0),0));
-  const clean= years.map(y=>C.filter(r=>r.cod_year===y && CLEAN_TYPES.has(r.generation_type))
-                             .reduce((s,r)=>s+(r.capacity_mw||0),0));
+  const types = [...new Set(C.map(r=>r.generation_type))].sort();
+  const ds = types.map(t => ({
+    label: t,
+    data: years.map(y => C.filter(r=>r.cod_year===y && r.generation_type===t)
+                          .reduce((s,r)=>s+(r.capacity_mw||0),0)),
+    backgroundColor: colorFor(t), borderWidth:0
+  })).filter(d => d.data.some(v=>v>0));
   new Chart(document.getElementById('chartCod'), {
     type:'bar',
-    data:{ labels:years, datasets:[
-      {label:'Gas', data:gas, backgroundColor:'#e07a5f'},
-      {label:'Clean', data:clean, backgroundColor:'#8ac6a4'}
-    ]},
+    data:{ labels:years, datasets: ds },
     options:{ maintainAspectRatio:false, responsive:true,
       scales:{ x:{stacked:true}, y:{stacked:true, ticks:{callback:v=>v.toLocaleString()+' MW'}} },
-      plugins:{ legend:{position:'bottom'} }
+      plugins:{ legend:{position:'bottom', labels:{boxWidth:10, boxHeight:10}},
+                tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y.toLocaleString()} MW`}} }
     }
   });
 })();
