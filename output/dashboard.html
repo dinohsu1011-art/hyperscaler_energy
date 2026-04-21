@@ -118,11 +118,16 @@
       </div>
 
       <div class="card">
-        <h2>Behind-the-meter vs grid by COD year</h2>
-        <div class="hint">BTM capacity bypasses the utility meter; grid capacity wheels through transmission. Only COD-disclosed rows.</div>
-        <div class="chart-wrap"><canvas id="chartConnCod"></canvas></div>
+        <h2>Behind-the-meter vs grid — all contracts by announce year</h2>
+        <div class="hint">All 133 contracts. Stacked by announcement year regardless of COD disclosure.</div>
+        <div class="chart-wrap"><canvas id="chartConnAll"></canvas></div>
       </div>
       <div class="card">
+        <h2>Behind-the-meter vs grid by COD year</h2>
+        <div class="hint">Only rows with a disclosed Commercial Operation Date.</div>
+        <div class="chart-wrap"><canvas id="chartConnCod"></canvas></div>
+      </div>
+      <div class="card wide">
         <h2>Behind-the-meter vs grid by company</h2>
         <div class="hint">Total announced MW per hyperscaler, split by how the electrons reach the datacenter.</div>
         <div class="chart-wrap" style="height:360px"><canvas id="chartConnCompany"></canvas></div>
@@ -317,6 +322,28 @@ document.querySelectorAll('.tab').forEach(t => {
     backgroundColor: colorFor(t), borderWidth:0
   })).filter(d => d.data.some(v=>v>0));
   new Chart(document.getElementById('chartCod'), {
+    type:'bar',
+    data:{ labels:years, datasets: ds },
+    options:{ maintainAspectRatio:false, responsive:true,
+      scales:{ x:{stacked:true}, y:{stacked:true, ticks:{callback:v=>v.toLocaleString()+' MW'}} },
+      plugins:{ legend:{position:'bottom', labels:{boxWidth:10, boxHeight:10}},
+                tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y.toLocaleString()} MW`}} }
+    }
+  });
+})();
+
+// ---- Chart: BTM vs Grid by announce year (all contracts) ----
+(function(){
+  const C = DATA.contracts;
+  const years = [...new Set(C.map(r=>r.year))].sort((a,b)=>a-b);
+  const order = ['BTM','Grid','Unknown'];
+  const ds = order.map(ct => ({
+    label: ct,
+    data: years.map(y => C.filter(r=>r.year===y && r.connection_type===ct)
+                          .reduce((s,r)=>s+(r.capacity_mw||0),0)),
+    backgroundColor: CONN_COLORS[ct], borderWidth:0
+  })).filter(d => d.data.some(v=>v>0));
+  new Chart(document.getElementById('chartConnAll'), {
     type:'bar',
     data:{ labels:years, datasets: ds },
     options:{ maintainAspectRatio:false, responsive:true,
