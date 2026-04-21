@@ -47,7 +47,7 @@ rows:
     cod_note: 2028 COD target; 20-yr PPA.
     status: PPA
     connection_type: Grid
-    connection_reason: utility counterparty 'Constellation Energy'
+    connection_reason: grid text marker
     notes: 835 MW nuclear restart.
     source_id: S2
 
@@ -79,8 +79,8 @@ rows:
     cod_year: 2028
     cod_note: World's first fusion PPA; Orion plant construction started Jul 2025 in Chelan County WA; 50 MW target after 1-yr ramp-up; penalty clause if Helion misses 2028 deadline.
     status: PPA
-    connection_type: Unknown
-    connection_reason: no matching rule
+    connection_type: Grid
+    connection_reason: fusion power purchase agreement → grid delivery
     geography: US
     notes: Microsoft is an investor in Helion. Highly speculative technology risk.
     source_id: S139
@@ -128,7 +128,7 @@ rows:
     cod_note: PPA commenced July 2024; 15-yr term. Rio Grande do Norte Brazil.
     status: PPA
     connection_type: Grid
-    connection_reason: IPP counterparty 'AES Brasil'
+    connection_reason: grid text marker
     geography: Brazil
     contract_years: 15
     source_id: S142
@@ -221,7 +221,7 @@ rows:
     cod_note: Farm commissioned Dec 2023; PPA effective immediately from signing May 2024; 7 Vestas V117-4.3MW turbines.
     status: Operational
     connection_type: Grid
-    connection_reason: Wind default → Grid
+    connection_reason: grid text marker
     geography: Ireland
     source_id: S148
 
@@ -251,7 +251,7 @@ rows:
     cod_note: All three operational — Wolf Run 140 MW (IL), Hickory 110 MW (IL), Cattlemen II 150 MW (TX). VPPAs; Hickory used Environmental Justice PPA structure.
     status: Operational
     connection_type: Grid
-    connection_reason: IPP counterparty 'EDP Renewables North America'
+    connection_reason: grid text marker
     geography: US
     source_id: S150
 
@@ -327,7 +327,7 @@ rows:
     cod_note: Multi-unit Natrium SMR fleet; Microsoft + Google as anchor tenants; site selection phase; sites in Iowa + SE US. First units planned late 2020s. No binding PPA yet.
     status: MOU
     connection_type: Grid
-    connection_reason: utility counterparty 'NextEra Energy / TerraPower'
+    connection_reason: grid text marker
     geography: US
     notes: Announced publicly Apr 2026; formalized late 2025. Natrium = 345 MW sodium-cooled fast reactor per unit.
     source_id: S155
@@ -343,7 +343,7 @@ rows:
     cod_note: PPA signed 2021; first power Nov 2024; fully operational Oct 2025. Largest solar farm in NSW.
     status: Operational
     connection_type: Grid
-    connection_reason: Solar default → Grid
+    connection_reason: grid text marker
     geography: Australia
     contract_years: 15
     source_id: S157
@@ -359,7 +359,7 @@ rows:
     cod_note: Kotuń Poland; commercial operation July 2024. First solar PPA between the two companies in Poland.
     status: Operational
     connection_type: Grid
-    connection_reason: IPP counterparty 'Lightsource bp'
+    connection_reason: grid text marker
     geography: Poland
     source_id: S158
 
@@ -390,7 +390,7 @@ rows:
     cod_note: 51.4 MW; Taupō NZ; 10-yr PPA; Unit 3 came online late 2024.
     status: PPA
     connection_type: Grid
-    connection_reason: Geothermal default → Grid
+    connection_reason: grid text marker
     geography: New Zealand
     contract_years: 10
     source_id: S160

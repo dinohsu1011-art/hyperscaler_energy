@@ -27,7 +27,7 @@ rows:
     cod_note: COD not disclosed in cited source.
     status: PPA
     connection_type: Grid
-    connection_reason: IPP counterparty 'EnergyRe'
+    connection_reason: grid text marker
     source_id: S7
 
   - year: 2026
@@ -57,7 +57,7 @@ rows:
     cod_note: Plant online 2029; CCS operational by early 2030.
     status: PPA
     connection_type: Grid
-    connection_reason: override match 'Broadwing Energy CCS plant'
+    connection_reason: Google-style grid PPA with CCS
     notes: Google buys "most" of plant output. First Google CCS-equipped power deal.
     source_id: S48
 
@@ -99,7 +99,7 @@ rows:
     cod_note: First site Haskell County TX; framed as multi-GW / ~$20B; specific MW per site not disclosed.
     status: Operational
     connection_type: Grid
-    connection_reason: override match 'Intersect Power / TPG Rise co-located'
+    connection_reason: co-located physically, each project is a grid PPA
     notes: "Co-location model — gigawatt-scale renewables built alongside data centers. No primary source confirms a specific 3 GW figure. Alphabet acquired Intersect Power for $4.75B cash (deal Dec 2025,
       closed Mar 12 2026). TX/CA operating solar+storage assets spun off to IPX Power (TPG). Google retains development pipeline. Source: S104."
     source_id: S51
@@ -146,7 +146,7 @@ rows:
     cod_note: 10-yr PPA; ~125 GWh/yr virtual supply; one of largest PV cPPAs in Poland at signing.
     status: PPA
     connection_type: Grid
-    connection_reason: IPP counterparty 'GoldenPeaks Capital'
+    connection_reason: grid text marker
     geography: Poland
     source_id: S87
 
@@ -236,7 +236,7 @@ rows:
     cod_note: Solar-wind hybrid at Khavda Gujarat; specific MW not disclosed; expected Q3 2025 commercial operations.
     status: PPA
     connection_type: Grid
-    connection_reason: IPP counterparty 'Adani Green Energy'
+    connection_reason: grid text marker
     geography: India
     notes: MW not publicly disclosed; third Google India PPA at world's largest RE park.
     source_id: S93
@@ -266,8 +266,8 @@ rows:
     cod_year:
     cod_note: Early-stage; technology-agnostic; Google funds permitting and interconnection; option to purchase power when operational. No COD set.
     status: Framework
-    connection_type: Unknown
-    connection_reason: override match 'Elementl Power nuclear site development'
+    connection_type: BTM
+    connection_reason: SMR site development for co-located data center → BTM
     geography: US
     notes: Three sites ≥600 MW each; site locations undisclosed. Not a PPA yet — option to purchase.
     source_id: S95
@@ -283,7 +283,7 @@ rows:
     cod_note: First corporate geothermal PPA in Taiwan; doubles Taiwan installed geothermal capacity; COD 2029.
     status: PPA
     connection_type: Grid
-    connection_reason: IPP counterparty 'Baseload Capital'
+    connection_reason: grid text marker
     geography: Taiwan
     notes: Includes equity investment by Google into Baseload Capital; first geothermal deal in Asia for Google.
     source_id: S97
@@ -299,7 +299,7 @@ rows:
     cod_note: 51 MW total farm; Google off-takes 35 MW; Navarra Spain; 10-yr PPA; ~136 GWh/yr.
     status: PPA
     connection_type: Grid
-    connection_reason: Wind default → Grid
+    connection_reason: grid text marker
     geography: Spain
     source_id: S98
 
@@ -314,7 +314,7 @@ rows:
     cod_note: Extends farm life to 2031 (4+ yr beyond original 2027 decommission). 36 turbines; Google buys 100% of output. Egmond aan Zee NL.
     status: PPA
     connection_type: Grid
-    connection_reason: IPP counterparty 'Shell'
+    connection_reason: grid text marker
     geography: Netherlands
     notes: First corporate PPA to extend lifespan of an offshore wind farm.
     source_id: S99
@@ -380,7 +380,7 @@ rows:
     cod_note: Kedah province Malaysia; 21-yr PPA; financial close Q1 2026; COD 2026. Malaysia CGPP programme.
     status: PPA
     connection_type: Grid
-    connection_reason: IPP counterparty 'TotalEnergies / MK Land (Citra Energies)'
+    connection_reason: grid text marker
     geography: Malaysia
     contract_years: 21
     source_id: S103
@@ -460,7 +460,7 @@ rows:
     cod_note: Wichita 805 MWp (Wichita County) + Mustang Creek 195 MWp (Johnson County); construction starts Q2 2026; COD not specified.
     status: PPA
     connection_type: Grid
-    connection_reason: IPP counterparty 'TotalEnergies'
+    connection_reason: grid text marker
     geography: US
     notes: Two 15-yr PPAs; 28 TWh total over term. TotalEnergies' largest US renewable PPA volume ever.
     source_id: S107
@@ -526,7 +526,7 @@ rows:
     cod_note: Three undisclosed wind farms in Belgium; 10-yr PPA.
     status: PPA
     connection_type: Grid
-    connection_reason: IPP counterparty 'Eneco'
+    connection_reason: grid text marker
     geography: Belgium
     notes: Tied to Google data center expansions in Saint-Ghislain and Farciennes.
     source_id: S111

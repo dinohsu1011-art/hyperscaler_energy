@@ -10,8 +10,8 @@ rows:
     cod_note: MOU only; no COD disclosed. Dominion IR press release (Oct 16, 2024) states "at least 300 MW" SMR near North Anna, Louisa County VA. The 500 MW figure circulating elsewhere is the 
       Virginia statutory ceiling for simplified SMR permitting, not the Amazon-specific deal size.
     status: MOU
-    connection_type: Unknown
-    connection_reason: override match 'Dominion SMR MOU'
+    connection_type: BTM
+    connection_reason: SMR campus-adjacent → BTM
     notes: Early-stage exploratory MOU; no binding construction commitment.
     source_id: S11
 
@@ -26,7 +26,7 @@ rows:
     cod_note: Grid-connected IPP model, ramp through 2032; supersedes the earlier 960 MW behind-the-meter Cumulus campus PPA (FERC-rejected 2024).
     status: PPA
     connection_type: Grid
-    connection_reason: override match 'Talen Susquehanna grid-connected PPA'
+    connection_reason: deal restructured as grid-connected PPA
     notes: ~$18B PPA. Replaces the original 2024 BTM Cumulus deal — do not double-count.
     source_id: S45
 
@@ -59,7 +59,7 @@ rows:
     cod_note: Power delivery begins Jan 1, 2027; ramps to 2.4 GW by end 2032. IURC reaffirmed approval Nov 19, 2025. Amazon has one-time option by Mar 31, 2029 to reduce total capacity by 1,200 MW.
     status: Approved
     connection_type: Grid
-    connection_reason: override match 'NIPSCO GenCo Indiana'
+    connection_reason: utility PPA (NIPSCO buys, resells to Amazon)
     geography: US
     notes: |
       Two 1.3-GW gas-fired plants at retired Schahfer coal site, paired with
@@ -80,7 +80,7 @@ rows:
     cod_note: Paired with the 2.6 GW gas build; same 15-yr Amazon contract.
     status: Approved
     connection_type: Grid
-    connection_reason: override match 'NIPSCO GenCo Indiana'
+    connection_reason: utility PPA (NIPSCO buys, resells to Amazon)
     geography: US
     source_id: S62
 
@@ -96,7 +96,7 @@ rows:
       June 2025 grid-connected 1,920 MW PPA (already in DB as S45).
     status: Operational
     connection_type: Unknown
-    connection_reason: override match 'Talen Cumulus Data campus acquisition'
+    connection_reason: real-estate acquisition, not a power contract
     notes: AWS acquired the Cumulus data center campus adjacent to Susquehanna nuclear plant, PA. The original BTM 960 MW arrangement was rejected by FERC; the grid-connected PPA (S45) supersedes it.
     source_id: S112
 
@@ -110,8 +110,8 @@ rows:
     cod_year:
     cod_note: Partnership targeting up to $50B public/private investment for Xe-100 SMR deployment in US and globally. Signed during Korean presidential state visit Aug 2025.
     status: MOU
-    connection_type: Unknown
-    connection_reason: override match 'X-energy / KHNP / Doosan Enerbility global SMR scale-up MOU'
+    connection_type: BTM
+    connection_reason: SMR supply-chain MOU for campus deployment → BTM
     notes: Distinct from the Energy Northwest Cascade project (already in DB). Doosan committed new SMR fabrication facility in South Korea (16-unit reservation).
     source_id: S113
 
@@ -126,7 +126,7 @@ rows:
     cod_note: Repowering of existing Gilliam County OR farm; 40 turbines; 20-yr PPA.
     status: PPA
     connection_type: Grid
-    connection_reason: IPP counterparty 'Avangrid (Iberdrola subsidiary)'
+    connection_reason: grid text marker
     geography: US
     source_id: S114
 
@@ -187,7 +187,7 @@ rows:
     cod_note: COD December 2024; Ashley County AR; 20-yr PPA.
     status: Operational
     connection_type: Grid
-    connection_reason: IPP counterparty 'Primergy Solar'
+    connection_reason: grid text marker
     geography: US
     source_id: S118
 
@@ -202,7 +202,7 @@ rows:
     cod_note: Operational Q4 2024; Madison County MS; 15-yr PPA; Entergy Mississippi grid.
     status: Operational
     connection_type: Grid
-    connection_reason: IPP counterparty 'EDP Renewables North America'
+    connection_reason: grid text marker
     geography: US
     contract_years: 15
     source_id: S119
@@ -355,7 +355,7 @@ rows:
     cod_note: 900 MW Nordseecluster B; Amazon off-takes 110 MW; German North Sea ~50 km N of Juist; 15-yr PPA; RWE 51% / Norges Bank 49%.
     status: PPA
     connection_type: Grid
-    connection_reason: IPP counterparty 'RWE'
+    connection_reason: grid text marker
     geography: Germany
     source_id: S129
 
@@ -370,7 +370,7 @@ rows:
     cod_note: 274 MW total project; Amazon off-takes 219 MW. Amazon's first PPA in Portugal. ~€350M investment.
     status: PPA
     connection_type: Grid
-    connection_reason: IPP counterparty 'Iberdrola'
+    connection_reason: grid text marker
     geography: Portugal
     source_id: S130
 
@@ -490,7 +490,7 @@ rows:
     cod_note: 44 MWp / 35 MWac; Fukushima Prefecture; 20-yr PPA; COD Q3 2025; ~48 GWh/yr.
     status: PPA
     connection_type: Grid
-    connection_reason: IPP counterparty 'EDP Renewables APAC'
+    connection_reason: grid text marker
     geography: Japan
     contract_years: 20
     source_id: S136
@@ -506,7 +506,7 @@ rows:
     cod_note: 14 MW; Ube Yamaguchi Japan (former golf course); 20-yr PPA; commissioned July 2025.
     status: Operational
     connection_type: Grid
-    connection_reason: Solar default → Grid
+    connection_reason: grid text marker
     geography: Japan
     contract_years: 20
     source_id: S137
