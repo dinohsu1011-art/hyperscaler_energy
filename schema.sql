@@ -35,6 +35,9 @@ CREATE TABLE hyperscaler_contracts (
   geography       TEXT DEFAULT 'US',
   status          TEXT DEFAULT 'Announced' CHECK(status IN
                     ('Announced','Approved','UnderConstruction','Operational','Cancelled','MOU','PPA','Framework')),
+  connection_type   TEXT NOT NULL DEFAULT 'Unknown' CHECK(connection_type IN
+                    ('BTM','Grid','Unknown')),
+  connection_reason TEXT,
   notes           TEXT,
   source_id       TEXT NOT NULL REFERENCES sources(id),
   created_at      TEXT DEFAULT (datetime('now')),

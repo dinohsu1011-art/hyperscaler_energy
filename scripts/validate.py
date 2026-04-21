@@ -100,6 +100,18 @@ def main() -> int:
     if hyp is not None and abs(hyp - 7500) > 1:
         errors.append(f"Hyperion gas phases sum to {hyp}, expected 7,500")
 
+    # 6. connection_type tagging — warn on any row still tagged 'Unknown'.
+    # Unknown rows are allowed (edge cases, speculative nuclear, real-estate deals)
+    # but each should be a deliberate decision, not an oversight on new additions.
+    unk = conn.execute(
+        """SELECT id, company, deal_name FROM hyperscaler_contracts
+           WHERE connection_type='Unknown' ORDER BY id"""
+    ).fetchall()
+    for u in unk:
+        warnings.append(
+            f"connection_type=Unknown: #{u['id']} {u['company']} — {u['deal_name']}"
+        )
+
     conn.close()
 
     for w in warnings:

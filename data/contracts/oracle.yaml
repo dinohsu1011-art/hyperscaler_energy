@@ -10,6 +10,8 @@ rows:
     cod_year: 2025
     cod_note: Phase 1 operational Sep 2025; full build mid-2026. Originally planned 600 MW expansion cancelled early 2026.
     status: Operational
+    connection_type: Grid
+    connection_reason: override match 'Stargate Abilene — Lancium / ERCOT grid interconnect'
     geography: US
     notes: |
       1.2 GW contracted ERCOT interconnect (mixed-source grid power, wind-heavy
@@ -26,6 +28,8 @@ rows:
     cod_year: 2025
     cod_note: Energized in phases through 2026; supplemental/backup to grid interconnect.
     status: UnderConstruction
+    connection_type: BTM
+    connection_reason: BTM text marker
     notes: 5x Solar Turbines Titan 350 (38 MW) + 5x GE LM2500 (34.1 MW) behind-the-meter.
     source_id: S56
 
@@ -36,9 +40,11 @@ rows:
     confidence: Sourced
     deal_name: Oracle–VoltaGrid 2.3 GW Texas BTM gas framework
     counterparty: VoltaGrid / INNIO Jenbacher / Energy Transfer
-    cod_year: null
+    cod_year:
     cod_note: Phased deployment 2026+; site allocations not disclosed.
     status: Framework
+    connection_type: BTM
+    connection_reason: BTM text marker
     notes: |
       Modular reciprocating gas (Jenbacher engines). May overlap with the
       Shackelford 700 MW Stargate row — VoltaGrid has not disclosed whether
@@ -55,6 +61,8 @@ rows:
     cod_year: 2026
     cod_note: First building 2H 2026; campus target 1,400 MW.
     status: Approved
+    connection_type: BTM
+    connection_reason: BTM text marker
     notes: 210 Jenbacher gensets approved by TCEQ. Distinct site from Abilene.
     source_id: S61
 
@@ -68,6 +76,8 @@ rows:
     cod_year: 2025
     cod_note: Initial 1.2 GW deployed and operational; completed in ~55 days (vs. 90-day stated target). Behind-the-meter at select Oracle Cloud Infrastructure sites across US.
     status: Operational
+    connection_type: BTM
+    connection_reason: BTM text marker
     notes: Solid-oxide fuel cells on natural gas. First deployment under the Jul 2025 framework. Expanded to 2.8 GW total master agreement Apr 2026 (see S162 row).
     source_id: S58
 
@@ -79,8 +89,11 @@ rows:
     deal_name: Bloom Energy fuel-cell master agreement expansion — incremental 1.6 GW (Oracle OCI sites)
     counterparty: Bloom Energy
     cod_year: 2027
-    cod_note: Incremental capacity beyond the 1.2 GW initial deployment (S58 row); total partnership up to 2.8 GW. Deployment continuing through 2027. Oracle warrant issued Apr 9 2026 on Oct 30 2025 terms.
+    cod_note: Incremental capacity beyond the 1.2 GW initial deployment (S58 row); total partnership up to 2.8 GW. Deployment continuing through 2027. Oracle warrant issued Apr 9 2026 on Oct 30 2025 
+      terms.
     status: Framework
+    connection_type: BTM
+    connection_reason: BTM-specialist counterparty 'Bloom Energy'
     notes: Master services agreement for solid-oxide fuel-cell procurement. US sites not individually disclosed. Net-new beyond S58 initial deployment.
     source_id: S162
 
@@ -92,9 +105,11 @@ rows:
     deal_name: Stargate Michigan — DTE Saline Township PPA
     counterparty: DTE Energy
     contract_years: 19
-    cod_year: null
+    cod_year:
     cod_note: MPSC-approved 2025-12-19; COD not yet publicly specified.
     status: PPA
+    connection_type: Grid
+    connection_reason: grid text marker
     notes: |
       Oracle subsidiary "Green Chile Ventures". 19-yr term + 20-yr extension
       option; 80% take-or-pay; Oracle funds ~$2B incremental storage + grid
@@ -112,6 +127,8 @@ rows:
     cod_year: 2029
     cod_note: Oracle 18-yr anchor tenant confirmed Jan 2026; full campus in service ~Oct 2029. Air permit application filed NM EID Mar 2026.
     status: Approved
+    connection_type: BTM
+    connection_reason: BTM text marker
     notes: |
       700–900 MW range; 800 MW used as mid-point. Simple-cycle BTM gas turbines.
       BorderPlex committed to source up to 500 MW of renewables by 2028 to integrate.
@@ -122,13 +139,16 @@ rows:
   - year: 2025
     announced_date: 2025-10-22
     generation_type: Solar+Storage
-    capacity_mw: null
+    capacity_mw:
     confidence: Sourced
     deal_name: Stargate Wisconsin Lighthouse — WEC Energy Group clean energy tariff
     counterparty: Vantage Data Centers / WEC Energy Group (We Energies)
     cod_year: 2028
-    cod_note: ~1.3 GW IT load campus. WEC adding ~2 GW new WI generation (>1.1 GW solar, 180 MW storage, ~1.4 GW gas backup). 70% of clean capacity to Lighthouse, 30% to WI grid. PSCW + ATC transmission approval pending.
+    cod_note: ~1.3 GW IT load campus. WEC adding ~2 GW new WI generation (>1.1 GW solar, 180 MW storage, ~1.4 GW gas backup). 70% of clean capacity to Lighthouse, 30% to WI grid. PSCW + ATC 
+      transmission approval pending.
     status: Announced
+    connection_type: Grid
+    connection_reason: grid text marker
     notes: |
       Oracle is a co-tenant; specific Oracle MW share not disclosed (hence NULL capacity_mw).
       Port Washington WI campus, ~$15B total investment. Generation_type reflects the

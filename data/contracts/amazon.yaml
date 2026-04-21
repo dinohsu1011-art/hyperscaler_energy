@@ -6,9 +6,12 @@ rows:
     confidence: Sourced
     deal_name: Dominion SMR MOU (near North Anna, VA)
     counterparty: Dominion Energy
-    cod_year: null
-    cod_note: MOU only; no COD disclosed. Dominion IR press release (Oct 16, 2024) states "at least 300 MW" SMR near North Anna, Louisa County VA. The 500 MW figure circulating elsewhere is the Virginia statutory ceiling for simplified SMR permitting, not the Amazon-specific deal size.
+    cod_year:
+    cod_note: MOU only; no COD disclosed. Dominion IR press release (Oct 16, 2024) states "at least 300 MW" SMR near North Anna, Louisa County VA. The 500 MW figure circulating elsewhere is the 
+      Virginia statutory ceiling for simplified SMR permitting, not the Amazon-specific deal size.
     status: MOU
+    connection_type: Unknown
+    connection_reason: override match 'Dominion SMR MOU'
     notes: Early-stage exploratory MOU; no binding construction commitment.
     source_id: S11
 
@@ -19,9 +22,11 @@ rows:
     confidence: Sourced
     deal_name: Talen Susquehanna grid-connected PPA (restructured)
     counterparty: Talen Energy
-    cod_year: null
+    cod_year:
     cod_note: Grid-connected IPP model, ramp through 2032; supersedes the earlier 960 MW behind-the-meter Cumulus campus PPA (FERC-rejected 2024).
     status: PPA
+    connection_type: Grid
+    connection_reason: override match 'Talen Susquehanna grid-connected PPA'
     notes: ~$18B PPA. Replaces the original 2024 BTM Cumulus deal — do not double-count.
     source_id: S45
 
@@ -32,10 +37,14 @@ rows:
     confidence: Sourced
     deal_name: Cascade X-energy Xe-100 SMR (Richland, WA)
     counterparty: Energy Northwest / X-energy
-    cod_year: null
-    cod_note: Phase 1 = 320 MW (4 × 80 MW modules), construction targeted before end of decade, operations 2030s. Full-site expansion = 960 MW (12 modules) is Amazon's stated vision but not the committed Phase 1 capacity.
+    cod_year:
+    cod_note: Phase 1 = 320 MW (4 × 80 MW modules), construction targeted before end of decade, operations 2030s. Full-site expansion = 960 MW (12 modules) is Amazon's stated vision but not the 
+      committed Phase 1 capacity.
     status: Approved
-    notes: Joint development with Energy Northwest at DOE Richland WA site. Amazon has option for additional modules up to 12 total (960 MW). The 960 MW figure incorrectly stated the Phase 1 commitment; 320 MW is the binding Phase 1.
+    connection_type: Grid
+    connection_reason: utility counterparty 'Energy Northwest / X-energy'
+    notes: Joint development with Energy Northwest at DOE Richland WA site. Amazon has option for additional modules up to 12 total (960 MW). The 960 MW figure incorrectly stated the Phase 1 
+      commitment; 320 MW is the binding Phase 1.
     source_id: S46
 
   - year: 2025
@@ -49,6 +58,8 @@ rows:
     cod_year: 2027
     cod_note: Power delivery begins Jan 1, 2027; ramps to 2.4 GW by end 2032. IURC reaffirmed approval Nov 19, 2025. Amazon has one-time option by Mar 31, 2029 to reduce total capacity by 1,200 MW.
     status: Approved
+    connection_type: Grid
+    connection_reason: override match 'NIPSCO GenCo Indiana'
     geography: US
     notes: |
       Two 1.3-GW gas-fired plants at retired Schahfer coal site, paired with
@@ -68,32 +79,39 @@ rows:
     cod_year: 2027
     cod_note: Paired with the 2.6 GW gas build; same 15-yr Amazon contract.
     status: Approved
+    connection_type: Grid
+    connection_reason: override match 'NIPSCO GenCo Indiana'
     geography: US
     source_id: S62
 
   - year: 2024
     announced_date: 2024-03
     generation_type: Nuclear
-    capacity_mw: null
+    capacity_mw:
     confidence: Sourced
     deal_name: Talen Cumulus Data campus acquisition (Susquehanna PA)
     counterparty: Talen Energy
     cod_year: 2024
-    cod_note: First 48 MW facility already operational at acquisition. $650M campus acquisition ($350M at close + $300M escrow). FERC twice rejected amended ISA for BTM load expansion. Distinct from June 2025 grid-connected 1,920 MW PPA (already in DB as S45).
+    cod_note: First 48 MW facility already operational at acquisition. $650M campus acquisition ($350M at close + $300M escrow). FERC twice rejected amended ISA for BTM load expansion. Distinct from 
+      June 2025 grid-connected 1,920 MW PPA (already in DB as S45).
     status: Operational
+    connection_type: Unknown
+    connection_reason: override match 'Talen Cumulus Data campus acquisition'
     notes: AWS acquired the Cumulus data center campus adjacent to Susquehanna nuclear plant, PA. The original BTM 960 MW arrangement was rejected by FERC; the grid-connected PPA (S45) supersedes it.
     source_id: S112
 
   - year: 2025
     announced_date: 2025-08
     generation_type: Nuclear
-    capacity_mw: null
+    capacity_mw:
     confidence: Sourced
     deal_name: X-energy / KHNP / Doosan Enerbility global SMR scale-up MOU
     counterparty: X-energy / Korea Hydro & Nuclear Power / Doosan Enerbility
-    cod_year: null
+    cod_year:
     cod_note: Partnership targeting up to $50B public/private investment for Xe-100 SMR deployment in US and globally. Signed during Korean presidential state visit Aug 2025.
     status: MOU
+    connection_type: Unknown
+    connection_reason: override match 'X-energy / KHNP / Doosan Enerbility global SMR scale-up MOU'
     notes: Distinct from the Energy Northwest Cascade project (already in DB). Doosan committed new SMR fabrication facility in South Korea (16-unit reservation).
     source_id: S113
 
@@ -104,9 +122,11 @@ rows:
     confidence: Sourced
     deal_name: Avangrid Leaning Juniper IIA wind repowering (Gilliam County OR)
     counterparty: Avangrid (Iberdrola subsidiary)
-    cod_year: null
+    cod_year:
     cod_note: Repowering of existing Gilliam County OR farm; 40 turbines; 20-yr PPA.
     status: PPA
+    connection_type: Grid
+    connection_reason: IPP counterparty 'Avangrid (Iberdrola subsidiary)'
     geography: US
     source_id: S114
 
@@ -117,9 +137,11 @@ rows:
     confidence: Sourced
     deal_name: Avangrid Osagrove Flats wind (LaSalle County IL)
     counterparty: Avangrid (Iberdrola subsidiary)
-    cod_year: null
+    cod_year:
     cod_note: Avangrid's fifth wind farm in Illinois; ~45 turbines; construction started Mar 2024.
     status: PPA
+    connection_type: Grid
+    connection_reason: IPP counterparty 'Avangrid (Iberdrola subsidiary)'
     geography: US
     source_id: S115
 
@@ -133,6 +155,8 @@ rows:
     cod_year: 2024
     cod_note: 150 MW solar + 75 MW / 300 MWh BESS; Adelanto San Bernardino County CA; operational May 2024.
     status: Operational
+    connection_type: Grid
+    connection_reason: IPP counterparty 'AES'
     geography: US
     notes: Amazon's first "solar+storage+AI" project; AI optimization via AWS SageMaker.
     source_id: S116
@@ -147,6 +171,8 @@ rows:
     cod_year: 2024
     cod_note: Phase 1 (150 MW) operational mid-2024; Van Wert County OH.
     status: Operational
+    connection_type: Grid
+    connection_reason: IPP counterparty 'EDF Renewables North America / Enbridge'
     geography: US
     source_id: S117
 
@@ -160,6 +186,8 @@ rows:
     cod_year: 2024
     cod_note: COD December 2024; Ashley County AR; 20-yr PPA.
     status: Operational
+    connection_type: Grid
+    connection_reason: IPP counterparty 'Primergy Solar'
     geography: US
     source_id: S118
 
@@ -173,6 +201,8 @@ rows:
     cod_year: 2024
     cod_note: Operational Q4 2024; Madison County MS; 15-yr PPA; Entergy Mississippi grid.
     status: Operational
+    connection_type: Grid
+    connection_reason: IPP counterparty 'EDP Renewables North America'
     geography: US
     contract_years: 15
     source_id: S119
@@ -187,6 +217,8 @@ rows:
     cod_year: 2027
     cod_note: 57 MWdc / 41 MWac; Gilliam County OR; COD 2027.
     status: PPA
+    connection_type: Grid
+    connection_reason: IPP counterparty 'Avangrid (Iberdrola subsidiary)'
     geography: US
     source_id: S120
 
@@ -197,9 +229,11 @@ rows:
     confidence: Sourced
     deal_name: Sunstone Solar acquisition (Morrow County OR)
     counterparty: Pine Gate Renewables (bankrupt seller)
-    cod_year: null
+    cod_year:
     cod_note: US Bankruptcy Court approved sale Jan 2026; 1.2 GW solar + up to 7,200 MWh storage. All environmental permits cleared. Construction must begin by Nov 2027.
     status: Approved
+    connection_type: Grid
+    connection_reason: IPP counterparty 'Pine Gate Renewables (bankrupt seller)'
     geography: US
     notes: $83M acquisition. Amazon's first direct ownership of a large generation asset. Near PGE's Carty Generating Station, Boardman OR.
     source_id: S121
@@ -211,9 +245,11 @@ rows:
     confidence: Sourced
     deal_name: Entergy Mississippi 650 MW renewable energy framework
     counterparty: Entergy Mississippi
-    cod_year: null
+    cod_year:
     cod_note: 650 MW developed over ~3 years; includes Delta Wind (Mississippi's first utility-scale wind) and solar. Linked to AWS $10B Mississippi data center investment.
     status: Framework
+    connection_type: Grid
+    connection_reason: grid text marker
     geography: US
     notes: First-of-its-kind utility framework deal. Entergy investing $2–3B in new generation and transmission.
     source_id: S122
@@ -225,9 +261,11 @@ rows:
     confidence: Sourced
     deal_name: RWE strategic framework — US 1.1 GW renewable portfolio
     counterparty: RWE
-    cod_year: null
+    cod_year:
     cod_note: Covers 7 existing US PPAs totaling ~1.1 GW wind+solar already in operation or under construction. Also covers AWS cloud/AI services to RWE.
     status: Framework
+    connection_type: Grid
+    connection_reason: IPP counterparty 'RWE'
     geography: US
     source_id: S123
 
@@ -241,6 +279,8 @@ rows:
     cod_year: 2025
     cod_note: Moray Firth Scotland; 882 MW total; Amazon off-takes 473 MW (>50%); CPPA signed Jan 30 2024; COD 2025.
     status: PPA
+    connection_type: Grid
+    connection_reason: grid text marker
     geography: UK
     source_id: S124
 
@@ -254,6 +294,8 @@ rows:
     cod_year: 2026
     cod_note: 1.4 GW total; Amazon buys 159 MW; 69 km off Suffolk coast; 95 × SG 14.7 MW turbines; expected fully operational 2026.
     status: PPA
+    connection_type: Grid
+    connection_reason: IPP counterparty 'Iberdrola / ScottishPower'
     geography: UK
     source_id: S125
 
@@ -267,6 +309,8 @@ rows:
     cod_year: 2026
     cod_note: 15-yr PPAs; 4 contracts across 3 projects; Vermio North+South 293 MW (N Macedonia) + Mesokorfi + Koukouras (Peloponnese); COD 2026.
     status: PPA
+    connection_type: Grid
+    connection_reason: IPP counterparty 'Aer Soléir'
     geography: Greece
     source_id: S126
 
@@ -280,6 +324,8 @@ rows:
     cod_year: 2028
     cod_note: Rajamäenkylä 367 MW (Isojoki/Karijoki, COD 2028) + Honkakangas 105 MW (Halsua, COD 2027). Amazon purchases full output of both farms.
     status: PPA
+    connection_type: Grid
+    connection_reason: IPP counterparty 'OX2'
     geography: Finland
     source_id: S127
 
@@ -290,9 +336,11 @@ rows:
     confidence: Sourced
     deal_name: OX2 Poland onshore wind (28 MW)
     counterparty: OX2
-    cod_year: null
+    cod_year:
     cod_note: 28 MW from a 40 MW OX2-owned onshore wind farm in Poland.
     status: PPA
+    connection_type: Grid
+    connection_reason: IPP counterparty 'OX2'
     geography: Poland
     source_id: S128
 
@@ -306,6 +354,8 @@ rows:
     cod_year: 2029
     cod_note: 900 MW Nordseecluster B; Amazon off-takes 110 MW; German North Sea ~50 km N of Juist; 15-yr PPA; RWE 51% / Norges Bank 49%.
     status: PPA
+    connection_type: Grid
+    connection_reason: IPP counterparty 'RWE'
     geography: Germany
     source_id: S129
 
@@ -316,9 +366,11 @@ rows:
     confidence: Sourced
     deal_name: Iberdrola Tâmega Wind Complex (Chaves, Portugal)
     counterparty: Iberdrola
-    cod_year: null
+    cod_year:
     cod_note: 274 MW total project; Amazon off-takes 219 MW. Amazon's first PPA in Portugal. ~€350M investment.
     status: PPA
+    connection_type: Grid
+    connection_reason: IPP counterparty 'Iberdrola'
     geography: Portugal
     source_id: S130
 
@@ -329,9 +381,11 @@ rows:
     confidence: Sourced
     deal_name: Iberdrola Ciudad Rodrigo Solar (Salamanca, Spain)
     counterparty: Iberdrola
-    cod_year: null
+    cod_year:
     cod_note: Salamanca western Spain; ~€200M investment; ~800+ peak construction jobs.
     status: PPA
+    connection_type: Grid
+    connection_reason: IPP counterparty 'Iberdrola'
     geography: Spain
     source_id: S130
 
@@ -342,9 +396,11 @@ rows:
     confidence: Sourced
     deal_name: Iberdrola Valdemoro Wind Farm (Burgos, Spain)
     counterparty: Iberdrola
-    cod_year: null
+    cod_year:
     cod_note: 49.5 MW total; Amazon off-takes 45 MW; Burgos Province Castile and León.
     status: PPA
+    connection_type: Grid
+    connection_reason: IPP counterparty 'Iberdrola'
     geography: Spain
     source_id: S130
 
@@ -358,6 +414,8 @@ rows:
     cod_year: 2026
     cod_note: Elzet solar (Thessaly) + Menelou wind (Western Greece); COD 2026.
     status: PPA
+    connection_type: Grid
+    connection_reason: IPP counterparty 'Greenvolt Energias Renovaveis'
     geography: Greece
     source_id: S131
 
@@ -371,6 +429,8 @@ rows:
     cod_year: 2026
     cod_note: 100 MW wind; Koppal Karnataka India; COD Q2 2026; ~355 million kWh/yr.
     status: PPA
+    connection_type: Grid
+    connection_reason: IPP counterparty 'CleanMax'
     geography: India
     source_id: S132
 
@@ -381,9 +441,11 @@ rows:
     confidence: Sourced
     deal_name: BluPine Energy wind (Solapur, Maharashtra India)
     counterparty: BluPine Energy
-    cod_year: null
+    cod_year:
     cod_note: Solapur Maharashtra India; ~360 GWh/yr; ~250,000 tonnes CO2/yr avoided.
     status: PPA
+    connection_type: Grid
+    connection_reason: IPP counterparty 'BluPine Energy'
     geography: India
     source_id: S133
 
@@ -394,9 +456,11 @@ rows:
     confidence: Sourced
     deal_name: JSW Neo Energy wind (India)
     counterparty: JSW Neo Energy
-    cod_year: null
+    cod_year:
     cod_note: Specific project location not disclosed; 180 MW; JSW's locked-in C&I capacity reached 4.0 GW after this deal.
     status: PPA
+    connection_type: Grid
+    connection_reason: IPP counterparty 'JSW Neo Energy'
     geography: India
     source_id: S134
 
@@ -410,6 +474,8 @@ rows:
     cod_year: 2025
     cod_note: 9.5 MW; Kudamatsu City Yamaguchi Prefecture; expected autumn 2025; ~20,000 MWh/yr.
     status: PPA
+    connection_type: Grid
+    connection_reason: Solar default → Grid
     geography: Japan
     source_id: S135
 
@@ -423,6 +489,8 @@ rows:
     cod_year: 2025
     cod_note: 44 MWp / 35 MWac; Fukushima Prefecture; 20-yr PPA; COD Q3 2025; ~48 GWh/yr.
     status: PPA
+    connection_type: Grid
+    connection_reason: IPP counterparty 'EDP Renewables APAC'
     geography: Japan
     contract_years: 20
     source_id: S136
@@ -437,6 +505,8 @@ rows:
     cod_year: 2025
     cod_note: 14 MW; Ube Yamaguchi Japan (former golf course); 20-yr PPA; commissioned July 2025.
     status: Operational
+    connection_type: Grid
+    connection_reason: Solar default → Grid
     geography: Japan
     contract_years: 20
     source_id: S137
@@ -447,8 +517,10 @@ rows:
     confidence: Sourced
     deal_name: Elera Renováveis wind (Rio Grande do Norte, Brazil)
     counterparty: Elera Renováveis
-    cod_year: null
+    cod_year:
     cod_note: 49.5 MW; Rio Grande do Norte wind complex; ~255 GWh/yr; ~1,000 construction jobs.
     status: Announced
+    connection_type: Grid
+    connection_reason: Wind default → Grid
     geography: Brazil
     source_id: S138

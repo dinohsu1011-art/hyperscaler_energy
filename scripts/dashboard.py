@@ -26,7 +26,8 @@ def build(conn: sqlite3.Connection) -> str:
         "contracts": q(conn, """
             SELECT id, company, announced_date, year, cod_year, cod_note,
                    generation_type, capacity_mw, confidence, deal_name,
-                   counterparty, contract_years, geography, status, notes, source_id
+                   counterparty, contract_years, geography, status,
+                   connection_type, connection_reason, notes, source_id
             FROM hyperscaler_contracts"""),
         "lcoe": q(conn, """
             SELECT technology, year_vintage, report_name, geography, subsidized,
@@ -105,6 +106,9 @@ TEMPLATE = r"""<!doctype html>
   .b-op { background:rgba(138,198,164,.2); color:#a3dcbb; }
   .b-pending { background:rgba(242,204,143,.15); color:#d9b36c; }
   .b-announced { background:rgba(139,147,167,.2); color:var(--muted); }
+  .b-btm { background:rgba(224,122,95,.2); color:#f4a58e; }
+  .b-grid { background:rgba(138,198,164,.2); color:#a3dcbb; }
+  .b-unknown { background:rgba(139,147,167,.2); color:var(--muted); }
   .deal-link { color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); }
   .deal-link:hover { color:var(--accent); border-bottom-color:var(--accent); }
   .conf-s { color:#8ac6a4; font-weight:600; font-size:.7rem; }
@@ -160,6 +164,17 @@ TEMPLATE = r"""<!doctype html>
         <div class="hint">Horizontal bar, MW by generation type per hyperscaler.</div>
         <div class="chart-wrap" style="height:360px"><canvas id="chartMix"></canvas></div>
       </div>
+
+      <div class="card">
+        <h2>Behind-the-meter vs grid by COD year</h2>
+        <div class="hint">BTM capacity bypasses the utility meter; grid capacity wheels through transmission. Only COD-disclosed rows.</div>
+        <div class="chart-wrap"><canvas id="chartConnCod"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Behind-the-meter vs grid by company</h2>
+        <div class="hint">Total announced MW per hyperscaler, split by how the electrons reach the datacenter.</div>
+        <div class="chart-wrap" style="height:360px"><canvas id="chartConnCompany"></canvas></div>
+      </div>
     </div>
   </section>
 
@@ -174,6 +189,9 @@ TEMPLATE = r"""<!doctype html>
       <label>Status
         <select id="fStatus"><option value="">All</option></select>
       </label>
+      <label>Connection
+        <select id="fConn"><option value="">All</option></select>
+      </label>
       <label>Search <input type="text" id="fSearch" placeholder="deal name, counterparty..."></label>
       <span class="sub" id="rowCount"></span>
     </div>
@@ -185,6 +203,7 @@ TEMPLATE = r"""<!doctype html>
           <th data-k="cod_year">COD</th>
           <th data-k="status">Status</th>
           <th data-k="generation_type">Type</th>
+          <th data-k="connection_type">Conn</th>
           <th data-k="capacity_mw" style="text-align:right">MW</th>
           <th data-k="deal_name">Deal</th>
           <th data-k="counterparty">Counterparty</th>
@@ -249,6 +268,7 @@ const TYPE_COLORS = {
   'Hydro':'#5eb0e5',
   'Other':'#6b7280'
 };
+const CONN_COLORS = { 'BTM':'#e07a5f', 'Grid':'#8ac6a4', 'Unknown':'#6b7280' };
 const CLEAN_TYPES = new Set(['Solar','Wind','Nuclear','Fuel Cell','Storage','Geothermal','Hydro','Solar+Storage','Renewable']);
 function colorFor(t){ return TYPE_COLORS[t] || '#6b7280'; }
 
@@ -351,6 +371,51 @@ document.querySelectorAll('.tab').forEach(t => {
       scales:{ x:{stacked:true}, y:{stacked:true, ticks:{callback:v=>v.toLocaleString()+' MW'}} },
       plugins:{ legend:{position:'bottom', labels:{boxWidth:10, boxHeight:10}},
                 tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y.toLocaleString()} MW`}} }
+    }
+  });
+})();
+
+// ---- Chart: BTM vs Grid by COD year ----
+(function(){
+  const C = DATA.contracts.filter(r=>r.cod_year);
+  const years = [...new Set(C.map(r=>r.cod_year))].sort((a,b)=>a-b);
+  const order = ['BTM','Grid','Unknown'];
+  const ds = order.map(ct => ({
+    label: ct,
+    data: years.map(y => C.filter(r=>r.cod_year===y && r.connection_type===ct)
+                          .reduce((s,r)=>s+(r.capacity_mw||0),0)),
+    backgroundColor: CONN_COLORS[ct], borderWidth:0
+  })).filter(d => d.data.some(v=>v>0));
+  new Chart(document.getElementById('chartConnCod'), {
+    type:'bar',
+    data:{ labels:years, datasets: ds },
+    options:{ maintainAspectRatio:false, responsive:true,
+      scales:{ x:{stacked:true}, y:{stacked:true, ticks:{callback:v=>v.toLocaleString()+' MW'}} },
+      plugins:{ legend:{position:'bottom', labels:{boxWidth:10, boxHeight:10}},
+                tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y.toLocaleString()} MW`}} }
+    }
+  });
+})();
+
+// ---- Chart: BTM vs Grid horizontal by company ----
+(function(){
+  const C = DATA.contracts;
+  const companies = [...new Set(C.map(r=>r.company))].sort();
+  const order = ['BTM','Grid','Unknown'];
+  const ds = order.map(ct => ({
+    label: ct,
+    data: companies.map(co => C.filter(r=>r.company===co && r.connection_type===ct)
+                                .reduce((s,r)=>s+(r.capacity_mw||0),0)),
+    backgroundColor: CONN_COLORS[ct], borderWidth:0
+  })).filter(d => d.data.some(v=>v>0));
+  new Chart(document.getElementById('chartConnCompany'), {
+    type:'bar',
+    data:{ labels:companies, datasets: ds },
+    options:{ indexAxis:'y', maintainAspectRatio:false, responsive:true,
+      scales:{ x:{stacked:true, ticks:{callback:v=>v.toLocaleString()+' MW'}},
+               y:{stacked:true} },
+      plugins:{ legend:{position:'bottom', labels:{boxWidth:10, boxHeight:10}},
+                tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.x.toLocaleString()} MW`}} }
     }
   });
 })();
@@ -475,6 +540,7 @@ document.querySelectorAll('.tab').forEach(t => {
   const fCompany = document.getElementById('fCompany');
   const fType    = document.getElementById('fType');
   const fStatus  = document.getElementById('fStatus');
+  const fConn    = document.getElementById('fConn');
   const fSearch  = document.getElementById('fSearch');
   const rowCount = document.getElementById('rowCount');
   let sortKey = 'year', sortDir = -1;
@@ -485,6 +551,8 @@ document.querySelectorAll('.tab').forEach(t => {
     fType.insertAdjacentHTML('beforeend', `<option>${v}</option>`));
   [...new Set(C.map(r=>r.status))].sort().forEach(v =>
     fStatus.insertAdjacentHTML('beforeend', `<option>${v}</option>`));
+  [...new Set(C.map(r=>r.connection_type))].sort().forEach(v =>
+    fConn.insertAdjacentHTML('beforeend', `<option>${v}</option>`));
 
   function typeBadge(t){
     if (t==='Gas' || t==='Gas+CCS') return `<span class="badge b-gas">${t}</span>`;
@@ -498,6 +566,12 @@ document.querySelectorAll('.tab').forEach(t => {
     if (s==='Announced'||s==='MOU') return `<span class="badge b-announced">${s}</span>`;
     return `<span class="badge b-pending">${s||''}</span>`;
   }
+  function connBadge(c, reason){
+    const tip = reason ? ` title="${reason.replace(/"/g,'&quot;')}"` : '';
+    if (c==='BTM') return `<span class="badge b-btm"${tip}>BTM</span>`;
+    if (c==='Grid') return `<span class="badge b-grid"${tip}>Grid</span>`;
+    return `<span class="badge b-unknown"${tip}>${c||'—'}</span>`;
+  }
   function cite(sid){
     const s = SRC[sid];
     if (!s) return sid;
@@ -505,12 +579,13 @@ document.querySelectorAll('.tab').forEach(t => {
   }
 
   function render(){
-    const co = fCompany.value, ty = fType.value, st = fStatus.value;
+    const co = fCompany.value, ty = fType.value, st = fStatus.value, cn = fConn.value;
     const q = fSearch.value.toLowerCase();
     let rows = C.filter(r =>
       (!co || r.company===co) &&
       (!ty || r.generation_type===ty) &&
       (!st || r.status===st) &&
+      (!cn || r.connection_type===cn) &&
       (!q || [r.deal_name, r.counterparty, r.notes, r.cod_note].some(x => (x||'').toLowerCase().includes(q)))
     );
     rows.sort((a,b) => {
@@ -536,6 +611,7 @@ document.querySelectorAll('.tab').forEach(t => {
         <td>${r.cod_year || '—'}</td>
         <td>${statusBadge(r.status)}</td>
         <td>${typeBadge(r.generation_type)}</td>
+        <td>${connBadge(r.connection_type, r.connection_reason)}</td>
         <td style="text-align:right;white-space:nowrap">${r.capacity_mw!=null ? r.capacity_mw.toLocaleString()+' MW' : '—'} <span class="${r.confidence==='Sourced'?'conf-s':'conf-e'}">${r.confidence==='Sourced'?'✓':'~'}</span></td>
         <td>${dealHtml}</td>
         <td style="color:var(--muted)">${r.counterparty||''}</td>
@@ -553,7 +629,7 @@ document.querySelectorAll('.tab').forEach(t => {
       render();
     });
   });
-  [fCompany,fType,fStatus,fSearch].forEach(el => el.addEventListener('input', render));
+  [fCompany,fType,fStatus,fConn,fSearch].forEach(el => el.addEventListener('input', render));
   render();
 })();
 

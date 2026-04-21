@@ -61,14 +61,17 @@ def load_contracts(conn: sqlite3.Connection) -> int:
                 """INSERT INTO hyperscaler_contracts
                    (company, announced_date, year, cod_year, cod_note,
                     generation_type, capacity_mw, confidence, deal_name,
-                    counterparty, contract_years, geography, status, notes, source_id)
-                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                    counterparty, contract_years, geography, status,
+                    connection_type, connection_reason, notes, source_id)
+                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
                 (company, r.get("announced_date"), r["year"],
                  r.get("cod_year"), r.get("cod_note"),
                  r["generation_type"], r["capacity_mw"],
                  r.get("confidence", "Estimated"), r["deal_name"],
                  r.get("counterparty"), r.get("contract_years"),
                  r.get("geography", "US"), r.get("status", "Announced"),
+                 r.get("connection_type", "Unknown"),
+                 r.get("connection_reason"),
                  r.get("notes"), r["source_id"]),
             )
             n += 1
