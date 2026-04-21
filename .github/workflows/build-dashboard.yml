@@ -1,0 +1,51 @@
+name: Build & deploy dashboard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/**'
+      - 'scripts/**'
+      - 'schema.sql'
+      - 'requirements.txt'
+  workflow_dispatch:   # allow manual trigger from the Actions tab
+
+permissions:
+  contents: write      # needed to push the rebuilt HTML back
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build database
+        run: python scripts/load.py
+
+      - name: Validate
+        run: python scripts/validate.py
+
+      - name: Generate dashboard
+        run: python scripts/dashboard.py
+
+      - name: Commit & push rebuilt HTML
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add output/dashboard.html
+          # only commit if the file actually changed
+          git diff --cached --quiet && echo "No changes to dashboard.html" || \
+            git commit -m "ci: rebuild dashboard [skip ci]" && git push
