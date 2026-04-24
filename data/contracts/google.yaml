@@ -530,3 +530,19 @@ rows:
     geography: Belgium
     notes: Tied to Google data center expansions in Saint-Ghislain and Farciennes.
     source_id: S111
+
+  - year: 2026
+    announced_date: 2026-04-23
+    generation_type: Other
+    capacity_mw: 390
+    confidence: Sourced
+    deal_name: AES Indiana Customer-Specific Contract — Morgan County data center (390 MW)
+    counterparty: AES Indiana
+    cod_year:
+    cod_note: "15-year Customer-Specific Contract (CSC) filed with IURC under Indiana HEA 1007. ~$1.3B new infrastructure; Google bears 100% of infrastructure costs. Mix of generation TBD by AES Indiana. Regulatory order expected Sep 2026. Projected $770M savings for existing ratepayers."
+    status: Announced
+    connection_type: Grid
+    connection_reason: Utility service contract — electrons delivered via AES Indiana distribution network
+    geography: US
+    contract_years: 15
+    source_id: S203

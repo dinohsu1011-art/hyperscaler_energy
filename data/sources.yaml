@@ -1571,3 +1571,21 @@
   retrieved_on: 2026-04-24
   kind: Primary
   supports: "Meta×Noon Energy LDES agreement: 25 MW / 2.5 GWh Phase 1 pilot (COD ~2028) + up to 1 GW / 100 GWh framework. 100-hour reversible-SOFC storage, behind-the-meter for AI data centers. Meta's first LDES procurement."
+
+- id: S202
+  publisher: PV Tech / ESS News / Renewables Now
+  title: "Amazon signs 430 MW of renewable energy PPAs in Australia (9 deals — wind, solar+storage, BESS)"
+  url: https://www.pv-tech.org/amazon-signs-first-solar-plus-storage-ppas-in-australia-to-power-ai-expansion/
+  pub_date: 2026-04-16
+  retrieved_on: 2026-04-24
+  kind: Secondary
+  supports: "Amazon Australia 9-PPA bundle: TagEnergy Golden Plains 2 wind (VIC), X-ELIO Forest Glen solar+storage (NSW), Anza Stanbridge + 4 distributed solar+storage (NSW/VIC), OX2 Muswellbrook solar+storage (NSW), European Energy Mokoan BESS (VIC). 430 MW combined."
+
+- id: S203
+  publisher: Indianapolis Business Journal / Inside INdiana Business
+  title: "AES Indiana files 15-year Customer-Specific Contract to power proposed Google data center in Morgan County"
+  url: https://www.ibj.com/articles/aes-indiana-details-plan-to-power-proposed-google-data-center-southwest-of-indianapolis
+  pub_date: 2026-04-23
+  retrieved_on: 2026-04-24
+  kind: Secondary
+  supports: "Google × AES Indiana: 390 MW Customer-Specific Contract (CSC), Monrovia/Morgan County Indiana data center. Filed with IURC under HEA 1007. 15-year minimum term, Google bears 100% infrastructure costs, regulatory order expected Sep 2026."

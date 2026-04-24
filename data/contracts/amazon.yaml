@@ -524,3 +524,18 @@ rows:
     connection_reason: Wind default → Grid
     geography: Brazil
     source_id: S138
+
+  - year: 2026
+    announced_date: 2026-04-16
+    generation_type: Renewable
+    capacity_mw: 430
+    confidence: Sourced
+    deal_name: Australia 9-PPA renewable bundle — 430 MW (wind + solar+storage + BESS)
+    counterparty: TagEnergy / X-ELIO / Anza / OX2 / European Energy
+    cod_year:
+    cod_note: "9 PPAs: TagEnergy Golden Plains 2 wind (VIC); X-ELIO Forest Glen solar+BESS (NSW); Anza Stanbridge solar+BESS (NSW) + 4 distributed solar+BESS (VIC); OX2 Muswellbrook solar+BESS (NSW); European Energy Mokoan Solar BESS add-on (VIC). Amazon's first solar+storage PPAs outside the US. 8 of 9 include co-located BESS. Brings AU total to ~990 MW."
+    status: PPA
+    connection_type: Grid
+    connection_reason: All 9 PPAs deliver into national grid (NEM)
+    geography: Australia
+    source_id: S202
