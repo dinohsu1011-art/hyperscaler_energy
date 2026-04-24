@@ -129,31 +129,31 @@ TEMPLATE = r"""<!doctype html>
     display:inline-block; margin-left:.35rem; padding:1px 6px;
     border-radius:4px; font-size:.6rem; font-weight:700;
     letter-spacing:.08em; text-transform:uppercase;
-    background:#ffd16622; color:#ffd166;
-    border:1px solid #ffd16666;
+    background:#ffdd3322; color:#ffdd33;
+    border:1px solid #ffdd3377;
     animation: newpulse 2.2s ease-in-out infinite;
     vertical-align:middle;
   }
   @keyframes newpulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(255,209,102,0.55); }
-    50%      { box-shadow: 0 0 12px 2px rgba(255,209,102,0.55); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,221,51,0.6); }
+    50%      { box-shadow: 0 0 14px 2px rgba(255,221,51,0.6); }
   }
   .whats-new {
     background: linear-gradient(90deg,
-      rgba(255,209,102,0.08) 0%, rgba(255,209,102,0.02) 100%);
-    border:1px solid rgba(255,209,102,0.25);
-    border-left:3px solid #ffd166;
+      rgba(255,221,51,0.10) 0%, rgba(255,221,51,0.02) 100%);
+    border:1px solid rgba(255,221,51,0.28);
+    border-left:3px solid #ffdd33;
     border-radius:8px; padding:.7rem 1rem; margin-bottom:1.2rem;
     display:flex; align-items:center; gap:.9rem; flex-wrap:wrap;
   }
   .whats-new .wn-label {
-    color:#ffd166; font-size:.68rem; font-weight:700;
+    color:#ffdd33; font-size:.68rem; font-weight:700;
     letter-spacing:.12em; text-transform:uppercase;
     padding:2px 8px; border-radius:4px;
-    background:rgba(255,209,102,0.12); white-space:nowrap;
+    background:rgba(255,221,51,0.14); white-space:nowrap;
   }
   .whats-new .wn-item { font-size:.85rem; color:var(--ink); }
-  .whats-new .wn-item .wn-co { color:#ffd166; font-weight:600; }
+  .whats-new .wn-item .wn-co { color:#ffdd33; font-weight:600; }
   .whats-new .wn-item .wn-date { color:var(--muted); font-size:.75rem; margin-left:.3rem; }
   .whats-new .wn-sep { color:var(--line); }
   .whats-new.empty { display:none; }
@@ -320,7 +320,7 @@ Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Hel
 
 // ---- Freshness signal: rows announced within the last 7 days glow amber ----
 const FRESH_WINDOW_DAYS = 7;
-const GLOW_COLOR = '#ffd166';
+const GLOW_COLOR = '#ffdd33';    // bright amber — more saturated than --geo
 function isNew(row) {
   const ad = row && row.announced_date;
   if (!ad) return false;
@@ -330,42 +330,76 @@ function isNew(row) {
   const diffDays = (Date.now() - d.getTime()) / 86400000;
   return diffDays >= 0 && diffDays <= FRESH_WINDOW_DAYS;
 }
-// dataset-level flag per bar: array of booleans matching the x-axis labels.
-// If any row in the bucket is new, the whole segment glows.
-function freshFlags(rows, buckets, bucketKey) {
-  return buckets.map(b => rows.some(r => r[bucketKey] === b && isNew(r)));
+// For each bucket on the x-axis (or y-axis for horizontal charts), compute
+// ONLY the MW contributed by fresh rows. Parallel to the dataset's `data`
+// array. Used by the plugin below to glow just the top slice of each
+// segment, not the whole segment.
+function freshMW(rows, buckets, bucketKey) {
+  return buckets.map(b =>
+    rows.filter(r => r[bucketKey] === b && isNew(r))
+        .reduce((s, r) => s + (r.capacity_mw || 0), 0));
 }
-function glowBorder(flags) { return flags.map(f => f ? GLOW_COLOR : 'transparent'); }
-function glowWidth(flags)  { return flags.map(f => f ? 2.5 : 0); }
 
-// Chart.js plugin: soft amber shadow on bar segments whose borderWidth>0.
-// This is what gives the "glow" instead of just a sharp outline.
+// Chart.js plugin — draws a bright amber overlay on just the fresh portion
+// of each stacked bar segment. For vertical bars, it's the top slice; for
+// horizontal bars, the rightmost slice (the "most recently added" edge of
+// the stack). Two passes: a wide soft shadow, then a crisp fill+stroke, so
+// the glow reads on dark AND shows inside light segments.
 Chart.register({
   id: 'freshGlow',
   afterDatasetsDraw(chart) {
     const ctx = chart.ctx;
+    const isHorizontal = chart.options.indexAxis === 'y';
     chart.data.datasets.forEach((ds, di) => {
-      const bw = ds.borderWidth;
-      if (!Array.isArray(bw)) return;
+      if (!ds.freshData || !ds.freshData.some(v => v > 0)) return;
       const meta = chart.getDatasetMeta(di);
       meta.data.forEach((bar, i) => {
-        if (!bw[i]) return;
+        const total = ds.data[i];
+        const fresh = ds.freshData[i];
+        if (!total || !fresh) return;
+        const frac = Math.min(1, fresh / total);
         const { x, y, base, width, height } = bar.getProps(
-          ['x','y','base','width','height'], true);
+          ['x', 'y', 'base', 'width', 'height'], true);
+
+        // Compute the fresh-slice rectangle in pixel space.
+        let rx, ry, rw, rh;
+        if (isHorizontal) {
+          // Segment runs from base (left edge of this segment) to x (right
+          // edge). Fresh slice sits on the right side.
+          const segW = Math.abs(x - base);
+          rw = segW * frac;
+          rx = (x > base) ? (x - rw) : base;
+          ry = y - height / 2;
+          rh = height;
+        } else {
+          // Segment runs from base (bottom) down to y (top, smaller pixel-y).
+          // Fresh slice sits at the top.
+          const segH = Math.abs(y - base);
+          rh = segH * frac;
+          rx = x - width / 2;
+          ry = (y < base) ? y : (base - rh);
+          rw = width;
+        }
+
+        // Pass 1: soft aura. Large shadow, translucent fill.
         ctx.save();
         ctx.shadowColor = GLOW_COLOR;
-        ctx.shadowBlur = 14;
-        ctx.strokeStyle = GLOW_COLOR;
-        ctx.lineWidth = bw[i];
-        // Rect coordinates differ for horizontal vs vertical bars; Chart.js
-        // gives us (x,y) as the "tip" and base as the opposite edge.
-        if (chart.options.indexAxis === 'y') {
-          const left = Math.min(x, base), w = Math.abs(x - base);
-          ctx.strokeRect(left, y - height/2, w, height);
-        } else {
-          const top = Math.min(y, base), h = Math.abs(y - base);
-          ctx.strokeRect(x - width/2, top, width, h);
-        }
+        ctx.shadowBlur = 28;
+        ctx.fillStyle = GLOW_COLOR;
+        ctx.globalAlpha = 0.55;
+        ctx.fillRect(rx, ry, rw, rh);
+        ctx.restore();
+
+        // Pass 2: crisp bright fill + stroke. Overlays the segment color
+        // so the "new" slice reads as a distinct colored block.
+        ctx.save();
+        ctx.fillStyle = GLOW_COLOR;
+        ctx.globalAlpha = 0.82;
+        ctx.fillRect(rx, ry, rw, rh);
+        ctx.globalAlpha = 1;
+        ctx.strokeStyle = '#fff4a8';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(rx + 0.5, ry + 0.5, rw - 1, rh - 1);
         ctx.restore();
       });
     });
@@ -436,15 +470,13 @@ document.querySelectorAll('.tab').forEach(t => {
   const years = [...new Set(C.map(r=>r.year))].sort((a,b)=>a-b);
   const types = [...new Set(C.map(r=>r.generation_type))];
   const ds = types.map(t => {
-    const flags = years.map(y =>
-      C.some(r => r.year===y && r.generation_type===t && isNew(r)));
+    const rowsT = C.filter(r => r.generation_type === t);
     return {
       label: t,
-      data: years.map(y => C.filter(r=>r.year===y && r.generation_type===t)
-                           .reduce((s,r)=>s+(r.capacity_mw||0),0)),
-      backgroundColor: colorFor(t),
-      borderColor: glowBorder(flags),
-      borderWidth: glowWidth(flags)
+      data: years.map(y => rowsT.filter(r=>r.year===y)
+                                .reduce((s,r)=>s+(r.capacity_mw||0),0)),
+      freshData: freshMW(rowsT, years, 'year'),
+      backgroundColor: colorFor(t), borderWidth:0
     };
   }).filter(d => d.data.some(v=>v>0));
   new Chart(document.getElementById('chartYear'), {
@@ -464,15 +496,13 @@ document.querySelectorAll('.tab').forEach(t => {
   const companies = [...new Set(C.map(r=>r.company))].sort();
   const types = [...new Set(C.map(r=>r.generation_type))];
   const ds = types.map(t => {
-    const flags = companies.map(co =>
-      C.some(r => r.company===co && r.generation_type===t && isNew(r)));
+    const rowsT = C.filter(r => r.generation_type === t);
     return {
       label: t,
-      data: companies.map(co => C.filter(r=>r.company===co && r.generation_type===t)
-                                  .reduce((s,r)=>s+(r.capacity_mw||0),0)),
-      backgroundColor: colorFor(t),
-      borderColor: glowBorder(flags),
-      borderWidth: glowWidth(flags)
+      data: companies.map(co => rowsT.filter(r=>r.company===co)
+                                     .reduce((s,r)=>s+(r.capacity_mw||0),0)),
+      freshData: freshMW(rowsT, companies, 'company'),
+      backgroundColor: colorFor(t), borderWidth:0
     };
   }).filter(d=>d.data.some(v=>v>0));
   new Chart(document.getElementById('chartCompany'), {
@@ -492,15 +522,13 @@ document.querySelectorAll('.tab').forEach(t => {
   const years = [...new Set(C.map(r=>r.cod_year))].sort((a,b)=>a-b);
   const types = [...new Set(C.map(r=>r.generation_type))].sort();
   const ds = types.map(t => {
-    const flags = years.map(y =>
-      C.some(r => r.cod_year===y && r.generation_type===t && isNew(r)));
+    const rowsT = C.filter(r => r.generation_type === t);
     return {
       label: t,
-      data: years.map(y => C.filter(r=>r.cod_year===y && r.generation_type===t)
-                            .reduce((s,r)=>s+(r.capacity_mw||0),0)),
-      backgroundColor: colorFor(t),
-      borderColor: glowBorder(flags),
-      borderWidth: glowWidth(flags)
+      data: years.map(y => rowsT.filter(r=>r.cod_year===y)
+                                .reduce((s,r)=>s+(r.capacity_mw||0),0)),
+      freshData: freshMW(rowsT, years, 'cod_year'),
+      backgroundColor: colorFor(t), borderWidth:0
     };
   }).filter(d => d.data.some(v=>v>0));
   new Chart(document.getElementById('chartCod'), {
@@ -520,15 +548,13 @@ document.querySelectorAll('.tab').forEach(t => {
   const years = [...new Set(C.map(r=>r.year))].sort((a,b)=>a-b);
   const order = ['BTM','Grid','Unknown'];
   const ds = order.map(ct => {
-    const flags = years.map(y =>
-      C.some(r => r.year===y && r.connection_type===ct && isNew(r)));
+    const rowsCT = C.filter(r => r.connection_type === ct);
     return {
       label: ct,
-      data: years.map(y => C.filter(r=>r.year===y && r.connection_type===ct)
-                            .reduce((s,r)=>s+(r.capacity_mw||0),0)),
-      backgroundColor: CONN_COLORS[ct],
-      borderColor: glowBorder(flags),
-      borderWidth: glowWidth(flags)
+      data: years.map(y => rowsCT.filter(r=>r.year===y)
+                                 .reduce((s,r)=>s+(r.capacity_mw||0),0)),
+      freshData: freshMW(rowsCT, years, 'year'),
+      backgroundColor: CONN_COLORS[ct], borderWidth:0
     };
   }).filter(d => d.data.some(v=>v>0));
   new Chart(document.getElementById('chartConnAll'), {
@@ -548,15 +574,13 @@ document.querySelectorAll('.tab').forEach(t => {
   const years = [...new Set(C.map(r=>r.cod_year))].sort((a,b)=>a-b);
   const order = ['BTM','Grid','Unknown'];
   const ds = order.map(ct => {
-    const flags = years.map(y =>
-      C.some(r => r.cod_year===y && r.connection_type===ct && isNew(r)));
+    const rowsCT = C.filter(r => r.connection_type === ct);
     return {
       label: ct,
-      data: years.map(y => C.filter(r=>r.cod_year===y && r.connection_type===ct)
-                            .reduce((s,r)=>s+(r.capacity_mw||0),0)),
-      backgroundColor: CONN_COLORS[ct],
-      borderColor: glowBorder(flags),
-      borderWidth: glowWidth(flags)
+      data: years.map(y => rowsCT.filter(r=>r.cod_year===y)
+                                 .reduce((s,r)=>s+(r.capacity_mw||0),0)),
+      freshData: freshMW(rowsCT, years, 'cod_year'),
+      backgroundColor: CONN_COLORS[ct], borderWidth:0
     };
   }).filter(d => d.data.some(v=>v>0));
   new Chart(document.getElementById('chartConnCod'), {
@@ -576,15 +600,13 @@ document.querySelectorAll('.tab').forEach(t => {
   const companies = [...new Set(C.map(r=>r.company))].sort();
   const order = ['BTM','Grid','Unknown'];
   const ds = order.map(ct => {
-    const flags = companies.map(co =>
-      C.some(r => r.company===co && r.connection_type===ct && isNew(r)));
+    const rowsCT = C.filter(r => r.connection_type === ct);
     return {
       label: ct,
-      data: companies.map(co => C.filter(r=>r.company===co && r.connection_type===ct)
-                                  .reduce((s,r)=>s+(r.capacity_mw||0),0)),
-      backgroundColor: CONN_COLORS[ct],
-      borderColor: glowBorder(flags),
-      borderWidth: glowWidth(flags)
+      data: companies.map(co => rowsCT.filter(r=>r.company===co)
+                                      .reduce((s,r)=>s+(r.capacity_mw||0),0)),
+      freshData: freshMW(rowsCT, companies, 'company'),
+      backgroundColor: CONN_COLORS[ct], borderWidth:0
     };
   }).filter(d => d.data.some(v=>v>0));
   new Chart(document.getElementById('chartConnCompany'), {
@@ -605,15 +627,13 @@ document.querySelectorAll('.tab').forEach(t => {
   const companies = [...new Set(C.map(r=>r.company))].sort();
   const types = [...new Set(C.map(r=>r.generation_type))];
   const ds = types.map(t => {
-    const flags = companies.map(co =>
-      C.some(r => r.company===co && r.generation_type===t && isNew(r)));
+    const rowsT = C.filter(r => r.generation_type === t);
     return {
       label:t,
-      data: companies.map(co => C.filter(r=>r.company===co && r.generation_type===t)
-                                  .reduce((s,r)=>s+(r.capacity_mw||0),0)),
-      backgroundColor: colorFor(t),
-      borderColor: glowBorder(flags),
-      borderWidth: glowWidth(flags)
+      data: companies.map(co => rowsT.filter(r=>r.company===co)
+                                     .reduce((s,r)=>s+(r.capacity_mw||0),0)),
+      freshData: freshMW(rowsT, companies, 'company'),
+      backgroundColor: colorFor(t), borderWidth:0
     };
   }).filter(d=>d.data.some(v=>v>0));
   new Chart(document.getElementById('chartMix'), {
