@@ -340,9 +340,9 @@ function freshMW(rows, buckets, bucketKey) {
         .reduce((s, r) => s + (r.capacity_mw || 0), 0));
 }
 
-// Chart.js plugin — draws a bright red overlay on just the fresh portion
-// of each stacked bar segment. For vertical bars, it's the top slice; for
-// horizontal bars, the rightmost slice (the "most recently added" edge of
+// Chart.js plugin — draws a bright red glowing outline on just the fresh
+// portion of each stacked bar segment (no fill — base category color shows
+// through). For vertical bars it's the top slice; for horizontal bars,
 // the stack). Two passes: a wide soft shadow, then a crisp fill+stroke, so
 // the glow reads on dark AND shows inside light segments.
 Chart.register({
@@ -381,25 +381,24 @@ Chart.register({
           rw = width;
         }
 
-        // Pass 1: soft aura. Large shadow, translucent fill.
+        // Pass 1: wide soft aura — stroke only, no fill, so bar color shows through.
         ctx.save();
         ctx.shadowColor = GLOW_COLOR;
-        ctx.shadowBlur = 28;
-        ctx.fillStyle = GLOW_COLOR;
-        ctx.globalAlpha = 0.55;
-        ctx.fillRect(rx, ry, rw, rh);
+        ctx.shadowBlur = 18;
+        ctx.strokeStyle = GLOW_COLOR;
+        ctx.lineWidth = 3;
+        ctx.globalAlpha = 0.7;
+        ctx.strokeRect(rx + 1, ry + 1, rw - 2, rh - 2);
         ctx.restore();
 
-        // Pass 2: crisp bright fill + stroke. Overlays the segment color
-        // so the "new" slice reads as a distinct colored block.
+        // Pass 2: crisp bright stroke on top for a sharp edge.
         ctx.save();
-        ctx.fillStyle = GLOW_COLOR;
-        ctx.globalAlpha = 0.82;
-        ctx.fillRect(rx, ry, rw, rh);
-        ctx.globalAlpha = 1;
-        ctx.strokeStyle = '#fff4a8';
+        ctx.shadowColor = GLOW_COLOR;
+        ctx.shadowBlur = 6;
+        ctx.strokeStyle = GLOW_COLOR;
         ctx.lineWidth = 2;
-        ctx.strokeRect(rx + 0.5, ry + 0.5, rw - 1, rh - 1);
+        ctx.globalAlpha = 1;
+        ctx.strokeRect(rx + 1, ry + 1, rw - 2, rh - 2);
         ctx.restore();
       });
     });
