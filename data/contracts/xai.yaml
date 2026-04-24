@@ -18,15 +18,14 @@ rows:
     generation_type: Gas
     capacity_mw:
     confidence: Estimated
-    deal_name: Colossus 2 — Whitehaven (second Memphis site)
+    deal_name: Colossus 2 — Whitehaven (second Memphis site, Tulane Road)
     counterparty: Solar Turbines (Caterpillar)
     cod_year:
-    cod_note: Data center site at Whitehaven Memphis TN. Power supplied by Stateline Power JV at Southaven MS (see Stateline row, 1,200 MW). The 1,560 MW figure cited in early reporting was an 
-      unverified third-party estimate of the data center's power draw — not a confirmed generator capacity. Do not sum with Stateline row.
+    cod_note: Data center site at Whitehaven Memphis TN (Tulane Road area). Power supplied by Stateline Power JV at Southaven MS (see Stateline row, 900 MW contracted). The 1,560 MW figure cited in early reporting was an unverified third-party estimate of the data center's power draw — not a confirmed generator capacity. Do not sum with Stateline row.
     status: Announced
     connection_type: BTM
     connection_reason: turbine model marker
-    notes: Whitehaven is the data center location, not the power plant. Capacity NULL — Stateline JV row carries the generation MW.
+    notes: Whitehaven/Tulane Road is the data center location, not the power plant. Capacity NULL — Stateline JV row carries the generation MW.
     source_id: S52
 
   - year: 2024
@@ -48,35 +47,34 @@ rows:
     generation_type: Storage
     capacity_mw: 150
     confidence: Sourced
-    deal_name: Colossus 1 — Tesla Megapack battery storage (168 units)
+    deal_name: Colossus 1 — Tesla Megapack battery storage (~156 units Phase 1)
     counterparty: Tesla Energy
     cod_year: 2024
-    cod_note: 168 Megapacks deployed at South Memphis campus; ~$230M spent Jan 2024–Feb 2025.
+    cod_note: ~156 Megapacks deployed at South Memphis campus (Colossus 1); ~$230M spent Jan 2024–Feb 2025. Additional 168 Megapacks procured for Colossus 2 (Whitehaven) in 2025.
     status: Operational
     connection_type: Grid
     connection_reason: Storage default → Grid
-    notes: Additional ~$430M in Tesla Megapacks sold to xAI in full-year 2025 covering Colossus 1 + Colossus 2.
+    notes: "~$430M in additional Tesla Megapacks sold to xAI in full-year 2025 covering Colossus 2 (Whitehaven, ~168 units). Total xAI Megapack spend approx $660M across both sites."
     source_id: S64
 
   - year: 2025
     announced_date: 2025-04-29
     generation_type: Gas
-    capacity_mw: 1200
+    capacity_mw: 900
     confidence: Sourced
-    deal_name: Stateline Power JV — Southaven MS BTM gas (up to 1.2 GW permitted)
+    deal_name: Stateline Power JV — Southaven MS BTM gas (900 MW contracted)
     counterparty: Solaris Energy Infrastructure (SEI)
     cod_year: 2027
-    cod_note: 50.1% SEI / 49.9% xAI (CTC Property LLC); $550M term loan. JV announced 900 MW buildout target (contract expanded from 500 MW mid-2025); MDEQ permit granted Mar 10 2026 for 41 turbines 
-      covering up to 1,200 MW (permit ceiling). Merged with MDEQ permit row — same physical turbines at Southaven. SELC/NAACP appeal filed Apr 2026.
+    cod_note: 50.1% SEI / 49.9% xAI (CTC Property LLC); $550M term loan. JV contracted buildout target is 900 MW (expanded from 500 MW mid-2025); MDEQ permit granted Mar 10 2026 covers up to 1,200 MW (41 turbines) as a permit ceiling. SELC/NAACP appeal filed Apr 2026.
     status: Approved
     connection_type: BTM
     connection_reason: BTM text marker
     notes: |
       35 MW modular gas turbines at former Duke Energy site, Southaven (DeSoto County) MS.
-      Powers Colossus 2 (Whitehaven data center). JV buildout target was 900 MW; MDEQ
-      permit ceiling is 1,200 MW for 41 turbines — using 1,200 MW as authoritative (permit
-      is the more current and specific figure). Previously had two rows (JV + MDEQ permit)
-      which were double-counting the same asset; merged into one row at 1,200 MW.
+      Powers Colossus 2 (Whitehaven data center). Using 900 MW as the JV contracted figure;
+      MDEQ permit ceiling of 1,200 MW is the regulatory maximum, not the build commitment.
+      Previously had two rows (JV + MDEQ permit) which were double-counting the same asset;
+      merged into one row at 900 MW.
     source_id: S65
 
   - year: 2026

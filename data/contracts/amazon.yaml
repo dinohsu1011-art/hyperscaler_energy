@@ -30,7 +30,7 @@ rows:
     notes: ~$18B PPA. Replaces the original 2024 BTM Cumulus deal — do not double-count.
     source_id: S45
 
-  - year: 2024
+  - year: 2023
     announced_date: 2024-10
     generation_type: Nuclear
     capacity_mw: 320
@@ -166,10 +166,10 @@ rows:
     generation_type: Solar
     capacity_mw: 150
     confidence: Sourced
-    deal_name: Fox Squirrel Solar Phase 1 (Van Wert County OH)
+    deal_name: Fox Squirrel Solar Phase 1 (Madison County OH)
     counterparty: EDF Renewables North America / Enbridge
     cod_year: 2024
-    cod_note: Phase 1 (150 MW) operational mid-2024; Van Wert County OH.
+    cod_note: Phase 1 (150 MW) operational mid-2024; Madison County OH.
     status: Operational
     connection_type: Grid
     connection_reason: IPP counterparty 'EDF Renewables North America / Enbridge'
@@ -467,7 +467,7 @@ rows:
   - year: 2024
     announced_date: 2024-08-02
     generation_type: Solar
-    capacity_mw: 10
+    capacity_mw: 9.5
     confidence: Sourced
     deal_name: ENEOS Kudamatsu Fourth Mega Solar (Yamaguchi Japan)
     counterparty: ENEOS Renewable Energy Corporation
@@ -478,6 +478,7 @@ rows:
     connection_reason: Solar default → Grid
     geography: Japan
     source_id: S135
+
 
   - year: 2025
     announced_date: 2025-01-29
@@ -513,7 +514,7 @@ rows:
 
   - year: 2024
     generation_type: Wind
-    capacity_mw: 50
+    capacity_mw: 49.5
     confidence: Sourced
     deal_name: Elera Renováveis wind (Rio Grande do Norte, Brazil)
     counterparty: Elera Renováveis

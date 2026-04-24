@@ -6,7 +6,7 @@ FK + NOT NULL on source_id already guarantee every row is cited. This script add
      but have DIFFERENT source_ids (possible double-counting via parallel reports).
   3. URL sanity — every source has a non-empty http(s) URL.
   4. Parent-child aggregate check for Microsoft Brookfield (solar+wind ≈ 10.5 GW parent).
-  5. Meta 2025 nuclear (6.6 + 1.1) and Hyperion gas (2.3 + 5.2 = 7.5 GW) totals.
+  5. Meta 2025 nuclear (6.6 + 1.1) and Hyperion gas (2.26 + 5.24 = 7.5 GW) totals.
 
 Exits 0 if all OK, 1 on any failure, 2 on warnings-only.
 """

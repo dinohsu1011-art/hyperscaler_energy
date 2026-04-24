@@ -11,7 +11,7 @@ rows:
     cod_note: Phase 1 operational Sep 2025; full build mid-2026. Originally planned 600 MW expansion cancelled early 2026.
     status: Operational
     connection_type: Grid
-    connection_reason: override match 'Stargate Abilene — Lancium / ERCOT grid interconnect'
+    connection_reason: ERCOT grid interconnect named in deal
     geography: US
     notes: |
       1.2 GW contracted ERCOT interconnect (mixed-source grid power, wind-heavy
@@ -73,9 +73,9 @@ rows:
     confidence: Sourced
     deal_name: Bloom Energy fuel-cell initial deployment — 1.2 GW (Oracle OCI sites)
     counterparty: Bloom Energy
-    cod_year: 2025
-    cod_note: Initial 1.2 GW deployed and operational; completed in ~55 days (vs. 90-day stated target). Behind-the-meter at select Oracle Cloud Infrastructure sites across US.
-    status: Operational
+    cod_year: 2026
+    cod_note: 1.2 GW initial deployment at select Oracle Cloud Infrastructure sites across US; announced Jul 2025 with ~55-day deployment target; commissioning phased through 2026. Status updated to UnderConstruction per Jul 2025 announcement framing.
+    status: UnderConstruction
     connection_type: BTM
     connection_reason: BTM text marker
     notes: Solid-oxide fuel cells on natural gas. First deployment under the Jul 2025 framework. Expanded to 2.8 GW total master agreement Apr 2026 (see S162 row).

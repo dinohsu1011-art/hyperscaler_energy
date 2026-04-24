@@ -104,12 +104,12 @@ rows:
   - year: 2023
     announced_date: 2023-10-13
     generation_type: Solar
-    capacity_mw: 100
+    capacity_mw: 25
     confidence: Sourced
     deal_name: Shizen Energy Japan solar portfolio (anchor 25 MW + three additional, total 100 MW)
     counterparty: Shizen Energy
     cod_year: 2025
-    cod_note: Anchor 25 MW Inuyama Aichi (COD Mar 2024); three additional 20-yr VPPAs across Kyushu and Chugoku by Oct 2025; total 100 MW milestone.
+    cod_note: Anchor 25 MW Inuyama Aichi (COD Mar 2024); three additional 20-yr VPPAs across Kyushu and Chugoku by Oct 2025; total 100 MW milestone. capacity_mw records the 2023 anchor deal only (25 MW); the subsequent three VPPAs are unquantified per-project and not separately contracted in this row.
     status: PPA
     connection_type: Grid
     connection_reason: Solar default → Grid

@@ -18,17 +18,16 @@ rows:
   - year: 2026
     announced_date: 2026-01-09
     generation_type: Nuclear
-    capacity_mw: 2800
+    capacity_mw: 2760
     confidence: Sourced
     deal_name: TerraPower Natrium nuclear — 8-reactor agreement
     counterparty: TerraPower
     cod_year: 2032
-    cod_note: Initial 2 Natrium units (~690 MW) targeted ~2032; rights for 6 more (~2,070 MW) by 2035. 345 MW/unit baseload; upgradeable to 500 MW with thermal storage. Site TBD. Official stated 
-      capacity "up to 2.8 GW" — 8 × 345 MW = 2,760 MW baseload, rounded to 2,800 MW in all press releases.
+    cod_note: Initial 2 Natrium units (~690 MW) targeted ~2032; rights for 6 more (~2,070 MW) by 2035. 345 MW/unit baseload; upgradeable to 500 MW with thermal storage. Site TBD. 8 × 345 MW = 2,760 MW baseload; press releases round to "up to 2.8 GW".
     status: MOU
     connection_type: BTM
     connection_reason: Natrium SMR campus-adjacent → BTM
-    notes: Part of Jan 2026 6.6 GW package. Official figure is "up to 2.8 GW"; 2,760 MW was an arithmetic derivation not used in primary sources.
+    notes: Part of Jan 2026 6.6 GW package. Using 2,760 MW (8 × 345 MW exact figure); primary sources round to "up to 2.8 GW" but 2,760 is the precise arithmetic basis.
     source_id: S74
 
   - year: 2026
@@ -63,12 +62,12 @@ rows:
   - year: 2026
     announced_date: 2025
     generation_type: Gas
-    capacity_mw: 2300
+    capacity_mw: 2260
     confidence: Sourced
     deal_name: Hyperion Louisiana — Phase 1 (3 plants, approved 2025)
     counterparty: Entergy Louisiana
     cod_year: 2028
-    cod_note: Phase 1 approved by LA PSC 2025; online 2028–2029 per reporting.
+    cod_note: Phase 1 approved by LA PSC 2025; online 2028–2029 per reporting. 3 units × ~753 MW each = 2,260 MW (rounded from ~2,260 to 2,260).
     status: Approved
     connection_type: Grid
     connection_reason: utility counterparty 'Entergy Louisiana'
@@ -78,12 +77,12 @@ rows:
   - year: 2026
     announced_date: 2026-03-27
     generation_type: Gas
-    capacity_mw: 5200
+    capacity_mw: 5240
     confidence: Sourced
     deal_name: Hyperion Louisiana — Phase 2 (7 additional plants)
     counterparty: Entergy Louisiana
     cod_year:
-    cod_note: Requires Louisiana PSC approval; COD not disclosed.
+    cod_note: Requires Louisiana PSC approval; COD not disclosed. 7 plants × ~749 MW each = ~5,240 MW (total campus 7,500 MW − Phase 1 2,260 MW = 5,240 MW).
     status: Announced
     connection_type: Grid
     connection_reason: utility counterparty 'Entergy Louisiana'
@@ -177,7 +176,7 @@ rows:
 
   - year: 2021
     generation_type: Solar+Storage
-    capacity_mw: 240
+    capacity_mw: 190
     confidence: Sourced
     deal_name: Sky Ranch Solar Energy Center (NM) — operational
     counterparty: NextEra Energy Resources / PNM

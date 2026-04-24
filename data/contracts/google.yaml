@@ -40,10 +40,10 @@ rows:
     geography: US
     cod_year:
     cod_note: COD not disclosed at announcement.
-    status: Announced
+    status: MOU
     connection_type: BTM
     connection_reason: gas without grid signal → BTM
-    notes: Announced same week as Microsoft West Texas (Apr 2026).
+    notes: Announced same week as Microsoft West Texas (Apr 2026). Google has not publicly confirmed this deal; sourced from third-party reporting — treat as MOU/unconfirmed.
     source_id: S4
 
   - year: 2025
@@ -52,7 +52,7 @@ rows:
     capacity_mw: 400
     confidence: Sourced
     deal_name: Broadwing Energy CCS plant (Decatur, IL)
-    counterparty: Low Carbon Infrastructure / Mitsubishi
+    counterparty: Low Carbon Infrastructure (I Squared Capital)
     cod_year: 2029
     cod_note: Plant online 2029; CCS operational by early 2030.
     status: PPA
@@ -97,7 +97,7 @@ rows:
     counterparty: Intersect Power / TPG Rise Climate
     cod_year:
     cod_note: First site Haskell County TX; framed as multi-GW / ~$20B; specific MW per site not disclosed.
-    status: Operational
+    status: Framework
     connection_type: Grid
     connection_reason: co-located physically, each project is a grid PPA
     notes: "Co-location model — gigawatt-scale renewables built alongside data centers. No primary source confirms a specific 3 GW figure. Alphabet acquired Intersect Power for $4.75B cash (deal Dec 2025,
@@ -470,15 +470,15 @@ rows:
     generation_type: Renewable
     capacity_mw: 1900
     confidence: Sourced
-    deal_name: Xcel Energy Minnesota Clean Energy Accelerator — wind + solar + Form Energy storage
-    counterparty: Xcel Energy / Form Energy
+    deal_name: Xcel Energy Minnesota Clean Energy Accelerator — wind + solar + iron-air storage
+    counterparty: Xcel Energy
     cod_year: 2028
     cod_note: 1,400 MW wind + 200 MW solar + 300 MW Form Energy iron-air battery (~30 GWh, ~100-hr); COD 2028–2029. Pine Island MN.
     status: Announced
     connection_type: Grid
     connection_reason: deal_name grid marker
     geography: US
-    notes: Clean Energy Accelerator Charge tariff. World's largest iron-air battery by capacity. Google covers all incremental costs. Tied to Google's first MN data center.
+    notes: Clean Energy Accelerator Charge tariff. World's largest iron-air battery by capacity (300 MW Form Energy iron-air). Google covers all incremental costs. Tied to Google's first MN data center. Form Energy is the storage technology provider via Xcel; not a direct Google counterparty.
     source_id: S108
 
   - year: 2026
@@ -500,19 +500,18 @@ rows:
   - year: 2026
     announced_date: 2026-03-17
     generation_type: Solar+Storage
-    capacity_mw: 2750
+    capacity_mw: 2700
     confidence: Sourced
     deal_name: DTE Michigan Clean Capacity Accelerator — 2.7 GW total (solar + storage + clean resources)
     counterparty: DTE Energy
     cod_year: 2027
-    cod_note: Full package — 1,600 MW solar + 450 MW BESS (4-hr) + 50 MW LDES + ~300 MW additional clean resources (wind/hydro/nuclear/geo) + ~350 MW demand response = ~2,750 MW total. Van Buren 
-      Township Wayne County MI; data center service begins Dec 2027; MPSC approval pending. Google funds 1,600 MW solar + BESS directly.
+    cod_note: Full package — 1,600 MW solar + 450 MW BESS (4-hr) + 50 MW LDES + ~300 MW additional clean resources (wind/hydro/nuclear/geo) + ~300 MW demand response = ~2,700 MW total. Van Buren Township Wayne County MI; data center service begins Dec 2027; MPSC approval pending. Google funds 1,600 MW solar + BESS directly.
     status: Announced
     connection_type: Grid
     connection_reason: utility counterparty 'DTE Energy'
     geography: US
     contract_years: 20
-    notes: '"Project Cannoli" 1 GW data center. 1,600 MW was previously recorded — that is only the solar layer. Full Clean Capacity Accelerator agreement is ~2.7 GW (~2,750 MW). $10M community energy fund.'
+    notes: '"Project Cannoli" 1 GW data center. 1,600 MW was previously recorded — that is only the solar layer. Full Clean Capacity Accelerator agreement is ~2.7 GW (~2,700 MW). $10M community energy fund.'
     source_id: S110
 
   - year: 2025
