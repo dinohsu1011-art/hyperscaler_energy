@@ -1562,3 +1562,12 @@
   retrieved_on: 2026-04-16
   kind: Primary
   supports: "2019 USD overnight capex Table 2: Coal USC no-CCS $3,676/kW; Coal 90%CCS $5,876/kW; Fuel Cell SOFC 10MW $6,700/kW; Nuclear AP1000 $6,041/kW; Wind 200MW $1,265/kW; Solar 150MW_AC $1,313/kW; Solar+4hr BESS 150MW+200MWh $1,755/kW"
+
+- id: S201
+  publisher: Noon Energy (via Globe Newswire)
+  title: "Noon Energy and Meta Announce Plans for Up to 1 GW of 100-Hour Energy Storage for Data Centers"
+  url: https://www.globenewswire.com/news-release/2026/04/21/3278062/0/en/Noon-Energy-and-Meta-Announce-Plans-for-Up-to-1-GW-of-100-Hour-Energy-Storage-for-Data-Centers.html
+  pub_date: 2026-04-21
+  retrieved_on: 2026-04-24
+  kind: Primary
+  supports: "Meta×Noon Energy LDES agreement: 25 MW / 2.5 GWh Phase 1 pilot (COD ~2028) + up to 1 GW / 100 GWh framework. 100-hour reversible-SOFC storage, behind-the-meter for AI data centers. Meta's first LDES procurement."

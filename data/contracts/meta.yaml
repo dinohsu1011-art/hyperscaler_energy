@@ -302,3 +302,33 @@ rows:
     connection_reason: BTM-specialist counterparty 'El Paso Electric / Enchanted Rock'
     notes: $473M facility. El Paso Electric builds and owns; Enchanted Rock operates. Announcement via PUC filing.
     source_id: S83
+
+  - year: 2026
+    announced_date: 2026-04-21
+    generation_type: Storage
+    capacity_mw: 25
+    confidence: Sourced
+    deal_name: Noon Energy LDES Phase 1 pilot — 25 MW / 2.5 GWh
+    counterparty: Noon Energy
+    cod_year: 2028
+    cod_note: 100-hour reversible solid-oxide-fuel-cell long-duration storage. Pilot scope ahead of 1 GW framework rollout. Meta's first LDES procurement.
+    status: Announced
+    connection_type: BTM
+    connection_reason: Behind-the-meter LDES for data-center resilience (explicit in PR)
+    notes: Noon Energy tech uses abundant carbon/oxygen working fluid (not lithium). Site not yet disclosed.
+    source_id: S201
+
+  - year: 2026
+    announced_date: 2026-04-21
+    generation_type: Storage
+    capacity_mw: 975
+    confidence: Estimated
+    deal_name: Noon Energy LDES framework — up to 1 GW / 100 GWh (Phase 2)
+    counterparty: Noon Energy
+    cod_year:
+    cod_note: Framework scope "up to 1 GW / 100 GWh". Phased build after pilot validates. No disclosed COD; site TBD.
+    status: Framework
+    connection_type: BTM
+    connection_reason: Behind-the-meter LDES for data-center resilience
+    notes: 975 MW = 1,000 MW headline framework minus 25 MW Phase 1 pilot captured in preceding row (avoids double-count when press uses the "1 GW" rounded figure).
+    source_id: S201
