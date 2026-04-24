@@ -75,6 +75,41 @@
          font-size:.8rem; color:var(--muted); }
   .legend-swatch { display:inline-block; width:10px; height:10px;
                    border-radius:2px; margin-right:4px; vertical-align:middle; }
+
+  /* --- freshness highlight (new announcements within 7 days) --- */
+  .new-badge {
+    display:inline-block; margin-left:.35rem; padding:1px 6px;
+    border-radius:4px; font-size:.6rem; font-weight:700;
+    letter-spacing:.08em; text-transform:uppercase;
+    background:#ffd16622; color:#ffd166;
+    border:1px solid #ffd16666;
+    animation: newpulse 2.2s ease-in-out infinite;
+    vertical-align:middle;
+  }
+  @keyframes newpulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,209,102,0.55); }
+    50%      { box-shadow: 0 0 12px 2px rgba(255,209,102,0.55); }
+  }
+  .whats-new {
+    background: linear-gradient(90deg,
+      rgba(255,209,102,0.08) 0%, rgba(255,209,102,0.02) 100%);
+    border:1px solid rgba(255,209,102,0.25);
+    border-left:3px solid #ffd166;
+    border-radius:8px; padding:.7rem 1rem; margin-bottom:1.2rem;
+    display:flex; align-items:center; gap:.9rem; flex-wrap:wrap;
+  }
+  .whats-new .wn-label {
+    color:#ffd166; font-size:.68rem; font-weight:700;
+    letter-spacing:.12em; text-transform:uppercase;
+    padding:2px 8px; border-radius:4px;
+    background:rgba(255,209,102,0.12); white-space:nowrap;
+  }
+  .whats-new .wn-item { font-size:.85rem; color:var(--ink); }
+  .whats-new .wn-item .wn-co { color:#ffd166; font-weight:600; }
+  .whats-new .wn-item .wn-date { color:var(--muted); font-size:.75rem; margin-left:.3rem; }
+  .whats-new .wn-sep { color:var(--line); }
+  .whats-new.empty { display:none; }
+
   @media (max-width: 900px) { .grid { grid-template-columns:1fr; } }
 </style>
 </head>
@@ -86,6 +121,8 @@
 
 <main>
   <div class="kpis" id="kpis"></div>
+
+  <div class="whats-new empty" id="whatsNew"></div>
 
   <div class="tabs">
     <div class="tab active" data-tab="overview">Overview</div>
@@ -233,6 +270,60 @@ Chart.defaults.color = '#8b93a7';
 Chart.defaults.borderColor = '#232838';
 Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif';
 
+// ---- Freshness signal: rows announced within the last 7 days glow amber ----
+const FRESH_WINDOW_DAYS = 7;
+const GLOW_COLOR = '#ffd166';
+function isNew(row) {
+  const ad = row && row.announced_date;
+  if (!ad) return false;
+  // accept YYYY-MM-DD or YYYY-MM; normalize to a Date
+  const d = new Date(ad.length === 7 ? ad + '-15' : ad);
+  if (isNaN(d.getTime())) return false;
+  const diffDays = (Date.now() - d.getTime()) / 86400000;
+  return diffDays >= 0 && diffDays <= FRESH_WINDOW_DAYS;
+}
+// dataset-level flag per bar: array of booleans matching the x-axis labels.
+// If any row in the bucket is new, the whole segment glows.
+function freshFlags(rows, buckets, bucketKey) {
+  return buckets.map(b => rows.some(r => r[bucketKey] === b && isNew(r)));
+}
+function glowBorder(flags) { return flags.map(f => f ? GLOW_COLOR : 'transparent'); }
+function glowWidth(flags)  { return flags.map(f => f ? 2.5 : 0); }
+
+// Chart.js plugin: soft amber shadow on bar segments whose borderWidth>0.
+// This is what gives the "glow" instead of just a sharp outline.
+Chart.register({
+  id: 'freshGlow',
+  afterDatasetsDraw(chart) {
+    const ctx = chart.ctx;
+    chart.data.datasets.forEach((ds, di) => {
+      const bw = ds.borderWidth;
+      if (!Array.isArray(bw)) return;
+      const meta = chart.getDatasetMeta(di);
+      meta.data.forEach((bar, i) => {
+        if (!bw[i]) return;
+        const { x, y, base, width, height } = bar.getProps(
+          ['x','y','base','width','height'], true);
+        ctx.save();
+        ctx.shadowColor = GLOW_COLOR;
+        ctx.shadowBlur = 14;
+        ctx.strokeStyle = GLOW_COLOR;
+        ctx.lineWidth = bw[i];
+        // Rect coordinates differ for horizontal vs vertical bars; Chart.js
+        // gives us (x,y) as the "tip" and base as the opposite edge.
+        if (chart.options.indexAxis === 'y') {
+          const left = Math.min(x, base), w = Math.abs(x - base);
+          ctx.strokeRect(left, y - height/2, w, height);
+        } else {
+          const top = Math.min(y, base), h = Math.abs(y - base);
+          ctx.strokeRect(x - width/2, top, width, h);
+        }
+        ctx.restore();
+      });
+    });
+  }
+});
+
 // ---- Meta / KPIs ----
 (function(){
   const C = DATA.contracts;
@@ -254,6 +345,31 @@ Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Hel
   document.getElementById('kpis').innerHTML = kpis.map(k =>
     `<div class="kpi"><div class="v" ${k.c?`style="color:${k.c}"`:''}>${k.v}</div><div class="l">${k.l}</div></div>`
   ).join('');
+
+  // ---- What's new this week ribbon ----
+  const fresh = C.filter(isNew).sort((a,b) =>
+    (b.announced_date||'').localeCompare(a.announced_date||''));
+  const wn = document.getElementById('whatsNew');
+  if (fresh.length) {
+    wn.classList.remove('empty');
+    // Group by (company, announced_date, counterparty) so a phased deal (pilot +
+    // framework) surfaces as a single headline, not two near-duplicate lines.
+    const key = r => `${r.company}|${r.announced_date}|${r.counterparty||''}`;
+    const groups = {};
+    fresh.forEach(r => { (groups[key(r)] = groups[key(r)] || []).push(r); });
+    const items = Object.values(groups).map(g => {
+      const r0 = g[0];
+      const totalMW = g.reduce((s,r)=>s+(r.capacity_mw||0), 0);
+      const types = [...new Set(g.map(r=>r.generation_type))].join(' + ');
+      const cp = r0.counterparty ? ` × ${r0.counterparty}` : '';
+      return `<span class="wn-item"><span class="wn-co">${r0.company}${cp}</span>
+              — ${totalMW.toLocaleString()} MW ${types}
+              <span class="wn-date">${r0.announced_date||''}</span></span>`;
+    });
+    wn.innerHTML =
+      `<span class="wn-label">New · last ${FRESH_WINDOW_DAYS}d</span>` +
+      items.join('<span class="wn-sep">·</span>');
+  }
 })();
 
 // ---- Tabs ----
@@ -271,12 +387,18 @@ document.querySelectorAll('.tab').forEach(t => {
   const C = DATA.contracts;
   const years = [...new Set(C.map(r=>r.year))].sort((a,b)=>a-b);
   const types = [...new Set(C.map(r=>r.generation_type))];
-  const ds = types.map(t => ({
-    label: t,
-    data: years.map(y => C.filter(r=>r.year===y && r.generation_type===t)
-                         .reduce((s,r)=>s+(r.capacity_mw||0),0)),
-    backgroundColor: colorFor(t), borderWidth:0
-  })).filter(d => d.data.some(v=>v>0));
+  const ds = types.map(t => {
+    const flags = years.map(y =>
+      C.some(r => r.year===y && r.generation_type===t && isNew(r)));
+    return {
+      label: t,
+      data: years.map(y => C.filter(r=>r.year===y && r.generation_type===t)
+                           .reduce((s,r)=>s+(r.capacity_mw||0),0)),
+      backgroundColor: colorFor(t),
+      borderColor: glowBorder(flags),
+      borderWidth: glowWidth(flags)
+    };
+  }).filter(d => d.data.some(v=>v>0));
   new Chart(document.getElementById('chartYear'), {
     type:'bar',
     data:{ labels:years, datasets: ds },
@@ -293,12 +415,18 @@ document.querySelectorAll('.tab').forEach(t => {
   const C = DATA.contracts;
   const companies = [...new Set(C.map(r=>r.company))].sort();
   const types = [...new Set(C.map(r=>r.generation_type))];
-  const ds = types.map(t => ({
-    label: t,
-    data: companies.map(co => C.filter(r=>r.company===co && r.generation_type===t)
-                                .reduce((s,r)=>s+(r.capacity_mw||0),0)),
-    backgroundColor: colorFor(t), borderWidth:0
-  })).filter(d=>d.data.some(v=>v>0));
+  const ds = types.map(t => {
+    const flags = companies.map(co =>
+      C.some(r => r.company===co && r.generation_type===t && isNew(r)));
+    return {
+      label: t,
+      data: companies.map(co => C.filter(r=>r.company===co && r.generation_type===t)
+                                  .reduce((s,r)=>s+(r.capacity_mw||0),0)),
+      backgroundColor: colorFor(t),
+      borderColor: glowBorder(flags),
+      borderWidth: glowWidth(flags)
+    };
+  }).filter(d=>d.data.some(v=>v>0));
   new Chart(document.getElementById('chartCompany'), {
     type:'bar',
     data:{ labels:companies, datasets: ds },
@@ -315,12 +443,18 @@ document.querySelectorAll('.tab').forEach(t => {
   const C = DATA.contracts.filter(r=>r.cod_year);
   const years = [...new Set(C.map(r=>r.cod_year))].sort((a,b)=>a-b);
   const types = [...new Set(C.map(r=>r.generation_type))].sort();
-  const ds = types.map(t => ({
-    label: t,
-    data: years.map(y => C.filter(r=>r.cod_year===y && r.generation_type===t)
-                          .reduce((s,r)=>s+(r.capacity_mw||0),0)),
-    backgroundColor: colorFor(t), borderWidth:0
-  })).filter(d => d.data.some(v=>v>0));
+  const ds = types.map(t => {
+    const flags = years.map(y =>
+      C.some(r => r.cod_year===y && r.generation_type===t && isNew(r)));
+    return {
+      label: t,
+      data: years.map(y => C.filter(r=>r.cod_year===y && r.generation_type===t)
+                            .reduce((s,r)=>s+(r.capacity_mw||0),0)),
+      backgroundColor: colorFor(t),
+      borderColor: glowBorder(flags),
+      borderWidth: glowWidth(flags)
+    };
+  }).filter(d => d.data.some(v=>v>0));
   new Chart(document.getElementById('chartCod'), {
     type:'bar',
     data:{ labels:years, datasets: ds },
@@ -337,12 +471,18 @@ document.querySelectorAll('.tab').forEach(t => {
   const C = DATA.contracts;
   const years = [...new Set(C.map(r=>r.year))].sort((a,b)=>a-b);
   const order = ['BTM','Grid','Unknown'];
-  const ds = order.map(ct => ({
-    label: ct,
-    data: years.map(y => C.filter(r=>r.year===y && r.connection_type===ct)
-                          .reduce((s,r)=>s+(r.capacity_mw||0),0)),
-    backgroundColor: CONN_COLORS[ct], borderWidth:0
-  })).filter(d => d.data.some(v=>v>0));
+  const ds = order.map(ct => {
+    const flags = years.map(y =>
+      C.some(r => r.year===y && r.connection_type===ct && isNew(r)));
+    return {
+      label: ct,
+      data: years.map(y => C.filter(r=>r.year===y && r.connection_type===ct)
+                            .reduce((s,r)=>s+(r.capacity_mw||0),0)),
+      backgroundColor: CONN_COLORS[ct],
+      borderColor: glowBorder(flags),
+      borderWidth: glowWidth(flags)
+    };
+  }).filter(d => d.data.some(v=>v>0));
   new Chart(document.getElementById('chartConnAll'), {
     type:'bar',
     data:{ labels:years, datasets: ds },
@@ -359,12 +499,18 @@ document.querySelectorAll('.tab').forEach(t => {
   const C = DATA.contracts.filter(r=>r.cod_year);
   const years = [...new Set(C.map(r=>r.cod_year))].sort((a,b)=>a-b);
   const order = ['BTM','Grid','Unknown'];
-  const ds = order.map(ct => ({
-    label: ct,
-    data: years.map(y => C.filter(r=>r.cod_year===y && r.connection_type===ct)
-                          .reduce((s,r)=>s+(r.capacity_mw||0),0)),
-    backgroundColor: CONN_COLORS[ct], borderWidth:0
-  })).filter(d => d.data.some(v=>v>0));
+  const ds = order.map(ct => {
+    const flags = years.map(y =>
+      C.some(r => r.cod_year===y && r.connection_type===ct && isNew(r)));
+    return {
+      label: ct,
+      data: years.map(y => C.filter(r=>r.cod_year===y && r.connection_type===ct)
+                            .reduce((s,r)=>s+(r.capacity_mw||0),0)),
+      backgroundColor: CONN_COLORS[ct],
+      borderColor: glowBorder(flags),
+      borderWidth: glowWidth(flags)
+    };
+  }).filter(d => d.data.some(v=>v>0));
   new Chart(document.getElementById('chartConnCod'), {
     type:'bar',
     data:{ labels:years, datasets: ds },
@@ -381,12 +527,18 @@ document.querySelectorAll('.tab').forEach(t => {
   const C = DATA.contracts;
   const companies = [...new Set(C.map(r=>r.company))].sort();
   const order = ['BTM','Grid','Unknown'];
-  const ds = order.map(ct => ({
-    label: ct,
-    data: companies.map(co => C.filter(r=>r.company===co && r.connection_type===ct)
-                                .reduce((s,r)=>s+(r.capacity_mw||0),0)),
-    backgroundColor: CONN_COLORS[ct], borderWidth:0
-  })).filter(d => d.data.some(v=>v>0));
+  const ds = order.map(ct => {
+    const flags = companies.map(co =>
+      C.some(r => r.company===co && r.connection_type===ct && isNew(r)));
+    return {
+      label: ct,
+      data: companies.map(co => C.filter(r=>r.company===co && r.connection_type===ct)
+                                  .reduce((s,r)=>s+(r.capacity_mw||0),0)),
+      backgroundColor: CONN_COLORS[ct],
+      borderColor: glowBorder(flags),
+      borderWidth: glowWidth(flags)
+    };
+  }).filter(d => d.data.some(v=>v>0));
   new Chart(document.getElementById('chartConnCompany'), {
     type:'bar',
     data:{ labels:companies, datasets: ds },
@@ -404,12 +556,18 @@ document.querySelectorAll('.tab').forEach(t => {
   const C = DATA.contracts;
   const companies = [...new Set(C.map(r=>r.company))].sort();
   const types = [...new Set(C.map(r=>r.generation_type))];
-  const ds = types.map(t => ({
-    label:t,
-    data: companies.map(co => C.filter(r=>r.company===co && r.generation_type===t)
-                                .reduce((s,r)=>s+(r.capacity_mw||0),0)),
-    backgroundColor: colorFor(t), borderWidth:0
-  })).filter(d=>d.data.some(v=>v>0));
+  const ds = types.map(t => {
+    const flags = companies.map(co =>
+      C.some(r => r.company===co && r.generation_type===t && isNew(r)));
+    return {
+      label:t,
+      data: companies.map(co => C.filter(r=>r.company===co && r.generation_type===t)
+                                  .reduce((s,r)=>s+(r.capacity_mw||0),0)),
+      backgroundColor: colorFor(t),
+      borderColor: glowBorder(flags),
+      borderWidth: glowWidth(flags)
+    };
+  }).filter(d=>d.data.some(v=>v>0));
   new Chart(document.getElementById('chartMix'), {
     type:'bar',
     data:{ labels:companies, datasets: ds },
@@ -568,6 +726,9 @@ document.querySelectorAll('.tab').forEach(t => {
       (!q || [r.deal_name, r.counterparty, r.notes, r.cod_note].some(x => (x||'').toLowerCase().includes(q)))
     );
     rows.sort((a,b) => {
+      // Fresh rows always float to the top, regardless of current sort.
+      const an = isNew(a), bn = isNew(b);
+      if (an !== bn) return an ? -1 : 1;
       const av=a[sortKey], bv=b[sortKey];
       if (av==null && bv==null) return 0;
       if (av==null) return 1;
@@ -584,8 +745,9 @@ document.querySelectorAll('.tab').forEach(t => {
       const srcBadge = src
         ? `<a class="cite" href="${src.url}" target="_blank" title="${(src.title||'').replace(/"/g,'&quot;')}">${r.source_id}<br><span style="font-size:.65rem;opacity:.7">${(src.publisher||'').slice(0,18)}</span></a>`
         : r.source_id;
+      const newPill = isNew(r) ? ` <span class="new-badge" title="Announced within the last ${FRESH_WINDOW_DAYS} days">New</span>` : '';
       return `<tr>
-        <td>${r.company}</td>
+        <td>${r.company}${newPill}</td>
         <td>${r.announced_date || r.year}</td>
         <td>${r.cod_year || '—'}</td>
         <td>${statusBadge(r.status)}</td>
