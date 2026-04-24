@@ -129,31 +129,31 @@ TEMPLATE = r"""<!doctype html>
     display:inline-block; margin-left:.35rem; padding:1px 6px;
     border-radius:4px; font-size:.6rem; font-weight:700;
     letter-spacing:.08em; text-transform:uppercase;
-    background:#ffdd3322; color:#ffdd33;
-    border:1px solid #ffdd3377;
+    background:#ff333322; color:#ff3333;
+    border:1px solid #ff333377;
     animation: newpulse 2.2s ease-in-out infinite;
     vertical-align:middle;
   }
   @keyframes newpulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(255,221,51,0.6); }
-    50%      { box-shadow: 0 0 14px 2px rgba(255,221,51,0.6); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,51,51,0.6); }
+    50%      { box-shadow: 0 0 14px 2px rgba(255,51,51,0.6); }
   }
   .whats-new {
     background: linear-gradient(90deg,
-      rgba(255,221,51,0.10) 0%, rgba(255,221,51,0.02) 100%);
-    border:1px solid rgba(255,221,51,0.28);
-    border-left:3px solid #ffdd33;
+      rgba(255,51,51,0.10) 0%, rgba(255,51,51,0.02) 100%);
+    border:1px solid rgba(255,51,51,0.28);
+    border-left:3px solid #ff3333;
     border-radius:8px; padding:.7rem 1rem; margin-bottom:1.2rem;
     display:flex; align-items:center; gap:.9rem; flex-wrap:wrap;
   }
   .whats-new .wn-label {
-    color:#ffdd33; font-size:.68rem; font-weight:700;
+    color:#ff3333; font-size:.68rem; font-weight:700;
     letter-spacing:.12em; text-transform:uppercase;
     padding:2px 8px; border-radius:4px;
-    background:rgba(255,221,51,0.14); white-space:nowrap;
+    background:rgba(255,51,51,0.14); white-space:nowrap;
   }
   .whats-new .wn-item { font-size:.85rem; color:var(--ink); }
-  .whats-new .wn-item .wn-co { color:#ffdd33; font-weight:600; }
+  .whats-new .wn-item .wn-co { color:#ff3333; font-weight:600; }
   .whats-new .wn-item .wn-date { color:var(--muted); font-size:.75rem; margin-left:.3rem; }
   .whats-new .wn-sep { color:var(--line); }
   .whats-new.empty { display:none; }
@@ -318,9 +318,9 @@ Chart.defaults.color = '#8b93a7';
 Chart.defaults.borderColor = '#232838';
 Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif';
 
-// ---- Freshness signal: rows announced within the last 7 days glow amber ----
+// ---- Freshness signal: rows announced within the last 7 days glow red ----
 const FRESH_WINDOW_DAYS = 7;
-const GLOW_COLOR = '#ffdd33';    // bright amber — more saturated than --geo
+const GLOW_COLOR = '#ff3333';    // bright red — high contrast on dark background
 function isNew(row) {
   const ad = row && row.announced_date;
   if (!ad) return false;
@@ -340,7 +340,7 @@ function freshMW(rows, buckets, bucketKey) {
         .reduce((s, r) => s + (r.capacity_mw || 0), 0));
 }
 
-// Chart.js plugin — draws a bright amber overlay on just the fresh portion
+// Chart.js plugin — draws a bright red overlay on just the fresh portion
 // of each stacked bar segment. For vertical bars, it's the top slice; for
 // horizontal bars, the rightmost slice (the "most recently added" edge of
 // the stack). Two passes: a wide soft shadow, then a crisp fill+stroke, so
