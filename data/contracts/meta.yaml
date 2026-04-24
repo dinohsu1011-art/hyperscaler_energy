@@ -331,3 +331,31 @@ rows:
     connection_reason: Behind-the-meter LDES for data-center resilience
     notes: 975 MW = 1,000 MW headline framework minus 25 MW Phase 1 pilot captured in preceding row (avoids double-count when press uses the "1 GW" rounded figure).
     source_id: S201
+
+  - year: 2026
+    announced_date: 2026-02-04
+    generation_type: Solar
+    capacity_mw: 176
+    confidence: Sourced
+    deal_name: Zelestra Skull Creek Solar (Anderson County TX) — 176 MWdc
+    counterparty: Zelestra
+    cod_year: 2027
+    cod_note: Anderson County TX; ERCOT interconnect; COD targeted May 2027.
+    status: PPA
+    connection_type: Grid
+    connection_reason: IPP counterparty delivering via ERCOT grid
+    source_id: S204
+
+  - year: 2026
+    announced_date: 2026-02-24
+    generation_type: Solar
+    capacity_mw: 80
+    confidence: Sourced
+    deal_name: MN8 Energy Walker Solar (Juniata County PA) — 80 MW
+    counterparty: MN8 Energy
+    cod_year: 2026
+    cod_note: Juniata County PA; PJM interconnect; COD targeted end-2026.
+    status: PPA
+    connection_type: Grid
+    connection_reason: IPP counterparty delivering via PJM grid
+    source_id: S205
