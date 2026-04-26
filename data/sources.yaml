@@ -1607,3 +1607,770 @@
   retrieved_on: 2026-04-24
   kind: Primary
   supports: "Meta × MN8 Energy Walker Solar 80 MW; Juniata County PA; PJM; PPA signed Feb 24 2026; COD end-2026."
+
+# ===== Campus DB sources (D-series for data_center_campuses) =====
+
+- id: S206
+  publisher: Microsoft (Official Microsoft Blog)
+  title: "Inside the world's most powerful AI datacenter"
+  url: https://blogs.microsoft.com/blog/2025/09/18/inside-the-worlds-most-powerful-ai-datacenter/
+  pub_date: 2025-09-18
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Microsoft × Fairwater Wisconsin (Mt Pleasant) — campus IT-load record"
+
+- id: S207
+  publisher: Data Center Dynamics
+  title: "Microsoft launches Atlanta Fairwater AI data center - two stories, no UPS or gen-sets"
+  url: https://www.datacenterdynamics.com/en/news/microsoft-launches-atlanta-fairwater-data-center-two-stories-no-ups-or-gen-sets/
+  pub_date: 2025-11-12
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Microsoft × Fairwater Atlanta (Palmetto) — campus IT-load record"
+
+- id: S208
+  publisher: Data Center Dynamics
+  title: "Microsoft files to build two more data centers in San Antonio, Texas"
+  url: https://www.datacenterdynamics.com/en/news/microsoft-files-to-build-two-more-data-centers-in-san-antonio-texas/
+  pub_date: 2025-01-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Microsoft × San Antonio (Westover Hills + Medina County) — campus IT-load record"
+
+- id: S209
+  publisher: Interconnection.fyi
+  title: "Microsoft Goodyear Data Center, Maricopa County, AZ"
+  url: https://www.interconnection.fyi/data-center/project/microsoft-goodyear-dbc9ffe1
+  pub_date: 2026-03-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Microsoft × Goodyear / Phoenix West Valley — campus IT-load record"
+
+- id: S210
+  publisher: Data Center Knowledge
+  title: "Generator Permit Shows Microsoft Planning Quincy Data Center Expansion"
+  url: https://www.datacenterknowledge.com/hyperscalers/generator-permit-indicates-microsoft-plans-big-quincy-data-center-expansion
+  pub_date: 2024-01-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Microsoft × Quincy (Columbia Data Center cluster) — campus IT-load record"
+
+- id: S211
+  publisher: Microsoft Source (newsroom)
+  title: "Microsoft announces intent to expand datacenter operations in Cheyenne"
+  url: https://news.microsoft.com/source/2026/04/14/microsoft-announces-intent-to-expand-datacenter-operations-in-cheyenne-accelerating-innovation-and-economic-growth/
+  pub_date: 2026-04-14
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Microsoft × Cheyenne (Microsoft) — campus IT-load record"
+
+- id: S212
+  publisher: Nscale
+  title: "Nscale and Microsoft Announce Collaboration with NVIDIA and Caterpillar to Deliver 1.35GW"
+  url: https://www.nscale.com/press-releases/nscale-west-virginia-ai-factory
+  pub_date: 2026-03-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Microsoft × Monarch Compute Campus (Mason County WV) — campus IT-load record"
+
+- id: S213
+  publisher: Data Center Dynamics
+  title: "Microsoft files for six-building data center campus in Virginia's Mecklenburg County"
+  url: https://www.datacenterdynamics.com/en/news/microsoft-files-for-six-building-data-center-campus-in-virginias-mecklenburg-county/
+  pub_date: 2024-01-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Microsoft × Boydton (Mecklenburg County) — campus IT-load record"
+
+- id: S214
+  publisher: Bloomberg
+  title: "Microsoft Rents Data Center Project Developed for Oracle, OpenAI"
+  url: https://www.bloomberg.com/news/articles/2026-03-27/microsoft-rents-data-center-project-developed-for-oracle-openai
+  pub_date: 2026-03-27
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Microsoft × Abilene Stargate (Microsoft block) — campus IT-load record"
+
+- id: S215
+  publisher: Microsoft Local
+  title: "Understanding Microsoft datacenters in Loudoun County"
+  url: https://local.microsoft.com/blog/understanding-microsoft-datacenters-in-loudoun-county/
+  pub_date: 2024-01-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Microsoft × Loudoun / Manassas / Stone Ridge (NoVa complex) — campus IT-load record"
+
+- id: S216
+  publisher: Bloomberg
+  title: "Microsoft in Talks With Chevron, Engine No. 1 Over $7 Billion Texas Power Plant"
+  url: https://www.bloomberg.com/news/articles/2026-03-31/microsoft-in-talks-with-chevron-engine-no-1-over-7-billion-texas-power-plant
+  pub_date: 2026-03-31
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Microsoft × West Texas Permian Hub (Chevron / Engine No. 1) — campus IT-load record"
+
+- id: S217
+  publisher: Google (Data Centers official)
+  title: "Council Bluffs, Iowa – Google Data Center Location"
+  url: https://datacenters.google/locations/iowa/
+  pub_date: 2025-01-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Google × Council Bluffs (incl. Southlands) — campus IT-load record"
+
+- id: S218
+  publisher: Oklahoma Department of Commerce
+  title: "Google Investment in Pryor, Okla. Reaches $3 Billion"
+  url: https://www.okcommerce.gov/google-investment-in-pryor-okla-reaches-3-billion/
+  pub_date: 2025-01-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Google × Pryor (Mayes County) — campus IT-load record"
+
+- id: S219
+  publisher: Data Center Dynamics
+  title: "Google behind AI data center campus in Stillwater, Oklahoma"
+  url: https://www.datacenterdynamics.com/en/news/google-behind-ai-data-center-campus-in-stillwater-oklahoma/
+  pub_date: 2025-03-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Google × Stillwater — campus IT-load record"
+
+- id: S220
+  publisher: Google (Data Centers official)
+  title: "Storey County, Nevada – Google Data Center Location"
+  url: https://datacenters.google/locations/storey-county-nevada/
+  pub_date: 2025-01-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Google × Storey County (TRIC) — campus IT-load record"
+
+- id: S221
+  publisher: AES Indiana
+  title: "AES Indiana — Data Centers (Google Morgan County)"
+  url: https://www.aesindiana.com/data-centers
+  pub_date: 2025-01-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Google × Morgan County / Monrovia — campus IT-load record"
+
+- id: S222
+  publisher: Google Blog
+  title: "Google's new data center in Pine Island, Minnesota"
+  url: https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/data-center-pine-island/
+  pub_date: 2026-02-24
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Google × Pine Island MN — campus IT-load record"
+
+- id: S223
+  publisher: Data Center Dynamics
+  title: "Google confirms 1GW data center campus near Detroit, Michigan"
+  url: https://www.datacenterdynamics.com/en/news/google-confirms-1gw-data-center-campus-near-detroit-michigan-partners-with-dte-energy-on-27gw-power-generation/
+  pub_date: 2026-03-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Google × Project Cannoli (Van Buren Township MI) — campus IT-load record"
+
+- id: S224
+  publisher: Google (Data Centers official)
+  title: "The Dalles, Oregon – Google Data Center Location"
+  url: https://datacenters.google/locations/oregon/
+  pub_date: 2025-01-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Google × The Dalles — campus IT-load record"
+
+- id: S225
+  publisher: Fox Business
+  title: "Google invests $1B in North Carolina data center expansion"
+  url: https://www.foxbusiness.com/technology/google-commits-1b-north-carolina-data-centers-ai-demand-surges
+  pub_date: 2025-01-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Google × Lenoir (Caldwell County NC) — campus IT-load record"
+
+- id: S226
+  publisher: Google (Data Centers official)
+  title: "Berkeley County, South Carolina – Google Data Center Location"
+  url: https://datacenters.google/locations/berkeley-county-south-carolina/
+  pub_date: 2025-01-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Google × Berkeley County (Moncks Corner SC) — campus IT-load record"
+
+- id: S227
+  publisher: S.C. Office of the Governor
+  title: "Google grows South Carolina footprint with new Dorchester County operations"
+  url: https://governor.sc.gov/news/2024-09/google-grows-south-carolina-footprint-new-dorchester-county-operations-expansion
+  pub_date: 2024-09-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Google × Dorchester County SC — campus IT-load record"
+
+- id: S228
+  publisher: Latitude Media
+  title: "In lieu of water cooling, Google locks down renewables for Mesa data center"
+  url: https://www.latitudemedia.com/news/in-lieu-of-water-cooling-google-locks-down-renewables-for-mesa-data-center/
+  pub_date: 2024-01-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Google × Mesa Redhawk — campus IT-load record"
+
+- id: S229
+  publisher: Data Center Dynamics
+  title: "Google pledges $7bn to expand Iowa data center footprint"
+  url: https://www.datacenterdynamics.com/en/news/google-pledges-7bn-to-expand-iowa-data-center-footprint/
+  pub_date: 2025-01-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Google × Cedar Rapids (Big Cedar Industrial Center) — campus IT-load record"
+
+- id: S230
+  publisher: Data Center Dynamics
+  title: "Google to invest $9bn in Virginia data centers, plans new campus in Chesterfield County"
+  url: https://www.datacenterdynamics.com/en/news/google-to-invest-9bn-in-virginia-data-centers-plans-new-campus-in-chesterfield-county/
+  pub_date: 2025-08-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Google × Chesterfield County (Bermuda Hundred VA) — campus IT-load record"
+
+- id: S231
+  publisher: Virginia Business
+  title: "Google confirms Botetourt data center campus"
+  url: https://virginiabusiness.com/google-botetourt-county-data-center/
+  pub_date: 2025-01-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Google × Botetourt County (SW VA) — campus IT-load record"
+
+- id: S232
+  publisher: Meta Data Centers
+  title: "The largest Meta data center yet brings big impact to Louisiana"
+  url: https://datacenters.atmeta.com/richland-parish-data-center/
+  pub_date: 2024-12-04
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Meta × Hyperion (Richland Parish LA) — campus IT-load record"
+
+- id: S233
+  publisher: Data Center Frontier
+  title: "Ownership and Power Challenges in Meta's Hyperion and Prometheus Data Centers"
+  url: https://www.datacenterfrontier.com/hyperscale/article/55310441/ownership-and-power-challenges-in-metas-hyperion-and-prometheus-data-centers
+  pub_date: 2025-08-15
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Meta × Prometheus (New Albany OH) — campus IT-load record"
+
+- id: S234
+  publisher: Meta Newsroom
+  title: "Breaking Ground on Our New AI-Optimized Data Center in El Paso"
+  url: https://about.fb.com/news/2025/10/metas-new-ai-optimized-data-center-el-paso/
+  pub_date: 2025-10-15
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Meta × El Paso AI Campus — campus IT-load record"
+
+- id: S235
+  publisher: Meta Newsroom
+  title: "Meta's New Data Center in Lebanon, Indiana Marks a Milestone AI Investment"
+  url: https://about.fb.com/news/2026/02/metas-new-data-center-lebanon-indiana-marks-milestone-ai-investment/
+  pub_date: 2026-02-11
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Meta × Lebanon (Boone County IN) — campus IT-load record"
+
+- id: S236
+  publisher: Meta Data Centers
+  title: "Hello, Cheyenne!"
+  url: https://datacenters.atmeta.com/2024/07/hello-cheyenne/
+  pub_date: 2024-07-11
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Meta × Cheyenne (Project Cosmo, Meta) — campus IT-load record"
+
+- id: S237
+  publisher: City of Temple
+  title: "Meta to build new Hyperscale Data Center in Temple"
+  url: https://www.templetx.gov/news_detail_T13_R305.php
+  pub_date: 2021-09-13
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Meta × Temple TX (Meta) — campus IT-load record"
+
+- id: S238
+  publisher: Meta Data Centers
+  title: "Meta's Sarpy Data Center fact sheet"
+  url: https://datacenters.atmeta.com/asset/sarpy-data-center-info-sheet/
+  pub_date: 2024-01-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Meta × Sarpy (Papillion NE) — campus IT-load record"
+
+- id: S239
+  publisher: Meta Data Centers
+  title: "Meta's Stanton Springs Data Center fact sheet"
+  url: https://datacenters.atmeta.com/asset/newton-data-center-info-sheet/
+  pub_date: 2024-01-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Meta × Stanton Springs (Newton GA) — campus IT-load record"
+
+- id: S240
+  publisher: Baxtel
+  title: "Meta: Eagle Mountain Utah Campus Data Center"
+  url: https://baxtel.com/data-center/meta-eagle-mountain-utah-campus
+  pub_date: 2024-08-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Meta × Eagle Mountain UT (Meta) — campus IT-load record"
+
+- id: S241
+  publisher: Meta Data Centers
+  title: "Hello, Beaver Dam!"
+  url: https://datacenters.atmeta.com/2025/11/hello-beaver-dam/
+  pub_date: 2025-11-12
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Meta × Beaver Dam WI — campus IT-load record"
+
+- id: S242
+  publisher: Meta Data Centers
+  title: "Hello, Rosemount!"
+  url: https://datacenters.atmeta.com/2024/03/hello-rosemount/
+  pub_date: 2024-03-14
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Meta × Rosemount MN (Meta) — campus IT-load record"
+
+- id: S243
+  publisher: Meta Newsroom
+  title: "Meta's Kansas City Data Center and Upcoming AI-Optimized Data Centers"
+  url: https://about.fb.com/news/2025/08/metas-kansas-city-data-center/
+  pub_date: 2025-08-15
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Meta × Kansas City MO (Meta) — campus IT-load record"
+
+- id: S244
+  publisher: Meta Data Centers
+  title: "Meta's Kuna Data Center fact sheet"
+  url: https://datacenters.atmeta.com/asset/kuna-data-center-info-sheet/
+  pub_date: 2024-01-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Meta × Kuna ID (Meta) — campus IT-load record"
+
+- id: S245
+  publisher: Meta Data Centers
+  title: "Meta's Fort Worth Data Center fact sheet"
+  url: https://datacenters.atmeta.com/asset/fort-worth-data-center-info-sheet/
+  pub_date: 2024-01-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Meta × Fort Worth TX (Meta) — campus IT-load record"
+
+- id: S246
+  publisher: xAI
+  title: "Colossus: The World's Largest AI Supercomputer"
+  url: https://x.ai/colossus
+  pub_date: 2024-09-02
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "xAI × Colossus 1 (Memphis Riverport) — campus IT-load record"
+
+- id: S247
+  publisher: Data Center Dynamics
+  title: "Elon Musk's xAI buys 1 million sq ft site for second Memphis data center"
+  url: https://www.datacenterdynamics.com/en/news/elon-musks-xai-buys-one-million-sq-ft-site-for-second-memphis-data-center/
+  pub_date: 2025-04-08
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "xAI × Colossus 2 (Tulane Road, Whitehaven) — campus IT-load record"
+
+- id: S248
+  publisher: Mississippi Governor's Office
+  title: "Tech leader xAI investing more than $20 billion in Southaven"
+  url: https://governorreeves.ms.gov/tech-leader-xai-investing-more-than-20-billion-in-southaven/
+  pub_date: 2025-12-15
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "xAI × Macrohardrr (Southaven MS) — campus IT-load record"
+
+- id: S249
+  publisher: OpenAI
+  title: "Stargate advances with 4.5 GW partnership with Oracle"
+  url: https://openai.com/index/stargate-advances-with-partnership-with-oracle/
+  pub_date: 2025-07-22
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Multi × Stargate Abilene (Lancium Clean Campus) — campus IT-load record"
+
+- id: S250
+  publisher: OpenAI
+  title: "Introducing Stargate UAE"
+  url: https://openai.com/index/introducing-stargate-uae/
+  pub_date: 2025-05-22
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Multi × Stargate UAE — campus IT-load record"
+
+- id: S251
+  publisher: Vantage Data Centers
+  title: "OpenAI, Oracle and Vantage Data Centers Announce Stargate Data Center Site in Wisconsin"
+  url: https://vantage-dc.com/news/openai-oracle-and-vantage-data-centers-announce-stargate-data-center-site-in-wisconsin/
+  pub_date: 2025-10-22
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Multi × Stargate Lighthouse (Port Washington WI) — campus IT-load record"
+
+- id: S252
+  publisher: OpenAI
+  title: "OpenAI, Oracle, and SoftBank expand Stargate with five new AI data center sites"
+  url: https://openai.com/index/five-new-stargate-sites/
+  pub_date: 2025-09-23
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Multi × Stargate Frontier (Shackelford County TX) — campus IT-load record"
+
+- id: S253
+  publisher: Data Center Dynamics
+  title: "Oracle revealed as tenant of Project Jupiter data center campus in New Mexico"
+  url: https://www.datacenterdynamics.com/en/news/oracle-revealed-as-tenant-of-project-jupiter-data-center-campus-in-new-mexico/
+  pub_date: 2025-09-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Multi × Stargate Project Jupiter (Doña Ana / Santa Teresa NM) — campus IT-load record"
+
+- id: S254
+  publisher: Data Center Dynamics
+  title: "SoftBank's SB Energy to build and operate OpenAI's 1.2GW Stargate data center in Milam County"
+  url: https://www.datacenterdynamics.com/en/news/softbanks-sb-energy-to-build-and-operate-openais-12gw-stargate-data-center-in-milam-county-texas/
+  pub_date: 2026-01-09
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Multi × Stargate Milam County TX — campus IT-load record"
+
+- id: S255
+  publisher: Related Digital
+  title: "OpenAI, Oracle and Related Digital Announce Stargate Data Center Site in Michigan"
+  url: https://www.related-digital.com/news/openai-oracle-and-related-digital-announce-stargate-data-center-site-in-michigan
+  pub_date: 2025-10-30
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Multi × Stargate Michigan (The Barn, Saline Twp) — campus IT-load record"
+
+- id: S256
+  publisher: Data Center Dynamics
+  title: "OpenAI plans 500MW data center in Argentina"
+  url: https://www.datacenterdynamics.com/en/news/openai-plans-500mw-data-center-in-argentina/
+  pub_date: 2025-10-10
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Multi × Stargate Argentina (Patagonia) — campus IT-load record"
+
+- id: S257
+  publisher: RCR Wireless
+  title: "OpenAI plans to develop massive data center in India"
+  url: https://www.rcrwireless.com/20250902/ai-infrastructure/openai-india
+  pub_date: 2025-09-02
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Multi × Stargate India — campus IT-load record"
+
+- id: S258
+  publisher: Baxtel
+  title: "Oracle: West Jordan – Hyperscale Data Center"
+  url: https://baxtel.com/data-center/oracle-west-jordan
+  pub_date: 2024-01-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Oracle × Salt Lake City (West Jordan / Project Sequoia) — campus IT-load record"
+
+- id: S259
+  publisher: Talen Energy
+  title: "Talen Energy Expands Nuclear Energy Relationship with Amazon"
+  url: https://ir.talenenergy.com/news-releases/news-release-details/talen-energy-expands-nuclear-energy-relationship-amazon
+  pub_date: 2025-06-11
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Amazon × Cumulus Data Campus / Susquehanna PA — campus IT-load record"
+
+- id: S260
+  publisher: Amazon
+  title: "AWS plans to invest $10 billion in Mississippi"
+  url: https://www.aboutamazon.com/news/aws/aws-10-billion-investment-mississippi
+  pub_date: 2024-01-25
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Amazon × Madison County / Ridgeland MS — campus IT-load record"
+
+- id: S261
+  publisher: Amazon
+  title: "Amazon plans to invest $25 billion in Mississippi data centers"
+  url: https://www.aboutamazon.com/news/company-news/amazon-25-billion-mississippi-data-centers
+  pub_date: 2025-11-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Amazon × Hinds County / Clinton MS (former Delphi plant) — campus IT-load record"
+
+- id: S262
+  publisher: Amazon
+  title: "Amazon plans to invest at least $3 billion in Warren County, Mississippi"
+  url: https://www.aboutamazon.com/news/company-news/amazon-3-billion-mississippi-data-center-investment
+  pub_date: 2025-11-20
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Amazon × Warren County / Vicksburg MS — campus IT-load record"
+
+- id: S263
+  publisher: Amazon
+  title: "AWS activates Project Rainier"
+  url: https://www.aboutamazon.com/news/aws/aws-project-rainier-ai-trainium-chips-compute-cluster
+  pub_date: 2025-10-29
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Amazon × Project Rainier (New Carlisle IN) — campus IT-load record"
+
+- id: S264
+  publisher: Amazon
+  title: "Amazon plans to invest $15 billion in Northern Indiana data centers"
+  url: https://www.aboutamazon.com/news/company-news/amazon-15-billion-indiana-data-centers
+  pub_date: 2025-11-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Amazon × Northern Indiana Phase 2 (NIPSCO 2.4 GW) — campus IT-load record"
+
+- id: S265
+  publisher: Amazon
+  title: "AWS's long-term commitment to Virginia"
+  url: https://www.aboutamazon.com/news/aws/aws-commitment-to-virginia
+  pub_date: 2024-08-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Amazon × AWS Northern Virginia (us-east-1) cluster — campus IT-load record"
+
+- id: S266
+  publisher: Data Center Dynamics
+  title: "Amazon requests permit for 11-building data center campus in Caroline County, Virginia"
+  url: https://www.datacenterdynamics.com/en/news/amazon-requests-permit-for-11-building-data-center-campus-in-caroline-county-virginia/
+  pub_date: 2024-01-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Amazon × Mattameade Tech Campus (Caroline/Spotsylvania VA) — campus IT-load record"
+
+- id: S267
+  publisher: Data Center Dynamics
+  title: "Amazon to expand Virginia cloud region into Maryland"
+  url: https://www.datacenterdynamics.com/en/news/amazon-to-expand-virginia-cloud-region-into-maryland-develop-data-centers-in-tpgs-quantum-frederick-park/
+  pub_date: 2024-01-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Amazon × Quantum Frederick MD (TPG-developed AWS campus) — campus IT-load record"
+
+- id: S268
+  publisher: Data Center Frontier
+  title: "AWS Readies $3.5B for 5 More Ohio Data Centers in New Albany"
+  url: https://www.datacenterfrontier.com/site-selection/article/33011941/aws-readies-35b-for-5-more-ohio-data-centers-in-booming-columbus-suburb-new-albany
+  pub_date: 2024-01-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Amazon × Central Ohio cluster (us-east-2: New Albany / Hilliard / Dublin) — campus IT-load record"
+
+- id: S269
+  publisher: OPB
+  title: "Hermiston clears the way for data center industry"
+  url: https://www.opb.org/article/2025/09/10/hermiston-oregon-data-center-amazon-eastern-ai-technology-power/
+  pub_date: 2025-09-10
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Amazon × Hermiston / Boardman OR (us-west-2 cluster) — campus IT-load record"
+
+- id: S270
+  publisher: Data Center Dynamics
+  title: "Amazon looks to build large-scale data center campus next to nuclear plant in Texas"
+  url: https://www.datacenterdynamics.com/en/news/amazon-looks-to-build-large-scale-data-center-campus-next-to-nuclear-plant-in-texas/
+  pub_date: 2025-12-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Amazon × AWS Texas / Comanche Peak (proposed) — campus IT-load record"
+
+- id: S271
+  publisher: Galaxy Digital / Converge Digest
+  title: "CoreWeave Locks In 800 MW at Galaxy's Helios Campus in Texas"
+  url: https://convergedigest.com/coreweave-locks-in-800-mw-at-galaxys-helios-campus-in-texas/
+  pub_date: 2025-08-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "CoreWeave × CoreWeave Galaxy Helios (West Texas) — campus IT-load record"
+
+- id: S272
+  publisher: Dgtl Infra
+  title: "CoreWeave: Data Center Regions, Locations, and GPU Cloud"
+  url: https://dgtlinfra.com/coreweave-data-center-locations/
+  pub_date: 2024-01-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "CoreWeave × CoreWeave Plano DAL1 — campus IT-load record"
+
+- id: S273
+  publisher: Core Scientific
+  title: "Core Scientific and CoreWeave Announce $1.2 Billion Expansion at Denton, TX Site"
+  url: https://investors.corescientific.com/news-events/press-releases/detail/110/core-scientific-and-coreweave-announce-1-2-billion-expansion-at-denton-tx-site
+  pub_date: 2025-02-26
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "CoreWeave × CoreWeave Denton (Core Scientific lease) — campus IT-load record"
+
+- id: S274
+  publisher: Baxtel
+  title: "CoreWeave: US West LAS1 Data Center"
+  url: https://baxtel.com/data-center/coreweave-us-west-las1
+  pub_date: 2024-01-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "CoreWeave × CoreWeave Las Vegas LAS1 (Switch Core Campus) — campus IT-load record"
+
+- id: S275
+  publisher: Real Estate NJ
+  title: "CoreWeave begins $1.8 billion data center project in Kenilworth"
+  url: https://re-nj.com/coreweave-begins-1-8-billion-data-center-project-in-kenilworth-landing-first-award-under-new-eda-tax-credit-program/
+  pub_date: 2025-09-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "CoreWeave × CoreWeave Kenilworth NEST (NJ) — campus IT-load record"
+
+- id: S276
+  publisher: Data Center Dynamics
+  title: "CoreWeave plans $6bn data center in Lancaster, Pennsylvania"
+  url: https://www.datacenterdynamics.com/en/news/coreweave-plans-6bn-data-center-in-lancaster-pennsylvania/
+  pub_date: 2025-01-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "CoreWeave × CoreWeave Lancaster PA (Chirisa) — campus IT-load record"
+
+- id: S277
+  publisher: Applied Digital
+  title: "Applied Digital Announces 250MW AI Data Center Lease With CoreWeave in North Dakota"
+  url: https://ir.applieddigital.com/news-events/press-releases/detail/123/applied-digital-announces-250mw-ai-data-center-lease-with
+  pub_date: 2025-05-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "CoreWeave × Polaris Forge 01 / Ellendale ND (Applied Digital) — campus IT-load record"
+
+- id: S278
+  publisher: Core Scientific
+  title: "Core Scientific Investor Update Presentation"
+  url: https://d1io3yog0oux5.cloudfront.net/_adcf01b98407e90f46511945a1635315/corescientific/db/1066/11263/pdf/Core+Scientific+Investor+Update+Presentation+FINAL.pdf
+  pub_date: 2025-10-30
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "CoreWeave × CoreWeave Core Scientific multi-site portfolio — campus IT-load record"
+
+- id: S279
+  publisher: BCE / Bell Canada
+  title: "Bell AI Fabric Expands National Network with 300 MW Data Centre in Saskatchewan"
+  url: https://www.bce.ca/news-and-media/newsroom?article=bell-ai-fabric-expands-national-network-with-300-mw-data-centre-in-saskatchewan
+  pub_date: 2026-03-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "CoreWeave × CoreWeave Bell AI Fabric (Sherwood SK) — campus IT-load record"
+
+- id: S280
+  publisher: Bulk Infrastructure
+  title: "CoreWeave partners with Bulk Infrastructure"
+  url: https://bulkinfrastructure.com/newsroom/coreweave-partners-with-bulk-infrastructure
+  pub_date: 2025-01-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "CoreWeave × CoreWeave Bulk N01 Vennesla (Norway) — campus IT-load record"
+
+- id: S281
+  publisher: CoreWeave
+  title: "Two Data Centers In The UK Now Operational"
+  url: https://www.coreweave.com/news/coreweave-announces-two-initial-data-centers-in-the-uk-are-now-operational
+  pub_date: 2025-01-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "CoreWeave × CoreWeave UK (Crawley + London Docklands) — campus IT-load record"
+
+- id: S282
+  publisher: Data Center Dynamics
+  title: "CoreWeave to deploy Nvidia Blackwell GPU clusters at EcoDataCenter in Sweden"
+  url: https://www.datacenterdynamics.com/en/news/coreweave-to-deploy-nvidia-blackwell-gpu-clusters-at-ecodatacenter-in-sweden/
+  pub_date: 2025-01-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "CoreWeave × CoreWeave Sweden (Östersund EcoDataCenter) — campus IT-load record"
+
+- id: S283
+  publisher: Nebius
+  title: "Nebius to triple capacity at Finland data center to 75 MW"
+  url: https://nebius.com/newsroom/nebius-to-triple-capacity-at-finland-data-center-to-75-mw
+  pub_date: 2025-01-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Nebius × Nebius Mäntsälä (Finland) — campus IT-load record"
+
+- id: S284
+  publisher: Nebius
+  title: "Nebius to construct 310 MW AI factory in Finland"
+  url: https://nebius.com/newsroom/nebius-to-construct-310-mw-ai-factory-in-finland
+  pub_date: 2026-03-31
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Nebius × Nebius Lappeenranta (AI factory, Finland) — campus IT-load record"
+
+- id: S285
+  publisher: Nebius
+  title: "Nebius accelerates US expansion, adding up to 300 MW capacity at new data center in New Jersey"
+  url: https://nebius.com/newsroom/nebius-accelerates-us-expansion-adding-up-to-300-mw-capacity-at-new-data-center-in-new-jersey
+  pub_date: 2025-01-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Nebius × Nebius Vineland NJ (DataOne) — campus IT-load record"
+
+- id: S286
+  publisher: Data Center Dynamics
+  title: "Nebius plans 800MW data center campus outside Kansas City, Missouri"
+  url: https://www.datacenterdynamics.com/en/news/nebius-plans-800mw-data-center-campus-in-kansas-city-missouri/
+  pub_date: 2026-01-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Nebius × Nebius Independence MO (Eastgate) — campus IT-load record"
+
+- id: S287
+  publisher: The Tech Capital
+  title: "Nebius secures 80MW Israel capacity in $880 million Mega Or build"
+  url: https://thetechcapital.com/nebius-secures-80mw-israel-capacity-in-880-million-mega-or-build/
+  pub_date: 2025-01-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Nebius × Nebius Israel (Mega Or) — campus IT-load record"
+
+- id: S288
+  publisher: Data Center Dynamics
+  title: "Nebius targets data center development in Birmingham, Alabama"
+  url: https://www.datacenterdynamics.com/en/news/nebius-targets-data-center-development-in-birmingham-alabama/
+  pub_date: 2026-02-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Nebius × Nebius Birmingham AL (BHM01) — campus IT-load record"
+
+- id: S289
+  publisher: Data Center Dynamics
+  title: "Nebius plans 240MW data center in Béthune, France"
+  url: https://www.datacenterdynamics.com/en/news/nebius-plans-240mw-data-center-in-b%C3%A9thune-france/
+  pub_date: 2026-01-01
+  retrieved_on: 2026-04-25
+  kind: Secondary
+  supports: "Nebius × Nebius Béthune (France) — campus IT-load record"
+
+- id: S290
+  publisher: Nebius
+  title: "Nebius launches in UK; expands Britain's AI infrastructure with NVIDIA Blackwell Ultra"
+  url: https://nebius.com/newsroom/nebius-launches-in-uk-expands-britains-ai-infrastructure-with-nvidia-blackwell-ultra
+  pub_date: 2025-01-01
+  retrieved_on: 2026-04-25
+  kind: Primary
+  supports: "Nebius × Nebius UK Longcross Park (Surrey) — campus IT-load record"

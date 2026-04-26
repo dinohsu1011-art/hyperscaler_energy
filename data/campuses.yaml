@@ -1,0 +1,1986 @@
+rows:
+- campus_id: C001
+  campus_name: Fairwater Wisconsin (Mt Pleasant)
+  hyperscaler: Microsoft
+  primary_tenant: Microsoft
+  city: Mt Pleasant
+  state_or_region: Wisconsin
+  country: US
+  lat: 42.71
+  lon: -87.95
+  capacity_definition: Facility-power
+  it_load_mw_planned: 900
+  it_load_mw_phase1: 400
+  it_load_mw_energized: 400
+  cod_phase1_year: 2026
+  cod_full_year: 2027
+  status: PartiallyEnergized
+  power_source_summary: >-
+    WE Energies grid + Microsoft Portage County 250 MW solar; entire Mt Pleasant campus draws ~3.3 GW
+    at full Fairwater 1+2 + 15 newly approved buildings
+  primary_use: AI-training
+  notes: >-
+    Phase 1 went live April 2026 ahead of schedule. $3.3B initial + $4B Fairwater 2 = $7.3B WI commitment;
+    Jan-2026 PSC approval for 15 add'l bldgs raises potential cost >$13B. MW figures are Epoch AI estimates
+    from utility filings (Microsoft does not disclose per-campus critical-IT load).
+  source_id: S206
+- campus_id: C002
+  campus_name: Fairwater Atlanta (Palmetto)
+  hyperscaler: Microsoft
+  primary_tenant: Microsoft
+  city: Palmetto
+  state_or_region: Georgia
+  country: US
+  lat: 33.52
+  lon: -84.66
+  capacity_definition: Facility-power
+  it_load_mw_planned: 324
+  it_load_mw_phase1: 108
+  it_load_mw_energized: 108
+  cod_phase1_year: 2025
+  cod_full_year: 2029
+  status: PartiallyEnergized
+  power_source_summary: Georgia Power grid; no on-site UPS or gen-sets (grid-only design)
+  primary_use: AI-training
+  notes: >-
+    Atlanta Fairwater (2nd Fairwater node) live Oct 2025. Two-story design, ~140 kW/rack, hundreds of
+    thousands of GB200/GB300 GPUs. Connected to Wisconsin via AI WAN as 'AI superfactory'. $1.8B investment.
+  source_id: S207
+- campus_id: C003
+  campus_name: San Antonio (Westover Hills + Medina County)
+  hyperscaler: Microsoft
+  primary_tenant: Microsoft
+  city: San Antonio
+  state_or_region: Texas
+  country: US
+  lat: 29.46
+  lon: -98.69
+  capacity_definition: Critical-IT
+  it_load_mw_planned: 600
+  it_load_mw_phase1: 223
+  it_load_mw_energized: 223
+  cod_phase1_year: 2025
+  cod_full_year: 2027
+  status: PartiallyEnergized
+  power_source_summary: CPS Energy + ERCOT grid
+  primary_use: Cloud-AI
+  notes: >-
+    SAT15 = 223.5 MW operational ~Aug 2025 (Datacentermap). SAT16 ($215M, 245k sqft) under construction.
+    Medina County buildings SAT80-82 ($400M Castroville) and SAT89/90, SAT93/94 ($350M each) under construction
+    through 2027. TX Research Park master plan = $1B / 1M sqft.
+  source_id: S208
+- campus_id: C004
+  campus_name: Goodyear / Phoenix West Valley
+  hyperscaler: Microsoft
+  primary_tenant: Microsoft
+  city: Goodyear
+  state_or_region: Arizona
+  country: US
+  lat: 33.43
+  lon: -112.36
+  capacity_definition: Critical-IT
+  it_load_mw_planned: 250
+  it_load_mw_phase1: 143
+  it_load_mw_energized: 143
+  cod_phase1_year: 2021
+  cod_full_year: 2027
+  status: PartiallyEnergized
+  power_source_summary: APS / SRP Arizona grid + Microsoft renewable PPAs for West US 3
+  primary_use: Cloud-AI
+  notes: >-
+    143 MW operating Phases I+II as of March 2026 (Interconnection.fyi); 250+ MW total when fully built.
+    Five-building AI campus anchoring Azure West US 3. Microsoft also acquired 283 acres in El Mirage
+    ($258M) for related expansion.
+  source_id: S209
+- campus_id: C005
+  campus_name: Quincy (Columbia Data Center cluster)
+  hyperscaler: Microsoft
+  primary_tenant: Microsoft
+  city: Quincy
+  state_or_region: Washington
+  country: US
+  lat: 47.23
+  lon: -119.85
+  capacity_definition: Facility-power
+  it_load_mw_planned: 410
+  it_load_mw_phase1: 200
+  it_load_mw_energized: 200
+  cod_phase1_year: 2007
+  cod_full_year: 2027
+  status: PartiallyEnergized
+  power_source_summary: Grant County PUD hydropower (Columbia River)
+  primary_use: Cloud
+  notes: >-
+    Original Microsoft cloud cluster (since 2007). 270-acre / >2M sqft campus. ~200 MW currently energized;
+    +210 MW backup gen permit indicates near-term doubling. Microsoft also building Malaga + East Wenatchee
+    in same region.
+  source_id: S210
+- campus_id: C006
+  campus_name: Cheyenne (Microsoft)
+  hyperscaler: Microsoft
+  primary_tenant: Microsoft
+  city: Cheyenne
+  state_or_region: Wyoming
+  country: US
+  lat: 41.13
+  lon: -104.82
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: 106
+  it_load_mw_energized: 106
+  cod_phase1_year: 2024
+  cod_full_year: null
+  status: PartiallyEnergized
+  power_source_summary: Black Hills Energy LPCS tariff (Microsoft pays full infra cost)
+  primary_use: Cloud-AI
+  notes: >-
+    Existing Bison Business Park / North Range campus ~106 MW (Interconnection.fyi). April 2026 announcement:
+    Microsoft to purchase 3,200 additional acres to TRIPLE Wyoming footprint. Total MW for new buildout
+    undisclosed.
+  source_id: S211
+- campus_id: C007
+  campus_name: Monarch Compute Campus (Mason County WV)
+  hyperscaler: Microsoft
+  primary_tenant: Microsoft (via Nscale lease + compute)
+  city: Mason County (unincorporated)
+  state_or_region: West Virginia
+  country: US
+  lat: 38.85
+  lon: -82.05
+  capacity_definition: Critical-IT
+  it_load_mw_planned: 1350
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: 2028
+  status: UnderConstruction
+  power_source_summary: >-
+    Off-grid natural gas microgrid via Caterpillar G3500 generators; 2 GW on-site target by H1 2028; carbon-sequestration
+    offset planned
+  primary_use: AI-training
+  notes: >-
+    March 2026: Nscale acquired 8 GW Monarch site and signed Microsoft LOI for 1.35 GW of compute. Microsoft
+    commitment is multi-year compute services + long-term lease for ~430k Vera Rubin NVL72 GPUs. Phased
+    deployment from 'late 2027'. Site is fully off-grid (eliminates utility burden but is gas-powered).
+  source_id: S212
+- campus_id: C008
+  campus_name: Boydton (Mecklenburg County)
+  hyperscaler: Microsoft
+  primary_tenant: Microsoft
+  city: Boydton
+  state_or_region: Virginia
+  country: US
+  lat: 36.67
+  lon: -78.39
+  capacity_definition: Facility-power
+  it_load_mw_planned: 1100
+  it_load_mw_phase1: 412
+  it_load_mw_energized: 412
+  cod_phase1_year: 2010
+  cod_full_year: 2028
+  status: PartiallyEnergized
+  power_source_summary: Dominion Energy + Mecklenburg Electric Cooperative
+  primary_use: Cloud-AI
+  notes: >-
+    Aggregated Boydton complex (Interconnection.fyi): East Coast DC 412.5 MW, LVL DC 450.5 MW, Timber
+    DC 223.5 MW (~1,086 MW gross). 1.1M sqft existing; LYH03-LYH08 site plans for 6 new buildings on 369
+    greenfield acres + 900 acres recently bought. $2B+ historical investment.
+  source_id: S213
+- campus_id: C009
+  campus_name: Abilene Stargate (Microsoft block)
+  hyperscaler: Microsoft
+  primary_tenant: Microsoft (lease from Crusoe)
+  city: Abilene
+  state_or_region: Texas
+  country: US
+  lat: 32.45
+  lon: -99.73
+  capacity_definition: Critical-IT
+  it_load_mw_planned: 900
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2026
+  cod_full_year: 2027
+  status: UnderConstruction
+  power_source_summary: Crusoe-developed Lancium Clean Campus; ERCOT + on-site gas + W. Texas wind
+  primary_use: AI-training
+  notes: >-
+    March 2026: Microsoft agreed to lease ~900 MW at Abilene from Crusoe AFTER Oracle/OpenAI walked from
+    the 2 GW expansion (power delays). 'Adjacent to' but distinct from the 1.2 GW Oracle/OpenAI Stargate
+    footprint (separate row). Brings Microsoft's Abilene presence to 2 buildings / 2.1 GW computing per
+    Bloomberg.
+  source_id: S214
+- campus_id: C010
+  campus_name: Loudoun / Manassas / Stone Ridge (NoVa complex)
+  hyperscaler: Microsoft
+  primary_tenant: Microsoft
+  city: Ashburn / Leesburg / Manassas
+  state_or_region: Virginia
+  country: US
+  lat: 39.04
+  lon: -77.49
+  capacity_definition: Mixed
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: null
+  cod_phase1_year: null
+  cod_full_year: 2026
+  status: PartiallyEnergized
+  power_source_summary: Dominion Energy
+  primary_use: Cloud-AI
+  notes: >-
+    Aggregate NoVa footprint across Loudoun (Ashburn, Leesburg, Sterling, Stone Ridge 500k sqft / $400M),
+    Prince William (Manassas, ~4M sqft underway), Fairfax. Microsoft does not disclose campus-level MW
+    for NoVa publicly.
+  source_id: S215
+- campus_id: C011
+  campus_name: West Texas Permian Hub (Chevron / Engine No. 1)
+  hyperscaler: Microsoft
+  primary_tenant: Microsoft
+  city: Permian Basin (TBD)
+  state_or_region: Texas
+  country: US
+  lat: null
+  lon: null
+  capacity_definition: Facility-power
+  it_load_mw_planned: 2500
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: null
+  status: Announced
+  power_source_summary: >-
+    Co-located 2.5 GW gas-fired plant (~$7B) by Chevron with GE Vernova turbines; Microsoft anchor offtake
+  primary_use: AI-training
+  notes: >-
+    April 1, 2026: Microsoft + Chevron + Engine No. 1 announced exclusivity for 2.5 GW gas hub. NEW in
+    2026 — no commercial terms finalized. First phase 'late 2027' targeted. Site selection within Permian
+    not yet disclosed.
+  source_id: S216
+- campus_id: C012
+  campus_name: Council Bluffs (incl. Southlands)
+  hyperscaler: Google
+  primary_tenant: Google
+  city: Council Bluffs
+  state_or_region: Iowa
+  country: US
+  lat: 41.26
+  lon: -95.86
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: null
+  cod_phase1_year: 2009
+  cod_full_year: null
+  status: Operational
+  power_source_summary: >-
+    MidAmerican Energy grid + Duane Arnold nuclear restart (615 MW PPA via NextEra, COD 2029)
+  primary_use: Cloud-AI
+  notes: >-
+    Google's largest campus globally. Southlands has 4 buildings / 2.9M sqft. >$6.8B Iowa investment since
+    2007. Google does NOT disclose MW capacity. Duane Arnold restart (615 MW, COD Q1 2029, 25-yr PPA)
+    is power-supply anchor — Google takes most output, CIPCO takes balance.
+  source_id: S217
+- campus_id: C013
+  campus_name: Pryor (Mayes County)
+  hyperscaler: Google
+  primary_tenant: Google
+  city: Pryor
+  state_or_region: Oklahoma
+  country: US
+  lat: 36.31
+  lon: -95.31
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: null
+  cod_phase1_year: 2011
+  cod_full_year: null
+  status: Operational
+  power_source_summary: Grand River Dam Authority (GRDA)
+  primary_use: Cloud-AI
+  notes: >-
+    Google's 2nd-largest campus globally. $4.4B cumulative, ~800 jobs. Aug 2025: $9B add'l for Oklahoma
+    split between Pryor expansion + new Stillwater campus. Cross-ref via 700 MW new clean PPAs Google
+    signed for OK ops.
+  source_id: S218
+- campus_id: C014
+  campus_name: Stillwater
+  hyperscaler: Google
+  primary_tenant: Google
+  city: Stillwater
+  state_or_region: Oklahoma
+  country: US
+  lat: 36.12
+  lon: -97.06
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: null
+  status: UnderConstruction
+  power_source_summary: Oklahoma grid + 700+ MW new clean PPAs across OK fleet
+  primary_use: AI-training
+  notes: >-
+    March 2025 confirmation Google is the developer. 400-acre / up to $3B / multi-300k-sqft buildings.
+    Phase 1 target 2027. Specific MW not publicly disclosed.
+  source_id: S219
+- campus_id: C015
+  campus_name: Storey County (TRIC)
+  hyperscaler: Google
+  primary_tenant: Google
+  city: Storey County (USA Pkwy)
+  state_or_region: Nevada
+  country: US
+  lat: 39.54
+  lon: -119.43
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: null
+  cod_phase1_year: 2021
+  cod_full_year: null
+  status: Operational
+  power_source_summary: NV Energy
+  primary_use: Cloud
+  notes: >-
+    Operational since 2021 at TRIC. Google + Henderson NV total ~$2.3B+ NV investment. Google does not
+    disclose MW. April 2026: +$400M NV expansion announcement.
+  source_id: S220
+- campus_id: C016
+  campus_name: Morgan County / Monrovia
+  hyperscaler: Google
+  primary_tenant: Google
+  city: Monrovia
+  state_or_region: Indiana
+  country: US
+  lat: 39.58
+  lon: -86.48
+  capacity_definition: Facility-power
+  it_load_mw_planned: 390
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: 2028
+  status: UnderConstruction
+  power_source_summary: AES Indiana — full cost-of-service paid by Google; 1,200 MW substation on site
+  primary_use: AI-training
+  notes: >-
+    Originally 'Project Louie'. 390-acre / 390 MW per AES Indiana IURC filings. 550-acre full footprint
+    per WTHR. Substation oversized to 1,200 MW suggests potential expansion. ~4M gallons/day water.
+  source_id: S221
+- campus_id: C017
+  campus_name: Pine Island MN
+  hyperscaler: Google
+  primary_tenant: Google
+  city: Pine Island
+  state_or_region: Minnesota
+  country: US
+  lat: 44.2
+  lon: -92.65
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: null
+  cod_full_year: null
+  status: Announced
+  power_source_summary: >-
+    Xcel Energy CEAC: 1,400 MW wind + 200 MW solar + 300 MW Form Energy iron-air storage
+  primary_use: AI-training
+  notes: >-
+    Announced Feb 24, 2026. Google's 1st MN data center. 1,900 MW Xcel CEAC clean-energy package is GENERATION
+    ADDED, not the campus IT load. Google declined to disclose MW. ESA filing pending at MN PUC. 300 MW
+    Form Energy is largest iron-air battery announced globally.
+  source_id: S222
+- campus_id: C018
+  campus_name: Project Cannoli (Van Buren Township MI)
+  hyperscaler: Google
+  primary_tenant: Google
+  city: Van Buren Township (Wayne County)
+  state_or_region: Michigan
+  country: US
+  lat: 42.2
+  lon: -83.49
+  capacity_definition: Critical-IT
+  it_load_mw_planned: 1000
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: null
+  cod_full_year: null
+  status: Announced
+  power_source_summary: 'DTE Energy 2.7 GW package: 1,600 MW renewables + 450 MW storage + demand flex'
+  primary_use: AI-training
+  notes: >-
+    Confirmed March 2026 (Bridge Michigan / DCD). Wayne County, NOT Gaines Township (different MI Google
+    project). Pannattoni-developed. 130 acres of 282-acre site, 3 buildings. 1 GW IT load corroborated
+    by DCD; 2.7 GW figure is utility-side resources, not campus IT load. MPSC contested case pending.
+  source_id: S223
+- campus_id: C019
+  campus_name: The Dalles
+  hyperscaler: Google
+  primary_tenant: Google
+  city: The Dalles
+  state_or_region: Oregon
+  country: US
+  lat: 45.59
+  lon: -121.18
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: null
+  cod_phase1_year: 2006
+  cod_full_year: null
+  status: PartiallyEnergized
+  power_source_summary: Wasco Electric Coop / Northern Wasco PUD (BPA hydropower)
+  primary_use: Cloud
+  notes: >-
+    Google's flagship original DC. 1.3M sqft. $1.8B cumulative. 190-acre Columbia Falls Aluminum smelter
+    site being added. MW capacity not publicly disclosed.
+  source_id: S224
+- campus_id: C020
+  campus_name: Lenoir (Caldwell County NC)
+  hyperscaler: Google
+  primary_tenant: Google
+  city: Lenoir
+  state_or_region: North Carolina
+  country: US
+  lat: 35.91
+  lon: -81.54
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: null
+  cod_phase1_year: 2008
+  cod_full_year: null
+  status: PartiallyEnergized
+  power_source_summary: Duke Energy
+  primary_use: Cloud-AI
+  notes: >-
+    337k sqft existing, $1.2B initial 2-phase build. 60-acre adjacent expansion underway. April 2025:
+    $1B / 2-yr add'l for NC, focused on Lenoir. MW not disclosed.
+  source_id: S225
+- campus_id: C021
+  campus_name: Berkeley County (Moncks Corner SC)
+  hyperscaler: Google
+  primary_tenant: Google
+  city: Moncks Corner
+  state_or_region: South Carolina
+  country: US
+  lat: 33.2
+  lon: -80.01
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: null
+  cod_phase1_year: 2008
+  cod_full_year: null
+  status: PartiallyEnergized
+  power_source_summary: Santee Cooper / Berkeley Electric Coop + 600 MW EnergyRe solar PPA
+  primary_use: Cloud-AI
+  notes: >-
+    Operational since 2008 in Mt Holly Commerce Park. 2024: $1.3B Berkeley expansion + 2 new campuses
+    underway in Dorchester County. Oct 2025: $9B Berkeley+Dorchester announcement spanning 2026–27.
+  source_id: S226
+- campus_id: C022
+  campus_name: Dorchester County SC
+  hyperscaler: Google
+  primary_tenant: Google
+  city: Dorchester County
+  state_or_region: South Carolina
+  country: US
+  lat: 33.05
+  lon: -80.4
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2026
+  cod_full_year: 2028
+  status: UnderConstruction
+  power_source_summary: Santee Cooper
+  primary_use: AI-training
+  notes: >-
+    Two new campuses broke ground 2024 in Dorchester. Part of $3.3B 2024 + $9B 2026-27 SC commitments.
+    MW not disclosed.
+  source_id: S227
+- campus_id: C023
+  campus_name: Mesa Redhawk
+  hyperscaler: Google
+  primary_tenant: Google
+  city: Mesa
+  state_or_region: Arizona
+  country: US
+  lat: 33.41
+  lon: -111.83
+  capacity_definition: Facility-power
+  it_load_mw_planned: 430
+  it_load_mw_phase1: null
+  it_load_mw_energized: null
+  cod_phase1_year: 2025
+  cod_full_year: null
+  status: PartiallyEnergized
+  power_source_summary: >-
+    Two NextEra solar/wind farms supplying ~430+ MW (Google full offtaker); air-cooled (zero water)
+  primary_use: Cloud-AI
+  notes: >-
+    $600M Mesa Redhawk 1+2. Google secured 400-430+ MW renewables to back the load. No water cooling —
+    important sustainability angle. 2nd building filed in 2024.
+  source_id: S228
+- campus_id: C024
+  campus_name: Cedar Rapids (Big Cedar Industrial Center)
+  hyperscaler: Google
+  primary_tenant: Google
+  city: Cedar Rapids
+  state_or_region: Iowa
+  country: US
+  lat: 41.88
+  lon: -91.71
+  capacity_definition: Facility-power
+  it_load_mw_planned: 600
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2026
+  cod_full_year: null
+  status: UnderConstruction
+  power_source_summary: Alliant Energy
+  primary_use: AI-training
+  notes: >-
+    $7B / 5-building plan. 600 MW per Blackridge & DCD. First building online 2026. Total Google IA investment
+    now $13.8B incl Council Bluffs.
+  source_id: S229
+- campus_id: C025
+  campus_name: Chesterfield County (Bermuda Hundred VA)
+  hyperscaler: Google
+  primary_tenant: Google
+  city: Chesterfield County
+  state_or_region: Virginia
+  country: US
+  lat: 37.34
+  lon: -77.3
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: null
+  status: UnderConstruction
+  power_source_summary: Dominion Energy + 200 MW Commonwealth Fusion Systems PPA
+  primary_use: Cloud-AI
+  notes: >-
+    Aug 2025 announcement. 307 acres / 855,846 sqft / 3 bldgs each 285k sqft. MW NOT disclosed by Google.
+    The 200 MW CFS fusion offtake is ANCILLARY power supply, not campus load.
+  source_id: S230
+- campus_id: C026
+  campus_name: Botetourt County (SW VA)
+  hyperscaler: Google
+  primary_tenant: Google
+  city: Botetourt County
+  state_or_region: Virginia
+  country: US
+  lat: 37.55
+  lon: -79.81
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: null
+  cod_full_year: null
+  status: Announced
+  power_source_summary: Apex Clean Energy 79.3 MW Rocky Forge wind PPA + grid
+  primary_use: AI-training
+  notes: >-
+    3 buildings ~307k sqft each + 28k office + 3 substations. Specific MW undisclosed. Smaller than other
+    VA Google sites.
+  source_id: S231
+- campus_id: C027
+  campus_name: Hyperion (Richland Parish LA)
+  hyperscaler: Meta
+  primary_tenant: Meta
+  city: Holly Ridge / Rayville
+  state_or_region: Louisiana
+  country: US
+  lat: 32.4733
+  lon: -91.7548
+  capacity_definition: Facility-power
+  it_load_mw_planned: 5000
+  it_load_mw_phase1: 2000
+  it_load_mw_energized: 0
+  cod_phase1_year: 2028
+  cod_full_year: 2030
+  status: UnderConstruction
+  power_source_summary: >-
+    Phased natural gas: 3 Entergy CCGTs (~2.26 GW, 2028-29) + 7 add'l gas plants (>5.2 GW, March 2026
+    deal) + ~240 mi 500 kV transmission + co-located solar/storage. Total committed gas = 7.5+ GW (10
+    turbines).
+  primary_use: AI-training
+  notes: >-
+    Meta's largest single campus globally; 4M sqft phase 1 → ~7M sqft. Capacity per Entergy CCN filings;
+    Meta hasn't published critical-IT split. Phase 1 2 GW disclosed by Meta; 5 GW figure is Zuckerberg
+    long-range target.
+  source_id: S232
+- campus_id: C028
+  campus_name: Prometheus (New Albany OH)
+  hyperscaler: Meta
+  primary_tenant: Meta
+  city: New Albany
+  state_or_region: Ohio
+  country: US
+  lat: 40.0809
+  lon: -82.8088
+  capacity_definition: Facility-power
+  it_load_mw_planned: 1500
+  it_load_mw_phase1: 1000
+  it_load_mw_energized: 0
+  cod_phase1_year: 2026
+  cod_full_year: 2027
+  status: UnderConstruction
+  power_source_summary: >-
+    200 MW dedicated on-site gas plant by Williams Companies (Will-Power OH LLC) + AEP Ohio grid; supplementary
+    renewables for 100% match
+  primary_use: AI-training
+  notes: >-
+    Zuckerberg called this 'world's first gigawatt-capable' AI DC; uses rapid-deploy weatherproof tent
+    structures for early buildings. Multi-source reports range 1-1.5 GW; 1 GW committed initial scale,
+    1.5 GW roadmap. First buildings online early 2026.
+  source_id: S233
+- campus_id: C029
+  campus_name: El Paso AI Campus
+  hyperscaler: Meta
+  primary_tenant: Meta
+  city: El Paso (NE)
+  state_or_region: Texas
+  country: US
+  lat: 31.9583
+  lon: -106.3239
+  capacity_definition: Facility-power
+  it_load_mw_planned: 1000
+  it_load_mw_phase1: 366
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: 2028
+  status: UnderConstruction
+  power_source_summary: >-
+    366 MW McCloud modular gas plant (Enchanted Rock, 813 modular gensets) for first 5 years dedicated;
+    then El Paso Electric grid integration. Closed-loop liquid cooling.
+  primary_use: AI-training
+  notes: >-
+    Investment expanded from $1.5B to $10B in March 2026. 12-building campus filed; ~1.2M sqft. Groundbreaking
+    October 2025.
+  source_id: S234
+- campus_id: C030
+  campus_name: Lebanon (Boone County IN)
+  hyperscaler: Meta
+  primary_tenant: Meta
+  city: Lebanon
+  state_or_region: Indiana
+  country: US
+  lat: 40.0489
+  lon: -86.4694
+  capacity_definition: Facility-power
+  it_load_mw_planned: 1000
+  it_load_mw_phase1: 1000
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: 2028
+  status: UnderConstruction
+  power_source_summary: >-
+    Duke Energy Indiana grid + 100% renewables match; gas backup. Specific generation contracts not disclosed.
+  primary_use: Mixed-AI-and-core
+  notes: >-
+    $10B+ investment, ~4M sqft, AI-optimized but flexible for core Meta workloads. Groundbreaking February
+    2026.
+  source_id: S235
+- campus_id: C031
+  campus_name: Cheyenne (Project Cosmo, Meta)
+  hyperscaler: Meta
+  primary_tenant: Meta
+  city: Cheyenne
+  state_or_region: Wyoming
+  country: US
+  lat: 41.137
+  lon: -104.7822
+  capacity_definition: Mixed
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: null
+  status: UnderConstruction
+  power_source_summary: >-
+    Black Hills Energy (Cheyenne Light, Fuel & Power) LPCS tariff + new renewables co-developed by Meta
+  primary_use: AI-training
+  notes: >-
+    Meta has NOT publicly disclosed MW capacity. Project Cosmo: 960 acres, 715K sqft, $800M+, 2 buildings
+    + on-site substations. Likely <500 MW IT-load given investment size and footprint relative to peers.
+  source_id: S236
+- campus_id: C032
+  campus_name: Temple TX (Meta)
+  hyperscaler: Meta
+  primary_tenant: Meta
+  city: Temple (Bell County)
+  state_or_region: Texas
+  country: US
+  lat: 31.0982
+  lon: -97.3428
+  capacity_definition: Facility-power
+  it_load_mw_planned: 200
+  it_load_mw_phase1: 152
+  it_load_mw_energized: 152
+  cod_phase1_year: 2024
+  cod_full_year: 2026
+  status: PartiallyEnergized
+  power_source_summary: >-
+    ERCOT grid via Oncor; Meta supports new TX renewables (~1.9 GW added across Fort Worth+Temple region)
+  primary_use: Core
+  notes: >-
+    Hyperscale campus already partly operational; not an AI-training mega-campus. 3 buildings totaling
+    ~152 MW, capacity per public records up to ~198 MW.
+  source_id: S237
+- campus_id: C033
+  campus_name: Sarpy (Papillion NE)
+  hyperscaler: Meta
+  primary_tenant: Meta
+  city: Papillion (Sarpy County)
+  state_or_region: Nebraska
+  country: US
+  lat: 41.1544
+  lon: -96.042
+  capacity_definition: Facility-power
+  it_load_mw_planned: 320
+  it_load_mw_phase1: 200
+  it_load_mw_energized: 320
+  cod_phase1_year: 2019
+  cod_full_year: 2025
+  status: Operational
+  power_source_summary: OPPD with Meta-supported 320 MW renewable additions in Nebraska
+  primary_use: Core
+  notes: >-
+    Mature Meta campus; expansion brought purchase from 200 MW to 320 MW. 2.6M sqft, 5+ buildings. Pre-AI-mega-campus.
+  source_id: S238
+- campus_id: C034
+  campus_name: Stanton Springs (Newton GA)
+  hyperscaler: Meta
+  primary_tenant: Meta
+  city: Social Circle (Newton County)
+  state_or_region: Georgia
+  country: US
+  lat: 33.665
+  lon: -83.7167
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: null
+  cod_phase1_year: 2020
+  cod_full_year: 2027
+  status: Operational
+  power_source_summary: Walton EMC / Georgia Power grid; Meta-supported renewables in Georgia
+  primary_use: Core
+  notes: >-
+    Meta hasn't disclosed MW; only metric is 968K MWh consumed in 2023 (~110 MW average). Currently expanding
+    from 2 to 5 buildings (+1.5M sqft).
+  source_id: S239
+- campus_id: C035
+  campus_name: Eagle Mountain UT (Meta)
+  hyperscaler: Meta
+  primary_tenant: Meta
+  city: Eagle Mountain (Cedar Valley)
+  state_or_region: Utah
+  country: US
+  lat: 40.3052
+  lon: -112.0094
+  capacity_definition: Facility-power
+  it_load_mw_planned: 300
+  it_load_mw_phase1: null
+  it_load_mw_energized: null
+  cod_phase1_year: 2019
+  cod_full_year: 2026
+  status: PartiallyEnergized
+  power_source_summary: Rocky Mountain Power; Meta-supported Utah solar and wind
+  primary_use: Core
+  notes: >-
+    7-building campus, 4.5M sqft, ~$1.5B cumulative invest. Mortenson cites ~300 MW total across 28 data
+    halls. Buildings 6 and 7 to complete in 2026.
+  source_id: S240
+- campus_id: C036
+  campus_name: Beaver Dam WI
+  hyperscaler: Meta
+  primary_tenant: Meta
+  city: Beaver Dam (Dodge County)
+  state_or_region: Wisconsin
+  country: US
+  lat: 43.4578
+  lon: -88.8373
+  capacity_definition: Facility-power
+  it_load_mw_planned: 220
+  it_load_mw_phase1: 220
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: 2027
+  status: UnderConstruction
+  power_source_summary: Alliant Energy service contract; new natural gas + renewables Meta-supported
+  primary_use: AI-training
+  notes: >-
+    Up to 220 MW per unredacted Alliant tariff filing; 700K+ sqft AI-optimized; $1B investment. Announced
+    November 2025.
+  source_id: S241
+- campus_id: C037
+  campus_name: Rosemount MN (Meta)
+  hyperscaler: Meta
+  primary_tenant: Meta
+  city: Rosemount
+  state_or_region: Minnesota
+  country: US
+  lat: 44.7395
+  lon: -93.09
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2026
+  cod_full_year: 2026
+  status: UnderConstruction
+  power_source_summary: Xcel Energy with Meta-supported renewables match
+  primary_use: AI-training
+  notes: >-
+    $800M, 715K sqft, AI-optimized; capacity not publicly disclosed. Likely 200-300 MW range based on
+    footprint.
+  source_id: S242
+- campus_id: C038
+  campus_name: Kansas City MO (Meta)
+  hyperscaler: Meta
+  primary_tenant: Meta
+  city: Kansas City
+  state_or_region: Missouri
+  country: US
+  lat: 39.1836
+  lon: -94.5786
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: null
+  cod_phase1_year: 2025
+  cod_full_year: 2026
+  status: Operational
+  power_source_summary: Evergy grid with Meta-supported solar additions
+  primary_use: Core
+  notes: $1B campus went live August 2025; capacity not disclosed.
+  source_id: S243
+- campus_id: C039
+  campus_name: Kuna ID (Meta)
+  hyperscaler: Meta
+  primary_tenant: Meta
+  city: Kuna
+  state_or_region: Idaho
+  country: US
+  lat: 43.4916
+  lon: -116.4198
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: null
+  cod_phase1_year: 2025
+  cod_full_year: 2026
+  status: PartiallyEnergized
+  power_source_summary: Idaho Power; Meta-supported solar in Idaho
+  primary_use: AI-supporting
+  notes: $800M, 960K sqft; capacity not disclosed. Meta's 15th US DC.
+  source_id: S244
+- campus_id: C040
+  campus_name: Fort Worth TX (Meta)
+  hyperscaler: Meta
+  primary_tenant: Meta
+  city: Fort Worth
+  state_or_region: Texas
+  country: US
+  lat: 32.854
+  lon: -97.2872
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: null
+  cod_phase1_year: 2017
+  cod_full_year: 2023
+  status: Operational
+  power_source_summary: ERCOT/Oncor grid; Meta-developed ~1.9 GW Texas renewables
+  primary_use: Core
+  notes: 2.5M sqft mature campus; capacity not publicly disclosed. Pre-AI-mega-era.
+  source_id: S245
+- campus_id: C041
+  campus_name: Colossus 1 (Memphis Riverport)
+  hyperscaler: xAI
+  primary_tenant: xAI
+  city: Memphis (Riverport / Boxtown)
+  state_or_region: Tennessee
+  country: US
+  lat: 35.0577
+  lon: -90.1534
+  capacity_definition: Facility-power
+  it_load_mw_planned: 250
+  it_load_mw_phase1: 150
+  it_load_mw_energized: 250
+  cod_phase1_year: 2024
+  cod_full_year: 2025
+  status: Operational
+  power_source_summary: >-
+    BTM: 35 on-site VoltaGrid mobile gas turbines (~420 MW peak nameplate) + Tesla Megapack BESS. TVA
+    approved 100+ MW grid interconnect (MLGW). EPA/EIP scrutiny on reformer-grade turbines.
+  primary_use: AI-training
+  notes: >-
+    Original Memphis facility on former Electrolux plant. ~150K H100 + 50K H200 + 30K GB200 = 230K GPUs.
+    Drawing ~250 MW today, up from 150 MW launch config. 3231 Riverport Rd.
+  source_id: S246
+- campus_id: C042
+  campus_name: Colossus 2 (Tulane Road, Whitehaven)
+  hyperscaler: xAI
+  primary_tenant: xAI
+  city: Memphis (Whitehaven)
+  state_or_region: Tennessee
+  country: US
+  lat: 34.9952
+  lon: -90.0349
+  capacity_definition: Facility-power
+  it_load_mw_planned: 1100
+  it_load_mw_phase1: 550
+  it_load_mw_energized: 0
+  cod_phase1_year: 2026
+  cod_full_year: 2027
+  status: UnderConstruction
+  power_source_summary: >-
+    BTM: Solaris-partnered behind-the-meter gas turbines + Tesla Megapacks; supplemented by 780 MW Southaven
+    CCGT (acquired). xAI claims 'imported overseas powerplant' integrated here.
+  primary_use: AI-training
+  notes: >-
+    5400 Tulane Rd, 1M sqft former industrial site; target 550K NVIDIA GPUs (~$18B). Combined with Colossus
+    1 + Macrohardrr brings xAI Memphis-area to ~2 GW announced.
+  source_id: S247
+- campus_id: C043
+  campus_name: Macrohardrr (Southaven MS)
+  hyperscaler: xAI
+  primary_tenant: xAI
+  city: Southaven (DeSoto County)
+  state_or_region: Mississippi
+  country: US
+  lat: 34.9918
+  lon: -90.0321
+  capacity_definition: Facility-power
+  it_load_mw_planned: 800
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2026
+  cod_full_year: 2027
+  status: UnderConstruction
+  power_source_summary: >-
+    Co-located with acquired 780 MW Southaven CCGT (formerly Entergy/CMD). Musk claims an additional overseas-imported
+    power station will feed this campus.
+  primary_use: AI-training
+  notes: >-
+    $20B Mississippi 'tri-center' announcement (largest private investment in MS history). 800K sqft retrofit.
+    2400 Stateline Rd W. Branded 'MACROHARDRR' as a Microsoft jab. Operations slated to begin Feb 2026.
+  source_id: S248
+- campus_id: C044
+  campus_name: Stargate Abilene (Lancium Clean Campus)
+  hyperscaler: Multi
+  primary_tenant: OpenAI (via Oracle/OCI)
+  city: Abilene (Taylor County)
+  state_or_region: Texas
+  country: US
+  lat: 32.5099
+  lon: -99.7857
+  capacity_definition: Critical-IT
+  it_load_mw_planned: 1200
+  it_load_mw_phase1: 200
+  it_load_mw_energized: 200
+  cod_phase1_year: 2025
+  cod_full_year: 2026
+  status: PartiallyEnergized
+  power_source_summary: >-
+    Lancium-owned site; ERCOT grid + 10 on-site Solar Turbines gas turbines; SB Energy supplying solar+storage.
+    1.8 GW expansion scrapped Q1 2026.
+  primary_use: AI-training
+  notes: >-
+    Crusoe is build-and-operate lead; Oracle handles supercomputer integration; OpenAI is anchor tenant.
+    CoreWeave has separate $11.9B+ GPU compute contract partly serviced from this site. 8 buildings, 980K-4M
+    sqft total. 5502 Spinks Rd. First 2 buildings live Sept 2025; 6 more by mid-2026. Capacity hard-capped
+    at 1.2 GW after expansion collapse — adjacent ~900 MW now leased to Microsoft (separate row).
+  source_id: S249
+- campus_id: C045
+  campus_name: Stargate UAE
+  hyperscaler: Multi
+  primary_tenant: OpenAI (G42 / Oracle / NVIDIA)
+  city: Abu Dhabi
+  state_or_region: Abu Dhabi
+  country: AE
+  lat: 24.4539
+  lon: 54.3773
+  capacity_definition: Facility-power
+  it_load_mw_planned: 5000
+  it_load_mw_phase1: 200
+  it_load_mw_energized: 0
+  cod_phase1_year: 2026
+  cod_full_year: 2030
+  status: UnderConstruction
+  power_source_summary: >-
+    Mixed nuclear (Barakah), solar, and natural gas. Sustainability and zero-carbon targets emphasized.
+  primary_use: AI-training
+  notes: >-
+    $30B+ project, 10 sq mi Masdar City zone. G42 operator; OpenAI/Oracle/NVIDIA/Cisco/SoftBank partners.
+    First 1 GW operated by OpenAI+Oracle; total campus 5 GW. First 200 MW phase Q3 2026. Largest AI campus
+    outside US.
+  source_id: S250
+- campus_id: C046
+  campus_name: Stargate Lighthouse (Port Washington WI)
+  hyperscaler: Multi
+  primary_tenant: OpenAI (via Oracle/Vantage)
+  city: Port Washington (Ozaukee County)
+  state_or_region: Wisconsin
+  country: US
+  lat: 43.3873
+  lon: -87.8753
+  capacity_definition: Critical-IT
+  it_load_mw_planned: 1000
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: 2028
+  status: UnderConstruction
+  power_source_summary: >-
+    WEC Energy / We Energies dedicated tariff (Vantage funds 100% of power infra); 'zero-emission energy
+    resources' commitment but specific generation mix not disclosed
+  primary_use: AI-training
+  notes: >-
+    $15B+ investment, 4 buildings, 'close to a gigawatt' per Vantage (1.3 GW total electrical capacity
+    per Construction Dive — facility-power vs critical-IT discrepancy possible). Part of OpenAI-Oracle
+    4.5 GW partnership. Groundbreaking October 2025. Vantage covering $175M regional water/sewer/grid
+    upgrades.
+  source_id: S251
+- campus_id: C047
+  campus_name: Stargate Frontier (Shackelford County TX)
+  hyperscaler: Multi
+  primary_tenant: OpenAI (via Oracle)
+  city: Shackelford County
+  state_or_region: Texas
+  country: US
+  lat: 32.7332
+  lon: -99.347
+  capacity_definition: Facility-power
+  it_load_mw_planned: 1400
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2026
+  cod_full_year: 2028
+  status: UnderConstruction
+  power_source_summary: ERCOT grid; gas-fired generation expected (per Oracle internal fact sheet)
+  primary_use: AI-training
+  notes: >-
+    1,200 acres, 10 buildings, 3.7M sqft. Liquid-cooled, 250 kW+ rack density. Oracle-developed; $25B+
+    project. Adjacent to Abilene flagship. Vantage co-developer.
+  source_id: S252
+- campus_id: C048
+  campus_name: Stargate Project Jupiter (Doña Ana / Santa Teresa NM)
+  hyperscaler: Multi
+  primary_tenant: OpenAI (via Oracle / BorderPlex / Stack)
+  city: Santa Teresa (Doña Ana County)
+  state_or_region: New Mexico
+  country: US
+  lat: 31.8553
+  lon: -106.6378
+  capacity_definition: Facility-power
+  it_load_mw_planned: 1000
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: 2030
+  status: UnderConstruction
+  power_source_summary: >-
+    On-site BTM natural gas microgrid 700-900 MW simple-cycle turbines; 110-140 MMcf/d gas at full operation;
+    Permian gas supply
+  primary_use: AI-training
+  notes: >-
+    Sept 2025 confirmed Oracle as tenant. 1,400-acre / 4-building campus. Developed/operated by BorderPlex
+    Digital + Stack Infrastructure. Total 30-yr investment $165B. Microgrid range 700-900 MW gives lower
+    bound for facility power. Full COD October 2029 per East Daley.
+  source_id: S253
+- campus_id: C049
+  campus_name: Stargate Lordstown OH
+  hyperscaler: Multi
+  primary_tenant: OpenAI (via SoftBank)
+  city: Lordstown (Trumbull County)
+  state_or_region: Ohio
+  country: US
+  lat: 41.1722
+  lon: -80.865
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2026
+  cod_full_year: 2027
+  status: UnderConstruction
+  power_source_summary: AEP Ohio grid; SoftBank pursuing modular/portable design for rapid deployment
+  primary_use: AI-training
+  notes: >-
+    $3B SoftBank investment converting former Lordstown Motors / Foxconn EV factory to modular DC manufacturing
+    + on-site demo DC. Combined with Milam County, the SoftBank pair scales to ~1.5 GW in 18 months per
+    OpenAI. Per-site MW not disclosed; estimate 300-700 MW.
+  source_id: S252
+- campus_id: C050
+  campus_name: Stargate Milam County TX
+  hyperscaler: Multi
+  primary_tenant: OpenAI (via SB Energy/SoftBank)
+  city: Milam County
+  state_or_region: Texas
+  country: US
+  lat: 30.7872
+  lon: -96.9758
+  capacity_definition: Facility-power
+  it_load_mw_planned: 1200
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2026
+  cod_full_year: 2027
+  status: UnderConstruction
+  power_source_summary: >-
+    SB Energy-supplied solar + storage as primary; new dispatchable generation planned. Designed to minimize
+    ERCOT ratepayer impact.
+  primary_use: AI-training
+  notes: >-
+    1.2 GW per DCD/OpenAI confirmation. SB Energy is build/operate; OpenAI+SoftBank invested $1B in SB
+    Energy. Co-located with 'Solaris' branded power infra.
+  source_id: S254
+- campus_id: C051
+  campus_name: Stargate Michigan (The Barn, Saline Twp)
+  hyperscaler: Multi
+  primary_tenant: OpenAI (via Oracle/Related Digital)
+  city: Saline Township (Washtenaw County)
+  state_or_region: Michigan
+  country: US
+  lat: 42.1664
+  lon: -83.7822
+  capacity_definition: Critical-IT
+  it_load_mw_planned: 1400
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: 2028
+  status: UnderConstruction
+  power_source_summary: >-
+    DTE Energy 100% existing resources + Oracle-financed 1.3 GW battery storage portfolio (MPSC-approved);
+    1.4 GW interconnect approved by Michigan PSC
+  primary_use: AI-training
+  notes: >-
+    Announced Oct 30, 2025. April 24, 2026: $16B financing (Related Digital equity + Blackstone equity
+    + PIMCO debt) closed. 250 acres, 3 bldgs of 550K sqft each. Closed-loop cooling. DTE existing customers
+    see ~$300M savings.
+  source_id: S255
+- campus_id: C052
+  campus_name: Stargate Argentina (Patagonia)
+  hyperscaler: Multi
+  primary_tenant: OpenAI (via Sur Energy)
+  city: Patagonia
+  state_or_region: Patagonia
+  country: AR
+  lat: -41.1335
+  lon: -71.3103
+  capacity_definition: Facility-power
+  it_load_mw_planned: 500
+  it_load_mw_phase1: 100
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: 2030
+  status: Announced
+  power_source_summary: >-
+    Renewables (wind/hydro Patagonia), structured under Argentina's RIGI investment regime
+  primary_use: AI-training
+  notes: >-
+    $25B Letter of Intent only; not yet broken ground. Initial 100 MW phase ~2027. Sur Energy lead. Specific
+    Patagonian site/coords not disclosed; placeholder coords for region.
+  source_id: S256
+- campus_id: C053
+  campus_name: Stargate India
+  hyperscaler: Multi
+  primary_tenant: OpenAI (TBD)
+  city: TBD
+  state_or_region: TBD
+  country: IN
+  lat: null
+  lon: null
+  capacity_definition: Facility-power
+  it_load_mw_planned: 1000
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: null
+  status: Announced
+  power_source_summary: TBD
+  primary_use: AI-training
+  notes: >-
+    Early-stage; OpenAI in discussions with local partners. Targets 1 GW + 100K NVIDIA GPUs by end-2026.
+    Site not selected.
+  source_id: S257
+- campus_id: C054
+  campus_name: Salt Lake City (West Jordan / Project Sequoia)
+  hyperscaler: Oracle
+  primary_tenant: Oracle
+  city: West Jordan
+  state_or_region: Utah
+  country: US
+  lat: 40.61
+  lon: -112.0
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: null
+  cod_phase1_year: 2014
+  cod_full_year: null
+  status: PartiallyEnergized
+  power_source_summary: Rocky Mountain Power
+  primary_use: Cloud-AI
+  notes: >-
+    Existing 179K sqft 'Project Sequoia' base. Larry Ellison cited a new SLC AI build large enough for
+    '8 Boeing 747s nose to tail' — likely a separate larger expansion adjacent. Specific MW for AI buildout
+    not disclosed publicly.
+  source_id: S258
+- campus_id: C055
+  campus_name: Cumulus Data Campus / Susquehanna PA
+  hyperscaler: Amazon
+  primary_tenant: Amazon
+  city: Salem Township
+  state_or_region: Pennsylvania
+  country: US
+  lat: 41.09
+  lon: -76.14
+  capacity_definition: Facility-power
+  it_load_mw_planned: 1920
+  it_load_mw_phase1: 300
+  it_load_mw_energized: 300
+  cod_phase1_year: 2023
+  cod_full_year: 2032
+  status: PartiallyEnergized
+  power_source_summary: >-
+    Originally BTM 960 MW co-location with Susquehanna nuclear (Talen). FERC denied 480 MW BTM uprate
+    Nov 2024. Re-papered June 2025 as 1,920 MW front-of-the-meter PPA with Talen, ramping to 840-1,200
+    MW by 2029 and 1,680-1,920 MW by 2032; runs through 2042. BTM-to-FOTM transition Spring 2026.
+  primary_use: AI-training
+  notes: >-
+    Acquired from Talen Energy for $650M, March 2024. AWS retains a one-time option to cap at 480 MW (legacy).
+    New 17-year, $18B PPA replaces BTM uprate path. PPA also explores SMRs at the site.
+  source_id: S259
+- campus_id: C056
+  campus_name: Madison County / Ridgeland MS
+  hyperscaler: Amazon
+  primary_tenant: Amazon
+  city: Canton/Ridgeland
+  state_or_region: Mississippi
+  country: US
+  lat: 32.61
+  lon: -90.04
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: null
+  cod_phase1_year: 2026
+  cod_full_year: 2027
+  status: PartiallyEnergized
+  power_source_summary: >-
+    Entergy Mississippi grid; multiple new substations on 750-acre Ridgeland + 1,000-acre Canton mega
+    site
+  primary_use: Cloud-AI
+  notes: >-
+    Original $10B announcement Jan 2024; total state commitment scaled to $25B (incl. $11B Madison expansion
+    + $1B Hinds/Clinton + $3B Vicksburg). First 5 buildings near completion early 2026; 5 buildings already
+    operational at Canton per Q1 2026 reporting. AWS does not disclose MW publicly.
+  source_id: S260
+- campus_id: C057
+  campus_name: Hinds County / Clinton MS (former Delphi plant)
+  hyperscaler: Amazon
+  primary_tenant: Amazon
+  city: Clinton
+  state_or_region: Mississippi
+  country: US
+  lat: 32.34
+  lon: -90.32
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: null
+  cod_full_year: null
+  status: UnderConstruction
+  power_source_summary: Entergy grid; retrofit of former Delphi manufacturing plant
+  primary_use: Cloud-AI
+  notes: >-
+    $1B retrofit announced as part of $25B Mississippi commitment scale-up. ~100 jobs. MW capacity not
+    publicly disclosed.
+  source_id: S261
+- campus_id: C058
+  campus_name: Warren County / Vicksburg MS
+  hyperscaler: Amazon
+  primary_tenant: Amazon
+  city: Vicksburg
+  state_or_region: Mississippi
+  country: US
+  lat: 32.35
+  lon: -90.88
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: null
+  cod_full_year: null
+  status: Announced
+  power_source_summary: Entergy Mississippi grid. Construction targeted to begin 2026.
+  primary_use: AI-training
+  notes: >-
+    $3B 'next-generation AI' campus announced Nov 2025. ~200 direct jobs. MW figures not disclosed; positioned
+    as flagship 'Digital Delta' AI site.
+  source_id: S262
+- campus_id: C059
+  campus_name: Project Rainier (New Carlisle IN)
+  hyperscaler: Amazon
+  primary_tenant: Anthropic
+  city: New Carlisle
+  state_or_region: Indiana
+  country: US
+  lat: 41.7
+  lon: -86.41
+  capacity_definition: Facility-power
+  it_load_mw_planned: 2200
+  it_load_mw_phase1: null
+  it_load_mw_energized: 1000
+  cod_phase1_year: 2025
+  cod_full_year: 2030
+  status: PartiallyEnergized
+  power_source_summary: >-
+    NIPSCO grid; ~3 GW combined Indiana load committed to AWS by NIPSCO. Mix of natural gas, wind, and
+    procured renewables.
+  primary_use: AI-training
+  notes: >-
+    Activated Oct 2025 with 'nearly 500,000' Trainium2 chips; >500K active by Mar 2026, scaling to 1M.
+    30 buildings designed for ~2.2 GW total IT-load; 7 of 18 Phase-1 buildings active. Estimated ~1 GW
+    online Q3 2026. Built primarily for Anthropic's Claude training. AWS calls it a 'supercluster' rather
+    than a single DC.
+  source_id: S263
+- campus_id: C060
+  campus_name: Northern Indiana Phase 2 (NIPSCO 2.4 GW)
+  hyperscaler: Amazon
+  primary_tenant: Amazon
+  city: TBD (Northern Indiana)
+  state_or_region: Indiana
+  country: US
+  lat: null
+  lon: null
+  capacity_definition: Facility-power
+  it_load_mw_planned: 2400
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: null
+  status: Announced
+  power_source_summary: >-
+    NIPSCO; new generation supporting AWS's 3 GW total Indiana commitment alongside Project Rainier
+  primary_use: AI-training
+  notes: >-
+    $15B additional Northern Indiana investment announced Nov 2025; sites not yet finalized. Construction
+    to begin 2026.
+  source_id: S264
+- campus_id: C061
+  campus_name: AWS Northern Virginia (us-east-1) cluster
+  hyperscaler: Amazon
+  primary_tenant: Amazon
+  city: Ashburn / Sterling / Manassas / Stafford
+  state_or_region: Virginia
+  country: US
+  lat: 39.04
+  lon: -77.49
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: 1500
+  cod_phase1_year: 2006
+  cod_full_year: null
+  status: Operational
+  power_source_summary: >-
+    Dominion Energy Virginia; PJM grid; AWS-procured wind+solar PPAs and Dominion CCGT mix
+  primary_use: Cloud-AI
+  notes: >-
+    Aggregate of dozens of facilities across Loudoun/PWC/Stafford. Estimated >1.5 GW operational IT-load
+    (third-party tracker estimate). $35B 15-year Virginia commitment to expand into Spotsylvania/Caroline
+    counties. Loudoun increasingly power-constrained.
+  source_id: S265
+- campus_id: C062
+  campus_name: Mattameade Tech Campus (Caroline/Spotsylvania VA)
+  hyperscaler: Amazon
+  primary_tenant: Amazon
+  city: Ruther Glen / Mudd Tavern
+  state_or_region: Virginia
+  country: US
+  lat: 38.05
+  lon: -77.55
+  capacity_definition: Facility-power
+  it_load_mw_planned: 1220
+  it_load_mw_phase1: 770
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: 2029
+  status: UnderConstruction
+  power_source_summary: >-
+    Dominion Energy; three on-site substation pads. Cooling water from Spotsylvania municipal supply.
+  primary_use: Cloud-AI
+  notes: >-
+    1,143 acres, 11 two-story DC buildings. Phase 1 = 770 MW by 2027; Phase 2 = +450 MW by 2029 (total
+    1,220 MW). Permits filed via USACE Norfolk District 2024.
+  source_id: S266
+- campus_id: C063
+  campus_name: Quantum Frederick MD (TPG-developed AWS campus)
+  hyperscaler: Amazon
+  primary_tenant: Amazon
+  city: Adamstown / Frederick County
+  state_or_region: Maryland
+  country: US
+  lat: 39.31
+  lon: -77.43
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: 258
+  it_load_mw_energized: 0
+  cod_phase1_year: 2026
+  cod_full_year: null
+  status: UnderConstruction
+  power_source_summary: PJM/PEPCO grid. MDE air-permit for 99 backup generators (~258 MW prime).
+  primary_use: Cloud-AI
+  notes: >-
+    Maryland Availability Zone added to us-east-1, opening 2026. TPG Real Estate Partners 2,100-acre gigawatt-scale
+    park; AWS occupies 4 buildings BWI-150/151/152/153 at 3250 Digital Drive. Rowan Digital Infrastructure
+    is the developer.
+  source_id: S267
+- campus_id: C064
+  campus_name: 'Central Ohio cluster (us-east-2: New Albany / Hilliard / Dublin)'
+  hyperscaler: Amazon
+  primary_tenant: Amazon
+  city: New Albany / Hilliard / Dublin
+  state_or_region: Ohio
+  country: US
+  lat: 40.08
+  lon: -82.81
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: 500
+  cod_phase1_year: 2016
+  cod_full_year: 2030
+  status: PartiallyEnergized
+  power_source_summary: AEP Ohio grid; PJM. AWS solar/wind PPA portfolio in Ohio.
+  primary_use: Cloud-AI
+  notes: >-
+    Three campuses (Hilliard, Dublin, New Albany), each planned for 5x150K SF buildings; >300 MW per fully
+    built campus. Ohio total investment scaled to $23.8B by 2030. Aggregate IT-load estimate ~500 MW operational.
+  source_id: S268
+- campus_id: C065
+  campus_name: Hermiston / Boardman OR (us-west-2 cluster)
+  hyperscaler: Amazon
+  primary_tenant: Amazon
+  city: Hermiston / Boardman
+  state_or_region: Oregon
+  country: US
+  lat: 45.84
+  lon: -119.29
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: 600
+  cod_phase1_year: 2011
+  cod_full_year: null
+  status: PartiallyEnergized
+  power_source_summary: >-
+    PacifiCorp / Umatilla Electric Cooperative grid. AWS Oregon wind PPA portfolio. Power constraints
+    have limited new builds.
+  primary_use: Cloud-AI
+  notes: >-
+    AWS's earliest mega-cluster (Boardman from 2011, Hermiston from 2017). ~20 DCs across the cluster.
+    Estimated ~600 MW operational, with Port of Morrow approvals to >2x footprint. Power-constrained at
+    PacifiCorp.
+  source_id: S269
+- campus_id: C066
+  campus_name: AWS Texas / Comanche Peak (proposed)
+  hyperscaler: Amazon
+  primary_tenant: Amazon
+  city: Glen Rose (near Comanche Peak NPP)
+  state_or_region: Texas
+  country: US
+  lat: 32.3
+  lon: -97.79
+  capacity_definition: Facility-power
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: null
+  cod_full_year: null
+  status: Announced
+  power_source_summary: Adjacent to Vistra's Comanche Peak nuclear plant; ERCOT grid
+  primary_use: AI-training
+  notes: >-
+    AWS exploring large-scale campus next to Comanche Peak NPP per DCD reporting. Specifics not public.
+  source_id: S270
+- campus_id: C067
+  campus_name: CoreWeave Galaxy Helios (West Texas)
+  hyperscaler: CoreWeave
+  primary_tenant: CoreWeave
+  city: Dickens
+  state_or_region: Texas
+  country: US
+  lat: 33.62
+  lon: -100.83
+  capacity_definition: Critical-IT
+  it_load_mw_planned: 800
+  it_load_mw_phase1: 200
+  it_load_mw_energized: 0
+  cod_phase1_year: 2026
+  cod_full_year: 2027
+  status: UnderConstruction
+  power_source_summary: >-
+    ERCOT West Texas grid; Galaxy Digital landlord. Site originated as Argo Blockchain BTC mine (acquired
+    by Galaxy 2022, ~$65M).
+  primary_use: AI-training
+  notes: >-
+    Galaxy Digital owns/operates campus; CoreWeave fully committed to all 800 MW critical IT under 15-yr
+    lease; ~$1B+/yr revenue to Galaxy. Phase-1 200 MW H1-2026; Phase-2 +400 MW 2027; final +200 MW after.
+    Galaxy closed $1.4B project financing.
+  source_id: S271
+- campus_id: C068
+  campus_name: CoreWeave Plano DAL1
+  hyperscaler: CoreWeave
+  primary_tenant: CoreWeave
+  city: Plano
+  state_or_region: Texas
+  country: US
+  lat: 33.04
+  lon: -96.74
+  capacity_definition: Critical-IT
+  it_load_mw_planned: 30
+  it_load_mw_phase1: 30
+  it_load_mw_energized: 30
+  cod_phase1_year: 2023
+  cod_full_year: 2023
+  status: Operational
+  power_source_summary: Oncor / ERCOT
+  primary_use: AI-inference
+  notes: >-
+    $1.6B fit-out at 1000 Coit Road (Lincoln Rackhouse). 454,421 sf. Up to 30 MW critical IT. Additional
+    13 MW colocation deployment with Flexential Plano per separate agreement. Below 150 MW threshold but
+    included for portfolio completeness.
+  source_id: S272
+- campus_id: C069
+  campus_name: CoreWeave Denton (Core Scientific lease)
+  hyperscaler: CoreWeave
+  primary_tenant: CoreWeave (servicing OpenAI)
+  city: Denton
+  state_or_region: Texas
+  country: US
+  lat: 33.21
+  lon: -97.13
+  capacity_definition: Critical-IT
+  it_load_mw_planned: 390
+  it_load_mw_phase1: 200
+  it_load_mw_energized: 200
+  cod_phase1_year: 2025
+  cod_full_year: 2026
+  status: PartiallyEnergized
+  power_source_summary: Denton Municipal Electric / ERCOT
+  primary_use: AI-training
+  notes: >-
+    Core Scientific landlord (former BTC mine). 16,000 GPUs deployed Q1 2026 for OpenAI workload. Feb
+    2025 +70 MW expansion brings total IT to 'just over 260 MW'; planned full power 390 MW. CoreWeave's
+    $9B all-stock acquisition of Core Scientific (10 sites/1.3 GW) was rejected by CORZ shareholders Oct
+    2025 — sites remain under long-term hosting contracts.
+  source_id: S273
+- campus_id: C070
+  campus_name: CoreWeave Las Vegas LAS1 (Switch Core Campus)
+  hyperscaler: CoreWeave
+  primary_tenant: CoreWeave
+  city: Las Vegas
+  state_or_region: Nevada
+  country: US
+  lat: 36.07
+  lon: -115.21
+  capacity_definition: Facility-power
+  it_load_mw_planned: 275
+  it_load_mw_phase1: null
+  it_load_mw_energized: 275
+  cod_phase1_year: 2021
+  cod_full_year: 2024
+  status: Operational
+  power_source_summary: NV Energy; Switch's Core Campus 100% renewable PPAs
+  primary_use: AI-inference
+  notes: >-
+    Colocated within Switch Core Campus (9 DCs, ~2.0M GSF). CoreWeave LAS1 advertised at up to 275 MW
+    available across the campus.
+  source_id: S274
+- campus_id: C071
+  campus_name: CoreWeave Kenilworth NEST (NJ)
+  hyperscaler: CoreWeave
+  primary_tenant: CoreWeave
+  city: Kenilworth
+  state_or_region: New Jersey
+  country: US
+  lat: 40.68
+  lon: -74.29
+  capacity_definition: Critical-IT
+  it_load_mw_planned: 250
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: 2027
+  status: UnderConstruction
+  power_source_summary: PSE&G; PJM. Conversion of former Merck HQ.
+  primary_use: AI-training
+  notes: >-
+    $1.8B / 250 MW / 392,600 sf at 2000 Galloping Hill Road. Construction began Sep 2025; completion 2027.
+    $555M GLAS USA loan, $250M NJ AI tax credit. First award under NJ Next program.
+  source_id: S275
+- campus_id: C072
+  campus_name: CoreWeave Lancaster PA (Chirisa)
+  hyperscaler: CoreWeave
+  primary_tenant: CoreWeave
+  city: Lancaster
+  state_or_region: Pennsylvania
+  country: US
+  lat: 40.04
+  lon: -76.3
+  capacity_definition: Critical-IT
+  it_load_mw_planned: 300
+  it_load_mw_phase1: 100
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: null
+  status: UnderConstruction
+  power_source_summary: PPL Electric / PJM
+  primary_use: AI-training
+  notes: >-
+    $6B development by Chirisa Technology Parks + Machine Investment Group. CoreWeave takes all available
+    capacity under 15-yr / $11B lease. Phase 1: 100 MW IT, scaling to 300 MW. Construction began 2025,
+    summer 2027 target.
+  source_id: S276
+- campus_id: C073
+  campus_name: Polaris Forge 01 / Ellendale ND (Applied Digital)
+  hyperscaler: CoreWeave
+  primary_tenant: CoreWeave
+  city: Ellendale
+  state_or_region: North Dakota
+  country: US
+  lat: 46.0
+  lon: -98.53
+  capacity_definition: Critical-IT
+  it_load_mw_planned: 1000
+  it_load_mw_phase1: 100
+  it_load_mw_energized: 100
+  cod_phase1_year: 2025
+  cod_full_year: 2027
+  status: PartiallyEnergized
+  power_source_summary: Otter Tail Power; ND wind-heavy grid; cool climate optimization
+  primary_use: AI-training
+  notes: >-
+    APLD-owned campus, scalable to 1 GW. Three CoreWeave leases totaling 400 MW critical IT, 15-yr terms,
+    ~$11B aggregate revenue. First 100 MW building in service Q4 2025; 150 MW building mid-2026; +150
+    MW expansion under construction.
+  source_id: S277
+- campus_id: C074
+  campus_name: CoreWeave Core Scientific multi-site portfolio
+  hyperscaler: CoreWeave
+  primary_tenant: CoreWeave
+  city: Multiple (Pecos TX, Calvert City KY, Auburn AL, Muskogee OK, etc.)
+  state_or_region: Multi-state TX/KY/AL/OK/GA/NC/ND
+  country: US
+  lat: null
+  lon: null
+  capacity_definition: Critical-IT
+  it_load_mw_planned: 840
+  it_load_mw_phase1: null
+  it_load_mw_energized: null
+  cod_phase1_year: 2024
+  cod_full_year: 2027
+  status: PartiallyEnergized
+  power_source_summary: Various IOUs/coops by site
+  primary_use: AI-training
+  notes: >-
+    Core Scientific 12-yr hosting contracts with CoreWeave: ~$10B+ TCV, ~$850M ARR. ~840 MW supports CoreWeave
+    HPC across CORZ portfolio. Pecos TX ~200 MW; Calvert City KY ~100 MW; Auburn AL 30 MW Phase-1; Muskogee
+    OK 100 MW; plus Denton (logged separately). Acquisition rejected Oct 2025; relationship continues
+    as long-term hosting.
+  source_id: S278
+- campus_id: C075
+  campus_name: CoreWeave Bell AI Fabric (Sherwood SK)
+  hyperscaler: CoreWeave
+  primary_tenant: CoreWeave + Cerebras
+  city: Sherwood (near Regina)
+  state_or_region: Saskatchewan
+  country: Canada
+  lat: 50.5
+  lon: -104.61
+  capacity_definition: Facility-power
+  it_load_mw_planned: 300
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: null
+  status: Announced
+  power_source_summary: >-
+    SaskPower substation adjacent to greenfield site; Bell national fibre via SaskTel
+  primary_use: AI-training
+  notes: >-
+    BCE $1.7B / 300 MW campus along Park Street Road. CoreWeave + Cerebras anchor tenants; CoreWeave anchors
+    NVIDIA GPU compute. Construction starts spring 2026, ops 2027. Largest purpose-built AI DC in Canada.
+  source_id: S279
+- campus_id: C076
+  campus_name: CoreWeave Bulk N01 Vennesla (Norway)
+  hyperscaler: CoreWeave
+  primary_tenant: CoreWeave
+  city: Vennesla
+  state_or_region: Agder
+  country: Norway
+  lat: 58.27
+  lon: 7.97
+  capacity_definition: Facility-power
+  it_load_mw_planned: 400
+  it_load_mw_phase1: null
+  it_load_mw_energized: null
+  cod_phase1_year: 2025
+  cod_full_year: null
+  status: PartiallyEnergized
+  power_source_summary: >-
+    100% hydropower; adjacent to one of Europe's largest transformer stations; redundant connections
+  primary_use: AI-training
+  notes: >-
+    Bulk Infrastructure 300-hectare site; 400 MW secured, expandable to 1 GW. CoreWeave one of Europe's
+    largest GB200 NVL72 deployments. Operational summer 2025. Distinct from OpenAI/Nscale/Aker 'Stargate
+    Norway' (Narvik, since taken over by Microsoft).
+  source_id: S280
+- campus_id: C077
+  campus_name: CoreWeave UK (Crawley + London Docklands)
+  hyperscaler: CoreWeave
+  primary_tenant: CoreWeave
+  city: Crawley / London
+  state_or_region: England
+  country: UK
+  lat: 51.11
+  lon: -0.19
+  capacity_definition: Critical-IT
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: null
+  cod_phase1_year: 2024
+  cod_full_year: null
+  status: Operational
+  power_source_summary: UK National Grid; SSE/UKPN
+  primary_use: AI-training
+  notes: >-
+    Crawley (Digital Realty, Oct 2024) + London Docklands (Global Switch, Dec 2024). £2.5B total UK commitment
+    (£1.5B incremental). Specific CoreWeave MW carve-outs not disclosed.
+  source_id: S281
+- campus_id: C078
+  campus_name: CoreWeave Sweden (Östersund EcoDataCenter)
+  hyperscaler: CoreWeave
+  primary_tenant: CoreWeave
+  city: Östersund
+  state_or_region: Jämtland
+  country: Sweden
+  lat: 63.18
+  lon: 14.64
+  capacity_definition: Facility-power
+  it_load_mw_planned: 150
+  it_load_mw_phase1: 20
+  it_load_mw_energized: 0
+  cod_phase1_year: 2026
+  cod_full_year: null
+  status: UnderConstruction
+  power_source_summary: 100% renewable hydro; cool climate
+  primary_use: AI-training
+  notes: >-
+    EcoDataCenter campus, 150 MW build, first 20 MW phase 2026. Hosts NVIDIA Blackwell training cluster
+    for CoreWeave. Part of CoreWeave's $2.2B Europe (NO/SE/ES) commitment.
+  source_id: S282
+- campus_id: C079
+  campus_name: Nebius Mäntsälä (Finland)
+  hyperscaler: Nebius
+  primary_tenant: Nebius
+  city: Mäntsälä
+  state_or_region: Uusimaa
+  country: Finland
+  lat: 60.63
+  lon: 25.32
+  capacity_definition: Facility-power
+  it_load_mw_planned: 75
+  it_load_mw_phase1: null
+  it_load_mw_energized: 75
+  cod_phase1_year: 2018
+  cod_full_year: 2026
+  status: Operational
+  power_source_summary: >-
+    Finnish grid; mostly nuclear/hydro/wind. Heat-recovery to district heating system.
+  primary_use: AI-training
+  notes: >-
+    Original Yandex/Nebius Finnish DC. Tripled to 75 MW completed early 2026. Houses Europe's first GB300
+    NVL72 deployment. NOTE: 310 MW figure refers to a separate Lappeenranta campus (Mar 2026 announcement),
+    not Mäntsälä.
+  source_id: S283
+- campus_id: C080
+  campus_name: Nebius Lappeenranta (AI factory, Finland)
+  hyperscaler: Nebius
+  primary_tenant: Nebius
+  city: Lappeenranta
+  state_or_region: South Karelia
+  country: Finland
+  lat: 61.06
+  lon: 28.19
+  capacity_definition: Facility-power
+  it_load_mw_planned: 310
+  it_load_mw_phase1: null
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: null
+  status: Announced
+  power_source_summary: >-
+    Fingrid; Finnish nuclear/hydro mix. Closed-loop liquid cooling (no local water draw).
+  primary_use: AI-training
+  notes: >-
+    $10B+ AI factory announced Mar 31 2026. First capacity available 2027. Will offer NVIDIA Vera Rubin
+    NVL72 platform. Among Europe's largest dedicated AI factories.
+  source_id: S284
+- campus_id: C081
+  campus_name: Nebius Vineland NJ (DataOne)
+  hyperscaler: Nebius
+  primary_tenant: Nebius (Microsoft anchor capacity)
+  city: Vineland
+  state_or_region: New Jersey
+  country: US
+  lat: 39.49
+  lon: -75.03
+  capacity_definition: Facility-power
+  it_load_mw_planned: 300
+  it_load_mw_phase1: null
+  it_load_mw_energized: null
+  cod_phase1_year: 2025
+  cod_full_year: 2026
+  status: PartiallyEnergized
+  power_source_summary: >-
+    Atlantic City Electric / PJM; behind-the-meter solutions to reduce grid reliance per management
+  primary_use: AI-training
+  notes: >-
+    Nebius US debut. Phase-1 went live in 20 weeks summer 2025. 300 MW full delivery target Nov 2026.
+    Direct liquid cooling. Microsoft has multi-billion-dollar capacity agreement with Nebius for AI infrastructure
+    that includes this site.
+  source_id: S285
+- campus_id: C082
+  campus_name: Nebius Independence MO (Eastgate)
+  hyperscaler: Nebius
+  primary_tenant: Nebius
+  city: Independence
+  state_or_region: Missouri
+  country: US
+  lat: 39.05
+  lon: -94.34
+  capacity_definition: Facility-power
+  it_load_mw_planned: 800
+  it_load_mw_phase1: 250
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: 2029
+  status: Announced
+  power_source_summary: >-
+    Independence Power Partners (private financing) at retired Blue Valley Power Plant site; first 250
+    MW by Oct 2027, expanding to ~1.1 GW by Dec 2029. City-approved $2B power plan + PPA.
+  primary_use: AI-training
+  notes: >-
+    398 acres acquired Dec 2025 from NorthPoint Development. 8-10 buildings, 2.5M sf, 800 MW. First fully
+    owned/operated Nebius US facility.
+  source_id: S286
+- campus_id: C083
+  campus_name: Nebius Israel (Mega Or)
+  hyperscaler: Nebius
+  primary_tenant: Nebius
+  city: Masmiyya / Beit Shemesh
+  state_or_region: Central Israel
+  country: Israel
+  lat: 31.74
+  lon: 34.79
+  capacity_definition: Facility-power
+  it_load_mw_planned: 80
+  it_load_mw_phase1: 22
+  it_load_mw_energized: 0
+  cod_phase1_year: 2026
+  cod_full_year: 2027
+  status: UnderConstruction
+  power_source_summary: IEC grid (Israel)
+  primary_use: AI-training
+  notes: >-
+    Mega Or $880M build. 22 MW Masmiyya (Q3-2026); 58 MW Beit Shemesh (phased Q3-2026 → Q1-2027). Below
+    150 MW threshold.
+  source_id: S287
+- campus_id: C084
+  campus_name: Nebius Birmingham AL (BHM01)
+  hyperscaler: Nebius
+  primary_tenant: Nebius
+  city: Birmingham
+  state_or_region: Alabama
+  country: US
+  lat: 33.45
+  lon: -86.85
+  capacity_definition: Facility-power
+  it_load_mw_planned: 300
+  it_load_mw_phase1: 100
+  it_load_mw_energized: 0
+  cod_phase1_year: 2027
+  cod_full_year: 2028
+  status: SiteWork
+  power_source_summary: Alabama Power (Southern Company)
+  primary_use: AI-training
+  notes: >-
+    Alabama ADC Holdings LLC (Nebius affiliate) acquired 80 acres at 201/250/260 Milan Pkwy + 2500 Venice
+    Rd from UAB/Regions/USS for $90M total. Includes Regions Lakeshore Operations Center retrofit. Phase-1
+    100 MW + Phase-2 200 MW; full build 2028. Construction begins spring 2026.
+  source_id: S288
+- campus_id: C085
+  campus_name: Nebius Béthune (France)
+  hyperscaler: Nebius
+  primary_tenant: Nebius
+  city: Béthune
+  state_or_region: Pas-de-Calais (Hauts-de-France)
+  country: France
+  lat: 50.53
+  lon: 2.64
+  capacity_definition: Facility-power
+  it_load_mw_planned: 240
+  it_load_mw_phase1: 120
+  it_load_mw_energized: 0
+  cod_phase1_year: 2026
+  cod_full_year: 2027
+  status: UnderConstruction
+  power_source_summary: RTE; mostly French nuclear baseload
+  primary_use: AI-training
+  notes: >-
+    Site in former Bridgestone tyre factory. 132-142 kW/rack high-density. First phase late summer 2026;
+    ~120 MW by EOY 2026; full 240 MW into 2027.
+  source_id: S289
+- campus_id: C086
+  campus_name: Nebius UK Longcross Park (Surrey)
+  hyperscaler: Nebius
+  primary_tenant: Nebius
+  city: Longcross / Surrey
+  state_or_region: South East England
+  country: UK
+  lat: 51.39
+  lon: -0.55
+  capacity_definition: Critical-IT
+  it_load_mw_planned: null
+  it_load_mw_phase1: null
+  it_load_mw_energized: null
+  cod_phase1_year: 2025
+  cod_full_year: 2026
+  status: PartiallyEnergized
+  power_source_summary: UK National Grid
+  primary_use: AI-training
+  notes: >-
+    Colocation at Ark Data Centres' Longcross Park. Initial Q4 2025 deployment of 4,000 NVIDIA Blackwell
+    Ultra GPUs; planned 2026 expansion. Specific MW carve-out not publicly disclosed.
+  source_id: S290

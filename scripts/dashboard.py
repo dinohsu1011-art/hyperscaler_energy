@@ -39,6 +39,17 @@ def build(conn: sqlite3.Connection) -> str:
         "grid_plan": q(conn, "SELECT * FROM grid_capacity_plan"),
         "cumulative": q(conn, "SELECT * FROM hyperscaler_cumulative"),
         "turbine": q(conn, "SELECT * FROM turbine_supply"),
+        "campuses": q(conn, """
+            SELECT campus_id, campus_name, hyperscaler, primary_tenant,
+                   city, state_or_region, country, lat, lon,
+                   capacity_definition, it_load_mw_planned, it_load_mw_phase1,
+                   it_load_mw_energized, cod_phase1_year, cod_full_year,
+                   status, power_source_summary, primary_use, notes, source_id
+            FROM data_center_campuses
+            ORDER BY COALESCE(it_load_mw_planned, it_load_mw_phase1, 0) DESC"""),
+        "campus_pipeline": q(conn, """
+            SELECT hyperscaler, campus_count, energized_mw, phase1_mw, planned_mw
+            FROM v_campus_pipeline_by_hyperscaler"""),
         "sources": {r["id"]: dict(r) for r in conn.execute("SELECT * FROM sources")},
     }
     payload = json.dumps(data, default=str)
@@ -159,6 +170,85 @@ TEMPLATE = r"""<!doctype html>
   .whats-new.empty { display:none; }
 
   @media (max-width: 900px) { .grid { grid-template-columns:1fr; } }
+
+  /* --- Campuses panel: editorial layout, no card-grid soup --- */
+  .camp-hero {
+    display:grid; grid-template-columns: 1.6fr 1fr; gap:2.5rem;
+    padding:2rem 0 2.5rem; border-bottom:1px solid var(--line); margin-bottom:2rem;
+  }
+  .camp-hero .lead { color:var(--muted); font-size:.92rem; max-width:48ch; line-height:1.55; }
+  .camp-hero .lead b { color:var(--ink); font-weight:600; }
+  .camp-stats { display:grid; grid-template-columns:1fr 1fr; gap:1.4rem 2rem; align-self:end; }
+  .camp-stat .num { font-size:2.4rem; font-weight:700; letter-spacing:-.03em; line-height:1;
+                    font-variant-numeric: tabular-nums; }
+  .camp-stat .num .gw { font-size:1rem; color:var(--muted); font-weight:500; margin-left:.2em; }
+  .camp-stat .lab { color:var(--muted); font-size:.72rem; text-transform:uppercase;
+                    letter-spacing:.1em; margin-top:.35rem; }
+  .camp-stat.live .num { color:#a3dcbb; }
+  .camp-stat.gap .num { color:#f6c65b; }
+
+  .camp-section-title {
+    font-size:.7rem; text-transform:uppercase; letter-spacing:.18em;
+    color:var(--muted); margin:0 0 1rem; font-weight:600;
+    display:flex; align-items:baseline; gap:.8rem;
+  }
+  .camp-section-title .rule { flex:1; height:1px; background:var(--line); }
+
+  /* horizontal pipeline rows (one per hyperscaler) */
+  .pipeline-list { display:flex; flex-direction:column; gap:.65rem;
+                   padding-bottom:2rem; border-bottom:1px solid var(--line); margin-bottom:2rem; }
+  .pipe-row { display:grid; grid-template-columns: 130px 1fr 80px;
+              gap:1rem; align-items:center; }
+  .pipe-row .name { font-weight:600; font-size:.9rem; }
+  .pipe-row .name .cnt { color:var(--muted); font-weight:400; font-size:.74rem; margin-left:.4rem; }
+  .pipe-bar { position:relative; height:24px; background:#0f131c;
+              border-radius:3px; overflow:hidden; }
+  .pipe-bar .seg { position:absolute; top:0; bottom:0; transition:width .4s ease; }
+  .pipe-bar .seg.energized { background: linear-gradient(180deg, #a3dcbb, #6eb89a); left:0; }
+  .pipe-bar .seg.phase1    { background: rgba(110,168,254,.55); }
+  .pipe-bar .seg.planned   { background: rgba(110,168,254,.18); border-right:1px solid rgba(110,168,254,.45); }
+  .pipe-bar .seg-label { position:absolute; top:50%; transform:translateY(-50%);
+                         font-size:.66rem; color:#0b0d12; font-weight:700; padding:0 .4rem;
+                         white-space:nowrap; pointer-events:none; }
+  .pipe-bar .seg-label.outside { color:var(--muted); }
+  .pipe-row .total { font-variant-numeric: tabular-nums; font-size:.85rem;
+                     text-align:right; color:var(--muted); }
+  .pipe-row .total b { color:var(--ink); font-weight:600; }
+
+  .pipe-legend { display:flex; gap:1.4rem; font-size:.74rem; color:var(--muted); margin-top:.8rem; }
+  .pipe-legend .sw { display:inline-block; width:11px; height:11px; border-radius:2px;
+                     vertical-align:middle; margin-right:.4em; }
+
+  /* campus table */
+  .camp-table-wrap { border:1px solid var(--line); border-radius:6px;
+                     max-height:640px; overflow:auto; }
+  .camp-table-wrap table { width:100%; border-collapse:collapse; font-size:.82rem; }
+  .camp-table-wrap th { background:#0f131c; color:var(--muted); font-weight:500; font-size:.71rem;
+                        text-transform:uppercase; letter-spacing:.07em;
+                        text-align:left; padding:.55rem .7rem; border-bottom:1px solid var(--line);
+                        position:sticky; top:0; cursor:pointer; user-select:none; }
+  .camp-table-wrap td { padding:.55rem .7rem; border-bottom:1px solid var(--line); vertical-align:top; }
+  .camp-table-wrap td.r { text-align:right; font-variant-numeric: tabular-nums; white-space:nowrap; }
+  .camp-table-wrap tr:hover td { background:rgba(110,168,254,.04); }
+
+  .b-stat { display:inline-block; padding:1px 7px; border-radius:3px;
+            font-size:.66rem; font-weight:600; letter-spacing:.05em; }
+  .b-Operational      { background:rgba(138,198,164,.18); color:#a3dcbb; }
+  .b-PartiallyEnergized { background:rgba(138,198,164,.10); color:#9ed1b3; border:1px dashed rgba(138,198,164,.35); }
+  .b-UnderConstruction { background:rgba(242,204,143,.18); color:#f2cc8f; }
+  .b-SiteWork         { background:rgba(242,204,143,.10); color:#d9b36c; }
+  .b-Announced        { background:rgba(139,147,167,.18); color:var(--muted); }
+  .b-Paused           { background:rgba(224,122,95,.18); color:#f4a58e; }
+  .b-Cancelled        { background:rgba(224,122,95,.25); color:#f4a58e; text-decoration:line-through; }
+
+  .camp-filters { display:flex; gap:.6rem; flex-wrap:wrap; margin:1rem 0; align-items:center; }
+  .camp-filters label { color:var(--muted); font-size:.83rem; }
+  .camp-filters .count { color:var(--muted); font-size:.78rem; margin-left:auto; }
+
+  @media (max-width: 900px) {
+    .camp-hero { grid-template-columns:1fr; gap:1.5rem; }
+    .pipe-row { grid-template-columns:90px 1fr 70px; gap:.6rem; }
+  }
 </style>
 </head>
 <body>
@@ -175,6 +265,7 @@ TEMPLATE = r"""<!doctype html>
   <div class="tabs">
     <div class="tab active" data-tab="overview">Overview</div>
     <div class="tab" data-tab="contracts">Contracts</div>
+    <div class="tab" data-tab="campuses">Campuses</div>
     <div class="tab" data-tab="costs">Costs (LCOE / CAPEX)</div>
     <div class="tab" data-tab="sources">Sources</div>
   </div>
@@ -249,6 +340,85 @@ TEMPLATE = r"""<!doctype html>
           <th data-k="capacity_mw" style="text-align:right">MW</th>
           <th data-k="deal_name">Deal</th>
           <th data-k="counterparty">Counterparty</th>
+          <th>Notes</th>
+          <th>Src</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-campuses">
+    <div class="camp-hero">
+      <div>
+        <p class="lead">
+          The hyperscaler power-purchase database tracks <b>contracted electrons</b>;
+          this view tracks the <b>physical buildings consuming them</b>. Each row is a
+          named data-center campus with disclosed or estimated <b>critical-IT load</b>
+          (or facility-power where the operator only discloses that), the source citation,
+          and where the deal sits between announcement and energization. Triangulating
+          the two views together is the only honest way to answer <i>"how much real GW
+          gets added per year?"</i> — contracts can overstate (frameworks, double counts);
+          campuses can understate (private builds we don't see).
+        </p>
+      </div>
+      <div class="camp-stats">
+        <div class="camp-stat live">
+          <div class="num"><span id="cs-energized">—</span><span class="gw"> MW live</span></div>
+          <div class="lab">Energized today</div>
+        </div>
+        <div class="camp-stat">
+          <div class="num"><span id="cs-phase1">—</span><span class="gw"> MW</span></div>
+          <div class="lab">Phase-1 commitment</div>
+        </div>
+        <div class="camp-stat gap">
+          <div class="num"><span id="cs-planned">—</span><span class="gw"> MW</span></div>
+          <div class="lab">Full-build planned</div>
+        </div>
+        <div class="camp-stat">
+          <div class="num"><span id="cs-count">—</span></div>
+          <div class="lab">Tracked campuses</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="camp-section-title">Pipeline by hyperscaler<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">energized → phase-1 → full plan</span></h3>
+    <div class="pipeline-list" id="pipelineList"></div>
+    <div class="pipe-legend">
+      <span><span class="sw" style="background:#a3dcbb"></span>Energized today</span>
+      <span><span class="sw" style="background:rgba(110,168,254,.55)"></span>Phase-1 commitment</span>
+      <span><span class="sw" style="background:rgba(110,168,254,.18);border:1px solid rgba(110,168,254,.45)"></span>Full planned build</span>
+    </div>
+
+    <h3 class="camp-section-title" style="margin-top:2rem">All tracked campuses<span class="rule"></span></h3>
+    <div class="camp-filters">
+      <label>Hyperscaler
+        <select id="campF1"><option value="">All</option></select>
+      </label>
+      <label>Status
+        <select id="campF2"><option value="">All</option></select>
+      </label>
+      <label>Country
+        <select id="campF3"><option value="">All</option></select>
+      </label>
+      <label>Search <input type="text" id="campSearch" placeholder="campus, city, tenant…"></label>
+      <span class="count" id="campCount"></span>
+    </div>
+    <div class="camp-table-wrap">
+      <table id="campTable">
+        <thead><tr>
+          <th data-k="campus_id">ID</th>
+          <th data-k="campus_name">Campus</th>
+          <th data-k="hyperscaler">Operator</th>
+          <th data-k="primary_tenant">Tenant</th>
+          <th data-k="state_or_region">Location</th>
+          <th data-k="status">Status</th>
+          <th data-k="capacity_definition">Def</th>
+          <th data-k="it_load_mw_energized" class="r">Live MW</th>
+          <th data-k="it_load_mw_planned" class="r">Plan MW</th>
+          <th data-k="cod_phase1_year" class="r">P1 yr</th>
+          <th data-k="cod_full_year" class="r">Full yr</th>
+          <th>Power source</th>
           <th>Notes</th>
           <th>Src</th>
         </tr></thead>
@@ -838,6 +1008,124 @@ document.querySelectorAll('.tab').forEach(t => {
     });
   });
   [fCompany,fType,fStatus,fConn,fSearch].forEach(el => el.addEventListener('input', render));
+  render();
+})();
+
+// ---- Campuses panel ----
+(function(){
+  const CAMP = DATA.campuses || [];
+  const PIPE = DATA.campus_pipeline || [];
+  if (!CAMP.length) return;
+
+  // ---- Hero stats ----
+  const sum = (arr, k) => arr.reduce((s,r)=>s+(r[k]||0), 0);
+  const fmt = n => Math.round(n).toLocaleString();
+  document.getElementById('cs-energized').textContent = fmt(sum(CAMP, 'it_load_mw_energized'));
+  document.getElementById('cs-phase1').textContent    = fmt(sum(CAMP, 'it_load_mw_phase1'));
+  document.getElementById('cs-planned').textContent   = fmt(sum(CAMP, 'it_load_mw_planned'));
+  document.getElementById('cs-count').textContent     = CAMP.length;
+
+  // ---- Pipeline-by-hyperscaler horizontal bars ----
+  // Scale all bars off the largest planned_mw so widths are comparable.
+  const maxPlan = Math.max(...PIPE.map(p => p.planned_mw || 0), 1);
+  const list = document.getElementById('pipelineList');
+  list.innerHTML = PIPE.map(p => {
+    const plan = p.planned_mw || 0;
+    const ph1  = p.phase1_mw || 0;
+    const en   = p.energized_mw || 0;
+    const wPlan = (plan / maxPlan) * 100;
+    const wPh1  = (ph1  / maxPlan) * 100;
+    const wEn   = (en   / maxPlan) * 100;
+    // Phase-1 is overlaid on top of planned (lighter), energized on top of phase-1 (solid).
+    // Layered z-order: planned bar in back, phase-1 over it, energized over both.
+    const enLabel = en > 0 ? `${fmt(en)}` : '';
+    const showInside = wEn > 8;
+    return `
+      <div class="pipe-row">
+        <div class="name">${p.hyperscaler}<span class="cnt">${p.campus_count} sites</span></div>
+        <div class="pipe-bar">
+          <div class="seg planned"   style="width:${wPlan.toFixed(2)}%"></div>
+          <div class="seg phase1"    style="width:${wPh1.toFixed(2)}%"></div>
+          <div class="seg energized" style="width:${wEn.toFixed(2)}%"></div>
+          ${enLabel ? `<div class="seg-label ${showInside ? '' : 'outside'}"
+              style="left:${showInside ? '.4rem' : (wEn.toFixed(2)+'%')}">${enLabel} live</div>` : ''}
+        </div>
+        <div class="total"><b>${fmt(plan)}</b> MW</div>
+      </div>`;
+  }).join('');
+
+  // ---- Campus table ----
+  const tbody = document.querySelector('#campTable tbody');
+  const f1 = document.getElementById('campF1');
+  const f2 = document.getElementById('campF2');
+  const f3 = document.getElementById('campF3');
+  const fs = document.getElementById('campSearch');
+  const ct = document.getElementById('campCount');
+  let sortKey = 'it_load_mw_planned', sortDir = -1;
+
+  [...new Set(CAMP.map(r=>r.hyperscaler))].sort().forEach(v =>
+    f1.insertAdjacentHTML('beforeend', `<option>${v}</option>`));
+  [...new Set(CAMP.map(r=>r.status))].sort().forEach(v =>
+    f2.insertAdjacentHTML('beforeend', `<option>${v}</option>`));
+  [...new Set(CAMP.map(r=>r.country))].sort().forEach(v =>
+    f3.insertAdjacentHTML('beforeend', `<option>${v}</option>`));
+
+  function statBadge(s){ return `<span class="b-stat b-${s}">${s}</span>`; }
+  function srcCite(sid){
+    const s = SRC[sid]; if (!s) return sid;
+    return `<a class="cite" href="${s.url}" target="_blank" title="${(s.title||'').replace(/"/g,'&quot;')}">${sid}</a>`;
+  }
+  function loc(r){
+    return [r.city, r.state_or_region, r.country].filter(Boolean).join(', ');
+  }
+
+  function render(){
+    const v1 = f1.value, v2 = f2.value, v3 = f3.value;
+    const q = fs.value.toLowerCase();
+    let rows = CAMP.filter(r =>
+      (!v1 || r.hyperscaler === v1) &&
+      (!v2 || r.status === v2) &&
+      (!v3 || r.country === v3) &&
+      (!q || [r.campus_name, r.city, r.primary_tenant, r.notes, r.power_source_summary]
+                .some(x => (x||'').toLowerCase().includes(q)))
+    );
+    rows.sort((a,b) => {
+      const av=a[sortKey], bv=b[sortKey];
+      if (av==null && bv==null) return 0;
+      if (av==null) return 1;
+      if (bv==null) return -1;
+      if (typeof av==='number' && typeof bv==='number') return (av-bv)*sortDir;
+      return String(av).localeCompare(String(bv))*sortDir;
+    });
+
+    tbody.innerHTML = rows.map(r => `
+      <tr>
+        <td><code>${r.campus_id}</code></td>
+        <td><b>${r.campus_name}</b></td>
+        <td>${r.hyperscaler}</td>
+        <td style="color:var(--muted)">${r.primary_tenant || ''}</td>
+        <td style="color:var(--muted)">${loc(r)}</td>
+        <td>${statBadge(r.status)}</td>
+        <td style="color:var(--muted);font-size:.74rem">${r.capacity_definition}</td>
+        <td class="r">${r.it_load_mw_energized != null ? fmt(r.it_load_mw_energized) : '—'}</td>
+        <td class="r"><b>${r.it_load_mw_planned != null ? fmt(r.it_load_mw_planned) : '—'}</b></td>
+        <td class="r" style="color:var(--muted)">${r.cod_phase1_year || '—'}</td>
+        <td class="r" style="color:var(--muted)">${r.cod_full_year || '—'}</td>
+        <td style="color:var(--muted);font-size:.78rem;max-width:220px">${r.power_source_summary || ''}</td>
+        <td style="color:var(--muted);font-size:.76rem;max-width:280px">${r.notes || ''}</td>
+        <td>${srcCite(r.source_id)}</td>
+      </tr>`).join('');
+    ct.textContent = `${rows.length} / ${CAMP.length} campuses`;
+  }
+
+  document.querySelectorAll('#campTable th[data-k]').forEach(th => {
+    th.addEventListener('click', () => {
+      const k = th.dataset.k;
+      if (sortKey === k) sortDir *= -1; else { sortKey = k; sortDir = -1; }
+      render();
+    });
+  });
+  [f1, f2, f3, fs].forEach(el => el.addEventListener('input', render));
   render();
 })();
 

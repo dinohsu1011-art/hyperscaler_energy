@@ -79,6 +79,37 @@ def load_contracts(conn: sqlite3.Connection) -> int:
     return n
 
 
+def load_campuses(conn: sqlite3.Connection) -> int:
+    p = DATA / "campuses.yaml"
+    if not p.exists():
+        return 0
+    doc = read_yaml(p)
+    n = 0
+    for r in doc["rows"]:
+        conn.execute(
+            """INSERT INTO data_center_campuses
+               (campus_id, campus_name, hyperscaler, primary_tenant,
+                city, state_or_region, country, lat, lon,
+                capacity_definition, it_load_mw_planned, it_load_mw_phase1,
+                it_load_mw_energized, cod_phase1_year, cod_full_year,
+                status, power_source_summary, primary_use, notes, source_id)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (r["campus_id"], r["campus_name"], r["hyperscaler"],
+             r.get("primary_tenant"), r.get("city"), r.get("state_or_region"),
+             r.get("country", "US"), r.get("lat"), r.get("lon"),
+             r.get("capacity_definition", "Critical-IT"),
+             r.get("it_load_mw_planned"), r.get("it_load_mw_phase1"),
+             r.get("it_load_mw_energized", 0),
+             r.get("cod_phase1_year"), r.get("cod_full_year"),
+             r.get("status", "Announced"),
+             r.get("power_source_summary"), r.get("primary_use"),
+             r.get("notes"), r["source_id"]),
+        )
+        n += 1
+    conn.commit()
+    return n
+
+
 def load_lcoe(conn: sqlite3.Connection) -> int:
     doc = read_yaml(DATA / "lcoe" / "lcoe.yaml")
     n = 0
@@ -193,6 +224,7 @@ def main() -> int:
         rebuild_schema(conn)
         n_src = len(load_sources(conn))
         n_c = load_contracts(conn)
+        n_cam = load_campuses(conn)
         n_l = load_lcoe(conn)
         n_g = load_gas_capex(conn)
         n_r = load_renewable_capex(conn)
@@ -207,6 +239,7 @@ def main() -> int:
 
     print(f"loaded: {n_src} sources")
     print(f"        {n_c} contracts")
+    print(f"        {n_cam} campuses")
     print(f"        {n_l} lcoe")
     print(f"        {n_g} gas_capex")
     print(f"        {n_r} renewable_capex")

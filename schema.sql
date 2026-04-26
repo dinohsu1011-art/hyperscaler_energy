@@ -143,6 +143,55 @@ CREATE TABLE hyperscaler_cumulative (
   UNIQUE(company, as_of, metric, source_id)
 );
 
+-- Data-center campus pipeline. Captures the IT-load (compute side) view that complements
+-- the hyperscaler_contracts table (energy side). Same physical buildout viewed from a
+-- different angle — and the place where "announced vs actually-energized" gets answered.
+--
+-- Convention: capacity_definition='Critical-IT' is the primary unit. Hyperscalers usually
+-- disclose this. For sites that only disclose facility power, store as 'Facility-power' and
+-- note the convention. PUE conversion stays in the dashboard layer, not here.
+CREATE TABLE data_center_campuses (
+  id                    INTEGER PRIMARY KEY AUTOINCREMENT,
+  campus_id             TEXT NOT NULL UNIQUE,        -- stable key for cross-references, e.g. 'C001'
+  campus_name           TEXT NOT NULL,
+  hyperscaler           TEXT NOT NULL CHECK(hyperscaler IN
+                          ('Microsoft','Google','Amazon','Meta','xAI','Oracle',
+                           'OpenAI','Anthropic','CoreWeave','Nebius','Multi')),
+  primary_tenant        TEXT,                        -- e.g. 'OpenAI' for Stargate Abilene; can differ from operator
+  city                  TEXT,
+  state_or_region       TEXT,
+  country               TEXT DEFAULT 'US',
+  lat                   REAL,
+  lon                   REAL,
+  capacity_definition   TEXT NOT NULL DEFAULT 'Critical-IT' CHECK(capacity_definition IN
+                          ('Critical-IT','IT-load','Facility-power','Mixed')),
+  it_load_mw_planned    REAL,                        -- target at full build
+  it_load_mw_phase1     REAL,                        -- first phase at energization
+  it_load_mw_energized  REAL DEFAULT 0,              -- as of latest observation
+  cod_phase1_year       INTEGER,                     -- year first phase reaches initial energization
+  cod_full_year         INTEGER,                     -- year full planned capacity reached
+  status                TEXT NOT NULL DEFAULT 'Announced' CHECK(status IN
+                          ('Announced','SiteWork','UnderConstruction','PartiallyEnergized',
+                           'Operational','Cancelled','Paused')),
+  power_source_summary  TEXT,                        -- free-text: 'PJM grid + 366 MW BTM gas (S83)'
+  primary_use           TEXT,                        -- 'AI-training','AI-inference','General-cloud','Mixed'
+  notes                 TEXT,
+  source_id             TEXT NOT NULL REFERENCES sources(id),
+  created_at            TEXT DEFAULT (datetime('now')),
+  UNIQUE(campus_name, hyperscaler)
+);
+
+-- Aggregate view: hyperscaler-level IT-load pipeline, current vs full
+CREATE VIEW v_campus_pipeline_by_hyperscaler AS
+SELECT hyperscaler,
+       COUNT(*) AS campus_count,
+       ROUND(SUM(it_load_mw_energized), 0) AS energized_mw,
+       ROUND(SUM(it_load_mw_phase1), 0) AS phase1_mw,
+       ROUND(SUM(it_load_mw_planned), 0) AS planned_mw
+FROM data_center_campuses
+GROUP BY hyperscaler
+ORDER BY planned_mw DESC NULLS LAST;
+
 -- Views
 
 -- View by ANNOUNCEMENT year (who committed, when)
@@ -213,6 +262,11 @@ FROM grid_capacity_plan
 UNION ALL SELECT 'hyperscaler_cumulative', id,
        company || ' ' || metric || ' ' || value_gw || ' GW as of ' || as_of, source_id
 FROM hyperscaler_cumulative
+UNION ALL SELECT 'data_center_campuses', id,
+       hyperscaler || ' ' || campus_name || ' ' ||
+       COALESCE(it_load_mw_planned, it_load_mw_phase1, it_load_mw_energized, 0) ||
+       ' MW (' || capacity_definition || ', ' || status || ')', source_id
+FROM data_center_campuses
 UNION ALL SELECT 'turbine_supply', id,
        manufacturer || ' ' || as_of || ': ' || backlog_note, source_id
 FROM turbine_supply;
