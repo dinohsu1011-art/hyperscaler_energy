@@ -232,6 +232,90 @@ def load_planned_generators(conn: sqlite3.Connection) -> int:
     return n_total
 
 
+def load_operating_generators(conn: sqlite3.Connection) -> int:
+    """Load EIA-860M Operating sheet (every plant in commercial operation).
+
+    Operating dates are time-invariant — a plant operating in 2018 shows the same
+    operating-year in every vintage. So we just take the latest vintage file
+    and load its Operating sheet once. This becomes the ground truth for the
+    "operated this quarter" metric used in the transitions chart.
+    """
+    try:
+        import openpyxl
+    except ImportError:
+        return 0
+
+    history_dir = ROOT / "data" / "external" / "eia860m_history"
+    if not history_dir.exists():
+        return 0
+    files = sorted(history_dir.glob("*_generator*.xlsx"))
+    if not files:
+        return 0
+
+    # Pick the most recent file by parsing its filename's vintage
+    MONTHS = {m: i+1 for i, m in enumerate(
+        ['january','february','march','april','may','june',
+         'july','august','september','october','november','december'])}
+    def vintage_of(f):
+        try:
+            mo, yr = f.stem.lower().split('_generator')
+            return int(yr) * 100 + MONTHS[mo]
+        except Exception:
+            return 0
+    latest = max(files, key=vintage_of)
+
+    wb = openpyxl.load_workbook(latest, data_only=True, read_only=True)
+    if 'Operating' not in wb.sheetnames:
+        return 0
+    ws = wb['Operating']
+
+    # Find header row
+    rows = ws.iter_rows(values_only=True)
+    hdr = None
+    for r in rows:
+        if r and any(c == 'Plant ID' for c in r):
+            hdr = list(r); break
+    if hdr is None:
+        return 0
+    idx = {h: i for i, h in enumerate(hdr) if h}
+
+    n = 0
+    for r in rows:
+        if not r or r[idx['Plant ID']] is None or r[idx.get('Generator ID', 10)] is None:
+            continue
+        try:
+            conn.execute(
+                """INSERT OR IGNORE INTO operating_generators
+                   (plant_id, generator_id, entity_name, plant_name, plant_state,
+                    county, balancing_authority, sector, technology, energy_source_code,
+                    net_summer_capacity_mw, nameplate_capacity_mw,
+                    operating_year, operating_month, status, source_id)
+                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                (int(r[idx['Plant ID']]),
+                 str(r[idx['Generator ID']]),
+                 str(r[idx.get('Entity Name', 1)] or '').strip(),
+                 str(r[idx['Plant Name']] or '').strip(),
+                 r[idx.get('Plant State')],
+                 r[idx.get('County')],
+                 r[idx.get('Balancing Authority Code')],
+                 r[idx.get('Sector')],
+                 r[idx.get('Technology')],
+                 r[idx.get('Energy Source Code')],
+                 _safe_float(r[idx.get('Net Summer Capacity (MW)')]),
+                 _safe_float(r[idx.get('Nameplate Capacity (MW)')]),
+                 int(r[idx['Operating Year']]) if r[idx.get('Operating Year')] not in (None, '', ' ') else None,
+                 int(r[idx['Operating Month']]) if r[idx.get('Operating Month')] not in (None, '', ' ') else None,
+                 r[idx.get('Status')],
+                 'S291'),
+            )
+            n += 1
+        except (ValueError, TypeError):
+            pass
+    wb.close()
+    conn.commit()
+    return n
+
+
 def load_campuses(conn: sqlite3.Connection) -> int:
     p = DATA / "campuses.yaml"
     if not p.exists():
@@ -379,6 +463,7 @@ def main() -> int:
         n_c = load_contracts(conn)
         n_cam = load_campuses(conn)
         n_pg = load_planned_generators(conn)
+        n_og = load_operating_generators(conn)
         n_l = load_lcoe(conn)
         n_g = load_gas_capex(conn)
         n_r = load_renewable_capex(conn)
@@ -395,6 +480,7 @@ def main() -> int:
     print(f"        {n_c} contracts")
     print(f"        {n_cam} campuses")
     print(f"        {n_pg} planned_generators (EIA-860M)")
+    print(f"        {n_og} operating_generators (EIA-860M latest)")
     print(f"        {n_l} lcoe")
     print(f"        {n_g} gas_capex")
     print(f"        {n_r} renewable_capex")

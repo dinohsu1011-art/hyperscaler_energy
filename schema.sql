@@ -221,6 +221,34 @@ CREATE INDEX idx_pg_tech ON planned_generators(technology);
 CREATE INDEX idx_pg_entity ON planned_generators(entity_name);
 CREATE INDEX idx_pg_genkey ON planned_generators(plant_id, generator_id);
 
+-- Operating generators (every US plant currently in commercial operation).
+-- Loaded once from the latest EIA-860M vintage. The Operating Year/Month is
+-- the directly-reported commercial-operation date — used to verify our
+-- "operated" inference against ground truth.
+CREATE TABLE operating_generators (
+  id                       INTEGER PRIMARY KEY AUTOINCREMENT,
+  plant_id                 INTEGER NOT NULL,
+  generator_id             TEXT NOT NULL,
+  entity_name              TEXT,
+  plant_name               TEXT NOT NULL,
+  plant_state              TEXT,
+  county                   TEXT,
+  balancing_authority      TEXT,
+  sector                   TEXT,
+  technology               TEXT,
+  energy_source_code       TEXT,
+  net_summer_capacity_mw   REAL,
+  nameplate_capacity_mw    REAL,
+  operating_year           INTEGER,
+  operating_month          INTEGER,
+  status                   TEXT,
+  source_id                TEXT NOT NULL REFERENCES sources(id),
+  UNIQUE(plant_id, generator_id)
+);
+CREATE INDEX idx_op_year ON operating_generators(operating_year, operating_month);
+CREATE INDEX idx_op_state ON operating_generators(plant_state);
+CREATE INDEX idx_op_tech ON operating_generators(technology);
+
 -- Time-series view: status distribution by vintage (the funnel evolution chart)
 CREATE VIEW v_eia_status_by_vintage AS
 SELECT vintage,
