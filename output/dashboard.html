@@ -421,15 +421,15 @@
     <h3 class="camp-section-title" style="margin-top:2rem">Pipeline evolution by technology<span class="rule"></span></h3>
     <div class="chart-wrap" style="height:340px; margin-bottom:1.4rem;"><canvas id="eiaTechVintageChart"></canvas></div>
 
-    <h3 class="camp-section-title" style="margin-top:2rem">Completion rate vs announcement rate<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">annualized GW/yr per vintage transition</span></h3>
+    <h3 class="camp-section-title" style="margin-top:2rem">Completed vs announced — raw MW per window<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">no annualization, just the actual flow during each window</span></h3>
     <p class="lead" style="margin:0 0 1rem; max-width:none">
-      For each pair of consecutive vintages, every (plant_id, generator_id) is
-      tracked across snapshots. <b>Operated</b> = was in late-tier construction
-      and dropped from the planned set (likely energized).
-      <b>Newly announced</b> = first appearance in the snapshot.
-      Both annualized so windows of different length (2, 3, or 9 months)
-      compare cleanly. The ratio between the gray and green bars is the rate
-      at which the announcement cycle is outrunning physical delivery.
+      <b>Completed</b> = MW that began commercial operation during this window
+      (read directly from EIA's Operating Year/Month field for every plant in
+      the operating fleet). <b>Newly announced</b> = MW that appeared in the
+      planned-additions table for the first time. <b>Cancelled</b> = MW that
+      disappeared from the planned set. All values are raw MW — bar heights
+      naturally reflect window length, so longer windows show bigger bars.
+      Sum across all 2025 windows = ~56 GW completed, matching SEIA / Wood Mackenzie.
     </p>
     <div class="chart-wrap" style="height:380px; margin-bottom:.6rem;"><canvas id="eiaTransitionChart"></canvas></div>
     <div id="eiaTransitionTable" style="margin-bottom:2rem;"></div>
@@ -1362,20 +1362,20 @@ document.querySelectorAll('.tab').forEach(t => {
         labels: labels,
         datasets: [
           {
-            label: 'Operated (directly observed from EIA)',
-            data: TR.map(t => t.operated_per_yr),
+            label: 'Completed (directly observed from EIA Operating Year/Month)',
+            data: TR.map(t => t.operated_mw),
             backgroundColor: '#5fae87',
             borderWidth: 0
           },
           {
             label: 'Newly announced',
-            data: TR.map(t => t.new_per_yr),
+            data: TR.map(t => t.new_mw),
             backgroundColor: '#6b7280',
             borderWidth: 0
           },
           {
             label: 'Cancelled / withdrawn',
-            data: TR.map(t => t.cancelled_per_yr),
+            data: TR.map(t => t.cancelled_mw),
             backgroundColor: '#e07a5f',
             borderWidth: 0
           },
@@ -1385,13 +1385,13 @@ document.querySelectorAll('.tab').forEach(t => {
         maintainAspectRatio: false, responsive: true,
         scales: {
           x: { ticks: { maxRotation: 0, minRotation: 0, font: {size: 10} } },
-          y: { ticks: { callback: v => (v/1000).toFixed(0) + ' GW/yr' } }
+          y: { ticks: { callback: v => (v/1000).toFixed(0) + ' GW' } }
         },
         plugins: {
           legend: { position: 'bottom', labels: { boxWidth: 10, boxHeight: 10, padding: 12 } },
           tooltip: {
             callbacks: {
-              label: c => `${c.dataset.label}: ${fmt(c.parsed.y)} MW/yr (annualized)`
+              label: c => `${c.dataset.label}: ${fmt(c.parsed.y)} MW (over ${TR[c.dataIndex].months} mo)`
             }
           }
         }
@@ -1406,20 +1406,20 @@ document.querySelectorAll('.tab').forEach(t => {
           <thead><tr>
             <th>Window</th>
             <th class="r">Months</th>
-            <th class="r" style="color:#5fae87;">Operated /yr</th>
-            <th class="r" style="color:#6b7280;">New announced /yr</th>
-            <th class="r" style="color:#e07a5f;">Cancelled /yr</th>
-            <th class="r">Inflow ÷ Operated</th>
+            <th class="r" style="color:#5fae87;">Completed</th>
+            <th class="r" style="color:#6b7280;">Newly announced</th>
+            <th class="r" style="color:#e07a5f;">Cancelled</th>
+            <th class="r">Announced ÷ Completed</th>
           </tr></thead>
           <tbody>
             ${TR.map(t => `
               <tr>
                 <td><b>${vintageLabel(t.v_from)} → ${vintageLabel(t.v_to)}</b></td>
                 <td class="r">${t.months}</td>
-                <td class="r" style="color:#5fae87;"><b>${fmt(t.operated_per_yr)}</b> MW</td>
-                <td class="r" style="color:#6b7280;"><b>${fmt(t.new_per_yr)}</b> MW</td>
-                <td class="r" style="color:#e07a5f;">${fmt(t.cancelled_per_yr)} MW</td>
-                <td class="r"><b>${(t.new_per_yr / Math.max(t.operated_per_yr, 1)).toFixed(1)}×</b></td>
+                <td class="r" style="color:#5fae87;"><b>${fmt(t.operated_mw)}</b> MW</td>
+                <td class="r" style="color:#6b7280;"><b>${fmt(t.new_mw)}</b> MW</td>
+                <td class="r" style="color:#e07a5f;">${fmt(t.cancelled_mw)} MW</td>
+                <td class="r"><b>${(t.new_mw / Math.max(t.operated_mw, 1)).toFixed(1)}×</b></td>
               </tr>`).join('')}
           </tbody>
         </table>
