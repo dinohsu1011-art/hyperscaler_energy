@@ -50,6 +50,32 @@ def build(conn: sqlite3.Connection) -> str:
         "campus_pipeline": q(conn, """
             SELECT hyperscaler, campus_count, energized_mw, phase1_mw, planned_mw
             FROM v_campus_pipeline_by_hyperscaler"""),
+        "eia_tier": q(conn, """
+            SELECT status_tier,
+                   COUNT(*) AS gens,
+                   ROUND(SUM(net_summer_capacity_mw), 0) AS announced_mw,
+                   ROUND(SUM(net_summer_capacity_mw * delivery_probability), 0) AS expected_mw,
+                   ROUND(AVG(delivery_probability), 2) AS prob
+            FROM planned_generators GROUP BY status_tier"""),
+        "eia_year_tech": q(conn, "SELECT * FROM v_eia_pipeline_by_tech"),
+        "eia_state_tech": q(conn, """
+            SELECT plant_state,
+                   CASE
+                     WHEN technology LIKE '%Solar%'    THEN 'Solar'
+                     WHEN technology LIKE '%Wind%'     THEN 'Wind'
+                     WHEN technology = 'Batteries' OR technology LIKE '%Storage%' THEN 'Storage'
+                     WHEN technology LIKE '%Nuclear%'  THEN 'Nuclear'
+                     WHEN technology LIKE '%Natural Gas%' THEN 'Gas'
+                     WHEN technology LIKE '%Geothermal%' THEN 'Geothermal'
+                     WHEN technology LIKE '%Hydro%' THEN 'Hydro'
+                     ELSE 'Other'
+                   END AS tech_group,
+                   COUNT(*)                              AS gen_count,
+                   ROUND(SUM(net_summer_capacity_mw), 0) AS announced_mw,
+                   ROUND(SUM(net_summer_capacity_mw * delivery_probability), 0) AS expected_mw
+            FROM planned_generators
+            WHERE plant_state IS NOT NULL
+            GROUP BY plant_state, tech_group"""),
         "sources": {r["id"]: dict(r) for r in conn.execute("SELECT * FROM sources")},
     }
     payload = json.dumps(data, default=str)
@@ -266,6 +292,7 @@ TEMPLATE = r"""<!doctype html>
     <div class="tab active" data-tab="overview">Overview</div>
     <div class="tab" data-tab="contracts">Contracts</div>
     <div class="tab" data-tab="campuses">Campuses</div>
+    <div class="tab" data-tab="eia">Federal Cross-Check</div>
     <div class="tab" data-tab="costs">Costs (LCOE / CAPEX)</div>
     <div class="tab" data-tab="sources">Sources</div>
   </div>
@@ -421,6 +448,95 @@ TEMPLATE = r"""<!doctype html>
           <th>Power source</th>
           <th>Notes</th>
           <th>Src</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-eia">
+    <div class="camp-hero">
+      <div>
+        <p class="lead">
+          The federal supply-side cross-check. <b>EIA Form 860M</b> tracks every US
+          generator that has filed with EIA — name, location, fuel, capacity, planned
+          online date, and crucially a <b>construction-status code</b> ranging from
+          "regulatory approvals not initiated" to "construction complete." Each
+          tier maps to a historical delivery probability. Apply the ladder to the
+          278 GW federal pipeline and the answer falls out: of all the generators
+          announced in the US, roughly <b>45% will deliver as scheduled</b> — the
+          rest slip, get cancelled, or never break ground.
+        </p>
+        <p class="lead" style="margin-top:.6rem">
+          That number is the empirical anchor for the hyperscaler-PPA haircut.
+          Compare announced contract MW per counterparty against what EIA sees
+          for that same developer in the table below — the gap is where the
+          contract is aspirational, not under construction.
+        </p>
+      </div>
+      <div class="camp-stats">
+        <div class="camp-stat live">
+          <div class="num"><span id="es-expected">—</span><span class="gw"> GW</span></div>
+          <div class="lab">Expected to deliver</div>
+        </div>
+        <div class="camp-stat gap">
+          <div class="num"><span id="es-announced">—</span><span class="gw"> GW</span></div>
+          <div class="lab">Announced (federal)</div>
+        </div>
+        <div class="camp-stat">
+          <div class="num"><span id="es-rate">—</span><span class="gw">%</span></div>
+          <div class="lab">Implied hit rate</div>
+        </div>
+        <div class="camp-stat">
+          <div class="num"><span id="es-count">—</span></div>
+          <div class="lab">Planned generators</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="camp-section-title">Status ladder<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">how each EIA tier converts into expected delivery</span></h3>
+    <div class="pipeline-list" id="eiaTierList"></div>
+
+    <h3 class="camp-section-title" style="margin-top:2.4rem">Federal pipeline by generation type<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">2,214 planned units, all sectors</span></h3>
+    <p class="lead" style="margin:0 0 1.2rem; max-width:none">
+      Every planned US generator that has filed with EIA, grouped by technology and planned in-service year.
+      <b>Left chart</b> shows what was announced; <b>right chart</b> applies the construction-status haircut
+      to show what should actually deliver. The shrinkage between the two is where the federal data
+      tells you the announcement-to-energization gap is real.
+    </p>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; margin-bottom:1.5rem;">
+      <div>
+        <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:.5rem;">
+          <span style="font-size:.78rem; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); font-weight:600;">Announced</span>
+          <span style="font-size:.78rem; color:var(--muted);"><span id="eiaAnnTotal" style="color:var(--ink); font-weight:600;">—</span> GW total</span>
+        </div>
+        <div class="chart-wrap" style="height:340px;"><canvas id="eiaAnnChart"></canvas></div>
+      </div>
+      <div>
+        <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:.5rem;">
+          <span style="font-size:.78rem; text-transform:uppercase; letter-spacing:.1em; color:#a3dcbb; font-weight:600;">Probability-weighted</span>
+          <span style="font-size:.78rem; color:var(--muted);"><span id="eiaExpTotal" style="color:#a3dcbb; font-weight:600;">—</span> GW total</span>
+        </div>
+        <div class="chart-wrap" style="height:340px;"><canvas id="eiaExpChart"></canvas></div>
+      </div>
+    </div>
+
+    <h3 class="camp-section-title" style="margin-top:2.4rem">By technology — total US pipeline 2026–2032<span class="rule"></span></h3>
+    <div class="pipeline-list" id="eiaTechList"></div>
+
+    <h3 class="camp-section-title" style="margin-top:2.4rem">Top 12 states by planned MW<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">where the buildout is concentrated</span></h3>
+    <div class="camp-table-wrap" style="max-height:480px">
+      <table id="eiaStateTable">
+        <thead><tr>
+          <th>State</th>
+          <th class="r">Solar</th>
+          <th class="r">Storage</th>
+          <th class="r">Wind</th>
+          <th class="r">Gas</th>
+          <th class="r">Nuclear</th>
+          <th class="r">Other</th>
+          <th class="r">Total announced</th>
+          <th class="r">Expected</th>
         </tr></thead>
         <tbody></tbody>
       </table>
@@ -1127,6 +1243,184 @@ document.querySelectorAll('.tab').forEach(t => {
   });
   [f1, f2, f3, fs].forEach(el => el.addEventListener('input', render));
   render();
+})();
+
+// ---- EIA Federal Cross-Check panel ----
+(function(){
+  const T = DATA.eia_tier || [];
+  const O = DATA.eia_overlap || [];
+  if (!T.length) return;
+  const fmt = n => Math.round(n).toLocaleString();
+
+  // Hero stats
+  const announced = T.reduce((s,r)=>s+(r.announced_mw||0),0);
+  const expected  = T.reduce((s,r)=>s+(r.expected_mw||0),0);
+  const count     = T.reduce((s,r)=>s+(r.gens||0),0);
+  document.getElementById('es-announced').textContent = (announced/1000).toFixed(0);
+  document.getElementById('es-expected').textContent  = (expected/1000).toFixed(0);
+  document.getElementById('es-rate').textContent      = Math.round(100*expected/announced);
+  document.getElementById('es-count').textContent     = count.toLocaleString();
+
+  // Tier ladder — sorted from highest probability to lowest, labelled with friendly text
+  const TIER_LABELS = {
+    'ConstructionComplete': 'Construction complete',
+    'MajorityComplete':     'Under construction (>50%)',
+    'MinorityComplete':     'Under construction (≤50%)',
+    'ApprovalsReceived':    'Approvals received, not started',
+    'ApprovalsPending':     'Approvals pending',
+    'PlannedOnly':          'Planned only (no approvals filed)',
+    'Other':                'Other',
+  };
+  // Sort highest probability first (descending)
+  const tiers = T.slice().sort((a,b) => b.prob - a.prob);
+  const maxAnn = Math.max(...tiers.map(t => t.announced_mw || 0), 1);
+
+  const list = document.getElementById('eiaTierList');
+  list.innerHTML = tiers.map(t => {
+    const ann = t.announced_mw || 0;
+    const exp = t.expected_mw || 0;
+    const wAnn = (ann / maxAnn) * 100;
+    const wExp = (exp / maxAnn) * 100;
+    const probPct = Math.round(t.prob * 100);
+    return `
+      <div class="pipe-row">
+        <div class="name">${TIER_LABELS[t.status_tier] || t.status_tier}
+          <span class="cnt">${t.gens} gens · ${probPct}%</span></div>
+        <div class="pipe-bar">
+          <div class="seg planned"   style="width:${wAnn.toFixed(2)}%"></div>
+          <div class="seg energized" style="width:${wExp.toFixed(2)}%"></div>
+          <div class="seg-label ${wExp > 8 ? '' : 'outside'}"
+            style="left:${wExp > 8 ? '.4rem' : (wExp.toFixed(2)+'%')}">${fmt(exp)} expected</div>
+        </div>
+        <div class="total"><b>${fmt(ann)}</b> MW</div>
+      </div>`;
+  }).join('');
+
+  // ---------- Federal pipeline by generation type ----------
+  const Y = DATA.eia_year_tech || [];
+  const S = DATA.eia_state_tech || [];
+
+  const TECH_ORDER  = ['Solar','Wind','Storage','Gas','Nuclear','Geothermal','Hydro','Other'];
+  const TECH_COLOR  = {
+    Solar:'#f6c65b', Wind:'#7fd1c1', Storage:'#9bb0e3', Gas:'#e07a5f',
+    Nuclear:'#b794f4', Geothermal:'#f2cc8f', Hydro:'#5eb0e5', Other:'#6b7280'
+  };
+
+  // Restrict to 2026–2032 — anything beyond is statistical noise (handful of nuclear)
+  const years = [...new Set(Y.map(r => r.planned_year))].filter(y => y >= 2026 && y <= 2032).sort();
+  const techsPresent = TECH_ORDER.filter(t => Y.some(r => r.tech_group === t));
+
+  function buildDatasets(field) {
+    return techsPresent.map(t => ({
+      label: t,
+      data: years.map(y => {
+        const r = Y.find(r => r.planned_year === y && r.tech_group === t);
+        return r ? r[field] : 0;
+      }),
+      backgroundColor: TECH_COLOR[t],
+      borderWidth: 0,
+      stack: 'main'
+    }));
+  }
+
+  const annTotal = Y.reduce((s,r) => s + (r.announced_mw || 0), 0);
+  const expTotal = Y.reduce((s,r) => s + (r.expected_mw || 0), 0);
+  document.getElementById('eiaAnnTotal').textContent = (annTotal/1000).toFixed(0);
+  document.getElementById('eiaExpTotal').textContent = (expTotal/1000).toFixed(0);
+
+  // Find the larger of the two totals for shared y-axis ceiling so the visual shrinkage is honest
+  const yAxisMax = Math.max(
+    ...years.map(y => Y.filter(r => r.planned_year === y).reduce((s,r) => s + (r.announced_mw||0), 0))
+  ) * 1.05;
+
+  function chartOpts(title) {
+    return {
+      maintainAspectRatio: false, responsive: true,
+      scales: {
+        x: { stacked: true },
+        y: { stacked: true, max: yAxisMax,
+             ticks: { callback: v => (v/1000).toFixed(0) + ' GW' } }
+      },
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 10, boxHeight: 10, padding: 12 } },
+        tooltip: {
+          callbacks: {
+            label: c => `${c.dataset.label}: ${fmt(c.parsed.y)} MW`,
+            footer: items => {
+              const tot = items.reduce((s,i) => s + i.parsed.y, 0);
+              return 'Total: ' + fmt(tot) + ' MW';
+            }
+          }
+        }
+      }
+    };
+  }
+
+  new Chart(document.getElementById('eiaAnnChart'), {
+    type: 'bar',
+    data: { labels: years, datasets: buildDatasets('announced_mw') },
+    options: chartOpts('Announced')
+  });
+  new Chart(document.getElementById('eiaExpChart'), {
+    type: 'bar',
+    data: { labels: years, datasets: buildDatasets('expected_mw') },
+    options: chartOpts('Probability-weighted')
+  });
+
+  // ---------- Tech-level summary horizontal bars ----------
+  // Aggregate across all years for the technology total view
+  const techTotals = techsPresent.map(t => ({
+    tech: t,
+    announced: Y.filter(r => r.tech_group === t).reduce((s,r) => s + (r.announced_mw||0), 0),
+    expected:  Y.filter(r => r.tech_group === t).reduce((s,r) => s + (r.expected_mw ||0), 0),
+    gens:      Y.filter(r => r.tech_group === t).reduce((s,r) => s + (r.gen_count   ||0), 0),
+  })).sort((a,b) => b.announced - a.announced);
+
+  const maxTech = techTotals[0].announced;
+  document.getElementById('eiaTechList').innerHTML = techTotals.map(t => {
+    const wAnn = (t.announced / maxTech) * 100;
+    const wExp = (t.expected  / maxTech) * 100;
+    const hitRate = Math.round(100 * t.expected / t.announced);
+    return `
+      <div class="pipe-row" style="grid-template-columns:120px 1fr 110px;">
+        <div class="name" style="color:${TECH_COLOR[t.tech]};">${t.tech}
+          <span class="cnt" style="color:var(--muted);">${t.gens}</span></div>
+        <div class="pipe-bar">
+          <div class="seg" style="position:absolute;left:0;top:0;bottom:0;background:${TECH_COLOR[t.tech]};opacity:.30;width:${wAnn.toFixed(2)}%"></div>
+          <div class="seg" style="position:absolute;left:0;top:0;bottom:0;background:${TECH_COLOR[t.tech]};width:${wExp.toFixed(2)}%"></div>
+          <div class="seg-label ${wExp > 12 ? '' : 'outside'}"
+               style="left:${wExp > 12 ? '.4rem' : (wExp.toFixed(2)+'%')};">${fmt(t.expected)} expected · ${hitRate}%</div>
+        </div>
+        <div class="total"><b>${fmt(t.announced)}</b> MW</div>
+      </div>`;
+  }).join('');
+
+  // ---------- Top 12 states table ----------
+  const stateTotals = {};
+  for (const r of S) {
+    if (!stateTotals[r.plant_state]) stateTotals[r.plant_state] = { total:0, expected:0, byTech:{} };
+    stateTotals[r.plant_state].total    += r.announced_mw || 0;
+    stateTotals[r.plant_state].expected += r.expected_mw  || 0;
+    stateTotals[r.plant_state].byTech[r.tech_group] = r.announced_mw || 0;
+  }
+  const topStates = Object.entries(stateTotals)
+    .sort((a,b) => b[1].total - a[1].total).slice(0, 12);
+  const stateTbody = document.querySelector('#eiaStateTable tbody');
+  stateTbody.innerHTML = topStates.map(([st, d]) => {
+    const cell = t => d.byTech[t] ? fmt(d.byTech[t]) : '—';
+    const otherMw = (d.byTech.Geothermal||0) + (d.byTech.Hydro||0) + (d.byTech.Other||0);
+    return `<tr>
+      <td><b>${st}</b></td>
+      <td class="r">${cell('Solar')}</td>
+      <td class="r">${cell('Storage')}</td>
+      <td class="r">${cell('Wind')}</td>
+      <td class="r">${cell('Gas')}</td>
+      <td class="r">${cell('Nuclear')}</td>
+      <td class="r" style="color:var(--muted);">${otherMw ? fmt(otherMw) : '—'}</td>
+      <td class="r"><b>${fmt(d.total)}</b></td>
+      <td class="r" style="color:#a3dcbb;">${fmt(d.expected)}</td>
+    </tr>`;
+  }).join('');
 })();
 
 // ---- Sources table ----

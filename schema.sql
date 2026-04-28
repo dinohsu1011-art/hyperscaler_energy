@@ -181,6 +181,70 @@ CREATE TABLE data_center_campuses (
   UNIQUE(campus_name, hyperscaler)
 );
 
+-- Federal cross-check: EIA Form 860M planned generators (the supply side).
+-- Loaded from data/external/eia860m_table_6_05.xlsx as a single snapshot.
+-- Used to verify whether announced PPAs have a matching plant under construction.
+CREATE TABLE planned_generators (
+  id                    INTEGER PRIMARY KEY AUTOINCREMENT,
+  vintage               TEXT NOT NULL,               -- snapshot month, e.g. '2026-04'
+  planned_year          INTEGER NOT NULL,
+  planned_month         INTEGER,
+  entity_id             INTEGER,
+  entity_name           TEXT NOT NULL,
+  producer_type         TEXT,                        -- IPP / Electric Utility / Industrial / etc.
+  plant_name            TEXT NOT NULL,
+  plant_state           TEXT,
+  plant_id              INTEGER,
+  generator_id          TEXT,
+  net_summer_capacity_mw REAL,
+  nameplate_capacity_mw  REAL,
+  technology            TEXT,                        -- 'Solar Photovoltaic', 'Batteries', 'Natural Gas Fired Combined Cycle', etc.
+  energy_source_code    TEXT,
+  prime_mover_code      TEXT,
+  status                TEXT NOT NULL,               -- raw EIA status string
+  status_tier           TEXT NOT NULL CHECK(status_tier IN
+                          ('ConstructionComplete','MajorityComplete','MinorityComplete',
+                           'ApprovalsReceived','ApprovalsPending','PlannedOnly','Other')),
+  delivery_probability  REAL NOT NULL,               -- 0.0–1.0 derived from status_tier
+  source_id             TEXT NOT NULL REFERENCES sources(id),
+  created_at            TEXT DEFAULT (datetime('now'))
+);
+CREATE INDEX idx_pg_year ON planned_generators(planned_year);
+CREATE INDEX idx_pg_state ON planned_generators(plant_state);
+CREATE INDEX idx_pg_tech ON planned_generators(technology);
+CREATE INDEX idx_pg_entity ON planned_generators(entity_name);
+
+-- Aggregate view: federal pipeline by year × tier (the haircut ladder)
+CREATE VIEW v_eia_pipeline_by_tier AS
+SELECT planned_year,
+       status_tier,
+       COUNT(*)                                  AS gen_count,
+       ROUND(SUM(net_summer_capacity_mw), 0)     AS announced_mw,
+       ROUND(SUM(net_summer_capacity_mw * delivery_probability), 0) AS expected_mw
+FROM planned_generators
+GROUP BY planned_year, status_tier
+ORDER BY planned_year, status_tier;
+
+-- Aggregate view: federal pipeline by year × technology
+CREATE VIEW v_eia_pipeline_by_tech AS
+SELECT planned_year,
+       CASE
+         WHEN technology LIKE '%Solar%' THEN 'Solar'
+         WHEN technology LIKE '%Wind%'  THEN 'Wind'
+         WHEN technology = 'Batteries' OR technology LIKE '%Storage%' THEN 'Storage'
+         WHEN technology LIKE '%Nuclear%' THEN 'Nuclear'
+         WHEN technology LIKE '%Natural Gas%' THEN 'Gas'
+         WHEN technology LIKE '%Geothermal%' THEN 'Geothermal'
+         WHEN technology LIKE '%Hydro%' THEN 'Hydro'
+         ELSE 'Other'
+       END AS tech_group,
+       COUNT(*)                                  AS gen_count,
+       ROUND(SUM(net_summer_capacity_mw), 0)     AS announced_mw,
+       ROUND(SUM(net_summer_capacity_mw * delivery_probability), 0) AS expected_mw
+FROM planned_generators
+GROUP BY planned_year, tech_group
+ORDER BY planned_year, tech_group;
+
 -- Aggregate view: hyperscaler-level IT-load pipeline, current vs full
 CREATE VIEW v_campus_pipeline_by_hyperscaler AS
 SELECT hyperscaler,
@@ -267,6 +331,11 @@ UNION ALL SELECT 'data_center_campuses', id,
        COALESCE(it_load_mw_planned, it_load_mw_phase1, it_load_mw_energized, 0) ||
        ' MW (' || capacity_definition || ', ' || status || ')', source_id
 FROM data_center_campuses
+UNION ALL SELECT 'planned_generators', id,
+       entity_name || ' ' || plant_name || ' ' ||
+       ROUND(COALESCE(net_summer_capacity_mw, 0), 0) || ' MW ' ||
+       technology || ' (' || status_tier || ', ' || planned_year || ')', source_id
+FROM planned_generators
 UNION ALL SELECT 'turbine_supply', id,
        manufacturer || ' ' || as_of || ': ' || backlog_note, source_id
 FROM turbine_supply;

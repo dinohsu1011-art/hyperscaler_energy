@@ -2374,3 +2374,13 @@
   retrieved_on: 2026-04-25
   kind: Primary
   supports: "Nebius × Nebius UK Longcross Park (Surrey) — campus IT-load record"
+
+# ===== Federal supply-side cross-check =====
+- id: S291
+  publisher: U.S. Energy Information Administration
+  title: "Form EIA-860M, Table 6.5 — Planned U.S. Electric Generating Unit Additions (April 2026)"
+  url: https://www.eia.gov/electricity/monthly/xls/table_6_05.xlsx
+  pub_date: 2026-04-21
+  retrieved_on: 2026-04-28
+  kind: Primary
+  supports: "Federal registry of all planned US generators with capacity, fuel, COD, and construction status — used to cross-check announced hyperscaler PPAs against EIA-tracked plants under construction."

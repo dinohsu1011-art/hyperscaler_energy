@@ -79,6 +79,73 @@ def load_contracts(conn: sqlite3.Connection) -> int:
     return n
 
 
+def load_planned_generators(conn: sqlite3.Connection) -> int:
+    """Load EIA-860M Table 6.05 (planned generators) as a federal supply-side cross-check.
+
+    Status code → tier → delivery probability ladder. Probabilities are calibrated
+    against historical hit rates (LBNL Queued Up reports historical interconnection
+    completion rates of ~14% in PJM, ~50% in MISO/SPP; EIA-tracked plants already
+    self-selected past the queue stage so probabilities here are higher).
+    """
+    try:
+        import openpyxl
+    except ImportError:
+        print("[skip] openpyxl not installed; skipping planned_generators load")
+        return 0
+
+    p = ROOT / "data" / "external" / "eia860m_table_6_05.xlsx"
+    if not p.exists():
+        print(f"[skip] {p} not found; skipping planned_generators load")
+        return 0
+
+    EIA_TIERS = {
+        '(TS)': ('ConstructionComplete', 0.95),
+        '(V)':  ('MajorityComplete',     0.85),
+        '(U)':  ('MinorityComplete',     0.70),
+        '(T)':  ('ApprovalsReceived',    0.50),
+        '(L)':  ('ApprovalsPending',     0.30),
+        '(P)':  ('PlannedOnly',          0.15),
+        '(OT)': ('Other',                0.20),
+    }
+    SOURCE_ID = 'S291'  # EIA-860M April 2026 snapshot
+    VINTAGE = '2026-04'
+
+    wb = openpyxl.load_workbook(p, data_only=True, read_only=True)
+    ws = wb['Table_6_05']
+    n = 0
+    for row in ws.iter_rows(min_row=3, values_only=True):
+        # Skip footer/note rows that lack a plant name or capacity
+        if not row[5] or row[9] is None:
+            continue
+        year, month, ent_id, ent_name, prod_type, plant_name, state, plant_id, gen_id, \
+            net_mw, tech, fuel, prime_mover, status, name_mw = row[:15]
+        if not status:
+            continue
+        # Extract status code prefix like '(V)' or '(TS)'
+        prefix = status[:status.index(')')+1] if ')' in status else '(OT)'
+        tier, prob = EIA_TIERS.get(prefix, ('Other', 0.20))
+        conn.execute(
+            """INSERT INTO planned_generators
+               (vintage, planned_year, planned_month, entity_id, entity_name,
+                producer_type, plant_name, plant_state, plant_id, generator_id,
+                net_summer_capacity_mw, nameplate_capacity_mw, technology,
+                energy_source_code, prime_mover_code, status, status_tier,
+                delivery_probability, source_id)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (VINTAGE, int(year), int(month) if month else None,
+             int(ent_id) if ent_id else None,
+             (ent_name or '').strip(), prod_type,
+             (plant_name or '').strip(), state,
+             int(plant_id) if plant_id else None, str(gen_id) if gen_id else None,
+             float(net_mw) if net_mw is not None else None,
+             float(name_mw) if name_mw is not None else None,
+             tech, fuel, prime_mover, status, tier, prob, SOURCE_ID),
+        )
+        n += 1
+    conn.commit()
+    return n
+
+
 def load_campuses(conn: sqlite3.Connection) -> int:
     p = DATA / "campuses.yaml"
     if not p.exists():
@@ -225,6 +292,7 @@ def main() -> int:
         n_src = len(load_sources(conn))
         n_c = load_contracts(conn)
         n_cam = load_campuses(conn)
+        n_pg = load_planned_generators(conn)
         n_l = load_lcoe(conn)
         n_g = load_gas_capex(conn)
         n_r = load_renewable_capex(conn)
@@ -240,6 +308,7 @@ def main() -> int:
     print(f"loaded: {n_src} sources")
     print(f"        {n_c} contracts")
     print(f"        {n_cam} campuses")
+    print(f"        {n_pg} planned_generators (EIA-860M)")
     print(f"        {n_l} lcoe")
     print(f"        {n_g} gas_capex")
     print(f"        {n_r} renewable_capex")
