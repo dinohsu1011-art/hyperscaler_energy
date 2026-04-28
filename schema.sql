@@ -186,14 +186,18 @@ CREATE TABLE data_center_campuses (
 -- Used to verify whether announced PPAs have a matching plant under construction.
 CREATE TABLE planned_generators (
   id                    INTEGER PRIMARY KEY AUTOINCREMENT,
-  vintage               TEXT NOT NULL,               -- snapshot month, e.g. '2026-04'
+  vintage               TEXT NOT NULL,               -- snapshot month, e.g. '2026-03'
   planned_year          INTEGER NOT NULL,
   planned_month         INTEGER,
   entity_id             INTEGER,
   entity_name           TEXT NOT NULL,
-  producer_type         TEXT,                        -- IPP / Electric Utility / Industrial / etc.
+  producer_type         TEXT,                        -- 'IPP Non-CHP', 'Electric Utility', etc.
   plant_name            TEXT NOT NULL,
   plant_state           TEXT,
+  county                TEXT,
+  balancing_authority   TEXT,                        -- e.g. 'PJM', 'ERCO', 'CISO', 'MISO'
+  lat                   REAL,
+  lon                   REAL,
   plant_id              INTEGER,
   generator_id          TEXT,
   net_summer_capacity_mw REAL,
@@ -207,12 +211,43 @@ CREATE TABLE planned_generators (
                            'ApprovalsReceived','ApprovalsPending','PlannedOnly','Other')),
   delivery_probability  REAL NOT NULL,               -- 0.0–1.0 derived from status_tier
   source_id             TEXT NOT NULL REFERENCES sources(id),
-  created_at            TEXT DEFAULT (datetime('now'))
+  created_at            TEXT DEFAULT (datetime('now')),
+  UNIQUE(vintage, plant_id, generator_id)            -- one row per generator per snapshot
 );
+CREATE INDEX idx_pg_vintage ON planned_generators(vintage);
 CREATE INDEX idx_pg_year ON planned_generators(planned_year);
 CREATE INDEX idx_pg_state ON planned_generators(plant_state);
 CREATE INDEX idx_pg_tech ON planned_generators(technology);
 CREATE INDEX idx_pg_entity ON planned_generators(entity_name);
+CREATE INDEX idx_pg_genkey ON planned_generators(plant_id, generator_id);
+
+-- Time-series view: status distribution by vintage (the funnel evolution chart)
+CREATE VIEW v_eia_status_by_vintage AS
+SELECT vintage,
+       status_tier,
+       COUNT(*) AS gen_count,
+       ROUND(SUM(net_summer_capacity_mw), 0) AS total_mw
+FROM planned_generators
+GROUP BY vintage, status_tier
+ORDER BY vintage, status_tier;
+
+-- Tech distribution by vintage (separate cut)
+CREATE VIEW v_eia_tech_by_vintage AS
+SELECT vintage,
+       CASE
+         WHEN technology LIKE '%Solar%'    THEN 'Solar'
+         WHEN technology LIKE '%Wind%'     THEN 'Wind'
+         WHEN technology = 'Batteries' OR technology LIKE '%Storage%' THEN 'Storage'
+         WHEN technology LIKE '%Nuclear%'  THEN 'Nuclear'
+         WHEN technology LIKE '%Natural Gas%' THEN 'Gas'
+         WHEN technology LIKE '%Geothermal%' THEN 'Geothermal'
+         WHEN technology LIKE '%Hydro%'    THEN 'Hydro'
+         ELSE 'Other'
+       END AS tech_group,
+       COUNT(*) AS gen_count,
+       ROUND(SUM(net_summer_capacity_mw), 0) AS total_mw
+FROM planned_generators
+GROUP BY vintage, tech_group;
 
 -- Aggregate view: federal pipeline by year × tier (the haircut ladder)
 CREATE VIEW v_eia_pipeline_by_tier AS
@@ -225,7 +260,7 @@ FROM planned_generators
 GROUP BY planned_year, status_tier
 ORDER BY planned_year, status_tier;
 
--- Aggregate view: federal pipeline by year × technology
+-- Aggregate view: latest-vintage federal pipeline by year × technology
 CREATE VIEW v_eia_pipeline_by_tech AS
 SELECT planned_year,
        CASE
@@ -242,6 +277,7 @@ SELECT planned_year,
        ROUND(SUM(net_summer_capacity_mw), 0)     AS announced_mw,
        ROUND(SUM(net_summer_capacity_mw * delivery_probability), 0) AS expected_mw
 FROM planned_generators
+WHERE vintage = (SELECT MAX(vintage) FROM planned_generators)
 GROUP BY planned_year, tech_group
 ORDER BY planned_year, tech_group;
 

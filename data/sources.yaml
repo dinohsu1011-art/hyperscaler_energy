@@ -2378,9 +2378,9 @@
 # ===== Federal supply-side cross-check =====
 - id: S291
   publisher: U.S. Energy Information Administration
-  title: "Form EIA-860M, Table 6.5 — Planned U.S. Electric Generating Unit Additions (April 2026)"
-  url: https://www.eia.gov/electricity/monthly/xls/table_6_05.xlsx
-  pub_date: 2026-04-21
+  title: "Form EIA-860M Planned-Generators sheet — multi-vintage panel (Jan 2024, Oct 2024, Jul 2025, Oct 2025, Jan 2026, Mar 2026)"
+  url: https://www.eia.gov/electricity/data/eia860m/
+  pub_date: 2026-03-31
   retrieved_on: 2026-04-28
   kind: Primary
-  supports: "Federal registry of all planned US generators with capacity, fuel, COD, and construction status — used to cross-check announced hyperscaler PPAs against EIA-tracked plants under construction."
+  supports: "Federal registry of all planned US generators with capacity, fuel, COD, lat/lon, balancing authority, and construction status. Six monthly snapshots (Jan-2024 through Mar-2026, ~28-month panel) used to track empirical migration of MW between status tiers and the funnel-evolution of the federal pipeline."

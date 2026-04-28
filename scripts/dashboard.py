@@ -56,8 +56,13 @@ def build(conn: sqlite3.Connection) -> str:
                    ROUND(SUM(net_summer_capacity_mw), 0) AS announced_mw,
                    ROUND(SUM(net_summer_capacity_mw * delivery_probability), 0) AS expected_mw,
                    ROUND(AVG(delivery_probability), 2) AS prob
-            FROM planned_generators GROUP BY status_tier"""),
-        "eia_year_tech": q(conn, "SELECT * FROM v_eia_pipeline_by_tech"),
+            FROM planned_generators
+            WHERE vintage = (SELECT MAX(vintage) FROM planned_generators)
+            GROUP BY status_tier"""),
+        "eia_year_tech": q(conn, """
+            SELECT * FROM v_eia_pipeline_by_tech"""),
+        "eia_status_by_vintage": q(conn, "SELECT * FROM v_eia_status_by_vintage"),
+        "eia_tech_by_vintage": q(conn, "SELECT * FROM v_eia_tech_by_vintage"),
         "eia_state_tech": q(conn, """
             SELECT plant_state,
                    CASE
@@ -75,6 +80,7 @@ def build(conn: sqlite3.Connection) -> str:
                    ROUND(SUM(net_summer_capacity_mw * delivery_probability), 0) AS expected_mw
             FROM planned_generators
             WHERE plant_state IS NOT NULL
+              AND vintage = (SELECT MAX(vintage) FROM planned_generators)
             GROUP BY plant_state, tech_group"""),
         "sources": {r["id"]: dict(r) for r in conn.execute("SELECT * FROM sources")},
     }
@@ -458,43 +464,55 @@ TEMPLATE = r"""<!doctype html>
     <div class="camp-hero">
       <div>
         <p class="lead">
-          The federal supply-side cross-check. <b>EIA Form 860M</b> tracks every US
-          generator that has filed with EIA — name, location, fuel, capacity, planned
-          online date, and crucially a <b>construction-status code</b> ranging from
-          "regulatory approvals not initiated" to "construction complete." Each
-          tier maps to a historical delivery probability. Apply the ladder to the
-          278 GW federal pipeline and the answer falls out: of all the generators
-          announced in the US, roughly <b>45% will deliver as scheduled</b> — the
-          rest slip, get cancelled, or never break ground.
+          <b>EIA Form 860M</b> publishes a monthly snapshot of every US generator
+          that has filed with EIA — capacity, fuel, planned online date, and a
+          <b>construction-status code</b> from "regulatory approvals not initiated"
+          all the way to "construction complete." We track the full file across
+          six vintages spanning 2024–2026. The signal isn't a probability estimate;
+          it's the <b>empirical migration of MW between status tiers</b> over time.
         </p>
         <p class="lead" style="margin-top:.6rem">
-          That number is the empirical anchor for the hyperscaler-PPA haircut.
-          Compare announced contract MW per counterparty against what EIA sees
-          for that same developer in the table below — the gap is where the
-          contract is aspirational, not under construction.
+          The big finding from this dataset: the US planned-generation pipeline
+          <b>nearly doubled in 26 months</b> (157 GW → 286 GW), but most of the
+          new MW are stuck at the back of the funnel. Approvals-pending and
+          planned-only tiers <b>grew +109% each</b>. Construction-complete grew +163%
+          but off a tiny base. Pipeline is widening faster than it's draining.
         </p>
       </div>
       <div class="camp-stats">
         <div class="camp-stat live">
-          <div class="num"><span id="es-expected">—</span><span class="gw"> GW</span></div>
-          <div class="lab">Expected to deliver</div>
+          <div class="num"><span id="es-current">—</span><span class="gw"> GW</span></div>
+          <div class="lab">Latest pipeline (2026-03)</div>
         </div>
         <div class="camp-stat gap">
-          <div class="num"><span id="es-announced">—</span><span class="gw"> GW</span></div>
-          <div class="lab">Announced (federal)</div>
+          <div class="num"><span id="es-growth">—</span><span class="gw">%</span></div>
+          <div class="lab">Growth vs Jan 2024</div>
         </div>
         <div class="camp-stat">
-          <div class="num"><span id="es-rate">—</span><span class="gw">%</span></div>
-          <div class="lab">Implied hit rate</div>
+          <div class="num"><span id="es-vintages">—</span></div>
+          <div class="lab">Monthly vintages</div>
         </div>
         <div class="camp-stat">
           <div class="num"><span id="es-count">—</span></div>
-          <div class="lab">Planned generators</div>
+          <div class="lab">Generator-snapshots</div>
         </div>
       </div>
     </div>
 
-    <h3 class="camp-section-title">Status ladder<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">how each EIA tier converts into expected delivery</span></h3>
+    <h3 class="camp-section-title">Pipeline evolution by status<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">total US planned MW, stacked by EIA construction status</span></h3>
+    <p class="lead" style="margin:0 0 1rem; max-width:none">
+      Each bar is one EIA-860M monthly snapshot from 2024–2026. The bottom of the
+      stack is shovels-in-the-ground; the top is just-announced.
+      <b>If the pipeline is healthy</b>, the dark green slice (construction complete)
+      grows over time and the gray slice (planned only) shrinks. If announcements
+      are outpacing construction, the pile gets top-heavy.
+    </p>
+    <div class="chart-wrap" style="height:380px; margin-bottom:1.4rem;"><canvas id="eiaStatusVintageChart"></canvas></div>
+
+    <h3 class="camp-section-title" style="margin-top:2rem">Pipeline evolution by technology<span class="rule"></span></h3>
+    <div class="chart-wrap" style="height:340px; margin-bottom:1.4rem;"><canvas id="eiaTechVintageChart"></canvas></div>
+
+    <h3 class="camp-section-title" style="margin-top:2.4rem">Latest snapshot — status ladder<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">where each MW sits in the funnel today (2026-03)</span></h3>
     <div class="pipeline-list" id="eiaTierList"></div>
 
     <h3 class="camp-section-title" style="margin-top:2.4rem">Federal pipeline by generation type<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">2,214 planned units, all sectors</span></h3>
@@ -1252,14 +1270,25 @@ document.querySelectorAll('.tab').forEach(t => {
   if (!T.length) return;
   const fmt = n => Math.round(n).toLocaleString();
 
-  // Hero stats
-  const announced = T.reduce((s,r)=>s+(r.announced_mw||0),0);
-  const expected  = T.reduce((s,r)=>s+(r.expected_mw||0),0);
-  const count     = T.reduce((s,r)=>s+(r.gens||0),0);
-  document.getElementById('es-announced').textContent = (announced/1000).toFixed(0);
-  document.getElementById('es-expected').textContent  = (expected/1000).toFixed(0);
-  document.getElementById('es-rate').textContent      = Math.round(100*expected/announced);
-  document.getElementById('es-count').textContent     = count.toLocaleString();
+  // ---------- Time-series datasets ----------
+  const SV = DATA.eia_status_by_vintage || [];
+  const TV = DATA.eia_tech_by_vintage || [];
+  const vintages = [...new Set(SV.map(r => r.vintage))].sort();
+  const tiersOrder = ['ConstructionComplete','MajorityComplete','MinorityComplete',
+                      'ApprovalsReceived','ApprovalsPending','PlannedOnly','Other'];
+  const tiersPresent = tiersOrder.filter(t => SV.some(r => r.status_tier === t));
+
+  // Earliest + latest vintage totals for hero stats
+  const totalForVintage = v => SV.filter(r => r.vintage === v).reduce((s,r)=>s+(r.total_mw||0),0);
+  const earliest = vintages[0], latest = vintages[vintages.length-1];
+  const totalEarly = totalForVintage(earliest);
+  const totalLatest = totalForVintage(latest);
+  const totalCount = SV.reduce((s,r)=>s+(r.gen_count||0),0);
+
+  document.getElementById('es-current').textContent  = (totalLatest/1000).toFixed(0);
+  document.getElementById('es-growth').textContent   = '+' + Math.round(100*(totalLatest-totalEarly)/totalEarly);
+  document.getElementById('es-vintages').textContent = vintages.length;
+  document.getElementById('es-count').textContent    = totalCount.toLocaleString();
 
   // Tier ladder — sorted from highest probability to lowest, labelled with friendly text
   const TIER_LABELS = {
@@ -1296,16 +1325,116 @@ document.querySelectorAll('.tab').forEach(t => {
       </div>`;
   }).join('');
 
-  // ---------- Federal pipeline by generation type ----------
-  const Y = DATA.eia_year_tech || [];
-  const S = DATA.eia_state_tech || [];
+  // ---------- Time-series chart: status by vintage ----------
+  // Color scheme — green at the bottom (close to delivery), gray at the top (just announced)
+  const STATUS_COLOR = {
+    'ConstructionComplete': '#5fae87',
+    'MajorityComplete':     '#7fc4a4',
+    'MinorityComplete':     '#a3dcbb',
+    'ApprovalsReceived':    '#d9b36c',
+    'ApprovalsPending':     '#e07a5f',
+    'PlannedOnly':          '#6b7280',
+    'Other':                '#3b3f4d',
+  };
+  const STATUS_LABEL = {
+    'ConstructionComplete': 'Construction complete',
+    'MajorityComplete':     'Under construction (>50%)',
+    'MinorityComplete':     'Under construction (≤50%)',
+    'ApprovalsReceived':    'Approvals received',
+    'ApprovalsPending':     'Approvals pending',
+    'PlannedOnly':          'Planned only',
+    'Other':                'Other',
+  };
 
+  // Order tiers bottom→top: most-built at bottom, least-built at top
+  const stackOrder = ['ConstructionComplete','MajorityComplete','MinorityComplete',
+                      'ApprovalsReceived','ApprovalsPending','PlannedOnly','Other']
+                     .filter(t => tiersPresent.includes(t));
+
+  function vintageLabel(v) {
+    // '2024-01' → 'Jan 2024'
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const [y, m] = v.split('-');
+    return `${months[parseInt(m)-1]} ${y}`;
+  }
+
+  const statusDatasets = stackOrder.map(t => ({
+    label: STATUS_LABEL[t],
+    data: vintages.map(v => {
+      const r = SV.find(r => r.vintage === v && r.status_tier === t);
+      return r ? r.total_mw : 0;
+    }),
+    backgroundColor: STATUS_COLOR[t],
+    borderWidth: 0,
+    stack: 'main'
+  }));
+
+  new Chart(document.getElementById('eiaStatusVintageChart'), {
+    type: 'bar',
+    data: { labels: vintages.map(vintageLabel), datasets: statusDatasets },
+    options: {
+      maintainAspectRatio: false, responsive: true,
+      scales: {
+        x: { stacked: true },
+        y: { stacked: true,
+             ticks: { callback: v => (v/1000).toFixed(0) + ' GW' } }
+      },
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 10, boxHeight: 10, padding: 12 } },
+        tooltip: {
+          callbacks: {
+            label: c => `${c.dataset.label}: ${fmt(c.parsed.y)} MW`,
+            footer: items => 'Total: ' + fmt(items.reduce((s,i)=>s+i.parsed.y,0)) + ' MW'
+          }
+        }
+      }
+    }
+  });
+
+  // ---------- Time-series chart: tech by vintage ----------
   const TECH_ORDER  = ['Solar','Wind','Storage','Gas','Nuclear','Geothermal','Hydro','Other'];
   const TECH_COLOR  = {
     Solar:'#f6c65b', Wind:'#7fd1c1', Storage:'#9bb0e3', Gas:'#e07a5f',
     Nuclear:'#b794f4', Geothermal:'#f2cc8f', Hydro:'#5eb0e5', Other:'#6b7280'
   };
+  const techsInTV = TECH_ORDER.filter(t => TV.some(r => r.tech_group === t));
+  const techDatasets = techsInTV.map(t => ({
+    label: t,
+    data: vintages.map(v => {
+      const r = TV.find(r => r.vintage === v && r.tech_group === t);
+      return r ? r.total_mw : 0;
+    }),
+    backgroundColor: TECH_COLOR[t],
+    borderWidth: 0,
+    stack: 'main'
+  }));
 
+  new Chart(document.getElementById('eiaTechVintageChart'), {
+    type: 'bar',
+    data: { labels: vintages.map(vintageLabel), datasets: techDatasets },
+    options: {
+      maintainAspectRatio: false, responsive: true,
+      scales: {
+        x: { stacked: true },
+        y: { stacked: true,
+             ticks: { callback: v => (v/1000).toFixed(0) + ' GW' } }
+      },
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 10, boxHeight: 10, padding: 12 } },
+        tooltip: {
+          callbacks: {
+            label: c => `${c.dataset.label}: ${fmt(c.parsed.y)} MW`
+          }
+        }
+      }
+    }
+  });
+
+  // ---------- Federal pipeline by generation type ----------
+  const Y = DATA.eia_year_tech || [];
+  const S = DATA.eia_state_tech || [];
+
+  // (TECH_ORDER and TECH_COLOR already defined above for the time-series charts)
   // Restrict to 2026–2032 — anything beyond is statistical noise (handful of nuclear)
   const years = [...new Set(Y.map(r => r.planned_year))].filter(y => y >= 2026 && y <= 2032).sort();
   const techsPresent = TECH_ORDER.filter(t => Y.some(r => r.tech_group === t));

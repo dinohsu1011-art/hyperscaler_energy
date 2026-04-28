@@ -79,13 +79,30 @@ def load_contracts(conn: sqlite3.Connection) -> int:
     return n
 
 
-def load_planned_generators(conn: sqlite3.Connection) -> int:
-    """Load EIA-860M Table 6.05 (planned generators) as a federal supply-side cross-check.
+def _safe_float(v):
+    """Tolerant float parser — EIA cells sometimes contain ' ' or 'N/A' instead of empty."""
+    if v is None:
+        return None
+    if isinstance(v, (int, float)):
+        return float(v)
+    s = str(v).strip()
+    if not s or s.upper() in ('N/A', 'NA', '#N/A'):
+        return None
+    try:
+        return float(s)
+    except ValueError:
+        return None
 
-    Status code → tier → delivery probability ladder. Probabilities are calibrated
-    against historical hit rates (LBNL Queued Up reports historical interconnection
-    completion rates of ~14% in PJM, ~50% in MISO/SPP; EIA-tracked plants already
-    self-selected past the queue stage so probabilities here are higher).
+
+def load_planned_generators(conn: sqlite3.Connection) -> int:
+    """Load EIA-860M Planned-sheet snapshots as a federal supply-side time series.
+
+    Walks data/external/eia860m_history/*.xlsx — each file is one monthly snapshot.
+    Vintage is parsed from filename (e.g. 'march_generator2026.xlsx' → '2026-03').
+
+    Status code maps to a coarse tier. The tier→probability mapping is no longer
+    used as the headline number — instead we track how MW migrate between tiers
+    over successive snapshots, which is the actual empirical signal.
     """
     try:
         import openpyxl
@@ -93,9 +110,14 @@ def load_planned_generators(conn: sqlite3.Connection) -> int:
         print("[skip] openpyxl not installed; skipping planned_generators load")
         return 0
 
-    p = ROOT / "data" / "external" / "eia860m_table_6_05.xlsx"
-    if not p.exists():
-        print(f"[skip] {p} not found; skipping planned_generators load")
+    history_dir = ROOT / "data" / "external" / "eia860m_history"
+    if not history_dir.exists():
+        print(f"[skip] {history_dir} not found")
+        return 0
+
+    files = sorted(history_dir.glob("*_generator*.xlsx"))
+    if not files:
+        print(f"[skip] no eia860m vintages found in {history_dir}")
         return 0
 
     EIA_TIERS = {
@@ -107,43 +129,107 @@ def load_planned_generators(conn: sqlite3.Connection) -> int:
         '(P)':  ('PlannedOnly',          0.15),
         '(OT)': ('Other',                0.20),
     }
-    SOURCE_ID = 'S291'  # EIA-860M April 2026 snapshot
-    VINTAGE = '2026-04'
+    MONTHS = {m: f"{i+1:02d}" for i, m in enumerate(
+        ['january','february','march','april','may','june',
+         'july','august','september','october','november','december'])}
+    SOURCE_ID = 'S291'
 
-    wb = openpyxl.load_workbook(p, data_only=True, read_only=True)
-    ws = wb['Table_6_05']
-    n = 0
-    for row in ws.iter_rows(min_row=3, values_only=True):
-        # Skip footer/note rows that lack a plant name or capacity
-        if not row[5] or row[9] is None:
+    n_total = 0
+    for f in files:
+        # Filename pattern: <month>_generator<YYYY>.xlsx → vintage = YYYY-MM
+        stem = f.stem.lower()
+        try:
+            month_word, year_part = stem.split('_generator')
+            vintage = f"{year_part}-{MONTHS[month_word]}"
+        except (KeyError, ValueError):
+            print(f"[skip] cannot parse vintage from {f.name}")
             continue
-        year, month, ent_id, ent_name, prod_type, plant_name, state, plant_id, gen_id, \
-            net_mw, tech, fuel, prime_mover, status, name_mw = row[:15]
-        if not status:
+
+        wb = openpyxl.load_workbook(f, data_only=True, read_only=True)
+        if 'Planned' not in wb.sheetnames:
+            print(f"[skip] {f.name} has no 'Planned' sheet")
             continue
-        # Extract status code prefix like '(V)' or '(TS)'
-        prefix = status[:status.index(')')+1] if ')' in status else '(OT)'
-        tier, prob = EIA_TIERS.get(prefix, ('Other', 0.20))
-        conn.execute(
-            """INSERT INTO planned_generators
-               (vintage, planned_year, planned_month, entity_id, entity_name,
-                producer_type, plant_name, plant_state, plant_id, generator_id,
-                net_summer_capacity_mw, nameplate_capacity_mw, technology,
-                energy_source_code, prime_mover_code, status, status_tier,
-                delivery_probability, source_id)
-               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
-            (VINTAGE, int(year), int(month) if month else None,
-             int(ent_id) if ent_id else None,
-             (ent_name or '').strip(), prod_type,
-             (plant_name or '').strip(), state,
-             int(plant_id) if plant_id else None, str(gen_id) if gen_id else None,
-             float(net_mw) if net_mw is not None else None,
-             float(name_mw) if name_mw is not None else None,
-             tech, fuel, prime_mover, status, tier, prob, SOURCE_ID),
-        )
-        n += 1
+        ws = wb['Planned']
+        rows = ws.iter_rows(values_only=True)
+
+        # Find header row (looks for 'Plant ID' to anchor)
+        hdr = None
+        for r in rows:
+            if r and any(c == 'Plant ID' for c in r):
+                hdr = list(r)
+                break
+        if hdr is None:
+            print(f"[skip] no header found in {f.name}")
+            continue
+
+        # Map column name → index
+        idx = {h: i for i, h in enumerate(hdr) if h}
+        col_status = idx.get('Status')
+        col_state  = idx.get('Plant State')
+        col_county = idx.get('County')
+        col_ba     = idx.get('Balancing Authority Code')
+        col_sector = idx.get('Sector')
+        col_pid    = idx.get('Plant ID')
+        col_gid    = idx.get('Generator ID')
+        col_pname  = idx.get('Plant Name')
+        col_eid    = idx.get('Entity ID')
+        col_ename  = idx.get('Entity Name')
+        col_net    = idx.get('Net Summer Capacity (MW)')
+        col_name   = idx.get('Nameplate Capacity (MW)')
+        col_tech   = idx.get('Technology')
+        col_fuel   = idx.get('Energy Source Code')
+        col_pm     = idx.get('Prime Mover Code')
+        col_year   = idx.get('Planned Operation Year')
+        col_month  = idx.get('Planned Operation Month')
+        col_lat    = idx.get('Latitude')
+        col_lon    = idx.get('Longitude')
+
+        n_file = 0
+        for r in rows:
+            if not r or r[col_pid] is None or r[col_pname] is None or r[col_status] is None:
+                continue
+            status = str(r[col_status])
+            prefix = status[:status.index(')')+1] if ')' in status else '(OT)'
+            tier, prob = EIA_TIERS.get(prefix, ('Other', 0.20))
+            try:
+                conn.execute(
+                    """INSERT INTO planned_generators
+                       (vintage, planned_year, planned_month, entity_id, entity_name,
+                        producer_type, plant_name, plant_state, county, balancing_authority,
+                        lat, lon, plant_id, generator_id,
+                        net_summer_capacity_mw, nameplate_capacity_mw, technology,
+                        energy_source_code, prime_mover_code, status, status_tier,
+                        delivery_probability, source_id)
+                       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                    (vintage,
+                     int(r[col_year]) if r[col_year] is not None else None,
+                     int(r[col_month]) if r[col_month] is not None else None,
+                     int(r[col_eid]) if r[col_eid] is not None else None,
+                     str(r[col_ename] or '').strip(),
+                     str(r[col_sector] or '').strip() if col_sector is not None else None,
+                     str(r[col_pname]).strip(),
+                     r[col_state],
+                     r[col_county] if col_county is not None else None,
+                     r[col_ba] if col_ba is not None else None,
+                     _safe_float(r[col_lat]) if col_lat is not None else None,
+                     _safe_float(r[col_lon]) if col_lon is not None else None,
+                     int(r[col_pid]),
+                     str(r[col_gid]) if r[col_gid] else None,
+                     _safe_float(r[col_net]),
+                     _safe_float(r[col_name]),
+                     r[col_tech], r[col_fuel], r[col_pm],
+                     status, tier, prob, SOURCE_ID),
+                )
+                n_file += 1
+            except sqlite3.IntegrityError:
+                # Same generator with different status in same vintage — keep first
+                pass
+        wb.close()
+        n_total += n_file
+        print(f"  loaded {n_file:>5d} rows from {vintage} ({f.name})")
+
     conn.commit()
-    return n
+    return n_total
 
 
 def load_campuses(conn: sqlite3.Connection) -> int:
