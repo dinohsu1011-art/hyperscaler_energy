@@ -19,6 +19,74 @@ def q(conn, sql, params=()):
     return [dict(r) for r in conn.execute(sql, params).fetchall()]
 
 
+def compute_vintage_transitions(conn: sqlite3.Connection) -> list[dict]:
+    """For each consecutive vintage pair, decompose flows by tracking
+    (plant_id, generator_id) keys across snapshots. All MW figures use the
+    capacity recorded in the FROM vintage (i.e., capacity at the time of exit).
+
+    Each output row is annualized so unevenly-spaced vintages compare cleanly.
+    """
+    from collections import defaultdict
+    rows = conn.execute("""
+        SELECT vintage, plant_id, generator_id, status_tier, net_summer_capacity_mw
+        FROM planned_generators
+        WHERE plant_id IS NOT NULL AND generator_id IS NOT NULL
+    """).fetchall()
+
+    # vintage → {(plant_id, gen_id) → (status_tier, mw)}
+    by_v = defaultdict(dict)
+    for r in rows:
+        by_v[r['vintage']][(r['plant_id'], r['generator_id'])] = (
+            r['status_tier'], r['net_summer_capacity_mw'] or 0
+        )
+    vintages = sorted(by_v.keys())
+
+    TIER_RANK = {
+        'ConstructionComplete': 0, 'MajorityComplete': 1, 'MinorityComplete': 2,
+        'ApprovalsReceived': 3, 'ApprovalsPending': 4, 'PlannedOnly': 5, 'Other': 6
+    }
+    LATE_TIERS = {'ConstructionComplete', 'MajorityComplete', 'MinorityComplete'}
+
+    def months_between(va: str, vb: str) -> int:
+        ya, ma = [int(x) for x in va.split('-')]
+        yb, mb = [int(x) for x in vb.split('-')]
+        return (yb - ya) * 12 + (mb - ma)
+
+    out = []
+    for v_from, v_to in zip(vintages[:-1], vintages[1:]):
+        a = by_v[v_from]; b = by_v[v_to]
+        months = max(months_between(v_from, v_to), 1)
+        ann = lambda mw: round(mw * 12.0 / months, 1)
+
+        completed = cancelled = new_mw = stalled = advanced = regressed = 0.0
+        for k, (tier_a, mw) in a.items():
+            if k not in b:
+                if tier_a in LATE_TIERS: completed += mw
+                else:                    cancelled += mw
+            else:
+                tier_b = b[k][0]
+                if   tier_b == tier_a:                    stalled += mw
+                elif TIER_RANK[tier_b] < TIER_RANK[tier_a]: advanced += mw
+                else:                                       regressed += mw
+        for k, (_, mw) in b.items():
+            if k not in a: new_mw += mw
+
+        out.append({
+            'v_from': v_from, 'v_to': v_to, 'months': months,
+            'completed_mw': round(completed, 0),
+            'cancelled_mw': round(cancelled, 0),
+            'advanced_mw':  round(advanced,  0),
+            'stalled_mw':   round(stalled,   0),
+            'regressed_mw': round(regressed, 0),
+            'new_mw':       round(new_mw,    0),
+            'completed_per_yr': ann(completed),
+            'cancelled_per_yr': ann(cancelled),
+            'advanced_per_yr':  ann(advanced),
+            'new_per_yr':       ann(new_mw),
+        })
+    return out
+
+
 def build(conn: sqlite3.Connection) -> str:
     conn.row_factory = sqlite3.Row
 
@@ -63,6 +131,7 @@ def build(conn: sqlite3.Connection) -> str:
             SELECT * FROM v_eia_pipeline_by_tech"""),
         "eia_status_by_vintage": q(conn, "SELECT * FROM v_eia_status_by_vintage"),
         "eia_tech_by_vintage": q(conn, "SELECT * FROM v_eia_tech_by_vintage"),
+        "eia_transitions": compute_vintage_transitions(conn),
         "eia_state_tech": q(conn, """
             SELECT plant_state,
                    CASE
@@ -511,6 +580,19 @@ TEMPLATE = r"""<!doctype html>
 
     <h3 class="camp-section-title" style="margin-top:2rem">Pipeline evolution by technology<span class="rule"></span></h3>
     <div class="chart-wrap" style="height:340px; margin-bottom:1.4rem;"><canvas id="eiaTechVintageChart"></canvas></div>
+
+    <h3 class="camp-section-title" style="margin-top:2rem">Completion rate vs announcement rate<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">annualized GW/yr per vintage transition</span></h3>
+    <p class="lead" style="margin:0 0 1rem; max-width:none">
+      For each pair of consecutive vintages, every (plant_id, generator_id) is
+      tracked across snapshots. <b>Operated</b> = was in late-tier construction
+      and dropped from the planned set (likely energized).
+      <b>Newly announced</b> = first appearance in the snapshot.
+      Both annualized so windows of different length (2, 3, or 9 months)
+      compare cleanly. The ratio between the gray and green bars is the rate
+      at which the announcement cycle is outrunning physical delivery.
+    </p>
+    <div class="chart-wrap" style="height:380px; margin-bottom:.6rem;"><canvas id="eiaTransitionChart"></canvas></div>
+    <div id="eiaTransitionTable" style="margin-bottom:2rem;"></div>
 
     <h3 class="camp-section-title" style="margin-top:2.4rem">Latest snapshot — status ladder<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">where each MW sits in the funnel today (2026-03)</span></h3>
     <div class="pipeline-list" id="eiaTierList"></div>
@@ -1429,6 +1511,88 @@ document.querySelectorAll('.tab').forEach(t => {
       }
     }
   });
+
+  // ---------- Completion rate vs announcement rate (clustered bar) ----------
+  const TR = DATA.eia_transitions || [];
+  if (TR.length) {
+    const labels = TR.map(t => `${vintageLabel(t.v_from)}\n→ ${vintageLabel(t.v_to)} (${t.months}mo)`);
+    new Chart(document.getElementById('eiaTransitionChart'), {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Operated',
+            data: TR.map(t => t.completed_per_yr),
+            backgroundColor: '#5fae87',
+            borderWidth: 0
+          },
+          {
+            label: 'Advanced (moved closer to completion)',
+            data: TR.map(t => t.advanced_per_yr),
+            backgroundColor: '#a3dcbb',
+            borderWidth: 0
+          },
+          {
+            label: 'Newly announced',
+            data: TR.map(t => t.new_per_yr),
+            backgroundColor: '#6b7280',
+            borderWidth: 0
+          },
+          {
+            label: 'Cancelled / withdrawn',
+            data: TR.map(t => t.cancelled_per_yr),
+            backgroundColor: '#e07a5f',
+            borderWidth: 0
+          },
+        ]
+      },
+      options: {
+        maintainAspectRatio: false, responsive: true,
+        scales: {
+          x: { ticks: { maxRotation: 0, minRotation: 0, font: {size: 10} } },
+          y: { ticks: { callback: v => (v/1000).toFixed(0) + ' GW/yr' } }
+        },
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 10, boxHeight: 10, padding: 12 } },
+          tooltip: {
+            callbacks: {
+              label: c => `${c.dataset.label}: ${fmt(c.parsed.y)} MW/yr (annualized)`
+            }
+          }
+        }
+      }
+    });
+
+    // Compact summary table beneath the chart
+    const t = document.getElementById('eiaTransitionTable');
+    t.innerHTML = `
+      <div class="camp-table-wrap" style="max-height:none">
+        <table style="width:100%; border-collapse:collapse; font-size:.82rem;">
+          <thead><tr>
+            <th>Window</th>
+            <th class="r">Months</th>
+            <th class="r" style="color:#5fae87;">Operated /yr</th>
+            <th class="r" style="color:#a3dcbb;">Advanced /yr</th>
+            <th class="r" style="color:#6b7280;">New announced /yr</th>
+            <th class="r" style="color:#e07a5f;">Cancelled /yr</th>
+            <th class="r">Inflow ÷ Operated</th>
+          </tr></thead>
+          <tbody>
+            ${TR.map(t => `
+              <tr>
+                <td><b>${vintageLabel(t.v_from)} → ${vintageLabel(t.v_to)}</b></td>
+                <td class="r">${t.months}</td>
+                <td class="r" style="color:#5fae87;"><b>${fmt(t.completed_per_yr)}</b> MW</td>
+                <td class="r" style="color:#a3dcbb;">${fmt(t.advanced_per_yr)} MW</td>
+                <td class="r" style="color:#6b7280;"><b>${fmt(t.new_per_yr)}</b> MW</td>
+                <td class="r" style="color:#e07a5f;">${fmt(t.cancelled_per_yr)} MW</td>
+                <td class="r"><b>${(t.new_per_yr / Math.max(t.completed_per_yr, 1)).toFixed(1)}×</b></td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>`;
+  }
 
   // ---------- Federal pipeline by generation type ----------
   const Y = DATA.eia_year_tech || [];
