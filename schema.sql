@@ -254,7 +254,7 @@ CREATE VIEW v_eia_status_by_vintage AS
 SELECT vintage,
        status_tier,
        COUNT(*) AS gen_count,
-       ROUND(SUM(net_summer_capacity_mw), 0) AS total_mw
+       ROUND(SUM(nameplate_capacity_mw), 0) AS total_mw
 FROM planned_generators
 GROUP BY vintage, status_tier
 ORDER BY vintage, status_tier;
@@ -273,7 +273,7 @@ SELECT vintage,
          ELSE 'Other'
        END AS tech_group,
        COUNT(*) AS gen_count,
-       ROUND(SUM(net_summer_capacity_mw), 0) AS total_mw
+       ROUND(SUM(nameplate_capacity_mw), 0) AS total_mw
 FROM planned_generators
 GROUP BY vintage, tech_group;
 
@@ -282,8 +282,8 @@ CREATE VIEW v_eia_pipeline_by_tier AS
 SELECT planned_year,
        status_tier,
        COUNT(*)                                  AS gen_count,
-       ROUND(SUM(net_summer_capacity_mw), 0)     AS announced_mw,
-       ROUND(SUM(net_summer_capacity_mw * delivery_probability), 0) AS expected_mw
+       ROUND(SUM(nameplate_capacity_mw), 0)     AS announced_mw,
+       ROUND(SUM(nameplate_capacity_mw * delivery_probability), 0) AS expected_mw
 FROM planned_generators
 GROUP BY planned_year, status_tier
 ORDER BY planned_year, status_tier;
@@ -302,8 +302,8 @@ SELECT planned_year,
          ELSE 'Other'
        END AS tech_group,
        COUNT(*)                                  AS gen_count,
-       ROUND(SUM(net_summer_capacity_mw), 0)     AS announced_mw,
-       ROUND(SUM(net_summer_capacity_mw * delivery_probability), 0) AS expected_mw
+       ROUND(SUM(nameplate_capacity_mw), 0)     AS announced_mw,
+       ROUND(SUM(nameplate_capacity_mw * delivery_probability), 0) AS expected_mw
 FROM planned_generators
 WHERE vintage = (SELECT MAX(vintage) FROM planned_generators)
 GROUP BY planned_year, tech_group

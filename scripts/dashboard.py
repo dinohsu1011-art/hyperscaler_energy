@@ -34,21 +34,21 @@ def compute_vintage_transitions(conn: sqlite3.Connection) -> list[dict]:
 
     # ---- Operated: directly observed from Operating sheet ----
     op_rows = conn.execute("""
-        SELECT operating_year, operating_month, net_summer_capacity_mw
+        SELECT operating_year, operating_month, nameplate_capacity_mw
         FROM operating_generators
         WHERE operating_year IS NOT NULL AND operating_month IS NOT NULL
     """).fetchall()
 
     # ---- Planned panel: inflow + cancellation ----
     pl_rows = conn.execute("""
-        SELECT vintage, plant_id, generator_id, net_summer_capacity_mw
+        SELECT vintage, plant_id, generator_id, nameplate_capacity_mw
         FROM planned_generators
         WHERE plant_id IS NOT NULL AND generator_id IS NOT NULL
     """).fetchall()
     by_v = defaultdict(dict)
     for r in pl_rows:
         by_v[r['vintage']][(r['plant_id'], r['generator_id'])] = (
-            r['net_summer_capacity_mw'] or 0
+            r['nameplate_capacity_mw'] or 0
         )
     vintages = sorted(by_v.keys())
 
@@ -73,7 +73,7 @@ def compute_vintage_transitions(conn: sqlite3.Connection) -> list[dict]:
         ann = lambda mw: round(mw * 12.0 / months, 1)
 
         # Operated = directly observed
-        operated = sum(r['net_summer_capacity_mw'] or 0
+        operated = sum(r['nameplate_capacity_mw'] or 0
                        for r in op_rows
                        if in_window(r['operating_year'], r['operating_month'], v_from, v_to))
 
@@ -136,8 +136,8 @@ def build(conn: sqlite3.Connection) -> str:
         "eia_tier": q(conn, """
             SELECT status_tier,
                    COUNT(*) AS gens,
-                   ROUND(SUM(net_summer_capacity_mw), 0) AS announced_mw,
-                   ROUND(SUM(net_summer_capacity_mw * delivery_probability), 0) AS expected_mw,
+                   ROUND(SUM(nameplate_capacity_mw), 0) AS announced_mw,
+                   ROUND(SUM(nameplate_capacity_mw * delivery_probability), 0) AS expected_mw,
                    ROUND(AVG(delivery_probability), 2) AS prob
             FROM planned_generators
             WHERE vintage = (SELECT MAX(vintage) FROM planned_generators)
@@ -160,8 +160,8 @@ def build(conn: sqlite3.Connection) -> str:
                      ELSE 'Other'
                    END AS tech_group,
                    COUNT(*)                              AS gen_count,
-                   ROUND(SUM(net_summer_capacity_mw), 0) AS announced_mw,
-                   ROUND(SUM(net_summer_capacity_mw * delivery_probability), 0) AS expected_mw
+                   ROUND(SUM(nameplate_capacity_mw), 0) AS announced_mw,
+                   ROUND(SUM(nameplate_capacity_mw * delivery_probability), 0) AS expected_mw
             FROM planned_generators
             WHERE plant_state IS NOT NULL
               AND vintage = (SELECT MAX(vintage) FROM planned_generators)
