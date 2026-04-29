@@ -434,18 +434,15 @@
     <div class="chart-wrap" style="height:380px; margin-bottom:.6rem;"><canvas id="eiaTransitionChart"></canvas></div>
     <div id="eiaTransitionTable" style="margin-bottom:2rem;"></div>
 
-    <h3 class="camp-section-title" style="margin-top:2.4rem">Buildout rate — trailing 4-quarter view<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">QoQ &amp; YoY change in the smoothed annual run-rate</span></h3>
+    <h3 class="camp-section-title" style="margin-top:2.4rem">QoQ % change — Completed vs Announced<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">raw quarter-over-quarter change in each flow</span></h3>
     <p class="lead" style="margin:0 0 1rem; max-width:none">
-      For each quarter, sum the four most recent quarterly windows. That removes
-      seasonality (Q4 commissioning spikes, Q1 troughs) and produces the
-      apples-to-apples annual run-rate at every point in time. <b>Bars</b> are
-      GW completed in the trailing 4Q. <b>Solid line</b> is the announced inflow
-      rate over the same period. <b>Right-axis bands</b> show YoY % change in
-      each — the cleanest way to see whether the cycle is still accelerating
-      or rolling over.
+      For each quarter, the % change vs the prior quarter — both for plants
+      that came online (Completed) and for new MW added to the planned set
+      (Announced). No smoothing, no annualization. Crossover points and sign
+      flips are the signals to watch.
     </p>
-    <div class="chart-wrap" style="height:380px; margin-bottom:.6rem;"><canvas id="eiaT4QChart"></canvas></div>
-    <div id="eiaT4QTable" style="margin-bottom:2rem;"></div>
+    <div class="chart-wrap" style="height:360px; margin-bottom:.6rem;"><canvas id="eiaQoQChart"></canvas></div>
+    <div id="eiaQoQTable" style="margin-bottom:2rem;"></div>
 
     <h3 class="camp-section-title" style="margin-top:2.4rem">Latest snapshot — status ladder<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">where each MW sits in the funnel today (2026-03)</span></h3>
     <div class="pipeline-list" id="eiaTierList"></div>
@@ -1439,77 +1436,47 @@ document.querySelectorAll('.tab').forEach(t => {
       </div>`;
   }
 
-  // ---------- Trailing-4Q + QoQ + YoY chart ----------
-  if (TR.length >= 4) {
-    const t4 = TR.map((t, i) => {
-      if (i < 3) return null;
-      const slice = TR.slice(i - 3, i + 1);
-      const t4_done = slice.reduce((s, x) => s + (x.operated_mw || 0), 0);
-      const t4_ann  = slice.reduce((s, x) => s + (x.new_mw      || 0), 0);
-      let yoy_done = null, yoy_ann = null;
-      if (i >= 7) {
-        const prev = TR.slice(i - 7, i - 3);
-        const prev_done = prev.reduce((s, x) => s + (x.operated_mw || 0), 0);
-        const prev_ann  = prev.reduce((s, x) => s + (x.new_mw      || 0), 0);
-        if (prev_done > 0) yoy_done = (t4_done / prev_done - 1) * 100;
-        if (prev_ann  > 0) yoy_ann  = (t4_ann  / prev_ann  - 1) * 100;
-      }
-      const qoq_done = i > 0 && TR[i-1].operated_mw > 0
-        ? (t.operated_mw / TR[i-1].operated_mw - 1) * 100 : null;
-      return { v_to: t.v_to, t4_done, t4_ann, yoy_done, yoy_ann, qoq_done,
-               q_done: t.operated_mw, q_ann: t.new_mw };
+  // ---------- QoQ % change chart — Completed vs Announced ----------
+  if (TR.length >= 2) {
+    const qoq = TR.map((t, i) => {
+      if (i === 0) return null;
+      const prev = TR[i - 1];
+      const pctDone = prev.operated_mw > 0 ? (t.operated_mw / prev.operated_mw - 1) * 100 : null;
+      const pctAnn  = prev.new_mw      > 0 ? (t.new_mw      / prev.new_mw      - 1) * 100 : null;
+      return { v_to: t.v_to, pctDone, pctAnn,
+               q_done: t.operated_mw, q_ann: t.new_mw,
+               p_done: prev.operated_mw, p_ann: prev.new_mw };
     }).filter(x => x !== null);
 
-    new Chart(document.getElementById('eiaT4QChart'), {
+    new Chart(document.getElementById('eiaQoQChart'), {
       type: 'bar',
       data: {
-        labels: t4.map(t => vintageLabel(t.v_to)),
+        labels: qoq.map(t => vintageLabel(t.v_to)),
         datasets: [
           {
-            type: 'bar', label: 'Trailing 4Q completed (GW)',
-            data: t4.map(t => t.t4_done / 1000),
-            backgroundColor: '#5fae87', borderWidth: 0, yAxisID: 'y',
-            order: 3
+            label: 'Completed QoQ %',
+            data: qoq.map(t => t.pctDone),
+            backgroundColor: qoq.map(t => t.pctDone >= 0 ? '#5fae87' : 'rgba(95,174,135,.35)'),
+            borderColor: '#5fae87', borderWidth: 1
           },
           {
-            type: 'line', label: 'Trailing 4Q announced (GW)',
-            data: t4.map(t => t.t4_ann / 1000),
-            borderColor: '#6b7280', backgroundColor: 'rgba(107,114,128,.18)',
-            borderWidth: 2.5, pointRadius: 4, pointHoverRadius: 6,
-            tension: 0.25, yAxisID: 'y', order: 1
-          },
-          {
-            type: 'line', label: 'YoY % — completed',
-            data: t4.map(t => t.yoy_done),
-            borderColor: '#a3dcbb', backgroundColor: 'transparent',
-            borderWidth: 2, borderDash: [4, 4],
-            pointRadius: 3, pointHoverRadius: 5,
-            tension: 0.25, yAxisID: 'y2', order: 2
-          },
-          {
-            type: 'line', label: 'YoY % — announced',
-            data: t4.map(t => t.yoy_ann),
-            borderColor: '#e07a5f', backgroundColor: 'transparent',
-            borderWidth: 2, borderDash: [4, 4],
-            pointRadius: 3, pointHoverRadius: 5,
-            tension: 0.25, yAxisID: 'y2', order: 0
+            label: 'Announced QoQ %',
+            data: qoq.map(t => t.pctAnn),
+            backgroundColor: qoq.map(t => t.pctAnn >= 0 ? '#6b7280' : 'rgba(107,114,128,.35)'),
+            borderColor: '#6b7280', borderWidth: 1
           },
         ]
       },
       options: {
         maintainAspectRatio: false, responsive: true,
-        interaction: { mode: 'index', intersect: false },
         scales: {
           x: { ticks: { maxRotation: 0, font: { size: 10 } } },
           y: {
-            position: 'left', beginAtZero: true,
-            title: { display: true, text: 'GW (trailing 4 quarters)' },
-            ticks: { callback: v => v.toFixed(0) + ' GW' }
-          },
-          y2: {
-            position: 'right', grid: { drawOnChartArea: false },
-            title: { display: true, text: 'YoY change' },
-            ticks: { callback: v => (v > 0 ? '+' : '') + v.toFixed(0) + '%' }
+            ticks: { callback: v => (v > 0 ? '+' : '') + v.toFixed(0) + '%' },
+            grid: {
+              color: ctx => ctx.tick.value === 0 ? 'rgba(255,255,255,.35)' : 'rgba(255,255,255,.05)',
+              lineWidth: ctx => ctx.tick.value === 0 ? 1.5 : 1
+            }
           }
         },
         plugins: {
@@ -1517,9 +1484,12 @@ document.querySelectorAll('.tab').forEach(t => {
           tooltip: {
             callbacks: {
               label: c => {
-                if (c.dataset.label.startsWith('YoY'))
-                  return `${c.dataset.label}: ${c.parsed.y == null ? '—' : ((c.parsed.y > 0 ? '+' : '') + c.parsed.y.toFixed(1) + '%')}`;
-                return `${c.dataset.label}: ${c.parsed.y.toFixed(1)} GW`;
+                const t = qoq[c.dataIndex];
+                const isDone = c.dataset.label.startsWith('Completed');
+                const cur  = isDone ? t.q_done : t.q_ann;
+                const prev = isDone ? t.p_done : t.p_ann;
+                const pct  = c.parsed.y;
+                return `${c.dataset.label}: ${pct == null ? '—' : ((pct > 0 ? '+' : '') + pct.toFixed(0) + '%')} (${fmt(prev)} → ${fmt(cur)} MW)`;
               }
             }
           }
@@ -1527,27 +1497,25 @@ document.querySelectorAll('.tab').forEach(t => {
       }
     });
 
-    document.getElementById('eiaT4QTable').innerHTML = `
+    document.getElementById('eiaQoQTable').innerHTML = `
       <div class="camp-table-wrap" style="max-height:none">
         <table style="width:100%; border-collapse:collapse; font-size:.82rem;">
           <thead><tr>
-            <th>Through end of</th>
-            <th class="r" style="color:#5fae87;">T4Q completed</th>
-            <th class="r" style="color:#6b7280;">T4Q announced</th>
-            <th class="r" style="color:#a3dcbb;">YoY completed</th>
-            <th class="r" style="color:#e07a5f;">YoY announced</th>
-            <th class="r">QoQ completed (raw)</th>
+            <th>Quarter</th>
+            <th class="r" style="color:#5fae87;">Completed MW</th>
+            <th class="r" style="color:#5fae87;">Completed QoQ</th>
+            <th class="r" style="color:#6b7280;">Announced MW</th>
+            <th class="r" style="color:#6b7280;">Announced QoQ</th>
           </tr></thead>
           <tbody>
-            ${t4.map(t => {
-              const f = (n, suffix) => n == null ? '—' : ((n > 0 ? '+' : '') + n.toFixed(0) + suffix);
+            ${qoq.map(t => {
+              const f = n => n == null ? '—' : ((n > 0 ? '+' : '') + n.toFixed(0) + '%');
               return `<tr>
                 <td><b>${vintageLabel(t.v_to)}</b></td>
-                <td class="r" style="color:#5fae87;"><b>${(t.t4_done/1000).toFixed(1)}</b> GW</td>
-                <td class="r" style="color:#6b7280;"><b>${(t.t4_ann/1000).toFixed(1)}</b> GW</td>
-                <td class="r" style="color:#a3dcbb;">${f(t.yoy_done, '%')}</td>
-                <td class="r" style="color:#e07a5f;">${f(t.yoy_ann, '%')}</td>
-                <td class="r" style="color:var(--muted);">${f(t.qoq_done, '%')}</td>
+                <td class="r"><b>${fmt(t.q_done)}</b></td>
+                <td class="r" style="color:${(t.pctDone||0) >= 0 ? '#5fae87' : '#e07a5f'}">${f(t.pctDone)}</td>
+                <td class="r"><b>${fmt(t.q_ann)}</b></td>
+                <td class="r" style="color:${(t.pctAnn||0) >= 0 ? '#6b7280' : '#e07a5f'}">${f(t.pctAnn)}</td>
               </tr>`;
             }).join('')}
           </tbody>
