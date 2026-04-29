@@ -609,6 +609,15 @@ TEMPLATE = r"""<!doctype html>
     <div class="chart-wrap" style="height:380px; margin-bottom:.6rem;"><canvas id="eiaTransitionChart"></canvas></div>
     <div id="eiaTransitionTable" style="margin-bottom:2rem;"></div>
 
+    <h3 class="camp-section-title" style="margin-top:2.4rem">Calendar-year totals — Completed vs Announced<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">sum of all quarterly windows in each year</span></h3>
+    <p class="lead" style="margin:0 0 1rem; max-width:none">
+      Calendar-year roll-up. Each year sums its four quarter-end windows
+      (Dec→Mar, Mar→Jun, Jun→Sep, Sep→Dec). 2026 is partial — Q1 only.
+      <b>Completed totals match SEIA / Wood Mackenzie published numbers</b> (~57 GW for 2025).
+    </p>
+    <div class="chart-wrap" style="height:340px; margin-bottom:.6rem;"><canvas id="eiaYearChart"></canvas></div>
+    <div id="eiaYearTable" style="margin-bottom:2rem;"></div>
+
     <h3 class="camp-section-title" style="margin-top:2.4rem">QoQ % change — Completed vs Announced<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">raw quarter-over-quarter change in each flow</span></h3>
     <p class="lead" style="margin:0 0 1rem; max-width:none">
       For each quarter, the % change vs the prior quarter — both for plants
@@ -1606,6 +1615,90 @@ document.querySelectorAll('.tab').forEach(t => {
                 <td class="r" style="color:#e07a5f;">${fmt(t.cancelled_mw)} MW</td>
                 <td class="r"><b>${(t.new_mw / Math.max(t.operated_mw, 1)).toFixed(1)}×</b></td>
               </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>`;
+  }
+
+  // ---------- Calendar-year totals chart ----------
+  if (TR.length > 0) {
+    const yearAgg = {};
+    TR.forEach(t => {
+      const yr = t.v_to.split('-')[0];
+      if (!yearAgg[yr]) yearAgg[yr] = { completed: 0, announced: 0, cancelled: 0, n: 0 };
+      yearAgg[yr].completed += (t.operated_mw  || 0);
+      yearAgg[yr].announced += (t.new_mw       || 0);
+      yearAgg[yr].cancelled += (t.cancelled_mw || 0);
+      yearAgg[yr].n += 1;
+    });
+    const years = Object.keys(yearAgg).sort();
+
+    new Chart(document.getElementById('eiaYearChart'), {
+      type: 'bar',
+      data: {
+        labels: years.map(y => yearAgg[y].n < 4 ? `${y} (Q1 only)` : y),
+        datasets: [
+          {
+            label: 'Completed',
+            data: years.map(y => yearAgg[y].completed / 1000),
+            backgroundColor: '#5fae87', borderWidth: 0
+          },
+          {
+            label: 'Newly announced',
+            data: years.map(y => yearAgg[y].announced / 1000),
+            backgroundColor: '#6b7280', borderWidth: 0
+          },
+        ]
+      },
+      options: {
+        maintainAspectRatio: false, responsive: true,
+        scales: {
+          x: { ticks: { font: { size: 12 } } },
+          y: { ticks: { callback: v => v.toFixed(0) + ' GW' }, beginAtZero: true }
+        },
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 10, boxHeight: 10, padding: 12 } },
+          tooltip: {
+            callbacks: {
+              label: c => `${c.dataset.label}: ${c.parsed.y.toFixed(1)} GW (${fmt(c.parsed.y * 1000)} MW)`
+            }
+          }
+        }
+      }
+    });
+
+    document.getElementById('eiaYearTable').innerHTML = `
+      <div class="camp-table-wrap" style="max-height:none">
+        <table style="width:100%; border-collapse:collapse; font-size:.82rem;">
+          <thead><tr>
+            <th>Year</th>
+            <th class="r" style="color:#5fae87;">Completed</th>
+            <th class="r" style="color:#5fae87;">YoY %</th>
+            <th class="r" style="color:#6b7280;">Announced</th>
+            <th class="r" style="color:#6b7280;">YoY %</th>
+            <th class="r" style="color:#e07a5f;">Cancelled</th>
+            <th class="r">Announced ÷ Completed</th>
+          </tr></thead>
+          <tbody>
+            ${years.map((y, i) => {
+              const a = yearAgg[y];
+              const partial = a.n < 4;
+              const prev = i > 0 ? yearAgg[years[i-1]] : null;
+              const yoyDone = (prev && !partial && prev.n === 4 && prev.completed > 0)
+                ? ((a.completed/prev.completed - 1) * 100) : null;
+              const yoyAnn = (prev && !partial && prev.n === 4 && prev.announced > 0)
+                ? ((a.announced/prev.announced - 1) * 100) : null;
+              const f = n => n == null ? '—' : ((n > 0 ? '+' : '') + n.toFixed(0) + '%');
+              return `<tr>
+                <td><b>${y}</b>${partial ? ' <span style="color:var(--muted);font-size:.75rem">(Q1 only)</span>' : ''}</td>
+                <td class="r" style="color:#5fae87;"><b>${(a.completed/1000).toFixed(1)}</b> GW</td>
+                <td class="r" style="color:${(yoyDone||0) >= 0 ? '#5fae87' : '#e07a5f'}">${f(yoyDone)}</td>
+                <td class="r" style="color:#6b7280;"><b>${(a.announced/1000).toFixed(1)}</b> GW</td>
+                <td class="r" style="color:${(yoyAnn||0) >= 0 ? '#6b7280' : '#e07a5f'}">${f(yoyAnn)}</td>
+                <td class="r" style="color:#e07a5f;">${(a.cancelled/1000).toFixed(1)} GW</td>
+                <td class="r"><b>${a.completed > 0 ? (a.announced/a.completed).toFixed(1) : '—'}×</b></td>
+              </tr>`;
+            }).join('')}
           </tbody>
         </table>
       </div>`;
