@@ -91,30 +91,22 @@ rows:
   announced_date: '2025-12-23'
   year: 2025
   generation_type: Other
-  capacity_mw: 1330
+  capacity_mw: 245
   confidence: Sourced
-  deal_name: River Bend Louisiana AI campus (Fluidstack/Google)
-  counterparty: Entergy Louisiana / Fluidstack (Google backstop)
+  cod_note: 'Firm 245 MW (Fluidstack lease); Anthropic framework ceiling up to 2,295 MW'
+  deal_name: River Bend Louisiana AI campus — 245 MW firm Fluidstack lease (Google-backed)
+  counterparty: Entergy Louisiana / Fluidstack (Google backstop) / Anthropic
   geography: US
   status: UnderConstruction
   connection_type: Grid
-  notes: Initial 330 MW utility capacity from Entergy with potential +1,000 MW expansion. 245 MW IT leased
-    to Fluidstack via 15-year $7B NNN lease, Google credit-backstopped. $10B Phase I; ops Q2 2027.
+  notes: 'Initial 330 MW utility capacity from Entergy. 245 MW critical IT load leased to Fluidstack via 15-year
+    $7B lease (Google-backstopped). Multi-gigawatt partnership with Anthropic — up to 2,295 MW total framework.
+    Capacity_mw set to 245 MW firm; framework headline is in cod_note. (Reduced from agent''s 1330 MW estimate
+    after web verification.) Ops Q2 2027.'
   source_id: S298
-- operator: Hut 8
-  announced_date: '2025-06-30'
-  year: 2025
-  generation_type: Other
-  capacity_mw: 205
-  confidence: Sourced
-  deal_name: Vega Data Center (Texas)
-  counterparty: BITMAIN (colocation)
-  geography: US
-  status: Operational
-  connection_type: Grid
-  notes: 205 MW nameplate facility in Texas, energized Jun 2025. Direct-to-chip liquid cooling. Site acquired
-    Jul 2024; full BITMAIN colocation. ~$430-450K/MW all-in cost.
-  source_id: S299
+# Vega Data Center DROPPED — Bitcoin mining only (BITMAIN ASIC colocation),
+# not AI/HPC. Web search confirmed Vega supports 15 EH/s of Bitcoin mining,
+# not AI workloads. Removing to keep AI-Cloud category clean.
 - operator: TeraWulf
   announced_date: '2024-12-23'
   year: 2024
@@ -199,33 +191,26 @@ rows:
     GPUs by end-2026. Norwegian hydro grid.
   source_id: S305
 - operator: Nscale
-  announced_date: '2025-09-25'
+  announced_date: '2025-10-15'
   year: 2025
   generation_type: Other
-  capacity_mw: 1200
+  capacity_mw: 480
   confidence: Sourced
   deal_name: Microsoft 200,000 GB300 GPU Europe+US deal
   counterparty: Microsoft
   geography: Multi
   status: Framework
   connection_type: Grid
-  notes: Nscale contracted ~200,000 NVIDIA GB300 GPUs with Microsoft across Europe and US sites. Estimated
-    power ~1.2 GW based on GB300 power profile.
+  notes: "Nscale × Microsoft 200,000 NVIDIA GB300 GPUs across 4 facilities (Oct 15, 2025): Texas 240 MW (104K
+    GPUs from Q3 2026), Norway Narvik ~120 MW (52K GPUs Stargate Norway JV with Aker), UK Loughton 50–90
+    MW (23K GPUs from Q1 2027), Portugal Sines ~30 MW (12.6K GPUs from Q1 2026). Total ~480 MW disclosed
+    facility capacity. (Reduced from agent's 1,200 MW GB300-power-profile estimate after web verification
+    of disclosed per-site MWs.)"
   source_id: S306
-- operator: Galaxy Digital
-  announced_date: '2025-08-15'
-  year: 2025
-  generation_type: Other
-  capacity_mw: 393
-  confidence: Sourced
-  deal_name: "Helios West Texas \u2014 CoreWeave Phase 2 expansion"
-  counterparty: CoreWeave
-  geography: US
-  status: PPA
-  connection_type: Grid
-  notes: 'Phase 2 lease with CoreWeave: 260 MW critical IT (Aug 2025) + 133 MW final option exercised,
-    on top of original 200 MW; total 800 MW committed. $1.4B project financing closed.'
-  source_id: S307
+# Galaxy Helios CoreWeave Phase 2 (393 MW) DROPPED \u2014 double-counts existing
+# campus DB entry "CoreWeave Galaxy Helios (West Texas) 800 MW", which already
+# captures the full CoreWeave commitment. The 393 MW figure was the Aug 2025
+# Phase 2 increment within the same 800 MW campus.
 - operator: Riot Platforms
   announced_date: '2025-01-21'
   year: 2025
@@ -395,12 +380,15 @@ rows:
   year: 2025
   generation_type: Other
   capacity_mw: 200
-  confidence: Sourced
+  confidence: Estimated
+  cod_note: 'MW not disclosed in announcement — 200 MW is an order-of-magnitude estimate'
   deal_name: Microsoft multibillion-dollar AI infrastructure deal
   counterparty: Microsoft
   geography: US
   status: PPA
   connection_type: Grid
-  notes: Multibillion-dollar Microsoft contract for AI infrastructure with NVIDIA GPUs; followed by $1.5B
-    Series funding round Nov 2025. Sized in hundreds of MW.
+  notes: 'Multibillion-dollar Microsoft contract Nov 3, 2025 for "tens of thousands of NVIDIA GPUs" including
+    GB300 NVL72 systems in liquid-cooled US data centers. Lambda raised $1.5B Series funding shortly after.
+    Public sources do NOT disclose specific MW; the 200 MW figure is an order-of-magnitude estimate based
+    on contract value and "tens of thousands" of GPUs. Treat as estimated, not contracted.'
   source_id: S320
