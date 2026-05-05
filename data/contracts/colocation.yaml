@@ -1,0 +1,399 @@
+# Colocation operators — non-hyperscaler DC announcements
+# Generated 2026-05-01 from research-agent web searches
+
+operator_type: Colocation
+rows:
+- operator: Equinix
+  announced_date: '2024-01-31'
+  year: 2024
+  generation_type: Wind
+  capacity_mw: 100
+  confidence: Sourced
+  deal_name: wpd France 7-wind-farm PPA
+  counterparty: wpd
+  geography: France
+  status: PPA
+  connection_type: Grid
+  notes: Seven 20-year PPAs, >100 MW capacity, 300 GWh/yr; one of the largest corporate PPAs in French
+    history.
+  source_id: S321
+- operator: Equinix
+  announced_date: '2024-02-15'
+  year: 2024
+  generation_type: Wind
+  capacity_mw: 151
+  confidence: Sourced
+  deal_name: TagEnergy Golden Plains Wind PPA (Australia)
+  counterparty: TagEnergy
+  geography: Australia
+  status: PPA
+  connection_type: Grid
+  notes: "First renewable PPA in Australia; from Golden Plains Wind Farm \u2013 East; expected online\
+    \ 2029."
+  source_id: S322
+- operator: Equinix
+  announced_date: '2023-05-04'
+  year: 2023
+  generation_type: Solar
+  capacity_mw: 150
+  confidence: Sourced
+  deal_name: Sonnedix Spain Solar PPA (Betierra portfolio)
+  counterparty: Sonnedix
+  geography: Spain
+  status: Operational
+  connection_type: Grid
+  notes: 10-year PPA, three 50 MW plants in Castilla-La Mancha; commissioned Sep 2024.
+  source_id: S323
+- operator: Equinix
+  announced_date: '2024-09-01'
+  year: 2024
+  generation_type: Solar
+  capacity_mw: 121
+  confidence: Sourced
+  deal_name: Japan Solar VPPA (largest single-site VPPA in Japan)
+  counterparty: Undisclosed Japanese developer
+  geography: Japan
+  status: PPA
+  connection_type: Grid
+  notes: 15-year vPPA; largest single-site data center vPPA in Japan.
+  source_id: S324
+- operator: Digital Realty
+  announced_date: '2024-12-01'
+  year: 2024
+  generation_type: Renewable
+  capacity_mw: 130
+  confidence: Sourced
+  deal_name: France & Spain 5-PPA package (2024)
+  counterparty: Multiple (incl. Engie)
+  geography: Europe
+  status: PPA
+  connection_type: Grid
+  notes: Five PPAs in France and Spain totaling ~347 GWh/yr (~130 MW equiv); part of 1.5 GW global portfolio
+    milestone.
+  source_id: S325
+- operator: Digital Realty
+  announced_date: '2024-06-01'
+  year: 2024
+  generation_type: Solar
+  capacity_mw: 120
+  confidence: Sourced
+  deal_name: Engie Brandenburg Solar PPA
+  counterparty: Engie
+  geography: Germany
+  status: PPA
+  connection_type: Grid
+  notes: 10-year PPA; ~120 GWh/yr from Brandenburg solar park.
+  source_id: S326
+- operator: Vantage Data Centers
+  announced_date: '2024-10-25'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 192
+  confidence: Sourced
+  deal_name: OH1 New Albany Ohio campus
+  counterparty: self-build
+  geography: US
+  status: UnderConstruction
+  connection_type: Grid
+  notes: $2B; 3x 64 MW two-story DCs across 1.5M sq ft; first building late-2025.
+  source_id: S327
+- operator: Vantage Data Centers
+  announced_date: '2024-04-01'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 192
+  confidence: Sourced
+  deal_name: "VA4 \u2014 Stafford County Northern Virginia"
+  counterparty: self-build
+  geography: US
+  status: Approved
+  connection_type: Grid
+  notes: $2B; 929,000 sq ft, 192 MW; brings Vantage VA capacity to 782 MW.
+  source_id: S328
+- operator: Stack Infrastructure
+  announced_date: '2024-06-01'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 250
+  confidence: Sourced
+  deal_name: Phoenix 250 MW campus
+  counterparty: self-build
+  geography: US
+  status: Approved
+  connection_type: Grid
+  notes: 5-building hyperscale campus, ~1M sq ft.
+  source_id: S329
+- operator: Stack Infrastructure
+  announced_date: '2024-09-01'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 220
+  confidence: Sourced
+  deal_name: Dallas 220 MW tech campus
+  counterparty: self-build
+  geography: US
+  status: Approved
+  connection_type: Grid
+  notes: 220 MW campus in DFW market.
+  source_id: S330
+- operator: Stack Infrastructure
+  announced_date: '2025-04-01'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 500
+  confidence: Sourced
+  deal_name: $6B+ green-finance N. America expansion
+  counterparty: self-build
+  geography: US
+  status: Announced
+  connection_type: Grid
+  notes: "Aggregate program \u2014 $6B 2025 green financing for Atlanta, DFW, Phoenix, Northern Virginia."
+  source_id: S331
+- operator: Aligned Data Centers
+  announced_date: '2022-10-12'
+  year: 2022
+  generation_type: Other
+  capacity_mw: 400
+  confidence: Sourced
+  deal_name: Phoenix dual mega-campus expansion
+  counterparty: self-build
+  geography: US
+  status: UnderConstruction
+  connection_type: Grid
+  notes: Two campuses, 400 MW combined / 2M sq ft; PHX-04 build-to-suit phase ongoing.
+  source_id: S332
+- operator: Aligned Data Centers
+  announced_date: '2023-02-15'
+  year: 2023
+  generation_type: Other
+  capacity_mw: 270
+  confidence: Sourced
+  deal_name: Salt Lake City SLC-04 (270 MW pipeline)
+  counterparty: self-build
+  geography: US
+  status: UnderConstruction
+  connection_type: Grid
+  notes: SLC-04 anchors ~270 MW of new SLC capacity; waterless cooling design.
+  source_id: S333
+- operator: Aligned Data Centers
+  announced_date: '2025-01-01'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 500
+  confidence: Sourced
+  deal_name: Coshocton Ohio mega-scale AI campus
+  counterparty: self-build
+  geography: US
+  status: Announced
+  connection_type: Grid
+  notes: Mega-scale AI campus in Ohio; part of 5+ GW Aligned platform; BlackRock/GIP/MGX consortium acquired
+    Aligned for $40B Oct 2025.
+  source_id: S334
+- operator: NTT Global Data Centers
+  announced_date: '2025-05-01'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 216
+  confidence: Sourced
+  deal_name: Hillsboro Oregon 216 MW expansion
+  counterparty: self-build
+  geography: US
+  status: Announced
+  connection_type: Grid
+  notes: Adds 216 MW to existing 138 MW; total Hillsboro planned 354 MW.
+  source_id: S335
+- operator: Iron Mountain Data Centers
+  announced_date: '2024-11-18'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 350
+  confidence: Sourced
+  deal_name: Manassas (VA-2) 150 MW + Richmond 200 MW
+  counterparty: self-build
+  geography: US
+  status: Approved
+  connection_type: Grid
+  notes: 100+ acres added across two VA sites; ~150 MW added at Manassas + 200+ MW Richmond.
+  source_id: S336
+- operator: QTS Realty Trust
+  announced_date: '2024-07-01'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 750
+  confidence: Sourced
+  deal_name: Glendale AZ 750 MW Phoenix campus
+  counterparty: self-build
+  geography: US
+  status: Announced
+  connection_type: Grid
+  notes: 16-building Glendale campus + 29-acre dedicated substation.
+  source_id: S337
+- operator: QTS Realty Trust
+  announced_date: '2024-12-01'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 720
+  confidence: Sourced
+  deal_name: Cambois Northumberland UK 720 MW mega-campus
+  counterparty: self-build
+  geography: UK
+  status: Approved
+  connection_type: Grid
+  notes: 10-building campus, 5.8M sq ft, dedicated 720 MW substation; Britishvolt site.
+  source_id: S338
+- operator: QTS Realty Trust
+  announced_date: '2025-07-15'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 1000
+  confidence: Sourced
+  deal_name: Pennsylvania $25B+ digital/energy program
+  counterparty: self-build
+  geography: US
+  status: Announced
+  connection_type: Grid
+  notes: Blackstone-backed $25B PA program; QTS lead developer.
+  source_id: S339
+- operator: Compass Datacenters
+  announced_date: '2025-01-09'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 320
+  confidence: Sourced
+  deal_name: Meridian Mississippi (Lauderdale) 320 MW
+  counterparty: Mississippi Power (500 MW supply)
+  geography: US
+  status: Approved
+  connection_type: Grid
+  notes: $10B; 8 buildings of 40 MW each over 8 years; Mississippi Power 500 MW supply.
+  source_id: S340
+- operator: Compass Datacenters
+  announced_date: '2023-09-01'
+  year: 2023
+  generation_type: Other
+  capacity_mw: 212
+  confidence: Sourced
+  deal_name: Goodyear AZ 212 MW campus
+  counterparty: self-build
+  geography: US
+  status: UnderConstruction
+  connection_type: Grid
+  notes: 225 acres, NW corner Bullard/Yuma; future phases include 6 add'l data centers.
+  source_id: S341
+- operator: Compass Datacenters
+  announced_date: '2024-04-26'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 360
+  confidence: Sourced
+  deal_name: Red Oak TX 360 MW campus
+  counterparty: self-build
+  geography: US
+  status: UnderConstruction
+  connection_type: Grid
+  notes: 5 hyperscale DCs already + $200M / 3-building expansion; refi'd with $326M.
+  source_id: S342
+- operator: Edged Energy
+  announced_date: '2024-02-13'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 324
+  confidence: Sourced
+  deal_name: "US launch \u2014 4 ultra-efficient AI campuses"
+  counterparty: self-build
+  geography: US
+  status: UnderConstruction
+  connection_type: Grid
+  notes: Atlanta 168 MW + Chicago 96 MW + Phoenix 36 MW + Kansas City 24 MW; waterless cooling.
+  source_id: S343
+- operator: Stream Data Centers
+  announced_date: '2024-06-01'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 200
+  confidence: Sourced
+  deal_name: San Antonio 200 MW hyperscale campus
+  counterparty: self-build
+  geography: US
+  status: UnderConstruction
+  connection_type: Grid
+  notes: 135 acres, up to 5 buildings, 1.5M sq ft.
+  source_id: S344
+- operator: Stream Data Centers
+  announced_date: '2024-03-01'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 240
+  confidence: Sourced
+  deal_name: Wilmer (DFW-C) 240 MW campus
+  counterparty: Oncor (372 MW substation)
+  geography: US
+  status: UnderConstruction
+  connection_type: Grid
+  notes: 140 acres, 1.52M sq ft; on-site Oncor substation up to 372 MW.
+  source_id: S345
+- operator: Stream Data Centers
+  announced_date: '2024-11-01'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 1000
+  confidence: Sourced
+  deal_name: New Era Texas gigawatt campus partnership
+  counterparty: New Era Energy
+  geography: US
+  status: Announced
+  connection_type: Grid
+  notes: Gigawatt-scale Texas campus partnership announced with New Era.
+  source_id: S346
+- operator: DataBank
+  announced_date: '2024-08-15'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 480
+  confidence: Sourced
+  deal_name: Red Oak TX South Dallas 480 MW campus
+  counterparty: Oncor (400 MW substation)
+  geography: US
+  status: UnderConstruction
+  connection_type: Grid
+  notes: 292 acres, 8x 425k sq ft DCs / 3.4M sq ft; Phase 1 240 MW IT, RFS Q2-2026.
+  source_id: S347
+- operator: DataBank
+  announced_date: '2024-06-01'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 312
+  confidence: Sourced
+  deal_name: Culpeper VA 192 MW + Atlanta 120 MW
+  counterparty: self-build
+  geography: US
+  status: Approved
+  connection_type: Grid
+  notes: Part of $2B funding plan; tripling DataBank capacity.
+  source_id: S348
+- operator: TierPoint
+  announced_date: '2025-10-23'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 100
+  confidence: Sourced
+  deal_name: TekPark Pennsylvania 100 MW expansion
+  counterparty: self-build
+  geography: US
+  status: UnderConstruction
+  connection_type: Grid
+  notes: $240M securitization; 100 MW power expansion at acquired Eastern PA TekPark campus.
+  source_id: S349
+- operator: Switch
+  announced_date: '2024-05-01'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 250
+  confidence: Sourced
+  deal_name: Pittsburgh-area exascale campus
+  counterparty: self-build
+  geography: US
+  status: Announced
+  connection_type: Grid
+  notes: Outside Pittsburgh PA; part of Switch's 5-campus expansion under DigitalBridge.
+  source_id: S350

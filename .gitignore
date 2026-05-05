@@ -16,3 +16,4 @@ output/report.html
 
 # macOS
 .DS_Store
+.venv/

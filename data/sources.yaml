@@ -2384,3 +2384,608 @@
   retrieved_on: 2026-04-28
   kind: Primary
   supports: "Federal registry of all planned US generators with capacity, fuel, COD, lat/lon, balancing authority, and construction status. Six monthly snapshots (Jan-2024 through Mar-2026, ~28-month panel) used to track empirical migration of MW between status tiers and the funnel-evolution of the federal pipeline."
+
+# ===== Non-hyperscaler operator contracts (NeoCloud / Colocation / Sovereign) =====
+
+- id: S292
+  publisher: Data Center Dynamics
+  title: 'Crusoe gets go-ahead for 1.8GW data center campus and power plant in Cheyenne, Wyoming'
+  url: https://www.datacenterdynamics.com/en/news/crusoe-gets-go-ahead-for-18gw-data-center-campus-and-power-plant-in-cheyenne-wyoming/
+  pub_date: 2025-07-24
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Crusoe Energy × Tallgrass Energy / Bloom Energy — 2700 MW Gas announcement'
+
+- id: S293
+  publisher: Applied Digital
+  title: 'Applied Digital to Break Ground on $3 Billion Polaris Forge 2 Campus'
+  url: https://ir.applieddigital.com/news-events/press-releases/detail/127/applied-digital-to-break-ground-on-3-billion-polaris-forge
+  pub_date: 2025-08-18
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Applied Digital × U.S. Investment-Grade Hyperscaler — 280 MW Other announcement'
+
+- id: S294
+  publisher: Applied Digital
+  title: 'Applied Digital Finalizes Additional 150MW Lease with CoreWeave in North Dakota'
+  url: https://ir.applieddigital.com/news-events/press-releases/detail/128/applied-digital-finalizes-additional-150mw-lease-with
+  pub_date: 2025-06-02
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Applied Digital × CoreWeave — 150 MW Other announcement'
+
+- id: S295
+  publisher: IREN
+  title: 'IREN increases Childress power capacity from 600MW to 750MW'
+  url: https://irisenergy.gcs-web.com/news-releases/news-release-details/iren-increases-childress-power-capacity-600mw-750mw
+  pub_date: 2024-09-09
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Iris Energy × ERCOT grid — 750 MW Other announcement'
+
+- id: S296
+  publisher: IREN
+  title: 'Sweetwater Data Center | 2,000 MW AI Campus in Texas'
+  url: https://iren.com/data-centers/sweetwater
+  pub_date: 2024-07-30
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Iris Energy × ERCOT grid (Oncor) — 2000 MW Other announcement'
+
+- id: S297
+  publisher: Redmond Magazine
+  title: 'Microsoft Locks in Major AI Infrastructure Deals with Lambda, IREN'
+  url: https://redmondmag.com/articles/2025/11/04/microsoft-locks-in-major-ai-infrastructure-deals.aspx
+  pub_date: 2025-11-03
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Iris Energy × Microsoft — 200 MW Other announcement'
+
+- id: S298
+  publisher: Hut 8 / PRNewswire
+  title: 'Hut 8 Signs 15-Year, 245 MW AI Data Center Lease at River Bend Campus'
+  url: https://www.prnewswire.com/news-releases/hut-8-signs-15-year-245-mw-ai-data-center-lease-at-river-bend-campus-with-total-contract-value-of-7-0-billion-302644600.html
+  pub_date: 2025-12-23
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Hut 8 × Entergy Louisiana / Fluidstack (Google backstop) — 1330 MW Other announcement'
+
+- id: S299
+  publisher: Hut 8
+  title: 'Hut 8 Energizes Vega Data Center'
+  url: https://www.hut8.com/2025/06/30/hut-8-energizes-vega-data-center/
+  pub_date: 2025-06-30
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Hut 8 × BITMAIN (colocation) — 205 MW Other announcement'
+
+- id: S300
+  publisher: TeraWulf
+  title: "TeraWulf to Deliver over 70 MW of Data Center Infrastructure for G42's US Operations"
+  url: https://investors.terawulf.com/news-events/press-releases/detail/99/terawulf-to-deliver-over-70-mw-of-data-center
+  pub_date: 2024-12-23
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'TeraWulf × Core42 (G42) — 178 MW Other announcement'
+
+- id: S301
+  publisher: TeraWulf
+  title: 'TeraWulf and Fluidstack Announce Successful Pricing of Project Financing for 168 MW HPC Compute JV'
+  url: https://investors.terawulf.com/news-events/press-releases/detail/128/terawulf-and-fluidstack-announce-successful-pricing-of
+  pub_date: 2025-10-15
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'TeraWulf × Fluidstack (Google backstop) — 240 MW Other announcement'
+
+- id: S302
+  publisher: TeraWulf
+  title: 'TeraWulf Secures Long-Term Ground Lease at Cayuga Site'
+  url: https://investors.terawulf.com/news-events/press-releases/detail/113/terawulf-secures-long-term-ground-lease-at-cayuga-site-to
+  pub_date: 2025-08-04
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'TeraWulf × NYISO grid (zero-carbon nuclear+hydro) — 400 MW Other announcement'
+
+- id: S303
+  publisher: CoinDesk
+  title: 'Cipher Mining Begins Bitcoin Production at 300 MW Black Pearl Data Center'
+  url: https://www.coindesk.com/markets/2025/06/23/cipher-mining-begins-bitcoin-production-at-300-mw-black-pearl-data-center
+  pub_date: 2025-06-23
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Cipher Mining × Amazon Data Services — 300 MW Other announcement'
+
+- id: S304
+  publisher: Cipher Mining
+  title: 'Cipher Mining Signs Additional 56 MW, 10-Year AI Hosting Agreement with Fluidstack'
+  url: https://investors.ciphermining.com/news-releases/news-release-details/cipher-mining-signs-additional-56-mw-10-year-ai-hosting
+  pub_date: 2025-11-20
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Cipher Mining × Fluidstack — 300 MW Other announcement'
+
+- id: S305
+  publisher: Nscale
+  title: 'Nscale and Aker — Stargate Norway'
+  url: https://www.nscale.com/press-releases/ai-hyperscaler-nscale-to-invest-gbp-2-billion-in-the-uk-data-centre-industry
+  pub_date: 2025-07-15
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Nscale × Aker ASA / OpenAI — 520 MW Hydro announcement'
+
+- id: S306
+  publisher: Nscale
+  title: 'Nscale Contracts Approximately 200,000 NVIDIA GB300 GPUs with Microsoft'
+  url: https://www.nscale.com/press-releases/nscale-microsoft-2025
+  pub_date: 2025-09-25
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Nscale × Microsoft — 1200 MW Other announcement'
+
+- id: S307
+  publisher: Galaxy Digital / PRNewswire
+  title: 'Galaxy Closes $1.4 Billion Project Financing Facility to Accelerate Helios AI Datacenter Development'
+  url: https://www.prnewswire.com/news-releases/galaxy-closes-1-4-billion-project-financing-facility-to-accelerate-helios-ai-datacenter-development-302530804.html
+  pub_date: 2025-08-15
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Galaxy Digital × CoreWeave — 393 MW Other announcement'
+
+- id: S308
+  publisher: BusinessWire
+  title: 'Riot Platforms Launches Formal Evaluation of Potential AI/HPC Uses for Remaining 600 MW'
+  url: https://www.businesswire.com/news/home/20250121261484/en/
+  pub_date: 2025-01-21
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Riot Platforms × ERCOT grid — 600 MW Other announcement'
+
+- id: S309
+  publisher: POWER Magazine
+  title: 'Soluna Breaks Ground on 166-MW Texas Wind-Powered Data Center'
+  url: https://www.powermag.com/soluna-breaks-ground-on-166-mw-texas-wind-powered-data-center-for-crypto-and-ai/
+  pub_date: 2025-09-15
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Soluna Holdings × Generate Capital (financing) — 166 MW Wind announcement'
+
+- id: S310
+  publisher: Investing.com
+  title: 'Soluna partners with Metrobloks for 100+ MW AI data center in Texas'
+  url: https://www.investing.com/news/assorted/soluna-partners-with-metrobloks-for-100-mw-ai-data-center-in-texas-432SI-4449374
+  pub_date: 2025-10-08
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Soluna Holdings × Metrobloks — 100 MW Wind announcement'
+
+- id: S311
+  publisher: Soluna
+  title: 'Soluna Surpasses One Gigawatt of Clean Computing Projects'
+  url: https://www.solunacomputing.com/news/1gw/
+  pub_date: 2024-09-12
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Soluna Holdings × co-located 200 MW wind farm — 120 MW Wind announcement'
+
+- id: S312
+  publisher: Soluna
+  title: 'Soluna Surpasses One Gigawatt of Clean Computing Projects'
+  url: https://www.solunacomputing.com/news/1gw/
+  pub_date: 2024-09-12
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Soluna Holdings × wind farm partner — 150 MW Wind announcement'
+
+- id: S313
+  publisher: Soluna
+  title: 'Soluna Surpasses One Gigawatt of Clean Computing Projects'
+  url: https://www.solunacomputing.com/news/1gw/
+  pub_date: 2024-09-12
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Soluna Holdings × 240 MW utility-scale solar — 100 MW Solar announcement'
+
+- id: S314
+  publisher: Bit Digital
+  title: 'WhiteFiber acquires NC industrial property for up to 200 MW HPC Data Center Campus'
+  url: https://bit-digital.com/press-releases/whitefiber-inc-bit-digitals-ai-unit-acquires-1000000-square-foot-north-carolina-industrial-property-to-support-up-to-200-mw-hpc-data-center-campus/
+  pub_date: 2025-06-13
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Bit Digital × Duke Energy — 200 MW Other announcement'
+
+- id: S315
+  publisher: Bit Digital
+  title: 'Bit Digital Vertically Integrates, Acquiring Tier 3 HPC Datacenter Company; 280+ MW Pipeline'
+  url: https://bit-digital.com/press-releases/bit-digital-inc-vertically-integrates-acquiring-tier-3-hpc-datacenter-company-280-mw-pipeline-in-major-metropolitan-areas/
+  pub_date: 2024-10-14
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Bit Digital × Enovum (Quebec/metro pipeline) — 288 MW Hydro announcement'
+
+- id: S316
+  publisher: Pennsylvania Business Report
+  title: 'Mawson Infrastructure to provide UK company 20 MW of digital infrastructure'
+  url: https://pennbizreport.com/news/29132-mawson-infrastructure-group-to-provide-uk-company-20-megawatts-of-digital-infrastructure/
+  pub_date: 2024-12-10
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Mawson Infrastructure × BE Global Development Limited — 144 MW Other announcement'
+
+- id: S317
+  publisher: Core Scientific
+  title: "Core Scientific to Provide ~200 MW to Host CoreWeave's HPC Services"
+  url: https://investors.corescientific.com/news-events/press-releases/detail/74/core-scientific-to-provide-approximately-200-mw-of-infrastructure-to-host-coreweaves-high-performance-computing-services-capturing-significant-ai-compute-opportunity
+  pub_date: 2024-06-03
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'CoreWeave × Core Scientific — 590 MW Other announcement'
+
+- id: S318
+  publisher: Data Center Frontier
+  title: 'CoreWeave Continues Growth With Major Collaborative Effort On New AI Data Center Project'
+  url: https://www.datacenterfrontier.com/site-selection/article/55140492/coreweave-continues-growth-with-major-collaborative-effort-on-new-ai-data-center-project
+  pub_date: 2024-12-04
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'CoreWeave × Chirisa Technology Parks / Blue Owl / PowerHouse Data Centers — 120 MW Other announcement'
+
+- id: S319
+  publisher: Lambda / PRNewswire
+  title: 'Lambda Doubles Down on Midwest Expansion'
+  url: https://www.prnewswire.com/news-releases/lambda-doubles-down-on-midwest-expansion-to-build-ai-factory-in-kansas-city-mo-302597320.html
+  pub_date: 2025-10-15
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Lambda × Kansas City utility (KCP&L/Evergy) — 100 MW Other announcement'
+
+- id: S320
+  publisher: CNBC
+  title: 'Lambda, Microsoft agree to multibillion-dollar AI infrastructure deal with Nvidia chips'
+  url: https://www.cnbc.com/2025/11/03/lambda-ai-microsoft-nvidia.html
+  pub_date: 2025-11-03
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Lambda × Microsoft — 200 MW Other announcement'
+
+- id: S321
+  publisher: Equinix Newsroom
+  title: 'Equinix and wpd sign one of the largest corporate PPAs in French history'
+  url: https://newsroom.equinix.com/2024-01-31-Equinix-and-wpd-sign-one-of-the-largest-corporate-Power-Purchase-Agreement-deals-in-french-history
+  pub_date: 2024-01-31
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Equinix × wpd — 100 MW Wind announcement'
+
+- id: S322
+  publisher: Equinix
+  title: 'Equinix Signs its First Renewable Energy PPA in Australia with TagEnergy'
+  url: https://www.equinix.com/newsroom/press-releases/australia/2024/02/equinix-signs-its-first-renewable-energy-ppa-in-australia-with-tagenergy
+  pub_date: 2024-02-15
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Equinix × TagEnergy — 151 MW Wind announcement'
+
+- id: S323
+  publisher: DCD
+  title: 'Equinix signs 150MW PPA in Spain with Sonnedix'
+  url: https://www.datacenterdynamics.com/en/news/equinix-signs-150mw-ppa-in-spain-with-sonnedix/
+  pub_date: 2023-05-04
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Equinix × Sonnedix — 150 MW Solar announcement'
+
+- id: S324
+  publisher: ESG News
+  title: 'Equinix Secures 121MW Solar PPA in Japan'
+  url: https://esgnews.com/equinix-secures-121mw-solar-ppa-in-japan-to-power-data-centers-support-energy-transition/
+  pub_date: 2024-09-01
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Equinix × Undisclosed Japanese developer — 121 MW Solar announcement'
+
+- id: S325
+  publisher: DCD
+  title: 'Digital Realty signs five PPAs in France and Spain'
+  url: https://www.datacenterdynamics.com/en/news/digital-realty-signs-five-ppas-in-france-and-spain/
+  pub_date: 2024-12-01
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Digital Realty × Multiple (incl. Engie) — 130 MW Renewable announcement'
+
+- id: S326
+  publisher: Data Center Knowledge
+  title: 'Digital Realty Signs 10-Year PPA with Engie'
+  url: https://www.datacenterknowledge.com/next-gen-data-centers/digital-realty-signs-10-year-ppa-with-engie
+  pub_date: 2024-06-01
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Digital Realty × Engie — 120 MW Solar announcement'
+
+- id: S327
+  publisher: Vantage Data Centers
+  title: 'Vantage Breaks Ground on 192MW Ohio Campus'
+  url: https://vantage-dc.com/news/vantage-data-centers-breaks-ground-on-192mw-campus-enters-growing-ohio-data-center-market-with-over-2-billion-investment-in-hyperscale-digital-infrastructure/
+  pub_date: 2024-10-25
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Vantage Data Centers × self-build — 192 MW Other announcement'
+
+- id: S328
+  publisher: Construction Dive
+  title: 'Vantage plans $2B Virginia data center project'
+  url: https://www.constructiondive.com/news/vantage-plans-virginia-data-center-project/805034/
+  pub_date: 2024-04-01
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Vantage Data Centers × self-build — 192 MW Other announcement'
+
+- id: S329
+  publisher: Data Center Frontier
+  title: 'STACK Plans 1 Million SF Data Center Campus in Western Phoenix'
+  url: https://www.datacenterfrontier.com/hyperscale/article/11428965/stack-plans-1-million-sf-data-center-campus-in-western-phoenix
+  pub_date: 2024-06-01
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Stack Infrastructure × self-build — 250 MW Other announcement'
+
+- id: S330
+  publisher: Data Centre News UK
+  title: 'STACK Infrastructure plans 220MW tech campus in Dallas'
+  url: https://datacentrenews.uk/story/stack-infrastructure-plans-220mw-tech-campus-in-dallas
+  pub_date: 2024-09-01
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Stack Infrastructure × self-build — 220 MW Other announcement'
+
+- id: S331
+  publisher: Data Center Frontier
+  title: 'STACK Pushes Aggressive Data Center Expansion into 2025'
+  url: https://www.datacenterfrontier.com/hyperscale/article/55267818/stack-infrastructure-pushes-aggressive-data-center-expansion-and-sustainability-strategy-into-2025
+  pub_date: 2025-04-01
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Stack Infrastructure × self-build — 500 MW Other announcement'
+
+- id: S332
+  publisher: Aligned Data Centers
+  title: 'Aligned Data Centers to Expand Phoenix Footprint with Two Mega Campuses'
+  url: https://aligneddc.com/blog/aligned-data-centers-to-expand-phoenix-footprint-with-two-new-mega-campuses/
+  pub_date: 2022-10-12
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Aligned Data Centers × self-build — 400 MW Other announcement'
+
+- id: S333
+  publisher: Aligned Data Centers
+  title: 'Aligned Expands Presence in Salt Lake Metro Area'
+  url: https://aligneddc.com/aligned-expands-presence-in-salt-lake-metro-area-with-new-waterless-build-to-scale-data-center/
+  pub_date: 2023-02-15
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Aligned Data Centers × self-build — 270 MW Other announcement'
+
+- id: S334
+  publisher: Aligned Data Centers
+  title: 'Aligned Data Centers — Adaptive DCs for Growth'
+  url: https://aligneddc.com/
+  pub_date: 2025-01-01
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Aligned Data Centers × self-build — 500 MW Other announcement'
+
+- id: S335
+  publisher: NTT DATA
+  title: 'NTT DATA Expands Global Data Center Footprint'
+  url: https://services.global.ntt/en-us/newsroom/ntt-data-expands-global-data-center-footprint-with-land-acquisitions-across-seven-strategic-markets
+  pub_date: 2025-05-01
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'NTT Global Data Centers × self-build — 216 MW Other announcement'
+
+- id: S336
+  publisher: Iron Mountain IR
+  title: 'Iron Mountain Expands Planned Data Center Capacity in Virginia by 350+ MW'
+  url: https://investors.ironmountain.com/news/news-details/2024/Iron-Mountain-Expands-Planned-Data-Center-Capacity-in-Virginia-by-more-than-350-Megawatts/default.aspx
+  pub_date: 2024-11-18
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Iron Mountain Data Centers × self-build — 350 MW Other announcement'
+
+- id: S337
+  publisher: DCD
+  title: 'QTS files for 750MW campus in Phoenix, Arizona'
+  url: https://www.datacenterdynamics.com/en/news/qts-files-for-750mw-campus-in-phoenix-arizona/
+  pub_date: 2024-07-01
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'QTS Realty Trust × self-build — 750 MW Other announcement'
+
+- id: S338
+  publisher: The Tech Capital
+  title: "Blackstone's QTS to build 10 data centre 1.1GW mega-campus"
+  url: https://thetechcapital.com/blackstones-qts-to-build-10-data-centre1-1gw-mega-campus-on-former-britishvolt-site/
+  pub_date: 2024-12-01
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'QTS Realty Trust × self-build — 720 MW Other announcement'
+
+- id: S339
+  publisher: Blackstone
+  title: 'Blackstone to Invest More Than $25B in Pennsylvania'
+  url: https://www.blackstone.com/news/press/blackstone-to-invest-more-than-25-billion-in-pennsylvanias-digital-and-energy-infrastructure-plus-catalyze-an-additional-60-billion-investment/
+  pub_date: 2025-07-15
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'QTS Realty Trust × self-build — 1000 MW Other announcement'
+
+- id: S340
+  publisher: Office of Governor Tate Reeves
+  title: 'Compass Datacenters $10B Lauderdale County'
+  url: https://governorreeves.ms.gov/compass-datacenters-project-generates-10-billion-investment-in-lauderdale-county/
+  pub_date: 2025-01-09
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Compass Datacenters × Mississippi Power (500 MW supply) — 320 MW Other announcement'
+
+- id: S341
+  publisher: AZ Big Media
+  title: 'Compass Datacenters will build 225-acre Goodyear campus'
+  url: https://azbigmedia.com/business/economic-development/compass-datacenters-will-build-225-acre-goodyear-campus/
+  pub_date: 2023-09-01
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Compass Datacenters × self-build — 212 MW Other announcement'
+
+- id: S342
+  publisher: The Real Deal
+  title: 'Compass Datacenters adding $200M development to Red Oak campus'
+  url: https://therealdeal.com/texas/dallas/2024/04/26/compass-datacenters-adds-200m-development-to-dallas-suburb/
+  pub_date: 2024-04-26
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Compass Datacenters × self-build — 360 MW Other announcement'
+
+- id: S343
+  publisher: PR Newswire
+  title: 'Edged Energy Launches in U.S. with Four Ultra-Efficient AI-Ready Data Centers'
+  url: https://www.prnewswire.com/news-releases/edged-energy-launches-in-the-us-with-four-ultra-efficient-ai-ready-data-centers-delivering-300-mw-and-saving-1-2-billion-gallons-of-water-each-year-302060591.html
+  pub_date: 2024-02-13
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Edged Energy × self-build — 324 MW Other announcement'
+
+- id: S344
+  publisher: Stream Data Centers
+  title: 'Stream Data Centers Breaks Ground on Hyperscale Campus in San Antonio'
+  url: https://www.streamdatacenters.com/news/breaks-ground-hyperscale-campus-san-antonio/
+  pub_date: 2024-06-01
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Stream Data Centers × self-build — 200 MW Other announcement'
+
+- id: S345
+  publisher: Stream Data Centers
+  title: 'Data Centers Dallas — Wilmer, Texas'
+  url: https://www.streamdatacenters.com/locations/dfw-c-wilmer/
+  pub_date: 2024-03-01
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Stream Data Centers × Oncor (372 MW substation) — 240 MW Other announcement'
+
+- id: S346
+  publisher: DCD
+  title: 'Stream DC partners with New Era for gigawatt Texas campus'
+  url: https://www.datacenterdynamics.com/en/news/stream-dc-to-partner-with-new-era-for-gigawatt-data-center-campus-in-texas/
+  pub_date: 2024-11-01
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Stream Data Centers × New Era Energy — 1000 MW Other announcement'
+
+- id: S347
+  publisher: DataBank
+  title: 'DataBank 480MW South Dallas Campus'
+  url: https://www.databank.com/resources/press-releases/databank-announces-development-of-480mw-data-center-campus-in-south-dallas/
+  pub_date: 2024-08-15
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'DataBank × Oncor (400 MW substation) — 480 MW Other announcement'
+
+- id: S348
+  publisher: Construction Dive
+  title: 'DataBank secures $2B to build data centers'
+  url: https://www.constructiondive.com/news/databank-data-centers-dallas-virginia-atlanta/730800/
+  pub_date: 2024-06-01
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'DataBank × self-build — 312 MW Other announcement'
+
+- id: S349
+  publisher: GlobeNewswire
+  title: 'TierPoint Completes $240M Securitization + PA Data Center Acquisition'
+  url: https://www.globenewswire.com/news-release/2025/10/23/3172085/0/en/TierPoint-Completes-240-Million-Securitization-Financing-and-Acquisition-of-Pennsylvania-Data-Center-and-Campus.html
+  pub_date: 2025-10-23
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'TierPoint × self-build — 100 MW Other announcement'
+
+- id: S350
+  publisher: DCD
+  title: 'Switch announces data center campus outside Pittsburgh'
+  url: https://www.datacenterdynamics.com/en/news/switch-announces-plans-for-data-center-campus-outside-pittsburgh-pennsylvania/
+  pub_date: 2024-05-01
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Switch × self-build — 250 MW Other announcement'
+
+- id: S351
+  publisher: Reuters
+  title: 'Nvidia CEO meets Indian PM, Reliance chief bets on AI'
+  url: https://www.reuters.com/world/india/nvidia-ceo-meets-indian-pm-reliance-chief-bets-ai-2024-10-24/
+  pub_date: 2024-10-28
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Reliance Industries × Reliance captive solar+wind+storage — 3000 MW Solar+Storage announcement'
+
+- id: S352
+  publisher: Business Standard
+  title: 'Adani Group to build 1 GW data centre in Tamil Nadu'
+  url: https://www.business-standard.com/companies/news/adani-group-to-build-1-gw-data-center-in-tamil-nadu-with-renewable-power-124091000789_1.html
+  pub_date: 2024-09-10
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Adani Group × Adani Green Energy (captive) — 1000 MW Renewable announcement'
+
+- id: S353
+  publisher: Microsoft Blog
+  title: 'Microsoft and G42 announce $1B digital ecosystem initiative for Kenya'
+  url: https://blogs.microsoft.com/blog/2024/05/22/microsoft-and-g42-announce-1-billion-comprehensive-digital-ecosystem-initiative-for-kenya/
+  pub_date: 2024-05-22
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'G42 × KenGen geothermal + Microsoft — 1000 MW Geothermal announcement'
+
+- id: S354
+  publisher: Reuters
+  title: 'Saudi Arabia launches AI firm Humain under PIF'
+  url: https://www.reuters.com/technology/artificial-intelligence/saudi-arabia-launches-ai-firm-humain-under-pif-2025-05-12/
+  pub_date: 2025-05-13
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'HUMAIN × Saudi grid / PIF — 1900 MW Other announcement'
+
+- id: S355
+  publisher: Data Center Dynamics
+  title: 'BorderPlex Digital Assets plans 1.4GW data center campus on US-Mexico border'
+  url: https://www.datacenterdynamics.com/en/news/borderplex-digital-assets-plans-14gw-data-center-campus-on-us-mexico-border/
+  pub_date: 2024-11-19
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'BorderPlex Digital × El Paso Electric / CFE Mexico — 1400 MW Other announcement'
+
+- id: S356
+  publisher: Data Center Dynamics
+  title: 'GDS International rebrands as DayOne, plans 1.4GW Asia expansion'
+  url: https://www.datacenterdynamics.com/en/news/gds-international-rebrands-as-dayone-data-centers/
+  pub_date: 2024-07-22
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'GDS / DayOne × Tenaga Nasional Berhad + corporate green PPAs — 1400 MW Other announcement'
+
+- id: S357
+  publisher: Microsoft News
+  title: 'BlackRock, GIP, Microsoft and MGX launch new AI partnership'
+  url: https://news.microsoft.com/2024/09/17/blackrock-global-infrastructure-partners-microsoft-and-mgx-launch-new-ai-partnership-to-invest-in-data-centers-and-supporting-power-infrastructure/
+  pub_date: 2024-09-17
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'MGX × BlackRock / Global Infrastructure Partners / Microsoft — 5000 MW Other announcement'
+
+- id: S358
+  publisher: Yotta Press Release
+  title: "Yotta Launches Shakti Cloud, India's Largest AI Cloud"
+  url: https://yotta.com/yotta-launches-shakti-cloud-indias-largest-ai-cloud/
+  pub_date: 2024-03-04
+  retrieved_on: 2026-05-01
+  kind: Primary
+  supports: 'Yotta Infrastructure × Hiranandani Group (state grid + captive solar) — 250 MW Renewable announcement'

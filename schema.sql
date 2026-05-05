@@ -19,7 +19,9 @@ CREATE TABLE sources (
 
 CREATE TABLE hyperscaler_contracts (
   id              INTEGER PRIMARY KEY AUTOINCREMENT,
-  company         TEXT NOT NULL CHECK(company IN ('Microsoft','Google','Amazon','Meta','xAI','Oracle')),
+  company         TEXT NOT NULL,                 -- relaxed: any DC operator name (was: 6 hyperscalers only)
+  operator_type   TEXT NOT NULL DEFAULT 'Hyperscaler' CHECK(operator_type IN
+                    ('Hyperscaler','AI-Cloud','Colocation','Sovereign','Other')),
   announced_date  TEXT,
   year            INTEGER NOT NULL,             -- ANNOUNCEMENT year
   cod_year        INTEGER,                      -- Commercial Operation Date (year). NULL if not disclosed / pending / range
@@ -43,6 +45,7 @@ CREATE TABLE hyperscaler_contracts (
   created_at      TEXT DEFAULT (datetime('now')),
   UNIQUE(company, year, generation_type, deal_name)
 );
+CREATE INDEX idx_contracts_op_type ON hyperscaler_contracts(operator_type);
 
 CREATE TABLE lcoe_data (
   id              INTEGER PRIMARY KEY AUTOINCREMENT,

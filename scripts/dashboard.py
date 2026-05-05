@@ -107,7 +107,7 @@ def build(conn: sqlite3.Connection) -> str:
 
     data = {
         "contracts": q(conn, """
-            SELECT id, company, announced_date, year, cod_year, cod_note,
+            SELECT id, company, operator_type, announced_date, year, cod_year, cod_note,
                    generation_type, capacity_mw, confidence, deal_name,
                    counterparty, contract_years, geography, status,
                    connection_type, connection_reason, notes, source_id
@@ -429,7 +429,13 @@ TEMPLATE = r"""<!doctype html>
   </section>
 
   <section class="panel" id="panel-contracts">
+    <!-- Operator-type breakdown ribbon -->
+    <div id="opTypeRibbon" style="display:flex; gap:.6rem; margin-bottom:1rem; flex-wrap:wrap;"></div>
+
     <div class="filters">
+      <label>Operator type
+        <select id="fOpType"><option value="">All</option></select>
+      </label>
       <label>Company
         <select id="fCompany"><option value="">All</option></select>
       </label>
@@ -448,7 +454,8 @@ TEMPLATE = r"""<!doctype html>
     <div class="table-wrap">
       <table id="contractsTable">
         <thead><tr>
-          <th data-k="company">Company</th>
+          <th data-k="operator_type">OpType</th>
+          <th data-k="company">Operator</th>
           <th data-k="year">Announced</th>
           <th data-k="cod_year">COD</th>
           <th data-k="status">Status</th>
@@ -1161,6 +1168,7 @@ document.querySelectorAll('.tab').forEach(t => {
 (function(){
   const C = DATA.contracts;
   const tbody = document.querySelector('#contractsTable tbody');
+  const fOpType  = document.getElementById('fOpType');
   const fCompany = document.getElementById('fCompany');
   const fType    = document.getElementById('fType');
   const fStatus  = document.getElementById('fStatus');
@@ -1169,6 +1177,36 @@ document.querySelectorAll('.tab').forEach(t => {
   const rowCount = document.getElementById('rowCount');
   let sortKey = 'year', sortDir = -1;
 
+  // Operator-type breakdown ribbon (count + total MW per operator type)
+  const OP_COLORS = {
+    'Hyperscaler': '#6ea8fe',
+    'AI-Cloud':    '#a3dcbb',
+    'Colocation':  '#f6c65b',
+    'Sovereign':   '#b794f4',
+    'Other':       '#6b7280',
+  };
+  const opAgg = {};
+  for (const r of C) {
+    const t = r.operator_type || 'Other';
+    if (!opAgg[t]) opAgg[t] = { deals: 0, mw: 0 };
+    opAgg[t].deals += 1;
+    opAgg[t].mw += (r.capacity_mw || 0);
+  }
+  const ribbon = document.getElementById('opTypeRibbon');
+  ribbon.innerHTML = Object.entries(opAgg)
+    .sort((a,b) => b[1].mw - a[1].mw)
+    .map(([t, a]) => `
+      <div style="background:var(--panel); border:1px solid var(--line); border-left:3px solid ${OP_COLORS[t]||'#6b7280'};
+                  border-radius:6px; padding:.6rem .9rem; min-width:130px;">
+        <div style="font-size:.66rem; text-transform:uppercase; letter-spacing:.1em; color:var(--muted);">${t}</div>
+        <div style="font-size:1.4rem; font-weight:700; line-height:1.1; margin-top:.2rem;
+                    font-variant-numeric:tabular-nums;">${(a.mw/1000).toFixed(1)} <span style="font-size:.7rem;color:var(--muted);font-weight:500;">GW</span></div>
+        <div style="font-size:.72rem; color:var(--muted); margin-top:.2rem;">${a.deals} deals</div>
+      </div>
+    `).join('');
+
+  [...new Set(C.map(r=>r.operator_type))].sort().forEach(v =>
+    fOpType.insertAdjacentHTML('beforeend', `<option>${v}</option>`));
   [...new Set(C.map(r=>r.company))].sort().forEach(v =>
     fCompany.insertAdjacentHTML('beforeend', `<option>${v}</option>`));
   [...new Set(C.map(r=>r.generation_type))].sort().forEach(v =>
@@ -1203,9 +1241,10 @@ document.querySelectorAll('.tab').forEach(t => {
   }
 
   function render(){
-    const co = fCompany.value, ty = fType.value, st = fStatus.value, cn = fConn.value;
+    const op = fOpType.value, co = fCompany.value, ty = fType.value, st = fStatus.value, cn = fConn.value;
     const q = fSearch.value.toLowerCase();
     let rows = C.filter(r =>
+      (!op || r.operator_type===op) &&
       (!co || r.company===co) &&
       (!ty || r.generation_type===ty) &&
       (!st || r.status===st) &&
@@ -1233,7 +1272,10 @@ document.querySelectorAll('.tab').forEach(t => {
         ? `<a class="cite" href="${src.url}" target="_blank" title="${(src.title||'').replace(/"/g,'&quot;')}">${r.source_id}<br><span style="font-size:.65rem;opacity:.7">${(src.publisher||'').slice(0,18)}</span></a>`
         : r.source_id;
       const newPill = isNew(r) ? ` <span class="new-badge" title="Announced within the last ${FRESH_WINDOW_DAYS} days">New</span>` : '';
+      const opType = r.operator_type || 'Hyperscaler';
+      const opColor = OP_COLORS[opType] || '#6b7280';
       return `<tr>
+        <td><span style="display:inline-block;padding:1px 6px;border-radius:3px;font-size:.65rem;font-weight:600;background:${opColor}33;color:${opColor};border:1px solid ${opColor}55;">${opType}</span></td>
         <td>${r.company}${newPill}</td>
         <td>${r.announced_date || r.year}</td>
         <td>${r.cod_year || '—'}</td>
@@ -1257,7 +1299,7 @@ document.querySelectorAll('.tab').forEach(t => {
       render();
     });
   });
-  [fCompany,fType,fStatus,fConn,fSearch].forEach(el => el.addEventListener('input', render));
+  [fOpType,fCompany,fType,fStatus,fConn,fSearch].forEach(el => el.addEventListener('input', render));
   render();
 })();
 

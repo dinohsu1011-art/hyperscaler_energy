@@ -1,0 +1,406 @@
+# AI-Cloud operators — non-hyperscaler DC announcements
+# Generated 2026-05-01 from research-agent web searches
+
+operator_type: AI-Cloud
+rows:
+- operator: Crusoe Energy
+  announced_date: '2025-07-24'
+  year: 2025
+  generation_type: Gas
+  capacity_mw: 2700
+  confidence: Sourced
+  deal_name: Project Jade Cheyenne WY (Tallgrass)
+  counterparty: Tallgrass Energy / Bloom Energy
+  geography: US
+  status: Approved
+  connection_type: BTM
+  notes: 'Initial 1.8 GW AI campus announced Jul 2025 with Tallgrass; expanded to 2.7 GW (Project Jade)
+    approved by Laramie County Jan 2026. Power: gas turbines + Bloom fuel cells. Scalable up to 10 GW.'
+  source_id: S292
+- operator: Applied Digital
+  announced_date: '2025-08-18'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 280
+  confidence: Sourced
+  deal_name: Polaris Forge 2 Harwood ND
+  counterparty: U.S. Investment-Grade Hyperscaler
+  geography: US
+  status: UnderConstruction
+  connection_type: Grid
+  notes: $3B AI factory near Harwood ND. Initial 280 MW with 200 MW leased to investment-grade hyperscaler;
+    ROFR for additional 800 MW (full 1 GW site). Groundbreaking Sep 2025; full capacity early 2027.
+  source_id: S293
+- operator: Applied Digital
+  announced_date: '2025-06-02'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 150
+  confidence: Sourced
+  deal_name: Polaris Forge 1 Ellendale +150 MW CoreWeave expansion
+  counterparty: CoreWeave
+  geography: US
+  status: PPA
+  connection_type: Grid
+  notes: Additional 150 MW CoreWeave lease at Ellendale ND, bringing total contracted CoreWeave capacity
+    at Polaris Forge 1 to 400 MW.
+  source_id: S294
+- operator: Iris Energy
+  announced_date: '2024-09-09'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 750
+  confidence: Sourced
+  deal_name: Childress Texas 750 MW liquid-cooled AI campus
+  counterparty: ERCOT grid
+  geography: US
+  status: UnderConstruction
+  connection_type: Grid
+  notes: Childress TX expanded from 600 MW to 750 MW; Horizon 1 (50 MW IT) liquid-cooled, energization
+    Q4 2025.
+  source_id: S295
+- operator: Iris Energy
+  announced_date: '2024-07-30'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 2000
+  confidence: Sourced
+  deal_name: Sweetwater 1+2 (West Texas 2 GW campus)
+  counterparty: ERCOT grid (Oncor)
+  geography: US
+  status: UnderConstruction
+  connection_type: Grid
+  notes: 2 GW AI campus across Sweetwater 1 (1.4 GW, energized May 2026) and Sweetwater 2 (600 MW). 1,800
+    acres, supports >700,000 liquid-cooled GPUs.
+  source_id: S296
+- operator: Iris Energy
+  announced_date: '2025-11-03'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 200
+  confidence: Sourced
+  deal_name: Microsoft AI infrastructure deal
+  counterparty: Microsoft
+  geography: US
+  status: PPA
+  connection_type: Grid
+  notes: Microsoft locked in major AI infrastructure capacity from IREN; sized in the hundreds of MW range
+    based on multibillion-dollar contract value.
+  source_id: S297
+- operator: Hut 8
+  announced_date: '2025-12-23'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 1330
+  confidence: Sourced
+  deal_name: River Bend Louisiana AI campus (Fluidstack/Google)
+  counterparty: Entergy Louisiana / Fluidstack (Google backstop)
+  geography: US
+  status: UnderConstruction
+  connection_type: Grid
+  notes: Initial 330 MW utility capacity from Entergy with potential +1,000 MW expansion. 245 MW IT leased
+    to Fluidstack via 15-year $7B NNN lease, Google credit-backstopped. $10B Phase I; ops Q2 2027.
+  source_id: S298
+- operator: Hut 8
+  announced_date: '2025-06-30'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 205
+  confidence: Sourced
+  deal_name: Vega Data Center (Texas)
+  counterparty: BITMAIN (colocation)
+  geography: US
+  status: Operational
+  connection_type: Grid
+  notes: 205 MW nameplate facility in Texas, energized Jun 2025. Direct-to-chip liquid cooling. Site acquired
+    Jul 2024; full BITMAIN colocation. ~$430-450K/MW all-in cost.
+  source_id: S299
+- operator: TeraWulf
+  announced_date: '2024-12-23'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 178
+  confidence: Sourced
+  deal_name: "Lake Mariner NY \u2014 Core42 lease + expansion"
+  counterparty: Core42 (G42)
+  geography: US
+  status: PPA
+  connection_type: Grid
+  notes: Initial 70 MW AI lease to Core42 at Lake Mariner upstate NY; expansion provisions for additional
+    135 MW gross / 108 MW critical IT.
+  source_id: S300
+- operator: TeraWulf
+  announced_date: '2025-10-15'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 240
+  confidence: Sourced
+  deal_name: Abernathy Texas HPC Campus (Fluidstack JV)
+  counterparty: Fluidstack (Google backstop)
+  geography: US
+  status: UnderConstruction
+  connection_type: Grid
+  notes: JV with Fluidstack (50.1% TeraWulf). 168 MW critical IT under 25-year lease, Google credit enhancement.
+    Site initially 240 MW, scalable to 600 MW.
+  source_id: S301
+- operator: TeraWulf
+  announced_date: '2025-08-04'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 400
+  confidence: Sourced
+  deal_name: Cayuga Site (Lansing NY) ground lease
+  counterparty: NYISO grid (zero-carbon nuclear+hydro)
+  geography: US
+  status: Announced
+  connection_type: Grid
+  notes: Long-term ground lease in Lansing NY supporting up to 400 MW gross / 320 MW critical IT.
+  source_id: S302
+- operator: Cipher Mining
+  announced_date: '2025-06-23'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 300
+  confidence: Sourced
+  deal_name: "Black Pearl (Wink TX) \u2014 Amazon lease"
+  counterparty: Amazon Data Services
+  geography: US
+  status: PPA
+  connection_type: Grid
+  notes: 300 MW gross / 216 MW critical IT in Wink TX. Fully leased to AWS via 15-year $5.5B lease + 3x
+    5yr extensions. Phase I 150 MW operational; AWS rent commencement Oct 2026.
+  source_id: S303
+- operator: Cipher Mining
+  announced_date: '2025-11-20'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 300
+  confidence: Sourced
+  deal_name: "Barber Lake (West Texas) \u2014 Fluidstack HPC"
+  counterparty: Fluidstack
+  geography: US
+  status: UnderConstruction
+  connection_type: Grid
+  notes: 300 MW West Texas site acquired for $67.5M + $3/MWh first 5 yrs. 10-year AI hosting agreement
+    with Fluidstack.
+  source_id: S304
+- operator: Nscale
+  announced_date: '2025-07-15'
+  year: 2025
+  generation_type: Hydro
+  capacity_mw: 520
+  confidence: Sourced
+  deal_name: Stargate Norway (Aker JV / OpenAI)
+  counterparty: Aker ASA / OpenAI
+  geography: Norway
+  status: Announced
+  connection_type: Grid
+  notes: Europe's first hyperscale AI gigafactory; 230 MW initial + 290 MW expansion. Target 100,000 NVIDIA
+    GPUs by end-2026. Norwegian hydro grid.
+  source_id: S305
+- operator: Nscale
+  announced_date: '2025-09-25'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 1200
+  confidence: Sourced
+  deal_name: Microsoft 200,000 GB300 GPU Europe+US deal
+  counterparty: Microsoft
+  geography: Multi
+  status: Framework
+  connection_type: Grid
+  notes: Nscale contracted ~200,000 NVIDIA GB300 GPUs with Microsoft across Europe and US sites. Estimated
+    power ~1.2 GW based on GB300 power profile.
+  source_id: S306
+- operator: Galaxy Digital
+  announced_date: '2025-08-15'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 393
+  confidence: Sourced
+  deal_name: "Helios West Texas \u2014 CoreWeave Phase 2 expansion"
+  counterparty: CoreWeave
+  geography: US
+  status: PPA
+  connection_type: Grid
+  notes: 'Phase 2 lease with CoreWeave: 260 MW critical IT (Aug 2025) + 133 MW final option exercised,
+    on top of original 200 MW; total 800 MW committed. $1.4B project financing closed.'
+  source_id: S307
+- operator: Riot Platforms
+  announced_date: '2025-01-21'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 600
+  confidence: Sourced
+  deal_name: Corsicana TX Phase II AI/HPC conversion
+  counterparty: ERCOT grid
+  geography: US
+  status: Announced
+  connection_type: Grid
+  notes: Halted Phase II BTC mining (600 MW), launched formal process to convert remaining 600 MW to AI/HPC.
+    Total Corsicana site approved at 1 GW by ERCOT.
+  source_id: S308
+- operator: Soluna Holdings
+  announced_date: '2025-09-15'
+  year: 2025
+  generation_type: Wind
+  capacity_mw: 166
+  confidence: Sourced
+  deal_name: Project Kati Willacy County TX (wind)
+  counterparty: Generate Capital (financing)
+  geography: US
+  status: UnderConstruction
+  connection_type: BTM
+  notes: 166 MW wind-powered BTC + AI/HPC campus, expandable to 300+ MW. $100M Generate Capital credit
+    facility.
+  source_id: S309
+- operator: Soluna Holdings
+  announced_date: '2025-10-08'
+  year: 2025
+  generation_type: Wind
+  capacity_mw: 100
+  confidence: Sourced
+  deal_name: "Project Kati 2 \u2014 Metrobloks AI MOU"
+  counterparty: Metrobloks
+  geography: US
+  status: MOU
+  connection_type: BTM
+  notes: MOU with Metrobloks for 100+ MW AI/HPC at Project Kati 2, Willacy County TX.
+  source_id: S310
+- operator: Soluna Holdings
+  announced_date: '2024-09-12'
+  year: 2024
+  generation_type: Wind
+  capacity_mw: 120
+  confidence: Sourced
+  deal_name: Project Herdy (South TX wind)
+  counterparty: co-located 200 MW wind farm
+  geography: US
+  status: UnderConstruction
+  connection_type: BTM
+  notes: 120 MW data center co-located with 200 MW wind farm in South Texas.
+  source_id: S311
+- operator: Soluna Holdings
+  announced_date: '2024-09-12'
+  year: 2024
+  generation_type: Wind
+  capacity_mw: 150
+  confidence: Sourced
+  deal_name: Project Gladys (TX wind)
+  counterparty: wind farm partner
+  geography: US
+  status: Announced
+  connection_type: BTM
+  notes: 150 MW wind-powered data center site in Texas; part of Soluna's 1 GW pipeline.
+  source_id: S312
+- operator: Soluna Holdings
+  announced_date: '2024-09-12'
+  year: 2024
+  generation_type: Solar
+  capacity_mw: 100
+  confidence: Sourced
+  deal_name: Project Fei (TX solar)
+  counterparty: 240 MW utility-scale solar
+  geography: US
+  status: Announced
+  connection_type: BTM
+  notes: 100 MW data center co-located with 240 MW utility-scale solar farm in Texas.
+  source_id: S313
+- operator: Bit Digital
+  announced_date: '2025-06-13'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 200
+  confidence: Sourced
+  deal_name: WhiteFiber Madison NC HPC campus (Duke Energy)
+  counterparty: Duke Energy
+  geography: US
+  status: PPA
+  connection_type: Grid
+  notes: 1M sqft / 96-acre Madison NC industrial site. Duke Energy capacity agreement for 99 MW (24 MW
+    by Sep 2025); preliminary feasibility supports up to 200 MW.
+  source_id: S314
+- operator: Bit Digital
+  announced_date: '2024-10-14'
+  year: 2024
+  generation_type: Hydro
+  capacity_mw: 288
+  confidence: Sourced
+  deal_name: Enovum Tier 3 HPC pipeline acquisition (Quebec)
+  counterparty: Enovum (Quebec/metro pipeline)
+  geography: Canada
+  status: Announced
+  connection_type: Grid
+  notes: 'Enovum acquisition: 288 MW HPC development pipeline (incl. 93 MW under LOI). Quebec hydro-rich
+    grid.'
+  source_id: S315
+- operator: Mawson Infrastructure
+  announced_date: '2024-12-10'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 144
+  confidence: Sourced
+  deal_name: "BE Global AI/HPC colocation \u2014 144 MW LOI"
+  counterparty: BE Global Development Limited
+  geography: US
+  status: MOU
+  connection_type: Grid
+  notes: 20 MW binding 6-year AI/HPC colo (~$285M total contract value) + non-binding LOI to scale to
+    144 MW total.
+  source_id: S316
+- operator: CoreWeave
+  announced_date: '2024-06-03'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 590
+  confidence: Sourced
+  deal_name: Core Scientific 590 MW HPC colocation expansion
+  counterparty: Core Scientific
+  geography: US
+  status: PPA
+  connection_type: Grid
+  notes: 'Across Denton TX, Marble NC, Muskogee OK, Dalton GA Phase 1+2: 590 MW HPC over 12-yr terms;
+    >$10B revenue.'
+  source_id: S317
+- operator: CoreWeave
+  announced_date: '2024-12-04'
+  year: 2024
+  generation_type: Other
+  capacity_mw: 120
+  confidence: Sourced
+  deal_name: "Chirisa/Blue Owl/PowerHouse JV \u2014 Richmond VA"
+  counterparty: Chirisa Technology Parks / Blue Owl / PowerHouse Data Centers
+  geography: US
+  status: UnderConstruction
+  connection_type: Grid
+  notes: '$5B JV first-phase: 120 MW Richmond VA on 350-acre Chirisa campus. Broader pipeline across NJ,
+    PA, TX, NV, KY.'
+  source_id: S318
+- operator: Lambda
+  announced_date: '2025-10-15'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 100
+  confidence: Sourced
+  deal_name: Kansas City AI Factory
+  counterparty: Kansas City utility (KCP&L/Evergy)
+  geography: US
+  status: Announced
+  connection_type: Grid
+  notes: Lambda's Kansas City MO AI factory launching early 2026 with 24 MW; potential to scale to 100+
+    MW.
+  source_id: S319
+- operator: Lambda
+  announced_date: '2025-11-03'
+  year: 2025
+  generation_type: Other
+  capacity_mw: 200
+  confidence: Sourced
+  deal_name: Microsoft multibillion-dollar AI infrastructure deal
+  counterparty: Microsoft
+  geography: US
+  status: PPA
+  connection_type: Grid
+  notes: Multibillion-dollar Microsoft contract for AI infrastructure with NVIDIA GPUs; followed by $1.5B
+    Series funding round Nov 2025. Sized in hundreds of MW.
+  source_id: S320

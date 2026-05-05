@@ -52,19 +52,31 @@ def load_sources(conn: sqlite3.Connection) -> set[str]:
 
 
 def load_contracts(conn: sqlite3.Connection) -> int:
+    """Load all contract YAMLs. The doc-level `company` field is used as the
+    default operator name for hyperscaler files; non-hyperscaler files
+    (neoclouds.yaml, colocation.yaml, sovereign.yaml) declare `operator_type`
+    at the doc level and per-row `operator` instead.
+    """
     n = 0
     for p in sorted((DATA / "contracts").glob("*.yaml")):
         doc = read_yaml(p)
-        company = doc["company"]
+        # Two doc shapes:
+        #  (a) hyperscaler files: doc["company"] = 'Microsoft' (one operator), per-row no 'operator'
+        #  (b) operator-typed files: doc["operator_type"] = 'AI-Cloud' / 'Colocation' / 'Sovereign',
+        #      each row has its own "operator" (the company name) since the file may mix Crusoe / Lambda / etc.
+        default_company = doc.get("company")
+        default_op_type = doc.get("operator_type", "Hyperscaler")
         for r in doc["rows"]:
+            company    = r.get("operator") or default_company
+            op_type    = r.get("operator_type", default_op_type)
             conn.execute(
                 """INSERT INTO hyperscaler_contracts
-                   (company, announced_date, year, cod_year, cod_note,
+                   (company, operator_type, announced_date, year, cod_year, cod_note,
                     generation_type, capacity_mw, confidence, deal_name,
                     counterparty, contract_years, geography, status,
                     connection_type, connection_reason, notes, source_id)
-                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
-                (company, r.get("announced_date"), r["year"],
+                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                (company, op_type, r.get("announced_date"), r["year"],
                  r.get("cod_year"), r.get("cod_note"),
                  r["generation_type"], r["capacity_mw"],
                  r.get("confidence", "Estimated"), r["deal_name"],
