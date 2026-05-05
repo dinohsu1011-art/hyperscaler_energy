@@ -2928,13 +2928,13 @@
   supports: 'Reliance Industries × Reliance captive solar+wind+storage — 3000 MW Solar+Storage announcement'
 
 - id: S352
-  publisher: Business Standard
-  title: 'Adani Group to build 1 GW data centre in Tamil Nadu'
-  url: https://www.business-standard.com/companies/news/adani-group-to-build-1-gw-data-center-in-tamil-nadu-with-renewable-power-124091000789_1.html
-  pub_date: 2024-09-10
+  publisher: AdaniConneX
+  title: 'AdaniConneX Announces the Opening of its Flagship Data Center Campus in Chennai, India'
+  url: https://www.adaniconnex.com/resources/All-Resources/Press-Release/AdaniConneX-announces-the-launch-of-Chennai-1-Data-Center
+  pub_date: 2023-04-01
   retrieved_on: 2026-05-01
   kind: Primary
-  supports: 'Adani Group × Adani Green Energy (captive) — 1000 MW Renewable announcement'
+  supports: 'AdaniConneX × Adani Green Energy + EdgeConneX JV — 200 MW Renewable Chennai 1 hyperscale DC (corrected from agent confabulation)'
 
 - id: S353
   publisher: Microsoft Blog
@@ -2943,7 +2943,7 @@
   pub_date: 2024-05-22
   retrieved_on: 2026-05-01
   kind: Primary
-  supports: 'G42 × KenGen geothermal + Microsoft — 1000 MW Geothermal announcement'
+  supports: 'G42 × KenGen geothermal + Microsoft — 100 MW initial Geothermal Olkaria DC, scaling to 1 GW long-term ceiling'
 
 - id: S354
   publisher: Reuters
@@ -2954,23 +2954,12 @@
   kind: Primary
   supports: 'HUMAIN × Saudi grid / PIF — 1900 MW Other announcement'
 
-- id: S355
-  publisher: Data Center Dynamics
-  title: 'BorderPlex Digital Assets plans 1.4GW data center campus on US-Mexico border'
-  url: https://www.datacenterdynamics.com/en/news/borderplex-digital-assets-plans-14gw-data-center-campus-on-us-mexico-border/
-  pub_date: 2024-11-19
-  retrieved_on: 2026-05-01
-  kind: Primary
-  supports: 'BorderPlex Digital × El Paso Electric / CFE Mexico — 1400 MW Other announcement'
-
-- id: S356
-  publisher: Data Center Dynamics
-  title: 'GDS International rebrands as DayOne, plans 1.4GW Asia expansion'
-  url: https://www.datacenterdynamics.com/en/news/gds-international-rebrands-as-dayone-data-centers/
-  pub_date: 2024-07-22
-  retrieved_on: 2026-05-01
-  kind: Primary
-  supports: 'GDS / DayOne × Tenaga Nasional Berhad + corporate green PPAs — 1400 MW Other announcement'
+# S355 (BorderPlex 1.4 GW) and S356 (DayOne Johor 1.4 GW) removed 2026-05-01 —
+# both verified as wrong via web search:
+#   S355: BorderPlex Santa Teresa NM is actually Stargate Project Jupiter, already in
+#         our data_center_campuses table. Removing avoids double-counting.
+#   S356: DayOne's entire global portfolio is ~1 GW; Johor specifically is much smaller.
+#         The 1.4 GW figure was confabulated by the original research agent.
 
 - id: S357
   publisher: Microsoft News

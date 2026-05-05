@@ -1,112 +1,102 @@
-# Sovereign operators — non-hyperscaler DC announcements
-# Generated 2026-05-01 from research-agent web searches
+# Sovereign / International operators — non-hyperscaler DC announcements
+# Originally generated 2026-05-01 from research agent (which had tool_uses=0 — confabulated).
+# Web-search-verified 2026-05-01: 2 entries dropped, 3 corrected, 3 kept as-is.
 
 operator_type: Sovereign
 rows:
-- operator: Reliance Industries
-  announced_date: '2024-10-28'
-  year: 2024
-  generation_type: Solar+Storage
-  capacity_mw: 3000
-  confidence: Sourced
-  deal_name: Jamnagar AI Data Center & Gigafactory
-  counterparty: Reliance captive solar+wind+storage
-  geography: India
-  status: UnderConstruction
-  connection_type: BTM
-  notes: Reliance announced 1 GW initial AI DC at Jamnagar powered by captive green energy; ambition to
-    scale to 3 GW. Partnership with NVIDIA Oct 2024.
-  source_id: S351
-- operator: Adani Group
-  announced_date: '2024-09-10'
-  year: 2024
-  generation_type: Renewable
-  capacity_mw: 1000
-  confidence: Sourced
-  deal_name: Kattupalli AI Data Center Park
-  counterparty: Adani Green Energy (captive)
-  geography: India
-  status: Announced
-  connection_type: BTM
-  notes: ~1 GW AI-ready DC at Kattupalli powered by Adani's renewable portfolio.
-  source_id: S352
-- operator: G42
-  announced_date: '2024-05-22'
-  year: 2024
-  generation_type: Geothermal
-  capacity_mw: 1000
-  confidence: Sourced
-  deal_name: G42-Microsoft Kenya geothermal AI data center
-  counterparty: KenGen geothermal + Microsoft
-  geography: Kenya
-  status: Announced
-  connection_type: Grid
-  notes: $1B G42-Microsoft DC in Kenya powered by Olkaria geothermal; phased build to 1 GW.
-  source_id: S353
-- operator: HUMAIN
-  announced_date: '2025-05-13'
-  year: 2025
-  generation_type: Other
-  capacity_mw: 1900
-  confidence: Sourced
-  deal_name: "HUMAIN Saudi AI data center build-out \u2014 initial 1.9 GW"
-  counterparty: Saudi grid / PIF
-  geography: Saudi Arabia
-  status: Announced
-  connection_type: Grid
-  notes: PIF subsidiary HUMAIN launched with plans for 1.9 GW DC capacity by 2030, scaling to 6.6 GW.
-  source_id: S354
-- operator: BorderPlex Digital
-  announced_date: '2024-11-19'
-  year: 2024
-  generation_type: Other
-  capacity_mw: 1400
-  confidence: Sourced
-  deal_name: Santa Teresa NM cross-border AI campus
-  counterparty: El Paso Electric / CFE Mexico
-  geography: US-Mexico
-  status: Announced
-  connection_type: Grid
-  notes: 1.4 GW cross-border AI DC straddling NM-Chihuahua, sourcing power from US and Mexican grids.
-  source_id: S355
-- operator: GDS / DayOne
-  announced_date: '2024-07-22'
-  year: 2024
-  generation_type: Other
-  capacity_mw: 1400
-  confidence: Sourced
-  deal_name: DayOne Johor Malaysia AI campus
-  counterparty: Tenaga Nasional Berhad + corporate green PPAs
-  geography: Malaysia
-  status: UnderConstruction
-  connection_type: Grid
-  notes: GDS International (DayOne) building 1.4 GW capacity across Johor sites incl. Nusajaya Tech Park.
-  source_id: S356
-- operator: MGX
-  announced_date: '2024-09-17'
-  year: 2024
-  generation_type: Other
-  capacity_mw: 5000
-  confidence: Sourced
-  deal_name: "GAIIP \u2014 BlackRock-Microsoft-MGX framework"
-  counterparty: BlackRock / Global Infrastructure Partners / Microsoft
-  geography: Global
-  status: Framework
-  connection_type: Grid
-  notes: $30B (up to $100B) Global AI Infrastructure Partnership; framework targets multi-GW of DCs and
-    supporting power infrastructure.
-  source_id: S357
-- operator: Yotta Infrastructure
-  announced_date: '2024-03-04'
-  year: 2024
-  generation_type: Renewable
-  capacity_mw: 250
-  confidence: Sourced
-  deal_name: Yotta Greater Noida AI DC campus
-  counterparty: Hiranandani Group (state grid + captive solar)
-  geography: India
-  status: UnderConstruction
-  connection_type: Grid
-  notes: Yotta D1 inaugurated; 250+ MW IT load with renewable PPA commitments. Hosts NVIDIA H100 Shakti
-    AI cloud.
-  source_id: S358
+  - operator: Reliance Industries
+    announced_date: '2024-10-28'
+    year: 2024
+    generation_type: Solar+Storage
+    capacity_mw: 3000
+    confidence: Sourced
+    deal_name: Jamnagar AI Data Center & Gigafactory — captive renewables (3 GW)
+    counterparty: Reliance captive solar+wind+storage (5-giga complex)
+    geography: India
+    status: UnderConstruction
+    connection_type: BTM
+    notes: 'RIL AGM Aug 2024 announced gigawatt-scale AI DC at Jamnagar. Reliance×NVIDIA partnership Oct 2024 confirmed 1 GW initial; Bloomberg Jan 2025 reported expansion to 3 GW (~$20–30B investment). Powered by Reliance Green Energy 5-giga complex.'
+    source_id: S351
+
+  - operator: AdaniConneX
+    announced_date: '2023-04-01'
+    year: 2023
+    generation_type: Renewable
+    capacity_mw: 200
+    confidence: Sourced
+    deal_name: AdaniConneX Chennai 1 — 200 MW IGBC Platinum
+    counterparty: Adani Green Energy (captive renewable) + EdgeConneX JV
+    geography: India
+    status: UnderConstruction
+    connection_type: Grid
+    notes: 'AdaniConneX (Adani Enterprises × EdgeConneX JV) Chennai 1 hyperscale DC at SIPCOT IT Park, IGBC Platinum-rated, 100% renewable target. Expanded to 200 MW with Rs 13,200 cr investment. Part of broader 1 GW AdaniConneX platform target. (Replaces wrong "Adani Kattupalli 1 GW" entry from agent confabulation.)'
+    source_id: S352
+
+  - operator: G42
+    announced_date: '2024-05-22'
+    year: 2024
+    generation_type: Geothermal
+    capacity_mw: 100
+    confidence: Sourced
+    cod_note: 'Initial 100 MW; potential expansion to 1 GW long-term'
+    deal_name: G42 × Microsoft × KenGen Kenya geothermal AI data center
+    counterparty: KenGen (Olkaria geothermal) + Microsoft
+    geography: Kenya
+    status: Announced
+    connection_type: Grid
+    notes: '$1B Microsoft-G42 partnership announced May 22, 2024. Initial 100 MW geothermal-powered DC at Olkaria, Kenya, with potential to scale to 1 GW. Kenya''s state-owned KenGen operates four geothermal plants in the region. Single largest digital investment in Kenya''s history. (Corrected from agent''s 1 GW figure — that''s the long-term ceiling, not initial capacity.)'
+    source_id: S353
+
+  - operator: HUMAIN
+    announced_date: '2025-05-13'
+    year: 2025
+    generation_type: Other
+    capacity_mw: 1900
+    confidence: Sourced
+    cod_note: '2030 target; phased 50 MW Q4 2025 + 50 MW/quarter; longer-term 6 GW by 2034'
+    deal_name: HUMAIN Saudi AI infrastructure — 1.9 GW by 2030
+    counterparty: Saudi grid + PIF (sovereign wealth fund)
+    geography: Saudi Arabia
+    status: Announced
+    connection_type: Grid
+    notes: 'PIF subsidiary HUMAIN launched May 13, 2025. Targets 1.9 GW DC capacity by 2030, scaling to 6 GW by 2034. $23B in tech partnerships + $10B venture fund. NVIDIA (18,000 GB300), AMD ($10B), Qualcomm partnerships. Already capacity-sold-out per Semafor Aug 2025; $1.2B financing for initial 250 MW.'
+    source_id: S354
+
+  - operator: GAIIP (BlackRock × Microsoft × MGX × GIP)
+    announced_date: '2024-09-17'
+    year: 2024
+    generation_type: Other
+    capacity_mw: 2000
+    confidence: Estimated
+    cod_note: 'MW estimate — partnership commits $30–100B in capital, not specific MW'
+    deal_name: Global AI Infrastructure Partnership (GAIIP) — $30B+ AI fund
+    counterparty: BlackRock / Global Infrastructure Partners / Microsoft / MGX
+    geography: Global
+    status: Framework
+    connection_type: Grid
+    notes: '$30B initial private equity, $100B with debt mobilized. Acquired Aligned Data Centers ($40B) Oct 2025. NVIDIA + xAI joined as partners 2025. GE Vernova + NextEra collaboration on energy infrastructure. MW estimate of 2 GW assumes ~$30B / $15M-per-MW build cost; the partnership is fund-driven not site-specific so this is a directional figure. (Reduced from agent''s 5 GW estimate.)'
+    source_id: S357
+
+  - operator: Yotta Infrastructure
+    announced_date: '2024-03-04'
+    year: 2024
+    generation_type: Renewable
+    capacity_mw: 250
+    confidence: Sourced
+    deal_name: Yotta Greater Noida D2 — 250 MW (Shakti Cloud)
+    counterparty: Hiranandani Group + state grid + captive solar
+    geography: India
+    status: UnderConstruction
+    connection_type: Grid
+    notes: 'D2 hyperscale DC at Greater Noida campus; 60 MW operating, scalable to 250 MW. Hosts 16,000+ NVIDIA H100 GPUs (Shakti Cloud — India''s first sovereign AI). Sister Navi Mumbai campus is scalable to 2 GW (separate footprint, not counted here).'
+    source_id: S358
+
+  # ----- DROPPED ENTRIES (web-search-verified as wrong/duplicate) -----
+  # 1. BorderPlex Digital 1.4 GW Santa Teresa NM — actually IS Stargate Project Jupiter
+  #    (Oracle/OpenAI tenant), already in our data_center_campuses table. Removed to
+  #    avoid double-counting.
+  # 2. DayOne (GDS) Johor 1.4 GW — confabulated. DayOne's ENTIRE global portfolio is
+  #    ~480 MW operating + ~590 MW under construction (~1.07 GW total). Johor specific
+  #    site (Nusajaya Tech Park) is 69.5 MW. The 1.4 GW figure was wrong.
+  # 3. Adani Kattupalli 1 GW — misidentified location. Adani's actual Tamil Nadu DC
+  #    is AdaniConneX Chennai 1 (200 MW, listed above). Replaced.
