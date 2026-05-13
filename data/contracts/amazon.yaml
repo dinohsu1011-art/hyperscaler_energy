@@ -540,3 +540,36 @@ rows:
     connection_reason: All 9 PPAs deliver into national grid (NEM)
     geography: Australia
     source_id: S202
+
+  - year: 2026
+    announced_date: 2026-05-08
+    generation_type: Geothermal
+    capacity_mw: 100
+    confidence: Sourced
+    deal_name: NV Energy / Zanskar Nevada geothermal for Reno data centers
+    counterparty: NV Energy / Zanskar
+    contract_years: 20
+    cod_year: 2030
+    cod_note: Zanskar portfolio PPA through NV Energy; delivery expected by 2030, subject to PUCN approval of NV Energy's 2026 Integrated Resource Plan.
+    status: PPA
+    connection_type: Grid
+    connection_reason: Utility PPA through NV Energy; power added to the Nevada grid
+    geography: US
+    notes: Part of Amazon's 700 MW Nevada carbon-free energy package for future Reno-area data centers.
+    source_id: S362
+
+  - year: 2026
+    announced_date: 2026-05-08
+    generation_type: Solar+Storage
+    capacity_mw: 600
+    confidence: Sourced
+    deal_name: NV Energy / Primergy Nevada solar-plus-storage for Reno data centers
+    counterparty: NV Energy / Primergy
+    cod_year:
+    cod_note: 600 MW solar paired with 600 MW battery storage; COD not disclosed in Amazon announcement.
+    status: Announced
+    connection_type: Grid
+    connection_reason: Utility renewable portfolio addition through NV Energy grid
+    geography: US
+    notes: Recorded as 600 MW Solar+Storage, not 1,200 MW, to avoid double-counting battery power capacity against solar project capacity.
+    source_id: S362

@@ -359,3 +359,51 @@ rows:
     connection_type: Grid
     connection_reason: IPP counterparty delivering via PJM grid
     source_id: S205
+
+  - year: 2026
+    announced_date: 2026-05-04
+    generation_type: Solar
+    capacity_mw: 250
+    confidence: Sourced
+    deal_name: EDPR Cypress Knee Solar (Chicot County AR) - 250 MW
+    counterparty: EDP Renewables North America
+    cod_year: 2028
+    cod_note: Cypress Knee Solar in Chicot County AR; expected completion in 2028.
+    status: PPA
+    connection_type: Grid
+    connection_reason: IPP solar PPA delivering new generation to the Arkansas grid
+    geography: US
+    notes: Third Meta-EDPR NA agreement; brings Meta-EDPR procured capacity to 545 MW.
+    source_id: S359
+
+  - year: 2026
+    announced_date: 2026-05-12
+    generation_type: Renewable
+    capacity_mw: 850
+    confidence: Sourced
+    deal_name: DESRI 2026 PPA bundle - Oklahoma / Texas / Mississippi (850 MW)
+    counterparty: DESRI
+    cod_year:
+    cod_note: "850 MW of new 2026 PPAs: 500 MW in Oklahoma, 200 MW in Texas, and 150 MW in Mississippi. Project names, CODs, and technology split were not disclosed."
+    status: PPA
+    connection_type: Grid
+    connection_reason: IPP renewable PPAs delivering new generation to regional grids
+    geography: US
+    notes: Aggregated as one row because project names and solar/storage split were not disclosed; avoids fabricating project-level rows.
+    source_id: S360
+
+  - year: 2026
+    announced_date: 2026-04-27
+    generation_type: Solar
+    capacity_mw: 1000
+    confidence: Sourced
+    deal_name: Overview Energy space solar early-access framework - up to 1 GW
+    counterparty: Overview Energy
+    cod_year: 2030
+    cod_note: Initial orbital demonstration targeted 2028; commercial power delivery expected in 2030. Up to 1 GW capacity; no committed phase split disclosed.
+    status: Framework
+    connection_type: Grid
+    connection_reason: Space solar would beam energy to existing grid-connected solar facilities
+    geography: US
+    notes: Framework/early-access reservation, not a conventional terrestrial solar PPA; recorded at headline capacity with status Framework to flag execution risk.
+    source_id: S361

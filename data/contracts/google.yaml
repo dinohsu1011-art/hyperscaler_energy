@@ -545,3 +545,19 @@ rows:
     geography: US
     contract_years: 15
     source_id: S203
+
+  - year: 2026
+    announced_date: 2026-04-30
+    generation_type: Other
+    capacity_mw:
+    confidence: Sourced
+    deal_name: OG&E Oklahoma electric service agreements - Muskogee + Stillwater data centers
+    counterparty: OG&E
+    cod_year:
+    cod_note: Three Google data centers in Muskogee and Stillwater; Electric Service Agreements and Capacity Purchase Agreements require Oklahoma Corporation Commission approval. OG&E says Google will also make generation capacity available from two solar facilities under construction, but MW was not disclosed.
+    status: Announced
+    connection_type: Grid
+    connection_reason: Utility electric service and capacity purchase agreements through OG&E grid
+    geography: US
+    notes: Capacity left null because the primary release confirms the contract and solar capacity support but does not disclose MW; avoids confusing data-center load with generation capacity.
+    source_id: S363

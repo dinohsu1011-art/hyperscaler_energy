@@ -94,7 +94,7 @@ rows:
     status: Framework
     connection_type: BTM
     connection_reason: BTM-specialist counterparty 'Bloom Energy'
-    notes: Master services agreement for solid-oxide fuel-cell procurement. US sites not individually disclosed. Net-new beyond S58 initial deployment.
+    notes: Master services agreement for solid-oxide fuel-cell procurement. Apr 27 2026 Oracle identified Project Jupiter as using up to 2.45 GW of Bloom fuel cells under this broader 2.8 GW partnership (see S71); keep this generic master row instead of adding an overlapping Project Jupiter row.
     source_id: S162
 
   - year: 2025
@@ -120,20 +120,20 @@ rows:
   - year: 2025
     announced_date: 2025-09-23
     generation_type: Gas
-    capacity_mw: 800
+    capacity_mw: 0
     confidence: Sourced
-    deal_name: Project Jupiter — BTM gas microgrid (Santa Teresa NM)
+    deal_name: Project Jupiter — BTM gas microgrid (Santa Teresa NM, replaced)
     counterparty: BorderPlex Digital Assets / Stack Infrastructure
-    cod_year: 2029
-    cod_note: Oracle 18-yr anchor tenant confirmed Jan 2026; full campus in service ~Oct 2029. Air permit application filed NM EID Mar 2026.
-    status: Approved
+    cod_year:
+    cod_note: Original 700-900 MW simple-cycle gas turbine plan replaced Apr 27 2026 by Bloom fuel-cell microgrid design for Project Jupiter.
+    status: Cancelled
     connection_type: BTM
-    connection_reason: BTM text marker
+    connection_reason: Original behind-the-meter gas plan cancelled before operation
     notes: |
-      700–900 MW range; 800 MW used as mid-point. Simple-cycle BTM gas turbines.
-      BorderPlex committed to source up to 500 MW of renewables by 2028 to integrate.
-      Doña Ana County IRB approved Sep 2025 ($165B, 30-yr investment). OpenAI is
-      Oracle's customer at this site.
+      Historical row retained for provenance only. Do not count the original 800 MW gas midpoint:
+      Oracle says Project Jupiter will instead use up to 2.45 GW of Bloom fuel cells, which
+      is part of the already tracked Oracle-Bloom master agreement rows (S58/S162; source S71). Not adding
+      a separate 2.45 GW Project Jupiter row avoids double-counting the same Bloom capacity.
     source_id: S71
 
   - year: 2025

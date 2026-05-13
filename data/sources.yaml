@@ -514,11 +514,12 @@
 
 - id: S71
   publisher: Oracle
-  title: Oracle advances American AI innovation in New Mexico
-  url: https://www.oracle.com/news/announcement/blog/oracle-advances-american-ai-innovation-in-new-mexico-2026-01-23/
-  pub_date: 2026-01
+  title: "Oracle, BorderPlex, and Bloom Energy to Power Project Jupiter with Cleaner, Water-Efficient Fuel Cell Technology"
+  url: https://www.oracle.com/news/announcement/oracle-borderplex-and-bloom-energy-to-power-project-jupiter-with-fuel-cell-technology-2026-04-27/
+  pub_date: 2026-04-27
+  retrieved_on: 2026-05-13
   kind: Primary
-  supports: Oracle Project Jupiter (Santa Teresa NM) — 18-yr anchor tenant; BTM gas microgrid 700–900 MW; Doña Ana County IRB approved Sep 2025
+  supports: "Oracle Project Jupiter - prior 700-900 MW gas turbine plan replaced by up to 2.45 GW Bloom fuel-cell microgrid under the broader Oracle-Bloom master agreement"
 
 - id: S72
   publisher: BusinessWire / Vantage Data Centers
@@ -2978,3 +2979,48 @@
   retrieved_on: 2026-05-01
   kind: Primary
   supports: 'Yotta Infrastructure × Hiranandani Group (state grid + captive solar) — 250 MW Renewable announcement'
+
+- id: S359
+  publisher: EDP
+  title: "EDP signs agreement with Meta for 250 MW of solar energy in US"
+  url: https://edp.com/en/media/edp-signs-agreement-meta-250-mw-solar-energy-us
+  pub_date: 2026-05-04
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Meta x EDPR North America - 250 MW Cypress Knee Solar PPA in Arkansas"
+
+- id: S360
+  publisher: DESRI / PRNewswire
+  title: "DESRI and Meta Announce 850 MW of PPAs, with Partnership Totaling 2.5+ GW Across Nine States"
+  url: https://www.prnewswire.com/news-releases/desri-and-meta-announce-850-mw-of-ppas-with-partnership-totaling-2-5-gw-across-nine-states-302769864.html
+  pub_date: 2026-05-12
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Meta x DESRI - 850 MW new 2026 renewable PPAs across Oklahoma, Texas, and Mississippi"
+
+- id: S361
+  publisher: Overview Energy / PRNewswire
+  title: "Overview Energy and Meta Announce First-of-Its-Kind Agreement to Bring Space Solar Energy to Data Centers"
+  url: https://www.prnewswire.com/news-releases/overview-energy-and-meta-announce-first-of-its-kind-agreement-to-bring-space-solar-energy-to-data-centers-302753490.html
+  pub_date: 2026-04-27
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Meta x Overview Energy - up to 1 GW space solar early-access framework"
+
+- id: S362
+  publisher: About Amazon
+  title: "Amazon invests in new geothermal and solar projects to power future Nevada data centers"
+  url: https://www.aboutamazon.com/news/sustainability/amazon-renewable-energy-updates
+  pub_date: 2026-05-08
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Amazon x NV Energy / Zanskar / Primergy - 100 MW geothermal plus 600 MW solar+storage for Nevada data centers"
+
+- id: S363
+  publisher: OG&E / PRNewswire
+  title: "OG&E Announces Landmark Contract with Google"
+  url: https://www.prnewswire.com/news-releases/oge-announces-landmark-contract-with-google-302758482.html
+  pub_date: 2026-04-30
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Google x OG&E - Oklahoma electric service agreements for three Muskogee and Stillwater data centers"
