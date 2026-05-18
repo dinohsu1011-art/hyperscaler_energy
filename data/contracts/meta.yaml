@@ -163,6 +163,8 @@ rows:
     announced_date: 2025-12-08
     generation_type: Solar+Storage
     capacity_mw: 2500
+    storage_power_mw: 168
+    storage_energy_mwh: 672
     confidence: Sourced
     deal_name: NextEra 2.5 GW solar+storage US portfolio (11 PPAs + 2 ESAs)
     counterparty: NextEra Energy Resources
@@ -177,6 +179,8 @@ rows:
   - year: 2021
     generation_type: Solar+Storage
     capacity_mw: 190
+    storage_power_mw: 50
+    storage_energy_mwh: 200
     confidence: Sourced
     deal_name: Sky Ranch Solar Energy Center (NM) — operational
     counterparty: NextEra Energy Resources / PNM
@@ -306,6 +310,8 @@ rows:
     announced_date: 2026-04-21
     generation_type: Storage
     capacity_mw: 25
+    storage_power_mw: 25
+    storage_energy_mwh: 2500
     confidence: Sourced
     deal_name: Noon Energy LDES Phase 1 pilot — 25 MW / 2.5 GWh
     counterparty: Noon Energy
@@ -321,6 +327,8 @@ rows:
     announced_date: 2026-04-21
     generation_type: Storage
     capacity_mw: 975
+    storage_power_mw: 975
+    storage_energy_mwh: 97500
     confidence: Estimated
     deal_name: Noon Energy LDES framework — up to 1 GW / 100 GWh (Phase 2)
     counterparty: Noon Energy

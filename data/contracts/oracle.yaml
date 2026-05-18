@@ -140,6 +140,7 @@ rows:
     announced_date: 2025-10-22
     generation_type: Solar+Storage
     capacity_mw:
+    storage_power_mw: 180
     confidence: Sourced
     deal_name: Stargate Wisconsin Lighthouse — WEC Energy Group clean energy tariff
     counterparty: Vantage Data Centers / WEC Energy Group (We Energies)

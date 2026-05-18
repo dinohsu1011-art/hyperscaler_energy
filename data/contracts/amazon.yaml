@@ -72,6 +72,8 @@ rows:
     announced_date: 2025-11-25
     generation_type: Storage
     capacity_mw: 400
+    storage_power_mw: 400
+    storage_energy_mwh: 1600
     confidence: Sourced
     deal_name: NIPSCO GenCo Indiana — 400 MW / 4-hr battery
     counterparty: NIPSCO / NiSource (GenCo)
@@ -149,6 +151,8 @@ rows:
     announced_date: 2022-11
     generation_type: Solar+Storage
     capacity_mw: 150
+    storage_power_mw: 75
+    storage_energy_mwh: 300
     confidence: Sourced
     deal_name: AES Baldy Mesa solar+storage (Adelanto CA)
     counterparty: AES
@@ -226,6 +230,8 @@ rows:
     announced_date: 2026-01
     generation_type: Solar+Storage
     capacity_mw: 1200
+    storage_power_mw: 1200
+    storage_energy_mwh: 7200
     confidence: Sourced
     deal_name: Sunstone Solar acquisition (Morrow County OR)
     counterparty: Pine Gate Renewables (bankrupt seller)
@@ -562,6 +568,7 @@ rows:
     announced_date: 2026-05-08
     generation_type: Solar+Storage
     capacity_mw: 600
+    storage_power_mw: 600
     confidence: Sourced
     deal_name: NV Energy / Primergy Nevada solar-plus-storage for Reno data centers
     counterparty: NV Energy / Primergy

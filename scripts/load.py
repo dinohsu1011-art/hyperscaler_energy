@@ -5,6 +5,8 @@ The SQLite FK on source_id enforces this at load time (so a typo = failure, not 
 """
 from __future__ import annotations
 
+import datetime as dt
+import re
 import sqlite3
 import sys
 from pathlib import Path
@@ -20,6 +22,45 @@ SCHEMA = ROOT / "schema.sql"
 def read_yaml(p: Path):
     with p.open() as f:
         return yaml.safe_load(f)
+
+
+def timeline_bucket(statement_date: object, date_precision: str) -> str:
+    if isinstance(statement_date, (dt.date, dt.datetime)):
+        statement_date = statement_date.isoformat()[:10]
+    else:
+        statement_date = str(statement_date)
+    if date_precision == "day":
+        m = re.fullmatch(r"(\d{4})-(\d{2})-\d{2}", statement_date)
+        if not m:
+            raise ValueError(f"day precision requires YYYY-MM-DD, got {statement_date!r}")
+        month = int(m.group(2))
+        if not 1 <= month <= 12:
+            raise ValueError(f"invalid month in statement_date {statement_date!r}")
+        return f"{m.group(1)}Q{((month - 1) // 3) + 1}"
+    if date_precision == "month":
+        m = re.fullmatch(r"(\d{4})-(\d{2})", statement_date)
+        if not m:
+            raise ValueError(f"month precision requires YYYY-MM, got {statement_date!r}")
+        month = int(m.group(2))
+        if not 1 <= month <= 12:
+            raise ValueError(f"invalid month in statement_date {statement_date!r}")
+        return f"{m.group(1)}Q{((month - 1) // 3) + 1}"
+    if date_precision == "quarter":
+        if not re.fullmatch(r"\d{4}Q[1-4]", statement_date):
+            raise ValueError(f"quarter precision requires YYYYQn, got {statement_date!r}")
+        return statement_date
+    if date_precision == "year":
+        if not re.fullmatch(r"\d{4}", statement_date):
+            raise ValueError(f"year precision requires YYYY, got {statement_date!r}")
+        return statement_date
+    if date_precision == "inferred":
+        for precision in ("day", "month", "quarter", "year"):
+            try:
+                return timeline_bucket(statement_date, precision)
+            except ValueError:
+                continue
+        raise ValueError(f"inferred precision still needs a parseable date, got {statement_date!r}")
+    raise ValueError(f"unknown date_precision {date_precision!r}")
 
 
 def rebuild_schema(conn: sqlite3.Connection) -> None:
@@ -72,13 +113,15 @@ def load_contracts(conn: sqlite3.Connection) -> int:
             conn.execute(
                 """INSERT INTO hyperscaler_contracts
                    (company, operator_type, announced_date, year, cod_year, cod_note,
-                    generation_type, capacity_mw, confidence, deal_name,
+                    generation_type, capacity_mw, storage_power_mw, storage_energy_mwh,
+                    confidence, deal_name,
                     counterparty, contract_years, geography, status,
                     connection_type, connection_reason, notes, source_id)
-                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
                 (company, op_type, r.get("announced_date"), r["year"],
                  r.get("cod_year"), r.get("cod_note"),
                  r["generation_type"], r["capacity_mw"],
+                 r.get("storage_power_mw"), r.get("storage_energy_mwh"),
                  r.get("confidence", "Estimated"), r["deal_name"],
                  r.get("counterparty"), r.get("contract_years"),
                  r.get("geography", "US"), r.get("status", "Announced"),
@@ -359,6 +402,177 @@ def load_campuses(conn: sqlite3.Connection) -> int:
     return n
 
 
+def load_campus_evidence(conn: sqlite3.Connection) -> int:
+    p = DATA / "campus_evidence.yaml"
+    if not p.exists():
+        return 0
+    doc = read_yaml(p) or {}
+    n = 0
+    for r in doc.get("rows", []):
+        conn.execute(
+            """INSERT INTO campus_evidence
+               (evidence_id, campus_id, evidence_date, evidence_type,
+                independence_group, claim_status, capacity_definition,
+                capacity_mw, phase, collectability, evidence_strength,
+                quote, notes, source_id)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (r["evidence_id"], r["campus_id"], r["evidence_date"],
+             r["evidence_type"], r["independence_group"],
+             r["claim_status"],
+             r.get("capacity_definition", "Unknown"),
+             r.get("capacity_mw"), r.get("phase"),
+             r.get("collectability", "Manual"),
+             r["evidence_strength"], r.get("quote"),
+             r.get("notes"), r["source_id"]),
+        )
+        n += 1
+    conn.commit()
+    return n
+
+
+def load_proxy_signal_definitions(conn: sqlite3.Connection) -> int:
+    p = DATA / "proxy_signal_definitions.yaml"
+    if not p.exists():
+        return 0
+    doc = read_yaml(p) or {}
+    n = 0
+    for r in doc.get("rows", []):
+        metric_keys = r.get("metric_keys", [])
+        if isinstance(metric_keys, list):
+            metric_keys = ",".join(metric_keys)
+        conn.execute(
+            """INSERT INTO proxy_signal_definitions
+               (signal_id, signal_name, signal_group, metric_keys, source_route,
+                update_frequency, confidence, validates, cannot_validate, notes)
+               VALUES (?,?,?,?,?,?,?,?,?,?)""",
+            (r["signal_id"], r["signal_name"], r["signal_group"],
+             metric_keys, r["source_route"], r["update_frequency"],
+             r["confidence"], r["validates"], r["cannot_validate"],
+             r.get("notes")),
+        )
+        n += 1
+    conn.commit()
+    return n
+
+
+def load_sec_proxy_metrics(conn: sqlite3.Connection) -> int:
+    p = DATA / "sec_proxy_metrics.yaml"
+    if not p.exists():
+        return 0
+    doc = read_yaml(p) or {}
+    n = 0
+    for r in doc.get("rows", []):
+        conn.execute(
+            """INSERT INTO sec_proxy_metrics
+               (ticker, cik, company_name, company_group, metric_key, metric_label,
+                taxonomy, xbrl_tag, unit, period_type, period_year, sec_fiscal_year, fiscal_period,
+                form, filed_date, start_date, end_date, frame, accession, value,
+                source_url, source_id, retrieved_on)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (r["ticker"], r["cik"], r["company_name"], r["company_group"],
+             r["metric_key"], r["metric_label"], r["taxonomy"], r["xbrl_tag"],
+             r["unit"], r["period_type"], r["period_year"], r.get("sec_fiscal_year"),
+             r.get("fiscal_period") or "", r.get("form") or "",
+             r.get("filed_date"), r.get("start_date"), r["end_date"],
+             r.get("frame"), r.get("accession") or "", r["value"],
+             r["source_url"], r["source_id"], r["retrieved_on"]),
+        )
+        n += 1
+    conn.commit()
+    return n
+
+
+def load_sec_filing_text_signals(conn: sqlite3.Connection) -> int:
+    p = DATA / "sec_filing_text_signals.yaml"
+    if not p.exists():
+        return 0
+    doc = read_yaml(p) or {}
+    n = 0
+    for r in doc.get("rows", []):
+        conn.execute(
+            """INSERT INTO sec_filing_text_signals
+               (ticker, cik, company_name, company_group, form, filed_date,
+                report_date, accession, document_url, signal_type, matched_term,
+                snippet, source_id, retrieved_on)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (r["ticker"], r["cik"], r["company_name"], r["company_group"],
+             r["form"], r["filed_date"], r.get("report_date"),
+             r["accession"], r["document_url"], r["signal_type"],
+             r["matched_term"], r["snippet"], r["source_id"],
+             r["retrieved_on"]),
+        )
+        n += 1
+    conn.commit()
+    return n
+
+
+def load_primary_buildout_signals(conn: sqlite3.Connection) -> int:
+    p = DATA / "primary_buildout_signals.yaml"
+    if not p.exists():
+        return 0
+    doc = read_yaml(p) or {}
+    n = 0
+    for r in doc.get("rows", []):
+        conn.execute(
+            """INSERT INTO primary_buildout_signals
+               (signal_id, campus_id, reporting_company, company_bucket, ticker, counterparty,
+                project_name, geography, claim_type, status_stage, capacity_basis,
+                metric_value, metric_unit, as_of_date, expected_online_date,
+                source_quote, notes, source_id)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (r["signal_id"], r.get("campus_id"), r["reporting_company"],
+             r["company_bucket"], r.get("ticker"), r.get("counterparty"),
+             r.get("project_name"), r.get("geography"), r["claim_type"],
+             r["status_stage"], r.get("capacity_basis", "Unknown"),
+             r.get("metric_value"), r.get("metric_unit"), r.get("as_of_date"),
+             r.get("expected_online_date"), r.get("source_quote"),
+             r.get("notes"), r["source_id"]),
+        )
+        n += 1
+    conn.commit()
+    return n
+
+
+def load_qualitative_load_commentary(conn: sqlite3.Connection) -> int:
+    p = DATA / "qualitative_load_commentary.yaml"
+    if not p.exists():
+        return 0
+    doc = read_yaml(p) or {}
+    n = 0
+    for r in doc.get("rows", []):
+        derived_bucket = timeline_bucket(r["statement_date"], r["date_precision"])
+        supplied_bucket = r.get("timeline_bucket")
+        if supplied_bucket is not None and supplied_bucket != derived_bucket:
+            raise ValueError(
+                f"qualitative_load_commentary {r['statement_id']} timeline_bucket "
+                f"{supplied_bucket!r} != derived {derived_bucket!r}"
+            )
+        conn.execute(
+            """INSERT INTO qualitative_load_commentary
+               (statement_id, source_id, statement_date, date_precision, event_name,
+                timeline_bucket, speaker_name, speaker_title, organization,
+                organization_bucket, source_route, source_type, statement_taxonomy,
+                polarity, load_stage, geography, related_company, short_quote,
+                paraphrase, numeric_value, numeric_unit, capacity_basis,
+                time_horizon_start, time_horizon_end, confidence,
+                independence_group, notes)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (r["statement_id"], r["source_id"], r["statement_date"],
+             r["date_precision"], r["event_name"], derived_bucket,
+             r["speaker_name"], r.get("speaker_title"), r["organization"],
+             r["organization_bucket"], r["source_route"], r["source_type"],
+             r["statement_taxonomy"], r["polarity"], r["load_stage"],
+             r.get("geography"), r.get("related_company"), r.get("short_quote"),
+             r["paraphrase"], r.get("numeric_value"), r.get("numeric_unit"),
+             r["capacity_basis"], r.get("time_horizon_start"),
+             r.get("time_horizon_end"), r["confidence"],
+             r["independence_group"], r.get("notes")),
+        )
+        n += 1
+    conn.commit()
+    return n
+
+
 def load_lcoe(conn: sqlite3.Connection) -> int:
     doc = read_yaml(DATA / "lcoe" / "lcoe.yaml")
     n = 0
@@ -474,6 +688,11 @@ def main() -> int:
         n_src = len(load_sources(conn))
         n_c = load_contracts(conn)
         n_cam = load_campuses(conn)
+        n_ce = load_campus_evidence(conn)
+        n_ps = load_proxy_signal_definitions(conn)
+        n_spm = load_sec_proxy_metrics(conn)
+        n_sfts = load_sec_filing_text_signals(conn)
+        n_pbs = load_primary_buildout_signals(conn)
         n_pg = load_planned_generators(conn)
         n_og = load_operating_generators(conn)
         n_l = load_lcoe(conn)
@@ -481,8 +700,9 @@ def main() -> int:
         n_r = load_renewable_capex(conn)
         n_t = load_turbine_supply(conn)
         n_d, n_p, n_h = load_demand(conn)
-    except sqlite3.IntegrityError as e:
-        print(f"[LOAD FAILED] IntegrityError: {e}", file=sys.stderr)
+        n_qlc = load_qualitative_load_commentary(conn)
+    except (sqlite3.IntegrityError, ValueError) as e:
+        print(f"[LOAD FAILED] {type(e).__name__}: {e}", file=sys.stderr)
         print("Most common cause: a row references a source_id not present in sources.yaml.")
         return 1
     finally:
@@ -491,6 +711,12 @@ def main() -> int:
     print(f"loaded: {n_src} sources")
     print(f"        {n_c} contracts")
     print(f"        {n_cam} campuses")
+    print(f"        {n_ce} campus_evidence")
+    print(f"        {n_ps} proxy_signal_definitions")
+    print(f"        {n_spm} sec_proxy_metrics")
+    print(f"        {n_sfts} sec_filing_text_signals")
+    print(f"        {n_pbs} primary_buildout_signals")
+    print(f"        {n_qlc} qualitative_load_commentary")
     print(f"        {n_pg} planned_generators (EIA-860M)")
     print(f"        {n_og} operating_generators (EIA-860M latest)")
     print(f"        {n_l} lcoe")

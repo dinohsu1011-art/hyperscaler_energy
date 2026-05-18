@@ -199,6 +199,7 @@ rows:
     announced_date: 2024-09-19
     generation_type: Solar+Storage
     capacity_mw: 420
+    storage_energy_mwh: 680
     confidence: Sourced
     deal_name: Pierce County Energy Center Nebraska (NextEra/OPPD)
     counterparty: NextEra Energy Resources / OPPD
@@ -469,6 +470,8 @@ rows:
     announced_date: 2026-02-24
     generation_type: Renewable
     capacity_mw: 1900
+    storage_power_mw: 300
+    storage_energy_mwh: 30000
     confidence: Sourced
     deal_name: Xcel Energy Minnesota Clean Energy Accelerator — wind + solar + iron-air storage
     counterparty: Xcel Energy
@@ -501,6 +504,8 @@ rows:
     announced_date: 2026-03-17
     generation_type: Solar+Storage
     capacity_mw: 2700
+    storage_power_mw: 500
+    storage_energy_mwh: 1800
     confidence: Sourced
     deal_name: DTE Michigan Clean Capacity Accelerator — 2.7 GW total (solar + storage + clean resources)
     counterparty: DTE Energy

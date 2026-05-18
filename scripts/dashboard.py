@@ -108,7 +108,8 @@ def build(conn: sqlite3.Connection) -> str:
     data = {
         "contracts": q(conn, """
             SELECT id, company, operator_type, announced_date, year, cod_year, cod_note,
-                   generation_type, capacity_mw, confidence, deal_name,
+                   generation_type, capacity_mw, storage_power_mw, storage_energy_mwh,
+                   confidence, deal_name,
                    counterparty, contract_years, geography, status,
                    connection_type, connection_reason, notes, source_id
             FROM hyperscaler_contracts"""),
@@ -133,6 +134,16 @@ def build(conn: sqlite3.Connection) -> str:
         "campus_pipeline": q(conn, """
             SELECT hyperscaler, campus_count, energized_mw, phase1_mw, planned_mw
             FROM v_campus_pipeline_by_hyperscaler"""),
+        "commentary": q(conn, """
+            SELECT statement_id, source_id, statement_date, date_precision,
+                   event_name, timeline_bucket, speaker_name, speaker_title,
+                   organization, organization_bucket, source_route, source_type,
+                   statement_taxonomy, polarity, load_stage, geography,
+                   related_company, short_quote, paraphrase, numeric_value,
+                   numeric_unit, capacity_basis, time_horizon_start,
+                   time_horizon_end, confidence, independence_group, notes
+            FROM qualitative_load_commentary
+            ORDER BY statement_date, statement_id"""),
         "eia_tier": q(conn, """
             SELECT status_tier,
                    COUNT(*) AS gens,
@@ -166,6 +177,24 @@ def build(conn: sqlite3.Connection) -> str:
             WHERE plant_state IS NOT NULL
               AND vintage = (SELECT MAX(vintage) FROM planned_generators)
             GROUP BY plant_state, tech_group"""),
+        "eia_status_tech": q(conn, """
+            SELECT status_tier,
+                   CASE
+                     WHEN technology LIKE '%Solar%'    THEN 'Solar'
+                     WHEN technology LIKE '%Wind%'     THEN 'Wind'
+                     WHEN technology = 'Batteries' OR technology LIKE '%Storage%' THEN 'Storage'
+                     WHEN technology LIKE '%Nuclear%'  THEN 'Nuclear'
+                     WHEN technology LIKE '%Natural Gas%' THEN 'Gas'
+                     WHEN technology LIKE '%Geothermal%' THEN 'Geothermal'
+                     WHEN technology LIKE '%Hydro%' THEN 'Hydro'
+                     ELSE 'Other'
+                   END AS tech_group,
+                   COUNT(*)                              AS gen_count,
+                   ROUND(SUM(nameplate_capacity_mw), 0) AS announced_mw,
+                   ROUND(SUM(nameplate_capacity_mw * delivery_probability), 0) AS expected_mw
+            FROM planned_generators
+            WHERE vintage = (SELECT MAX(vintage) FROM planned_generators)
+            GROUP BY status_tier, tech_group"""),
         "sources": {r["id"]: dict(r) for r in conn.execute("SELECT * FROM sources")},
     }
     payload = json.dumps(data, default=str)
@@ -365,6 +394,36 @@ TEMPLATE = r"""<!doctype html>
     .camp-hero { grid-template-columns:1fr; gap:1.5rem; }
     .pipe-row { grid-template-columns:90px 1fr 70px; gap:.6rem; }
   }
+
+  /* --- Qualitative commentary timeline --- */
+  .ql-filters { display:flex; gap:.6rem; flex-wrap:wrap; margin:1rem 0; align-items:center; }
+  .ql-filters label { color:var(--muted); font-size:.83rem; }
+  .ql-filters .count { color:var(--muted); font-size:.78rem; margin-left:auto; }
+  .ql-layout { display:grid; grid-template-columns:minmax(260px,.9fr) minmax(0,1.6fr); gap:1.2rem; }
+  .ql-timeline { border:1px solid var(--line); border-radius:6px; padding:.8rem 1rem; max-height:680px; overflow:auto; background:#0f131c; }
+  .ql-bucket { display:grid; grid-template-columns:70px 1fr; gap:.8rem; padding:.75rem 0; border-bottom:1px solid var(--line); }
+  .ql-bucket:last-child { border-bottom:0; }
+  .ql-date { color:var(--accent); font-weight:700; font-size:.78rem; font-variant-numeric:tabular-nums; }
+  .ql-item { position:relative; padding:0 0 .75rem 1rem; border-left:1px solid rgba(110,168,254,.35); }
+  .ql-item:last-child { padding-bottom:0; }
+  .ql-item::before { content:""; position:absolute; left:-4px; top:.2rem; width:7px; height:7px; border-radius:50%; background:var(--accent); }
+  .ql-org { font-weight:600; font-size:.88rem; }
+  .ql-meta { color:var(--muted); font-size:.74rem; margin-top:.1rem; }
+  .ql-text { color:var(--ink); font-size:.8rem; margin-top:.28rem; }
+  .ql-badge { display:inline-block; padding:1px 6px; border-radius:3px; font-size:.64rem; font-weight:650; margin-right:.25rem; }
+  .ql-pos { background:rgba(138,198,164,.18); color:#a3dcbb; }
+  .ql-mix { background:rgba(242,204,143,.16); color:#f2cc8f; }
+  .ql-neg { background:rgba(224,122,95,.18); color:#f4a58e; }
+  .ql-neutral { background:rgba(139,147,167,.18); color:var(--muted); }
+  .ql-stage { background:rgba(110,168,254,.14); color:#9fc3ff; }
+  .ql-basis { background:rgba(183,148,244,.14); color:#cbb2fa; }
+  .ql-table-wrap { border:1px solid var(--line); border-radius:6px; max-height:680px; overflow:auto; }
+  .ql-table-wrap th { background:#0f131c; }
+  .ql-table-wrap td.r { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+
+  @media (max-width: 1000px) {
+    .ql-layout { grid-template-columns:1fr; }
+  }
 </style>
 </head>
 <body>
@@ -382,6 +441,7 @@ TEMPLATE = r"""<!doctype html>
     <div class="tab active" data-tab="overview">Overview</div>
     <div class="tab" data-tab="contracts">Contracts</div>
     <div class="tab" data-tab="campuses">Campuses</div>
+    <div class="tab" data-tab="commentary">Commentary Timeline</div>
     <div class="tab" data-tab="eia">Federal Cross-Check</div>
     <div class="tab" data-tab="costs">Costs (LCOE / CAPEX)</div>
     <div class="tab" data-tab="sources">Sources</div>
@@ -393,6 +453,11 @@ TEMPLATE = r"""<!doctype html>
         <h2>Contracted MW by announce year — gas vs clean</h2>
         <div class="hint">Stacked by generation type. Uses <b>announce year</b>, not COD. Includes Oracle/xAI.</div>
         <div class="chart-wrap"><canvas id="chartYear"></canvas></div>
+      </div>
+      <div class="card wide">
+        <h2>Battery storage energy by announce year</h2>
+        <div class="hint">MWh/GWh attached to storage and hybrid rows. This is energy duration, not another MW stack.</div>
+        <div class="chart-wrap"><canvas id="chartStorageYear"></canvas></div>
       </div>
       <div class="card">
         <h2>Total contracted MW by company</h2>
@@ -462,6 +527,8 @@ TEMPLATE = r"""<!doctype html>
           <th data-k="generation_type">Type</th>
           <th data-k="connection_type">Conn</th>
           <th data-k="capacity_mw" style="text-align:right">MW</th>
+          <th data-k="storage_power_mw" style="text-align:right">Storage MW</th>
+          <th data-k="storage_energy_mwh" style="text-align:right">Storage MWh</th>
           <th data-k="deal_name">Deal</th>
           <th data-k="counterparty">Counterparty</th>
           <th>Notes</th>
@@ -551,6 +618,74 @@ TEMPLATE = r"""<!doctype html>
     </div>
   </section>
 
+  <section class="panel" id="panel-commentary">
+    <div class="camp-hero">
+      <div>
+        <p class="lead">
+          Qualitative statements are tracked as <b>dated narrative anchors</b>, not
+          energized-MW evidence. Each item keeps the speaker, source route, load-stage
+          signal, and capacity basis so management commentary, utility load planning,
+          grid bottlenecks, and supply-chain constraints can be compared on one chronology.
+        </p>
+      </div>
+      <div class="camp-stats">
+        <div class="camp-stat">
+          <div class="num"><span id="ql-count">-</span></div>
+          <div class="lab">Statement anchors</div>
+        </div>
+        <div class="camp-stat">
+          <div class="num"><span id="ql-orgs">-</span></div>
+          <div class="lab">Organizations</div>
+        </div>
+        <div class="camp-stat live">
+          <div class="num"><span id="ql-ready">-</span></div>
+          <div class="lab">Ready/live anchors</div>
+        </div>
+        <div class="camp-stat gap">
+          <div class="num"><span id="ql-buckets">-</span></div>
+          <div class="lab">Timeline buckets</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="camp-section-title">Timestamped commentary<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">statement date -> load-stage signal -> evidence basis</span></h3>
+    <div class="chart-wrap" style="height:260px; margin-bottom:1rem;"><canvas id="qlBucketChart"></canvas></div>
+
+    <div class="ql-filters">
+      <label>Category
+        <select id="qlFCategory"><option value="">All</option></select>
+      </label>
+      <label>Taxonomy
+        <select id="qlFTaxonomy"><option value="">All</option></select>
+      </label>
+      <label>Stage
+        <select id="qlFStage"><option value="">All</option></select>
+      </label>
+      <label>Search <input type="text" id="qlSearch" placeholder="organization, speaker, source..."></label>
+      <span class="count" id="qlRowCount"></span>
+    </div>
+
+    <div class="ql-layout">
+      <div class="ql-timeline" id="qlTimeline"></div>
+      <div class="ql-table-wrap">
+        <table id="qlTable">
+          <thead><tr>
+            <th>Date</th>
+            <th>Bucket</th>
+            <th>Organization</th>
+            <th>Speaker</th>
+            <th>Taxonomy</th>
+            <th>Stage</th>
+            <th>Basis</th>
+            <th>Commentary</th>
+            <th>Src</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
   <section class="panel" id="panel-eia">
     <div class="camp-hero">
       <div>
@@ -637,6 +772,15 @@ TEMPLATE = r"""<!doctype html>
 
     <h3 class="camp-section-title" style="margin-top:2.4rem">Latest snapshot — status ladder<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">where each MW sits in the funnel today (2026-03)</span></h3>
     <div class="pipeline-list" id="eiaTierList"></div>
+
+    <h3 class="camp-section-title" style="margin-top:2.4rem">Latest snapshot — construction status by generation type<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">EIA-860M status tiers crossed with technology</span></h3>
+    <p class="lead" style="margin:0 0 1rem; max-width:none">
+      EIA-860M does disclose construction status for each planned generator. This chart crosses those
+      status tiers with technology, so you can see which fuels are actually near completion versus still
+      sitting in approvals or planning.
+    </p>
+    <div class="chart-wrap" style="height:360px; margin-bottom:.6rem;"><canvas id="eiaStatusTechChart"></canvas></div>
+    <div id="eiaStatusTechTable" style="margin-bottom:2rem;"></div>
 
     <h3 class="camp-section-title" style="margin-top:2.4rem">Federal pipeline by generation type<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">2,214 planned units, all sectors</span></h3>
     <p class="lead" style="margin:0 0 1.2rem; max-width:none">
@@ -846,6 +990,8 @@ Chart.register({
     {l:'Total contracted MW', v:totalMW.toLocaleString(undefined,{maximumFractionDigits:0})},
     {l:'Gas MW', v:gasMW.toLocaleString(undefined,{maximumFractionDigits:0}), c:'var(--gas)'},
     {l:'Clean MW', v:cleanMW.toLocaleString(undefined,{maximumFractionDigits:0}), c:'var(--clean)'},
+    {l:'Storage power MW', v:C.reduce((s,r)=>s+(r.storage_power_mw||0),0).toLocaleString(undefined,{maximumFractionDigits:0}), c:'var(--storage)'},
+    {l:'Storage energy GWh', v:(C.reduce((s,r)=>s+(r.storage_energy_mwh||0),0)/1000).toLocaleString(undefined,{maximumFractionDigits:1}), c:'var(--storage)'},
     {l:'Gas share', v:(100*gasMW/totalMW).toFixed(1)+'%'},
     {l:'Contract rows', v:C.length},
     {l:'Sources', v:Object.keys(SRC).length},
@@ -878,6 +1024,34 @@ Chart.register({
       `<span class="wn-label">New · last ${FRESH_WINDOW_DAYS}d</span>` +
       items.join('<span class="wn-sep">·</span>');
   }
+})();
+
+// ---- Chart: storage energy by announce year ----
+(function(){
+  const C = DATA.contracts.filter(r => r.storage_energy_mwh);
+  const el = document.getElementById('chartStorageYear');
+  if (!el || !C.length) return;
+  const years = [...new Set(C.map(r=>r.year))].sort((a,b)=>a-b);
+  const companies = [...new Set(C.map(r=>r.company))].sort();
+  const ds = companies.map(co => {
+    const rowsC = C.filter(r => r.company === co);
+    return {
+      label: co,
+      data: years.map(y => rowsC.filter(r=>r.year===y)
+                                .reduce((s,r)=>s+(r.storage_energy_mwh||0),0) / 1000),
+      backgroundColor: '#9bb0e3',
+      borderWidth: 0
+    };
+  }).filter(d => d.data.some(v=>v>0));
+  new Chart(el, {
+    type:'bar',
+    data:{ labels:years, datasets: ds },
+    options:{ maintainAspectRatio:false, responsive:true,
+      scales:{ x:{stacked:true}, y:{stacked:true, ticks:{callback:v=>v.toLocaleString()+' GWh'}} },
+      plugins:{ legend:{position:'bottom', labels:{boxWidth:10, boxHeight:10}},
+                tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y.toLocaleString()} GWh storage energy`}} }
+    }
+  });
 })();
 
 // ---- Tabs ----
@@ -1283,6 +1457,8 @@ document.querySelectorAll('.tab').forEach(t => {
         <td>${typeBadge(r.generation_type)}</td>
         <td>${connBadge(r.connection_type, r.connection_reason)}</td>
         <td style="text-align:right;white-space:nowrap">${r.capacity_mw!=null ? r.capacity_mw.toLocaleString()+' MW' : '—'} <span class="${r.confidence==='Sourced'?'conf-s':'conf-e'}">${r.confidence==='Sourced'?'✓':'~'}</span></td>
+        <td style="text-align:right;white-space:nowrap">${r.storage_power_mw!=null ? r.storage_power_mw.toLocaleString()+' MW' : '—'}</td>
+        <td style="text-align:right;white-space:nowrap">${r.storage_energy_mwh!=null ? r.storage_energy_mwh.toLocaleString()+' MWh' : '—'}</td>
         <td>${dealHtml}</td>
         <td style="color:var(--muted)">${r.counterparty||''}</td>
         <td style="color:var(--muted);font-size:.78rem;max-width:260px">${notes}</td>
@@ -1418,6 +1594,159 @@ document.querySelectorAll('.tab').forEach(t => {
     });
   });
   [f1, f2, f3, fs].forEach(el => el.addEventListener('input', render));
+  render();
+})();
+
+// ---- Qualitative commentary timeline ----
+(function(){
+  const QLC = DATA.commentary || [];
+  const timeline = document.getElementById('qlTimeline');
+  if (!timeline) return;
+
+  const fCategory = document.getElementById('qlFCategory');
+  const fTaxonomy = document.getElementById('qlFTaxonomy');
+  const fStage = document.getElementById('qlFStage');
+  const fSearch = document.getElementById('qlSearch');
+  const rowCount = document.getElementById('qlRowCount');
+  const tbody = document.querySelector('#qlTable tbody');
+  let bucketChart = null;
+
+  const fmt = n => Number(n || 0).toLocaleString();
+  const label = s => String(s || '').replace(/_/g, ' ');
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, ch => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+  }[ch]));
+  const sourceLink = sid => {
+    const s = SRC[sid];
+    if (!s) return esc(sid);
+    return `<a class="cite" href="${esc(s.url)}" target="_blank" title="${esc(s.publisher || '')}: ${esc(s.title || '')}">${esc(sid)}</a>`;
+  };
+  const polarityClass = p => {
+    if (p === 'positive_acceleration') return 'ql-pos';
+    if (p === 'negative_delay' || p === 'negative_not_observed') return 'ql-neg';
+    if (p === 'mixed_or_uncertain') return 'ql-mix';
+    return 'ql-neutral';
+  };
+  const metric = r => {
+    if (r.numeric_value == null) return '';
+    return `${fmt(r.numeric_value)} ${label(r.numeric_unit)}`;
+  };
+
+  document.getElementById('ql-count').textContent = QLC.length;
+  document.getElementById('ql-orgs').textContent = new Set(QLC.map(r => r.organization)).size;
+  document.getElementById('ql-ready').textContent = QLC.filter(r =>
+    ['ready_for_service','energized_or_metered'].includes(r.load_stage)
+  ).length;
+  document.getElementById('ql-buckets').textContent = new Set(QLC.map(r => r.timeline_bucket)).size;
+
+  [...new Set(QLC.map(r => r.organization_bucket))].sort().forEach(v =>
+    fCategory.insertAdjacentHTML('beforeend', `<option value="${esc(v)}">${esc(label(v))}</option>`));
+  [...new Set(QLC.map(r => r.statement_taxonomy))].sort().forEach(v =>
+    fTaxonomy.insertAdjacentHTML('beforeend', `<option value="${esc(v)}">${esc(label(v))}</option>`));
+  [...new Set(QLC.map(r => r.load_stage))].sort().forEach(v =>
+    fStage.insertAdjacentHTML('beforeend', `<option value="${esc(v)}">${esc(label(v))}</option>`));
+
+  function filteredRows(){
+    const cat = fCategory.value, tax = fTaxonomy.value, stage = fStage.value;
+    const q = fSearch.value.toLowerCase();
+    return QLC.filter(r =>
+      (!cat || r.organization_bucket === cat) &&
+      (!tax || r.statement_taxonomy === tax) &&
+      (!stage || r.load_stage === stage) &&
+      (!q || [
+        r.organization, r.speaker_name, r.event_name, r.statement_taxonomy,
+        r.load_stage, r.capacity_basis, r.geography, r.short_quote, r.paraphrase,
+        r.notes, r.related_company
+      ].some(x => String(x || '').toLowerCase().includes(q)))
+    ).sort((a,b) =>
+      String(a.statement_date).localeCompare(String(b.statement_date)) ||
+      String(a.statement_id).localeCompare(String(b.statement_id))
+    );
+  }
+
+  function renderChart(rows){
+    const buckets = [...new Set(rows.map(r => r.timeline_bucket))].sort();
+    const stages = [...new Set(rows.map(r => r.load_stage))].sort();
+    const colors = {
+      narrative_demand: '#6ea8fe',
+      announced_pipeline: '#9bb0e3',
+      contracted_service: '#8ac6a4',
+      under_construction: '#f6c65b',
+      ready_for_service: '#a3dcbb',
+      energized_or_metered: '#5fd0a5',
+      bottleneck_constraint: '#f2cc8f',
+      interconnection_queue: '#b794f4'
+    };
+    if (bucketChart) bucketChart.destroy();
+    bucketChart = new Chart(document.getElementById('qlBucketChart'), {
+      type: 'bar',
+      data: {
+        labels: buckets,
+        datasets: stages.map(stage => ({
+          label: label(stage),
+          data: buckets.map(b => rows.filter(r => r.timeline_bucket === b && r.load_stage === stage).length),
+          backgroundColor: colors[stage] || '#6b7280',
+          borderWidth: 0
+        }))
+      },
+      options: {
+        responsive:true,
+        maintainAspectRatio:false,
+        plugins:{ legend:{ position:'bottom' } },
+        scales:{
+          x:{ stacked:true, grid:{ display:false } },
+          y:{ stacked:true, ticks:{ precision:0 }, title:{ display:true, text:'statement count' } }
+        }
+      }
+    });
+  }
+
+  function render(){
+    const rows = filteredRows();
+    const byBucket = {};
+    for (const r of rows) {
+      if (!byBucket[r.timeline_bucket]) byBucket[r.timeline_bucket] = [];
+      byBucket[r.timeline_bucket].push(r);
+    }
+    timeline.innerHTML = Object.entries(byBucket).map(([bucket, items]) => `
+      <div class="ql-bucket">
+        <div class="ql-date">${esc(bucket)}</div>
+        <div>
+          ${items.map(r => `
+            <div class="ql-item">
+              <div class="ql-org">${esc(r.organization)} <span class="ql-meta">${esc(r.statement_date)} · ${esc(r.speaker_name)}</span></div>
+              <div class="ql-meta">
+                <span class="ql-badge ${polarityClass(r.polarity)}">${esc(label(r.polarity))}</span>
+                <span class="ql-badge ql-stage">${esc(label(r.load_stage))}</span>
+                <span class="ql-badge ql-basis">${esc(label(r.capacity_basis))}</span>
+                ${metric(r) ? `<span class="ql-meta">${esc(metric(r))}</span>` : ''}
+                ${sourceLink(r.source_id)}
+              </div>
+              <div class="ql-text">${esc(r.paraphrase)}</div>
+              ${r.short_quote ? `<div class="ql-meta">"${esc(r.short_quote)}"</div>` : ''}
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `).join('') || `<div class="ql-meta">No commentary rows match the current filters.</div>`;
+
+    tbody.innerHTML = rows.map(r => `
+      <tr>
+        <td>${esc(r.statement_date)}<br><span class="ql-meta">${esc(r.date_precision)}</span></td>
+        <td><code>${esc(r.timeline_bucket)}</code></td>
+        <td><b>${esc(r.organization)}</b><br><span class="ql-meta">${esc(label(r.organization_bucket))}</span></td>
+        <td>${esc(r.speaker_name)}<br><span class="ql-meta">${esc(r.speaker_title || '')}</span></td>
+        <td>${esc(label(r.statement_taxonomy))}</td>
+        <td><span class="ql-badge ql-stage">${esc(label(r.load_stage))}</span></td>
+        <td><span class="ql-badge ql-basis">${esc(label(r.capacity_basis))}</span>${metric(r) ? `<br><span class="ql-meta">${esc(metric(r))}</span>` : ''}</td>
+        <td>${esc(r.paraphrase)}${r.short_quote ? `<br><span class="ql-meta">"${esc(r.short_quote)}"</span>` : ''}</td>
+        <td>${sourceLink(r.source_id)}</td>
+      </tr>`).join('');
+    rowCount.textContent = `${rows.length} / ${QLC.length} statements`;
+    renderChart(rows);
+  }
+
+  [fCategory, fTaxonomy, fStage, fSearch].forEach(el => el.addEventListener('input', render));
   render();
 })();
 
@@ -1587,6 +1916,61 @@ document.querySelectorAll('.tab').forEach(t => {
       }
     }
   });
+
+  // ---------- Latest snapshot: construction status by technology ----------
+  const ST = DATA.eia_status_tech || [];
+  if (ST.length) {
+    const techsInST = TECH_ORDER.filter(t => ST.some(r => r.tech_group === t));
+    const statusByTechDatasets = stackOrder.map(status => ({
+      label: STATUS_LABEL[status],
+      data: techsInST.map(tech => {
+        const r = ST.find(r => r.tech_group === tech && r.status_tier === status);
+        return r ? r.announced_mw : 0;
+      }),
+      backgroundColor: STATUS_COLOR[status],
+      borderWidth: 0,
+      stack: 'main'
+    }));
+    new Chart(document.getElementById('eiaStatusTechChart'), {
+      type: 'bar',
+      data: { labels: techsInST, datasets: statusByTechDatasets },
+      options: {
+        maintainAspectRatio: false, responsive: true,
+        scales: {
+          x: { stacked: true },
+          y: { stacked: true, ticks: { callback: v => (v/1000).toFixed(0) + ' GW' } }
+        },
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 10, boxHeight: 10, padding: 12 } },
+          tooltip: { callbacks: { label: c => `${c.dataset.label}: ${fmt(c.parsed.y)} MW` } }
+        }
+      }
+    });
+
+    const tableRows = techsInST.map(tech => {
+      const total = ST.filter(r => r.tech_group === tech).reduce((s,r)=>s+(r.announced_mw||0),0);
+      const cells = stackOrder.map(status => {
+        const r = ST.find(r => r.tech_group === tech && r.status_tier === status);
+        return `<td class="r">${r ? fmt(r.announced_mw) : '—'}</td>`;
+      }).join('');
+      return `<tr>
+        <td><b>${tech}</b></td>
+        ${cells}
+        <td class="r"><b>${fmt(total)}</b></td>
+      </tr>`;
+    }).join('');
+    document.getElementById('eiaStatusTechTable').innerHTML = `
+      <div class="camp-table-wrap" style="max-height:420px">
+        <table style="width:100%; border-collapse:collapse; font-size:.82rem;">
+          <thead><tr>
+            <th>Technology</th>
+            ${stackOrder.map(status => `<th class="r">${STATUS_LABEL[status]}</th>`).join('')}
+            <th class="r">Total</th>
+          </tr></thead>
+          <tbody>${tableRows}</tbody>
+        </table>
+      </div>`;
+  }
 
   // ---------- Completion rate vs announcement rate (clustered bar) ----------
   const TR = DATA.eia_transitions || [];

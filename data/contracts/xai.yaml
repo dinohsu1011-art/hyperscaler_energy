@@ -46,6 +46,7 @@ rows:
   - year: 2024
     generation_type: Storage
     capacity_mw: 150
+    storage_power_mw: 150
     confidence: Sourced
     deal_name: Colossus 1 — Tesla Megapack battery storage (~156 units Phase 1)
     counterparty: Tesla Energy
@@ -95,6 +96,7 @@ rows:
     announced_date: 2025-09-17
     generation_type: Solar+Storage
     capacity_mw: 100
+    storage_power_mw: 100
     confidence: Sourced
     deal_name: Seven States Power — 100 MW solar + 100 MW storage (Port Commission land)
     counterparty: Seven States Power Corporation
