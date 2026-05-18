@@ -545,6 +545,31 @@ SELECT vintage,
 FROM planned_generators
 GROUP BY vintage, tech_group;
 
+-- Cross-cut: construction stage by technology over time.
+-- This collapses detailed EIA status codes into the three buckets that matter
+-- for announcement-vs-buildout triage.
+CREATE VIEW v_eia_stage_tech_by_vintage AS
+SELECT vintage,
+       CASE
+         WHEN technology LIKE '%Solar%'    THEN 'Solar'
+         WHEN technology LIKE '%Wind%'     THEN 'Wind'
+         WHEN technology = 'Batteries' OR technology LIKE '%Storage%' THEN 'Storage'
+         WHEN technology LIKE '%Nuclear%'  THEN 'Nuclear'
+         WHEN technology LIKE '%Natural Gas%' THEN 'Gas'
+         WHEN technology LIKE '%Geothermal%' THEN 'Geothermal'
+         WHEN technology LIKE '%Hydro%'    THEN 'Hydro'
+         ELSE 'Other'
+       END AS tech_group,
+       CASE
+         WHEN status_tier = 'ConstructionComplete' THEN 'ConstructionComplete'
+         WHEN status_tier IN ('MajorityComplete','MinorityComplete') THEN 'UnderConstruction'
+         ELSE 'PlannedPermitting'
+       END AS stage_group,
+       COUNT(*) AS gen_count,
+       ROUND(SUM(nameplate_capacity_mw), 0) AS total_mw
+FROM planned_generators
+GROUP BY vintage, tech_group, stage_group;
+
 -- Aggregate view: federal pipeline by year × tier (the haircut ladder)
 CREATE VIEW v_eia_pipeline_by_tier AS
 SELECT planned_year,

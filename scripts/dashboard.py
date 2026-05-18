@@ -157,6 +157,7 @@ def build(conn: sqlite3.Connection) -> str:
             SELECT * FROM v_eia_pipeline_by_tech"""),
         "eia_status_by_vintage": q(conn, "SELECT * FROM v_eia_status_by_vintage"),
         "eia_tech_by_vintage": q(conn, "SELECT * FROM v_eia_tech_by_vintage"),
+        "eia_stage_tech_by_vintage": q(conn, "SELECT * FROM v_eia_stage_tech_by_vintage"),
         "eia_transitions": compute_vintage_transitions(conn),
         "eia_state_tech": q(conn, """
             SELECT plant_state,
@@ -694,15 +695,15 @@ TEMPLATE = r"""<!doctype html>
           that has filed with EIA — capacity, fuel, planned online date, and a
           <b>construction-status code</b> from "regulatory approvals not initiated"
           all the way to "construction complete." We track the full file across
-          six vintages spanning 2024–2026. The signal isn't a probability estimate;
+          quarterly vintages spanning late 2022–2026. The signal isn't a probability estimate;
           it's the <b>empirical migration of MW between status tiers</b> over time.
         </p>
         <p class="lead" style="margin-top:.6rem">
           The big finding from this dataset: the US planned-generation pipeline
-          <b>nearly doubled in 26 months</b> (157 GW → 286 GW), but most of the
-          new MW are stuck at the back of the funnel. Approvals-pending and
-          planned-only tiers <b>grew +109% each</b>. Construction-complete grew +163%
-          but off a tiny base. Pipeline is widening faster than it's draining.
+          <b>roughly doubled across the tracked history</b>, but much of the
+          new MW is still stuck at the back of the funnel. The key question is
+          whether each technology's pipeline is migrating toward construction
+          complete or merely accumulating in planned and permitting stages.
         </p>
       </div>
       <div class="camp-stats">
@@ -712,11 +713,11 @@ TEMPLATE = r"""<!doctype html>
         </div>
         <div class="camp-stat gap">
           <div class="num"><span id="es-growth">—</span><span class="gw">%</span></div>
-          <div class="lab">Growth vs Jan 2024</div>
+          <div class="lab">Growth vs earliest vintage</div>
         </div>
         <div class="camp-stat">
           <div class="num"><span id="es-vintages">—</span></div>
-          <div class="lab">Monthly vintages</div>
+          <div class="lab">Tracked vintages</div>
         </div>
         <div class="camp-stat">
           <div class="num"><span id="es-count">—</span></div>
@@ -737,6 +738,21 @@ TEMPLATE = r"""<!doctype html>
 
     <h3 class="camp-section-title" style="margin-top:2rem">Pipeline evolution by technology<span class="rule"></span></h3>
     <div class="chart-wrap" style="height:340px; margin-bottom:1.4rem;"><canvas id="eiaTechVintageChart"></canvas></div>
+
+    <h3 class="camp-section-title" style="margin-top:2rem">Construction stage by generation type over time<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">construction complete → under construction → planned / permitting</span></h3>
+    <p class="lead" style="margin:0 0 1rem; max-width:none">
+      This collapses EIA's detailed status codes into three buildout stages and shows the stage mix
+      for one technology across every tracked vintage. It is the time-series version of the latest
+      snapshot chart below.
+    </p>
+    <div class="camp-filters" style="margin-bottom:.75rem;">
+      <label>Generation type
+        <select id="eiaStageTechSelect"></select>
+      </label>
+      <span class="count" id="eiaStageTechSummary"></span>
+    </div>
+    <div class="chart-wrap" style="height:360px; margin-bottom:.6rem;"><canvas id="eiaStageTechVintageChart"></canvas></div>
+    <div id="eiaStageTechTable" style="margin-bottom:2rem;"></div>
 
     <h3 class="camp-section-title" style="margin-top:2rem">Completed vs announced — raw MW per window<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">no annualization, just the actual flow during each window</span></h3>
     <p class="lead" style="margin:0 0 1rem; max-width:none">
@@ -1760,6 +1776,7 @@ document.querySelectorAll('.tab').forEach(t => {
   // ---------- Time-series datasets ----------
   const SV = DATA.eia_status_by_vintage || [];
   const TV = DATA.eia_tech_by_vintage || [];
+  const STV = DATA.eia_stage_tech_by_vintage || [];
   const vintages = [...new Set(SV.map(r => r.vintage))].sort();
   const tiersOrder = ['ConstructionComplete','MajorityComplete','MinorityComplete',
                       'ApprovalsReceived','ApprovalsPending','PlannedOnly','Other'];
@@ -1916,6 +1933,121 @@ document.querySelectorAll('.tab').forEach(t => {
       }
     }
   });
+
+  // ---------- Time-series chart: construction stage by selected technology ----------
+  const STAGE_ORDER = ['ConstructionComplete','UnderConstruction','PlannedPermitting'];
+  const STAGE_LABEL = {
+    ConstructionComplete: 'Construction complete',
+    UnderConstruction: 'Under construction',
+    PlannedPermitting: 'Planned / permitting',
+  };
+  const STAGE_COLOR = {
+    ConstructionComplete: '#5fae87',
+    UnderConstruction: '#a3dcbb',
+    PlannedPermitting: '#6b7280',
+  };
+  const stageSelect = document.getElementById('eiaStageTechSelect');
+  const stageSummary = document.getElementById('eiaStageTechSummary');
+  const stageTable = document.getElementById('eiaStageTechTable');
+  let stageTechChart = null;
+
+  function stageValue(tech, vintage, stage) {
+    const r = STV.find(r => r.tech_group === tech && r.vintage === vintage && r.stage_group === stage);
+    return r ? r.total_mw : 0;
+  }
+
+  function stageTotal(tech, vintage) {
+    return STAGE_ORDER.reduce((sum, stage) => sum + stageValue(tech, vintage, stage), 0);
+  }
+
+  if (STV.length && stageSelect) {
+    const techsInStage = TECH_ORDER.filter(t => STV.some(r => r.tech_group === t));
+    const defaultTech = techsInStage
+      .map(tech => ({ tech, total: stageTotal(tech, latest) }))
+      .sort((a,b) => b.total - a.total)[0]?.tech || techsInStage[0];
+
+    stageSelect.innerHTML = techsInStage
+      .map(tech => `<option value="${tech}" ${tech === defaultTech ? 'selected' : ''}>${tech}</option>`)
+      .join('');
+
+    function renderStageTech() {
+      const tech = stageSelect.value || defaultTech;
+      const latestTotal = stageTotal(tech, latest);
+      const earliestTotal = stageTotal(tech, earliest);
+      const latestComplete = stageValue(tech, latest, 'ConstructionComplete');
+      const latestUnder = stageValue(tech, latest, 'UnderConstruction');
+      const latestPlanned = stageValue(tech, latest, 'PlannedPermitting');
+      const delta = latestTotal - earliestTotal;
+
+      stageSummary.textContent =
+        `${fmt(latestTotal)} MW latest | ${fmt(latestComplete)} complete | ` +
+        `${fmt(latestUnder)} under construction | ${fmt(latestPlanned)} planned/permitting`;
+
+      const datasets = STAGE_ORDER.map(stage => ({
+        label: STAGE_LABEL[stage],
+        data: vintages.map(v => stageValue(tech, v, stage)),
+        backgroundColor: STAGE_COLOR[stage],
+        borderWidth: 0,
+        stack: 'main',
+      }));
+
+      if (stageTechChart) stageTechChart.destroy();
+      stageTechChart = new Chart(document.getElementById('eiaStageTechVintageChart'), {
+        type: 'bar',
+        data: { labels: vintages.map(vintageLabel), datasets },
+        options: {
+          maintainAspectRatio: false, responsive: true,
+          scales: {
+            x: { stacked: true },
+            y: { stacked: true, ticks: { callback: v => (v/1000).toFixed(0) + ' GW' } }
+          },
+          plugins: {
+            title: { display: true, text: `${tech} planned-generator pipeline by construction stage` },
+            legend: { position: 'bottom', labels: { boxWidth: 10, boxHeight: 10, padding: 12 } },
+            tooltip: {
+              callbacks: {
+                label: c => `${c.dataset.label}: ${fmt(c.parsed.y)} MW`,
+                footer: items => 'Total: ' + fmt(items.reduce((s,i)=>s+i.parsed.y,0)) + ' MW'
+              }
+            }
+          }
+        }
+      });
+
+      const rows = techsInStage.map(rowTech => {
+        const early = stageTotal(rowTech, earliest);
+        const rowLatest = stageTotal(rowTech, latest);
+        const rowDelta = rowLatest - early;
+        const marker = rowTech === tech ? `<b>${rowTech}</b>` : rowTech;
+        return `<tr>
+          <td>${marker}</td>
+          <td class="r">${fmt(stageValue(rowTech, latest, 'ConstructionComplete'))}</td>
+          <td class="r">${fmt(stageValue(rowTech, latest, 'UnderConstruction'))}</td>
+          <td class="r">${fmt(stageValue(rowTech, latest, 'PlannedPermitting'))}</td>
+          <td class="r"><b>${fmt(rowLatest)}</b></td>
+          <td class="r">${rowDelta >= 0 ? '+' : ''}${fmt(rowDelta)}</td>
+        </tr>`;
+      }).join('');
+
+      stageTable.innerHTML = `
+        <div class="camp-table-wrap" style="max-height:360px">
+          <table style="width:100%; border-collapse:collapse; font-size:.82rem;">
+            <thead><tr>
+              <th>Technology</th>
+              <th class="r">Latest complete MW</th>
+              <th class="r">Latest under-construction MW</th>
+              <th class="r">Latest planned/permitting MW</th>
+              <th class="r">Latest total MW</th>
+              <th class="r">Change vs earliest</th>
+            </tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>`;
+    }
+
+    stageSelect.addEventListener('change', renderStageTech);
+    renderStageTech();
+  }
 
   // ---------- Latest snapshot: construction status by technology ----------
   const ST = DATA.eia_status_tech || [];
