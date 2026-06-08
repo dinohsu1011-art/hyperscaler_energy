@@ -55,7 +55,7 @@ rows:
     status: Operational
     connection_type: Grid
     connection_reason: Storage default → Grid
-    notes: "~$430M in additional Tesla Megapacks sold to xAI in full-year 2025 covering Colossus 2 (Whitehaven, ~168 units). Total xAI Megapack spend approx $660M across both sites."
+    notes: "~$430M in additional Tesla Megapacks sold to xAI in full-year 2025 covering Colossus 2 (Whitehaven, ~168 units). SpaceX S-1 (filed May 2026, amended Jun 2026) discloses cumulative xAI Megapack spend of ~$966M: $191M (2024) + $506M (2025) + $269M in Apr 2026 alone (additional Colossus 2 units; no separate MW/MWh disclosed for the Apr 2026 tranche) — bringing cumulative spend to ~$1B."
     source_id: S64
 
   - year: 2025

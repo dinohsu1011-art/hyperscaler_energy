@@ -3024,3 +3024,804 @@
   retrieved_on: 2026-05-13
   kind: Primary
   supports: "Google x OG&E - Oklahoma electric service agreements for three Muskogee and Stillwater data centers"
+
+- id: S364
+  publisher: Entergy
+  title: "Entergy Louisiana to power Meta's data center in Richland Parish"
+  url: https://www.entergy.com/news/entergy-louisiana-power-meta-s-data-center-in-richland-parish
+  pub_date: 2024-12-06
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Meta Hyperion - Entergy initial generation, substations, and transmission plan for Richland Parish data center"
+
+- id: S365
+  publisher: Entergy
+  title: "Entergy Louisiana receives LPSC approval for major infrastructure investments to support Meta's data center and improve reliability"
+  url: https://www.entergy.com/news/entergy-louisiana-receives-lpsc-approval-for-major-infrastructure-investments-to-support-metas-data-center-and-improve-reliability
+  pub_date: 2025-08-20
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Meta Hyperion - LPSC approval for initial Entergy generation and transmission infrastructure"
+
+- id: S366
+  publisher: Entergy
+  title: "Entergy Louisiana supports Meta's new data center with infrastructure upgrades in Richland Parish"
+  url: https://www.entergy.com/news/entergy-louisiana-supports-metas-new-data-center-with-infrastructure-upgrades-in-richland-parish
+  pub_date: 2025-04-22
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Meta Hyperion - 10 MW construction-power infrastructure completed for Richland Parish data center"
+
+- id: S367
+  publisher: Michigan Public Service Commission
+  title: "MPSC approves DTE Electric energy contracts for data center with conditions to strengthen protections for other customers"
+  url: "https://www.michigan.gov/mpsc/commission/events/2025/12/18/~/link.aspx?_id=5F5E5CA34D71466696AB507F9571E9FC&_z=z"
+  pub_date: 2025-12-18
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Stargate Michigan / Green Chile Ventures - U-21990 special contracts for 1,383 MW Saline Township data center load"
+
+- id: S368
+  publisher: Michigan Public Service Commission
+  title: "MPSC goes big on batteries, approving six energy storage contracts totaling 1,332 megawatts"
+  url: https://www.michigan.gov/mpsc/commission/news-releases/2026/03/27/mpsc-goes-big-on-batteries
+  pub_date: 2026-03-27
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Stargate Michigan / Green Chile Ventures - 332 MW DTE-owned battery storage projects serving 1,383 MW Saline Township data center"
+
+- id: S369
+  publisher: Michigan Department of Attorney General
+  title: "AG Nessel on Newly Announced Google Data Center Proposal: Google Commits to Contested Case at MPSC"
+  url: https://www.michigan.gov/ag/news/press-releases/2026/03/17/ag-nessel-on-newly-announced-google-data-center-proposal
+  pub_date: 2026-03-17
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Google Project Cannoli - regulator route for DTE utility contracts and contested-case review"
+
+- id: S371
+  publisher: NIPSCO
+  title: "Powering Indiana's Future: How NIPSCO, GenCo, and Amazon Keep Energy Reliable and Affordable"
+  url: https://www.nipsco.com/our-company/news-room/news-article/powering-indiana-s-future--how-nipsco--genco--and-amazon-keep-energy-reliable-and-affordable
+  pub_date: 2025-11-24
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Amazon Northern Indiana - NIPSCO GenCo and Amazon partnership for up to 3 GW new generation capacity"
+
+- id: S372
+  publisher: U.S. Army Corps of Engineers Norfolk District
+  title: "NAO-2024-01108 (Mattameade Data Center, Caroline County, Virginia)"
+  url: https://www.nao.usace.army.mil/Media/Public-Notices/Article/4054364/nao-2024-01108-mattameade-data-center-caroline-county-virginia/
+  pub_date: 2025-02-13
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Amazon Mattameade - federal/state permit application for 1,143-acre, 11-building data center with three substation pads"
+
+- id: S373
+  publisher: Williams Companies
+  title: "Socrates Power Solution Facilities"
+  url: https://www.williams.com/expansion-project/socrates-power-solution-facilities/
+  pub_date: 2025-06
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Meta Prometheus - Will-Power Socrates North/South proposed 400 MW natural gas power generation facilities in New Albany"
+
+- id: S374
+  publisher: Federal Energy Regulatory Commission
+  title: "189 FERC ¶ 61,078 — Order Rejecting Amendments to Interconnection Service Agreement"
+  url: https://www.ferc.gov/sites/default/files/2024-11/20241101-3061_ER24-2172-000.pdf
+  pub_date: 2024-11-01
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Amazon / Talen Cumulus-Susquehanna - FERC order on 300 MW existing co-located load and rejected 480 MW amendment"
+
+- id: S375
+  publisher: Ohio Power Siting Board
+  title: "OPSB approves construction of Licking County natural gas-fired power plant"
+  url: https://opsb.ohio.gov/news/opsb-approves-construction-of-licking-county-natural-gas-fired-power-plant
+  pub_date: 2025-06-09
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Meta Prometheus - Socrates South 200 MW behind-the-meter natural gas plant approved for Sidecat / Meta data center load"
+
+- id: S376
+  publisher: Public Utilities Commission of Ohio / OPSB
+  title: "OPSB authorizes construction of Licking County power plant"
+  url: https://content.govdelivery.com/accounts/OHPUC/bulletins/3f348f9
+  pub_date: 2025-09-18
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Meta Prometheus - Socrates North 200 MW behind-the-meter natural gas plant approved for Sidecat / Meta data center load"
+
+- id: S377
+  publisher: West Virginia Department of Environmental Protection
+  title: "NSR Permit Applications: Monarch Cloud Campus, LLC; Point Pleasant Campus"
+  url: https://dep.wv.gov/daq/permitting/Pages/NSR-Permit-Applications.aspx
+  pub_date: 2026-04-20
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Microsoft / Nscale Monarch - WVDEP construction air-permit application route R14-0042, Facility ID 053-00136"
+
+- id: S378
+  publisher: City of El Paso
+  title: "Data Centers: Northeast El Paso META Data Center"
+  url: https://www.elpasotexas.gov/data-centers/
+  pub_date: 2026
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Meta El Paso - official city project hub for Wurldwide / Meta data center, five phases, phase 1 underway, and McCloud generation under PUCT review"
+
+- id: S379
+  publisher: El Paso Electric / PUCT Public Notice
+  title: "EPE's Public Notice for 2025 ERock CCN - Seafox"
+  url: https://classifieds.gannettclassifieds.com/marketplace/advert/EPE-s-Public-Notice-for-2025-ERock-CCN-Seafox-Retail_1208914
+  pub_date: 2025-12-15
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Meta El Paso - PUCT Docket 59076 public notice for 366 MW McCloud Generation Project serving Wurldwide Data Center"
+
+- id: S380
+  publisher: Chevron
+  title: "Chevron statement regarding exclusivity agreement with Microsoft and Engine No. 1"
+  url: https://www.chevron.com/newsroom/2026/q1/chevron-statement-regarding-exclusivity-agreement-with-microsoft-and-engine-no-1
+  pub_date: 2026-03-31
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Microsoft Permian - Chevron / Microsoft / Engine No. 1 exclusivity for proposed behind-the-meter power generation and offtake, with no definitive agreement"
+
+- id: S381
+  publisher: G42 / PRNewswire
+  title: "G42 provides update on construction of Stargate UAE AI infrastructure cluster"
+  url: https://www.prnewswire.com/news-releases/g42-informiert-uber-den-aktuellen-stand-des-baus-von-stargate-uae-dem-cluster-fur-ki-infrastruktur-302587662.html
+  pub_date: 2025-10-17
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Stargate UAE - G42 / Khazna construction update for first 200 MW of 1 GW cluster inside broader 5 GW UAE-US AI Campus"
+
+- id: S382
+  publisher: Saline Township
+  title: "Data Center Update"
+  url: https://salinetownship.org/data-center-update
+  pub_date: 2026-04-29
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Stargate Michigan - township updates on site work, permits, foundations, dewatering, EGLE permits, and utility construction"
+
+- id: S383
+  publisher: Vantage Data Centers
+  title: "Vantage Data Centers Unveils Plans for Frontier, a $25B Mega-campus in Texas"
+  url: https://vantage-dc.com/news/vantage-data-centers-unveils-plans-for-frontier-a-25b-mega-campus-in-texas-to-meet-unprecedented-ai-demand/
+  pub_date: 2025-08-19
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Stargate Frontier - Vantage primary announcement for 1.4 GW Shackelford County Frontier campus, 10 data centers, construction begun"
+
+- id: S384
+  publisher: OpenAI
+  title: "OpenAI and SoftBank Group partner with SB Energy"
+  url: https://openai.com/index/stargate-sb-energy-partnership/
+  pub_date: 2026-01-09
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Stargate Milam - OpenAI 1.2 GW data center lease for initial Milam County buildout with SB Energy"
+
+- id: S385
+  publisher: Lancium
+  title: "Lancium Gigawatt AI Data Center Campuses"
+  url: https://lancium.com/locations/
+  pub_date: 2026
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Stargate Abilene - Lancium 1.2 GW ERCOT-approved interconnect and onsite gas generation complete by 2025"
+
+- id: S386
+  publisher: Crusoe / GlobeNewswire
+  title: "Crusoe Announces Flagship Abilene Data Center is Live"
+  url: https://www.globenewswire.com/news-release/2025/09/30/3158650/0/en/crusoe-announces-flagship-abilene-data-center-is-live.html
+  pub_date: 2025-09-30
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Stargate Abilene - first phase live, first two buildings energized, NVIDIA GB200 racks delivered, early workloads running"
+
+- id: S387
+  publisher: Vantage Data Centers
+  title: "Port Washington (Lighthouse) Data Center Campus"
+  url: https://vantage-dc.com/data-center-locations/north-america/port-washington-wisconsin
+  pub_date: 2026
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Stargate Lighthouse - Vantage official 902 MW critical IT load, four data centers, 2.5M sqft, We Energies supply and onsite substation"
+
+- id: S388
+  publisher: Public Service Commission of Wisconsin
+  title: "PSC Overhauls We Energies' Data Center Tariff, Makes Improvements to Protect Existing Customers"
+  url: https://content.govdelivery.com/accounts/WIPSC/bulletins/4147a70
+  pub_date: 2026-04-24
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Stargate Lighthouse / Wisconsin data centers - PSC-approved We Energies Very Large Customer and Bespoke Resources tariff"
+
+- id: S389
+  publisher: OpenAI
+  title: "Introducing OpenAI for India"
+  url: https://openai.com/index/openai-for-india/
+  pub_date: 2026-02-18
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Stargate India - OpenAI / Tata AI-ready data center capacity beginning with 100 MW and potential to scale to 1 GW"
+
+- id: S390
+  publisher: Texas Commission on Environmental Quality
+  title: "Electric Generating Unit Standard Permit Technical Review, VoltaGrid ABI-1"
+  url: "https://records.tceq.texas.gov/cs/idcplg?IdcService=TCEQ_EXTERNAL_SEARCH_GET_FILE&Rendition=Web&dID=8983248"
+  pub_date: 2025-07-17
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Stargate Frontier - VoltaGrid ABI-1 210 natural gas generators totaling 709 MW in Shackelford County near TX-351 and FM-604"
+
+- id: S391
+  publisher: Crusoe
+  title: "Crusoe Announces New 900 MW AI Factory Campus in Abilene, Texas to Support Microsoft AI Infrastructure"
+  url: https://www.crusoe.ai/resources/newsroom/crusoe-announces-new-900-mw-ai-factory-campus-in-abilene-texas-to-support-microsoft-ai-infrastructure
+  pub_date: 2026-03-27
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "Microsoft Abilene - Crusoe 900 MW AI factory campus for Microsoft with onsite power plant and first building expected mid-2027"
+
+- id: S392
+  publisher: U.S. Securities and Exchange Commission
+  title: "EDGAR Application Programming Interfaces"
+  url: https://www.sec.gov/search-filings/edgar-application-programming-interfaces
+  pub_date: 2025-04-08
+  retrieved_on: 2026-05-13
+  kind: Primary
+  supports: "SEC companyfacts and submissions APIs used for official XBRL proxy metrics across hyperscalers, server vendors, and chip / networking / memory vendors"
+
+- id: S393
+  publisher: Amazon.com
+  title: "Amazon.com Announces Fourth Quarter Results"
+  url: https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/default.aspx
+  pub_date: 2026-02-05
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "AWS custom-chip and Project Rainier operational cluster disclosures, including Trainium2 chip counts and 2026 capex guidance"
+
+- id: S394
+  publisher: Amazon
+  title: "AWS activates Project Rainier: One of the world's largest AI compute clusters comes online"
+  url: https://www.aboutamazon.com/news/aws/aws-project-rainier-ai-trainium-chips-compute-cluster
+  pub_date: 2026
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Project Rainier fully operational / in-use disclosure, Anthropic workloads, and nearly half a million Trainium2 chips"
+
+- id: S395
+  publisher: Anthropic
+  title: "Anthropic and Amazon expand collaboration for up to 5 gigawatts of new compute"
+  url: https://www.anthropic.com/news/anthropic-amazon-compute?pubDate=20260225
+  pub_date: 2026-04-20
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Anthropic / AWS secured capacity, current Trainium2 usage, 2026 online-capacity timing, and 10-year AWS commitment"
+
+- id: S396
+  publisher: CoreWeave
+  title: "CoreWeave Reports Strong Fourth Quarter and Fiscal Year 2025 Results"
+  url: https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Fourth-Quarter-and-Fiscal-Year-2025-Results/
+  pub_date: 2026-02-26
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "CoreWeave active power, contracted power, revenue backlog, and scaling disclosures as of December 31, 2025"
+
+- id: S397
+  publisher: CoreWeave
+  title: "Form 10-K for fiscal year ended December 31, 2025"
+  url: https://www.sec.gov/Archives/edgar/data/1769628/000176962826000104/crwv-20251231.htm
+  pub_date: 2026-02-26
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "CoreWeave RPO, contract duration, and service-delivery / availability disclosure from official SEC filing"
+
+- id: S398
+  publisher: Core Scientific
+  title: "Fourth Quarter Fiscal 2025 Earnings Call Presentation"
+  url: https://investors.corescientific.com/sec-filings/all-sec-filings/content/0001628280-26-013214/q4fy25earningsdeckvfinal.htm
+  pub_date: 2026-03-02
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Core Scientific leased power, billable capacity, energized capacity, GPU support, and CoreWeave contract terms"
+
+- id: S399
+  publisher: IREN
+  title: "IREN Secures $9.7bn AI Cloud Contract with Microsoft"
+  url: https://iren.gcs-web.com/news-releases/news-release-details/iren-secures-97bn-ai-cloud-contract-microsoft
+  pub_date: 2025-11-03
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "IREN Microsoft GPU cloud contract, Childress critical IT load, 750 MW campus, and secured power portfolio"
+
+- id: S400
+  publisher: IREN
+  title: "IREN Business Update and Q3 FY26 Results"
+  url: https://www.sec.gov/Archives/edgar/data/1878848/000187884826000025/irenreportsq3fy26results.htm
+  pub_date: 2026-05-07
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "IREN 2026 and 2027 AI cloud capacity expansion, NVIDIA contract, NVIDIA strategic partnership, and secured power pipeline"
+
+- id: S401
+  publisher: Applied Digital
+  title: "Investor Presentation"
+  url: https://www.sec.gov/Archives/edgar/data/1144879/000114487926000036/apld_invxinvestorpresent.htm
+  pub_date: 2026-04
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Applied Digital critical IT load under construction, contracted leases, operating capacity, and site-level AI factory pipeline"
+
+- id: S402
+  publisher: TeraWulf
+  title: "TeraWulf Signs 200+ MW, 10-Year AI Hosting Agreements with Fluidstack"
+  url: https://investors.terawulf.com/news-events/press-releases/detail/112/terawulf-signs-200-mw-10-year-ai-hosting-agreements-with
+  pub_date: 2025-08-14
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "TeraWulf / Fluidstack critical IT load, gross capacity, Google backstop, contract revenue, and phase timing"
+
+- id: S403
+  publisher: TeraWulf
+  title: "Form 10-Q for quarter ended March 31, 2026"
+  url: https://investors.terawulf.com/sec-filings/all-sec-filings/content/0001083301-26-000092/wulf-20260331.htm
+  pub_date: 2026-05-08
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "TeraWulf energized HPC leasing capacity, contracted Lake Mariner capacity, Abernathy pre-leased capacity, and delivery schedule"
+
+- id: S404
+  publisher: Nebius
+  title: "Shareholder Letter Q4 2025"
+  url: https://assets.nebius.com/assets/e59fb92e-9027-473a-8cac-04f9d2e9ea9a/Shareholder%20Letter%20Q4%202025.pdf?cache-buster=2026-02-12T11%3A43%3A13.446Z
+  pub_date: 2026-02-12
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Nebius active power, contracted power, connected-power target, Microsoft / Meta delivery status, and sold-out utilization"
+
+- id: S405
+  publisher: Nebius
+  title: "NVIDIA and Nebius partner to scale full-stack AI cloud"
+  url: https://nebius.com/newsroom/nvidia-and-nebius-partner-to-scale-full-stack-ai-cloud
+  pub_date: 2026-03-11
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Nebius / NVIDIA partnership to deploy more than 5 GW of NVIDIA systems by end of 2030"
+
+- id: S406
+  publisher: Nebius
+  title: "Nebius to construct 310 MW AI factory in Finland"
+  url: https://nebius.com/newsroom/nebius-to-construct-310-mw-ai-factory-in-finland
+  pub_date: 2026-03-31
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Nebius Lappeenranta 310 MW AI factory, Mantsala 75 MW expansion, EMEA contracted power, and first-capacity timing"
+
+- id: S407
+  publisher: Galaxy Digital
+  title: "Galaxy Announces First Quarter 2026 Financial Results"
+  url: https://www.prnewswire.com/news-releases/galaxy-announces-first-quarter-2026-financial-results-302755260.html
+  pub_date: 2026-04-28
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Galaxy Helios first data-hall delivery, 133 MW Phase I target, CoreWeave lease capacity, and approved gross power capacity"
+
+- id: S408
+  publisher: Hut 8
+  title: "Hut 8 Announces AI Infrastructure Partnership with Anthropic and Fluidstack"
+  url: https://www.prnewswire.com/news-releases/hut-8-announces-ai-infrastructure-partnership-with-anthropic-and-fluidstack-302644377.html
+  pub_date: 2025-12-17
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Hut 8 / Anthropic / Fluidstack River Bend IT capacity, utility capacity, optional pipeline, early-2027 timing, and capacity under management"
+
+- id: S409
+  publisher: Crusoe
+  title: "Crusoe, Blue Owl Capital, and Primary Digital Infrastructure enter second phase of $15 billion joint venture to fund AI data center in Abilene, Texas"
+  url: https://www.crusoe.ai/resources/newsroom/crusoe-blue-owl-capital-and-primary-digital-infrastructure-enter-joint-venture
+  pub_date: 2025-05-21
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Crusoe Abilene data-center joint venture, project scale, construction financing, phase timing, and announced buildout scope"
+
+- id: S410
+  publisher: OpenAI
+  title: "Stargate advances with 4.5 GW partnership with Oracle"
+  url: https://openai.com/index/stargate-advances-with-partnership-with-oracle/
+  pub_date: 2025-07-22
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "OpenAI / Oracle additional 4.5 GW Stargate data-center capacity, over 5 GW under development, over 2 million chips, and Abilene early workloads"
+
+- id: S411
+  publisher: OpenAI
+  title: "Introducing Stargate UAE"
+  url: https://openai.com/index/introducing-stargate-uae/
+  pub_date: 2025-05-22
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Stargate UAE 1 GW cluster in Abu Dhabi with 200 MW expected live in 2026"
+
+- id: S412
+  publisher: OpenAI
+  title: "Building the compute infrastructure for the Intelligence Age"
+  url: https://openai.com/index/building-the-compute-infrastructure-for-the-intelligence-age/
+  pub_date: 2026-04-29
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "OpenAI Stargate secured-capacity progress, 10 GW milestone exceeded, and more than 3 GW added in the prior 90 days"
+
+- id: S413
+  publisher: Microsoft
+  title: "Fiscal Year 2026 First Quarter Earnings Conference Call"
+  url: https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q1
+  pub_date: 2025-10
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Microsoft AI capacity growth, Fairwater Wisconsin timing, two-gigawatt scale, and GB300 deployment disclosure"
+
+- id: S414
+  publisher: Microsoft
+  title: "Made in Wisconsin: The world's most powerful AI datacenter"
+  url: https://blogs.microsoft.com/on-the-issues/2025/09/18/made-in-wisconsin-the-worlds-most-powerful-ai-datacenter/
+  pub_date: 2025-09-18
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Microsoft Fairwater Wisconsin construction status, early-2026 online timing, second data-center commitment, and GPU-cluster scale"
+
+- id: S415
+  publisher: Meta
+  title: "Meta's New Data Center in Lebanon, Indiana Marks a Milestone AI Investment"
+  url: https://about.fb.com/news/2026/02/metas-new-data-center-lebanon-indiana-marks-milestone-ai-investment/
+  pub_date: 2026-02-11
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Meta Lebanon, Indiana 1 GW data-center campus breaking ground and once-operational capacity"
+
+- id: S416
+  publisher: Meta
+  title: "Breaking Ground on Our New AI-Optimized Data Center in El Paso"
+  url: https://about.fb.com/news/2025/10/metas-new-ai-optimized-data-center-el-paso/
+  pub_date: 2025-10-15
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Meta El Paso 1 GW AI-focused data-center site, March 2026 update, and more than 5 GW Texas clean-energy contracts"
+
+- id: S417
+  publisher: Oracle
+  title: "Oracle Unveils Next-Generation Oracle Cloud Infrastructure Zettascale10 Cluster for AI"
+  url: https://www.oracle.com/middleeast/news/announcement/ai-world-oracle-unveils-next-generation-oci-zettascale10-cluster-for-ai-2025-10-14/
+  pub_date: 2025-10-14
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "OCI Zettascale10 multi-gigawatt AI workload capacity, Abilene Stargate deployment, and up to 800,000 NVIDIA GPU target"
+
+- id: S418
+  publisher: Oracle
+  title: "Oracle AI Infrastructure in 2026 and Our Commitment to Local Communities"
+  url: https://www.oracle.com/news/announcement/blog/oracle-ai-infrastructure-in-2026-and-our-commitment-to-local-communities-2026-01-26/
+  pub_date: 2026-01-26
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Oracle AI infrastructure projects underway with OpenAI at two Texas campuses and sites in New Mexico, Wisconsin, and Michigan"
+
+- id: S419
+  publisher: Amazon.com
+  title: "Amazon.com Announces First Quarter Results"
+  url: https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-First-Quarter-Results/default.aspx
+  pub_date: 2026-04-29
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "AWS OpenAI 2 GW Trainium commitment, Anthropic up to 5 GW Trainium commitment, 2.1 million AI chips landed, and one million NVIDIA GPU deployment plan"
+
+- id: S420
+  publisher: Google
+  title: "Google is investing in Arkansas with a new data center, energy efficiency programs and more"
+  url: https://blog.google/inside-google/company-announcements/google-american-innovation-arkansas/
+  pub_date: 2026
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Google West Memphis, Arkansas first data center, cloud and AI infrastructure investment, and 600 MW solar collaboration with Entergy"
+
+- id: S421
+  publisher: Equinix
+  title: "Equinix Agrees to Form Greater Than $15B JV to Expand Hyperscale Data Centers in the U.S. and Support Growing AI and Cloud Innovation"
+  url: https://equinix.mediaroom.com/2024-10-01-Equinix-Agrees-to-Form-Greater-Than-15B-JV-to-Expand-Hyperscale-Data-Centers-in-the-U-S-and-Support-Growing-AI-and-Cloud-Innovation
+  pub_date: 2024-10-01
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Equinix xScale U.S. hyperscale JV, more than 1.5 GW new capacity, greater-than-100 MW campuses, and existing xScale portfolio power capacity"
+
+- id: S422
+  publisher: Vantage Data Centers
+  title: "Shackelford County (Frontier) Data Center Campus"
+  url: https://vantage-dc.com/data-center-locations/north-america/shackelford-county-tx
+  pub_date: 2026
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Vantage Frontier 1.4 GW critical IT load, ten data centers, 1,200 acre campus, and second-half 2026 first data-center delivery"
+
+- id: S423
+  publisher: DataBank
+  title: "DataBank Announces Development of 480MW Data Center Campus in South Dallas"
+  url: https://www.databank.com/resources/press-releases/databank-announces-development-of-480mw-data-center-campus-in-south-dallas/
+  pub_date: 2024-09-10
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "DataBank Red Oak 480 MW campus, 240 MW Phase 1 critical IT power, Q2 2026 ready-for-service target, and 792 MW multi-campus expansion capacity"
+
+- id: S424
+  publisher: QTS Data Centers
+  title: "Manassas 1 Data Center Campus"
+  url: http://q.com/data-centers/manassas/
+  pub_date: 2026
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "QTS Manassas 1 planned six-building campus and 190+ MW critical campus capacity"
+
+- id: S425
+  publisher: QTS Data Centers
+  title: "Atlanta 1 Data Center Campus"
+  url: https://qtsdatacenters.com/data-centers/atlanta-1/
+  pub_date: 2026
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "QTS Atlanta 1 mega data-center campus and 278+ MW critical campus capacity"
+
+- id: S426
+  publisher: Indiana Economic Development Corporation
+  title: "Gov. Braun Breaks Ground on $10B Meta Data Center Campus at LEAP District"
+  url: https://iedc.in.gov/events/news/details/2026/02/11/gov.-braun-breaks-ground-on-10b-meta-data-center-campus-at-leap-district
+  pub_date: 2026-02-11
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Meta Lebanon - IEDC and governor announcement of groundbreaking, 1,500-acre LEAP campus, 13 total buildings, and state/local incentive route"
+
+- id: S427
+  publisher: DTE Energy
+  title: "DTE Energy reports first quarter 2026 accomplishments, investments and financial results"
+  url: https://s24.q4cdn.com/970999156/files/doc_financials/2026/q1/Q1-2026-DTE-Earnings-Release-final-v2.pdf
+  pub_date: 2026-04-30
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Google Van Buren / Project Cannoli - DTE agreement and MPSC contract filing to support Google's planned 1 GW data center"
+
+- id: S428
+  publisher: Office of Governor Tate Reeves
+  title: "Tech leader xAI investing more than $20 billion in Southaven"
+  url: https://governorreeves.ms.gov/tech-leader-xai-investing-more-than-20-billion-in-southaven/
+  pub_date: 2026-01-08
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "xAI Southaven / Macrohardrr - Mississippi governor announcement of building retrofit, Data Center Incentive approval, planned February 2026 operations, and nearly 2 GW compute-power target"
+
+- id: S429
+  publisher: G42
+  title: "G42 to lead a consortium with US partners to build 5GW UAE-US AI Campus"
+  url: https://www.g42.ai/resources/news/g42-lead-consortium-us-partners-build-5gw-uae-us-ai-campus
+  pub_date: 2025-05-15
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Stargate UAE - G42-led 5 GW UAE-US AI Campus announcement; supports full-campus envelope but not active/energized capacity or full buildout timing"
+
+- id: S430
+  publisher: Chevron
+  title: "Chevron Reports First Quarter 2026 Results"
+  url: https://chevroncorp.gcs-web.com/static-files/8a8dc1c0-be26-45a5-8f61-cd119e5e416b
+  pub_date: 2026-05-01
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Microsoft Permian - Chevron Q1 release repeats the exclusivity agreement with Microsoft and Engine No. 1 for a proposed West Texas power project"
+
+- id: S431
+  publisher: Tata Consultancy Services
+  title: "TCS Secures $1Bn Investment from TPG to Accelerate AI Data Center Business HyperVault"
+  url: https://www.tata.com/content/dam/tata/pdf/TCS-TPG-Hypervault.pdf
+  pub_date: 2025-11-20
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Stargate India / TCS HyperVault - TCS and TPG funding route for GW-scale AI-ready data centers in India, without site-specific OpenAI utility approval"
+
+- id: S432
+  publisher: Meta
+  title: "Q4 2024 Earnings Call"
+  url: https://investor.atmeta.com/investor-events/event-details/2025/Q4-2024-Earnings-Call/default.aspx
+  pub_date: 2025-01-29
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Meta qualitative commentary anchor - 2025 AI infrastructure capex guidance for servers, data centers, and network infrastructure"
+
+- id: S433
+  publisher: OpenAI
+  title: "Announcing The Stargate Project"
+  url: https://openai.com/blog/announcing-the-stargate-project/
+  pub_date: 2025-01-21
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "OpenAI qualitative commentary anchor - Stargate investment commitment and U.S. AI infrastructure buildout framing"
+
+- id: S434
+  publisher: Alphabet
+  title: "2024 Q4 Earnings Call"
+  url: https://abc.xyz/investor/events/event-details/2025/2024-Q4-Earnings-Call/
+  pub_date: 2025-02-04
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Google qualitative commentary anchor - 2024 Cloud region and data-center campus groundbreaking commentary"
+
+- id: S435
+  publisher: Amazon
+  title: "2024 Letter to Shareholders"
+  url: https://www.aboutamazon.com/news/company-news/amazon-ceo-andy-jassy-2024-letter-to-shareholders
+  pub_date: 2025-04
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Amazon qualitative commentary anchor - AI demand and need for more data centers, chips, and hardware"
+
+- id: S436
+  publisher: Microsoft
+  title: "Fiscal Year 2025 Fourth Quarter Earnings Conference Call"
+  url: https://www.microsoft.com/en-us/investor/events/fy-2025/earnings-fy-2025-q4
+  pub_date: 2025-07-30
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Microsoft qualitative commentary anchor - more than 2 GW of new capacity stood up and AI/cloud capacity constraints"
+
+- id: S437
+  publisher: Oracle
+  title: "Oracle Announces Fiscal Year 2026 First Quarter Financial Results"
+  url: https://investor.oracle.com/investor-news/news-details/2025/Oracle-Announces-Fiscal-Year-2026-First-Quarter-Financial-Results/
+  pub_date: 2025-09-09
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Oracle qualitative commentary anchor - FY26 Q1 RPO and contracted cloud/AI infrastructure demand"
+
+- id: S438
+  publisher: Dominion Energy Virginia
+  title: "2025 Integrated Resource Plan Update"
+  url: https://www.dominionenergy.com/-/media/content/about/our-company/irp/pdfs/2025-integrated-resource-plan-update.pdf
+  pub_date: 2025
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Dominion qualitative commentary anchor - data-center customer load contract values and Virginia load-growth planning"
+
+- id: S439
+  publisher: American Electric Power
+  title: "AEP Reports Fourth-Quarter and Full-Year 2025 Earnings"
+  url: https://docs.aep.com/docs/newsroom/resources/earnings/2026-02/4thqtr25earnings.pdf
+  pub_date: 2026-02-12
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "AEP qualitative commentary anchor - signed incremental load outlook and large-load/data-center demand"
+
+- id: S440
+  publisher: Federal Energy Regulatory Commission
+  title: "FERC Orders Action on Co-Location Issues Related to Data Centers Running AI"
+  url: https://www.ferc.gov/news-events/news/ferc-orders-action-co-location-issues-related-data-centers-running-ai
+  pub_date: 2025-02-20
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "FERC qualitative commentary anchor - PJM co-location, AI data-center reliability, tariff, and cost-allocation issues"
+
+- id: S441
+  publisher: ERCOT
+  title: "2025 Long-Term Load Forecast Report"
+  url: https://www.ercot.com/files/docs/2025/04/08/ERCOT-2025-Long-Term-Load-Forecast-Report.pdf
+  pub_date: 2025-04-08
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "ERCOT qualitative commentary anchor - large-load forecast process and flexible-load planning"
+
+- id: S442
+  publisher: U.S. Energy Information Administration
+  title: "Data center power demand and U.S. electricity demand growth"
+  url: https://www.eia.gov/todayinenergy/detail.php?id=67344
+  pub_date: 2026-03-12
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "EIA qualitative commentary anchor - aggregate data-center electricity demand growth and national demand context"
+
+- id: S443
+  publisher: TSMC
+  title: "TSMC 1Q25 Earnings Conference Call Transcript"
+  url: https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2025-04/7630274eecc1197a4e3ea6a415f44a47204fe10a/TSMC%201Q25%20Transcript.pdf
+  pub_date: 2025-04
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "TSMC qualitative commentary anchor - CoWoS/advanced packaging capacity expansion as upstream AI infrastructure bottleneck"
+
+- id: S444
+  publisher: Eaton
+  title: "Eaton Reports Record Fourth Quarter 2025 Results"
+  url: https://www.eaton.com/us/en-us/company/news-insights/news-releases/2026/eaton-reports-record-fourth-quarter-2025-results.html
+  pub_date: 2026-02-05
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "Eaton qualitative commentary anchor - electrical order and backlog momentum tied to data-center demand"
+
+- id: S445
+  publisher: International Energy Agency
+  title: "Data centre electricity use surged in 2025 even with tightening bottlenecks"
+  url: https://www.iea.org/news/data-centre-electricity-use-surged-in-2025-even-with-tightening-bottlenecks-driving-a-scramble-for-solutions
+  pub_date: 2026-04-16
+  retrieved_on: 2026-05-14
+  kind: Primary
+  supports: "IEA qualitative commentary anchor - data-center electricity demand, gas turbines, transformers, chips, planning, regulation, and grid-connection bottlenecks"
+
+- id: S446
+  publisher: Linea Energy
+  title: "Linea Energy and Google Sign a 500MW Solar Power Purchase Agreement in Matagorda County, Texas"
+  url: https://www.lineaenergy.com/news-posts/linea-energy-and-google-sign-a-500mw-solar-power-purchase-agreement-in-matagorda-county-texas
+  pub_date: 2026-05
+  retrieved_on: 2026-06-01
+  kind: Primary
+  supports: "Google x Linea Energy - 500 MW Duffy Solar PPA in Matagorda County, Texas"
+
+- id: S447
+  publisher: Enlight Renewable Energy / GlobeNewswire
+  title: "Enlight Signs 200 MW AC Solar Power Purchase Agreement with Google to Support Data Center Operations in Oklahoma"
+  url: https://www.globenewswire.com/news-release/2026/05/26/3301094/0/en/enlight-signs-200-mw-ac-solar-power-purchase-agreement-with-google-to-support-data-center-operations-in-oklahoma.html
+  pub_date: 2026-05-26
+  retrieved_on: 2026-06-01
+  kind: Primary
+  supports: "Google x Enlight / Clenera - 200 MWac Solstice solar PPA in Oklahoma"
+
+- id: S448
+  publisher: Enbridge
+  title: "Enbridge and Meta expand partnership with Cowboy Project"
+  url: https://www.enbridge.com/stories/2026/may/enbridge-meta-expand-partnership-cowboy-project-solar-plus-battery-storage
+  pub_date: 2026-05-19
+  retrieved_on: 2026-06-01
+  kind: Primary
+  supports: "Meta x Enbridge / CLFP - 365 MW solar plus 200 MW / 1,600 MWh battery storage Cowboy Project"
+
+- id: S449
+  publisher: Avangrid
+  title: "Avangrid Executes PPA with Microsoft for New 140 MW Solar Project in Washington; U.S. Contracts Now Exceed 500 MW"
+  url: https://www.avangrid.com/w/avangrid-executes-ppa-with-microsoft-for-new-140-mw-solar-project-in-washington-u.s.-contracts-now-exceed-500-mw
+  pub_date: 2026-05-27
+  retrieved_on: 2026-06-01
+  kind: Primary
+  supports: "Microsoft x Avangrid - 140 MWdc Bluebird Solar PPA in Klickitat County, Washington"
+
+- id: S450
+  publisher: KLSE Screener
+  title: "Amazon Web Services secures long-term PPA for Perak solar project"
+  url: https://www.klsescreener.com/v2/news/view/1727847/amazon-web-services-secures-long-term-ppa-for-perak-solar-project
+  pub_date: 2026-05-25
+  retrieved_on: 2026-06-08
+  kind: Secondary
+  supports: "Amazon (AWS) x Elphil Energy - 23 MW Sungai Siput, Perak solar PPA; AWS first carbon-free energy deal in Malaysia (cites AWS statement; cross-confirmed across New Straits Times and 4+ regional outlets)"
+
+- id: S451
+  publisher: Google
+  title: "We're announcing a new data center and energy investments in Gray and Roberts Counties, Texas"
+  url: https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/meitner-energy-center/
+  pub_date: 2026-06-04
+  retrieved_on: 2026-06-08
+  kind: Primary
+  supports: "Google x Intersect Power - Meitner Energy Center, >1 GW co-located wind+solar+storage (Pampa TX); component MW from ERCOT queue 26INR0113 + EIA plant 68203"
+
+- id: S452
+  publisher: PR Newswire
+  title: "Google Deepens Missouri Roots with New Data Center, Energy, and Community Investments"
+  url: https://www.prnewswire.com/news-releases/google-deepens-missouri-roots-with-new-data-center-energy-and-community-investments-302778322.html
+  pub_date: 2026-05-20
+  retrieved_on: 2026-06-08
+  kind: Primary
+  supports: "Google Missouri - >1 GW new generation; Ameren Missouri 400 MW solar + 545 MW storage (MPSC filing) + Evergy Kansas City Large Load Tariff capacity framework"
+
+- id: S453
+  publisher: GlobeNewswire
+  title: "Voltus and Google to Deliver Grid Capacity and Local Economic Benefits Through Bring Your Own Capacity Agreement"
+  url: https://www.globenewswire.com/news-release/2026/06/02/3305265/0/en/voltus-and-google-to-deliver-grid-capacity-and-local-economic-benefits-through-bring-your-own-capacity-agreement.html
+  pub_date: 2026-06-02
+  retrieved_on: 2026-06-08
+  kind: Primary
+  supports: "Google x Voltus - up to 100 MW/yr distributed energy resource VPP in PJM, 3-yr Bring Your Own Capacity agreement"

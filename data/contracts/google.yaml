@@ -566,3 +566,103 @@ rows:
     geography: US
     notes: Capacity left null because the primary release confirms the contract and solar capacity support but does not disclose MW; avoids confusing data-center load with generation capacity.
     source_id: S363
+
+  - year: 2026
+    announced_date: 2026-05
+    generation_type: Solar
+    capacity_mw: 500
+    confidence: Sourced
+    deal_name: Linea Energy Duffy Solar PPA (Matagorda County TX) - 500 MW
+    counterparty: Linea Energy
+    contract_years: 15
+    cod_year:
+    cod_note: 15-year PPA for the 500 MW Duffy Solar Project in Matagorda County TX; construction expected to begin in Q3 2026. COD not disclosed in primary announcement.
+    status: PPA
+    connection_type: Grid
+    connection_reason: ERCOT-market solar PPA supporting Google data center operations
+    geography: US
+    notes: Primary source says Duffy Solar is co-located with the 235 MWac Duffy BESS project, but the PPA language covers 500 MW from the solar project; storage is not counted here as Google-contracted storage.
+    source_id: S446
+
+  - year: 2026
+    announced_date: 2026-05-26
+    generation_type: Solar
+    capacity_mw: 200
+    confidence: Sourced
+    deal_name: Enlight / Clenera Solstice solar PPA (LeFlore County OK) - 200 MWac
+    counterparty: Enlight Renewable Energy / Clenera Holdings
+    contract_years: 15
+    cod_year: 2029
+    cod_note: Physical PPA for 200 MWac from Solstice, a 250 MWdc solar project in Oklahoma; construction expected to begin in 2028, COD targeted 2029.
+    status: PPA
+    connection_type: Grid
+    connection_reason: SPP-market solar PPA supporting Google regional data center operations
+    geography: US
+    notes: Solstice is anticipated to add 800 MWh of battery storage in a subsequent phase; storage is not counted because the primary PPA is for 200 MWac PV generation.
+    source_id: S447
+
+  - year: 2026
+    announced_date: 2026-06-04
+    generation_type: Renewable
+    capacity_mw: 1100
+    storage_energy_mwh: 3000
+    confidence: Sourced
+    deal_name: Meitner Energy Center — co-located wind + solar + storage (Pampa TX)
+    counterparty: Intersect Power (Alphabet subsidiary)
+    cod_year: 2028
+    cod_note: ">1 GW per Google announcement; component nameplate from regulatory filings — ~709 MW wind (ERCOT queue 26INR0113, COD Dec 2027) + ~400 MW solar (EIA plant 68203, COD Apr 2028) ≈ 1,100 MW; plus ~3 GWh BESS (power rating undisclosed) and minority on-site gas firming. Excess exported to ERCOT via new Ghost Town 345 kV switchyard."
+    status: UnderConstruction
+    connection_type: BTM
+    connection_reason: Co-located generation dedicated to the ~840 MW data center campus; excess exported to ERCOT
+    geography: US
+    notes: "Second named Google–Intersect co-located project (after Quantum/Haskell, captured in the Intersect/TPG framework row). Distinct, separately quantifiable; framework row has null capacity so no double-count. The 840 MW figure is data-center IT load — not recorded as generation. Part of Google's ~$40B Texas infrastructure push."
+    source_id: S451
+
+  - year: 2026
+    announced_date: 2026-05-20
+    generation_type: Solar+Storage
+    capacity_mw: 400
+    storage_power_mw: 545
+    confidence: Sourced
+    deal_name: Ameren Missouri solar + storage — 400 MW solar + 545 MW BESS
+    counterparty: Ameren Missouri
+    cod_year:
+    cod_note: Ameren MPSC filing specifies 400 MW solar (175 MW Audrain + 225 MW Stoddard counties) + 545 MW battery storage (Lincoln/Audrain/St. Louis counties); MPSC approval pending (comment deadline Jun 12 2026); COD not disclosed.
+    status: Announced
+    connection_type: Grid
+    connection_reason: Utility solar+storage delivered via Ameren Missouri grid
+    geography: US
+    notes: Announced alongside Google's ~$15B New Florence (Montgomery County) data center. capacity_mw records solar generation only; battery in storage_power_mw to avoid double-counting. Part of Google's >1 GW Missouri commitment.
+    source_id: S452
+
+  - year: 2026
+    announced_date: 2026-05-20
+    generation_type: Other
+    capacity_mw:
+    confidence: Sourced
+    deal_name: Evergy Kansas City Large-Load capacity framework
+    counterparty: Evergy
+    cod_year:
+    cod_note: Evergy Large Load Power Tariff covering Google's Kansas City campuses under the Missouri Capacity Commitment Framework; no specific MW disclosed.
+    status: Framework
+    connection_type: Grid
+    connection_reason: Utility capacity / large-load service agreement via Evergy grid
+    geography: US
+    notes: Second tranche of Google's >1 GW Missouri commitment. Capacity null — no MW disclosed for the Evergy portion; documentary row to avoid fabricating a figure or double-counting the >1 GW headline (Ameren + Evergy combined).
+    source_id: S452
+
+  - year: 2026
+    announced_date: 2026-06-02
+    generation_type: Other
+    capacity_mw: 100
+    confidence: Sourced
+    deal_name: Voltus Bring-Your-Own-Capacity VPP (PJM) — up to 100 MW/yr
+    counterparty: Voltus
+    cod_year: 2027
+    cod_note: 3-year agreement; Voltus aggregates up to 100 MW/yr of distributed energy resources (batteries, smart thermostats) into a Google-funded virtual power plant in PJM; operational target 2027.
+    status: Announced
+    connection_type: Grid
+    connection_reason: Distributed energy resources aggregated into the PJM wholesale market
+    geography: US
+    notes: Capacity / demand-response procurement (VPP), not utility-scale generation — classified Other. First hyperscaler-funded Bring-Your-Own-Capacity VPP in a US wholesale market. 100 MW is the annual aggregation cap across the term.
+    source_id: S453

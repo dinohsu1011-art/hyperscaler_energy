@@ -415,3 +415,21 @@ rows:
     geography: US
     notes: Framework/early-access reservation, not a conventional terrestrial solar PPA; recorded at headline capacity with status Framework to flag execution risk.
     source_id: S361
+
+  - year: 2026
+    announced_date: 2026-05-19
+    generation_type: Solar+Storage
+    capacity_mw: 365
+    storage_power_mw: 200
+    storage_energy_mwh: 1600
+    confidence: Sourced
+    deal_name: Enbridge Cowboy Project Phase 1 (Wyoming) - 365 MW solar + 200 MW BESS
+    counterparty: Enbridge / Cheyenne Light, Fuel and Power
+    cod_year: 2027
+    cod_note: Enbridge expects the first phase of the Cowboy Project near Cheyenne WY to enter service by the end of 2027.
+    status: PPA
+    connection_type: Grid
+    connection_reason: Power delivered through Cheyenne Light, Fuel and Power's large-load tariff; battery tolling agreement under same tariff
+    geography: US
+    notes: Includes 365 MW solar plus 200 MW / 1,600 MWh BESS; Tesla will supply and service the batteries. Recorded as 365 MW Solar+Storage with separate storage fields to avoid double-counting battery MW as generation.
+    source_id: S448

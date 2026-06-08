@@ -410,3 +410,19 @@ rows:
     geography: Denmark
     notes: Carbon removal agreement (BECCS), not electricity. Included as energy infrastructure deal.
     source_id: S161
+
+  - year: 2026
+    announced_date: 2026-05-27
+    generation_type: Solar
+    capacity_mw: 140
+    confidence: Sourced
+    deal_name: Avangrid Bluebird Solar PPA (Klickitat County WA) - 140 MWdc
+    counterparty: Avangrid
+    cod_year: 2028
+    cod_note: Bluebird Solar in Klickitat County WA is 140 MWdc / 100 MWac; PPA is expected to come into effect when the project reaches commercial operation in 2028.
+    status: PPA
+    connection_type: Grid
+    connection_reason: Avangrid utility-scale solar PPA delivering to the grid
+    geography: US
+    notes: Fourth Avangrid-Microsoft U.S. contract; brings Avangrid's Microsoft U.S. contracted capacity above 500 MW.
+    source_id: S449

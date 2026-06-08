@@ -580,3 +580,19 @@ rows:
     geography: US
     notes: Recorded as 600 MW Solar+Storage, not 1,200 MW, to avoid double-counting battery power capacity against solar project capacity.
     source_id: S362
+
+  - year: 2026
+    announced_date: 2026-05-25
+    generation_type: Solar
+    capacity_mw: 23
+    confidence: Sourced
+    deal_name: AWS Malaysia solar PPA — Sungai Siput (Perak)
+    counterparty: Elphil Energy (Asiabina Group)
+    cod_year:
+    cod_note: Long-term PPA for a 23 MW solar project in Sungai Siput, Perak; PPA term and COD not disclosed.
+    status: PPA
+    connection_type: Grid
+    connection_reason: Utility-scale solar PPA delivering to the Malaysian grid
+    geography: Malaysia
+    notes: AWS's first carbon-free energy agreement in Malaysia. Sourced from an AWS statement carried by New Straits Times and 4+ regional outlets; no standalone aboutamazon.com release.
+    source_id: S450
