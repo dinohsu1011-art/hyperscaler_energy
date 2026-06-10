@@ -199,6 +199,7 @@ rows:
     announced_date: 2024-09-19
     generation_type: Solar+Storage
     capacity_mw: 420
+    storage_power_mw: 170
     storage_energy_mwh: 680
     confidence: Sourced
     deal_name: Pierce County Energy Center Nebraska (NextEra/OPPD)
@@ -386,7 +387,7 @@ rows:
     contract_years: 21
     source_id: S103
 
-  - year: 2025
+  - year: 2026
     announced_date: 2026-01-15
     generation_type: Solar
     capacity_mw: 650
@@ -402,7 +403,7 @@ rows:
     contract_years: 20
     source_id: S105
 
-  - year: 2025
+  - year: 2026
     announced_date: 2026-01-15
     generation_type: Wind
     capacity_mw: 147
@@ -418,7 +419,7 @@ rows:
     contract_years: 20
     source_id: S105
 
-  - year: 2025
+  - year: 2026
     announced_date: 2026-01-15
     generation_type: Wind
     capacity_mw: 150

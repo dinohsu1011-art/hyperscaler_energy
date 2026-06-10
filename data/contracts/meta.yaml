@@ -46,6 +46,7 @@ rows:
     source_id: S75
 
   - year: 2025
+    announced_date: 2025-06-03
     generation_type: Nuclear
     capacity_mw: 1100
     confidence: Sourced
@@ -59,8 +60,8 @@ rows:
     connection_reason: grid text marker
     source_id: S16
 
-  - year: 2026
-    announced_date: 2025
+  - year: 2025
+    announced_date: 2025-08-20
     generation_type: Gas
     capacity_mw: 2260
     confidence: Sourced

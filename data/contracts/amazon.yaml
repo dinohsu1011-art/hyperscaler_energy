@@ -1,6 +1,7 @@
 company: Amazon
 rows:
   - year: 2024
+    announced_date: 2024-10-16
     generation_type: Nuclear
     capacity_mw: 300
     confidence: Sourced
@@ -13,7 +14,7 @@ rows:
     connection_type: BTM
     connection_reason: SMR campus-adjacent → BTM
     notes: Early-stage exploratory MOU; no binding construction commitment.
-    source_id: S11
+    source_id: S6
 
   - year: 2025
     announced_date: 2025-06
@@ -30,7 +31,7 @@ rows:
     notes: ~$18B PPA. Replaces the original 2024 BTM Cumulus deal — do not double-count.
     source_id: S45
 
-  - year: 2023
+  - year: 2024
     announced_date: 2024-10
     generation_type: Nuclear
     capacity_mw: 320
