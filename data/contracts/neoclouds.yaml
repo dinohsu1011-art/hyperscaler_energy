@@ -277,7 +277,7 @@ rows:
   status: Announced
   connection_type: BTM
   notes: 150 MW wind-powered data center site in Texas; part of Soluna's 1 GW pipeline.
-  source_id: S312
+  source_id: S311
 - operator: Soluna Holdings
   announced_date: '2024-09-12'
   year: 2024
@@ -290,7 +290,7 @@ rows:
   status: Announced
   connection_type: BTM
   notes: 100 MW data center co-located with 240 MW utility-scale solar farm in Texas.
-  source_id: S313
+  source_id: S311
 - operator: Bit Digital
   announced_date: '2025-06-13'
   year: 2025

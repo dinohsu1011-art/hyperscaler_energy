@@ -15,7 +15,7 @@ rows:
     as_of_date: 2026-05-14
     source_quote: "now fully operational"
     notes: "Official AWS source says Project Rainier is in use; this proves live cluster status, not MW."
-    source_id: S394
+    source_id: S263
   - signal_id: PBS002
     campus_id: C059
     reporting_company: Amazon/AWS
@@ -566,7 +566,7 @@ rows:
     expected_online_date: 2027
     source_quote: "up to 310 MW"
     notes: "New AI factory; first capacity expected to be available to customers in 2027."
-    source_id: S406
+    source_id: S284
   - signal_id: PBS037
     campus_id: C079
     reporting_company: Nebius
@@ -582,7 +582,7 @@ rows:
     as_of_date: 2026-03-31
     source_quote: "up to 75 MW"
     notes: "Expansion of Nebius's first Finnish data center completed earlier in 2026."
-    source_id: S406
+    source_id: S284
   - signal_id: PBS038
     reporting_company: Nebius
     company_bucket: neocloud_operator
@@ -813,7 +813,7 @@ rows:
     as_of_date: 2025-07-22
     source_quote: "4.5 gigawatts"
     notes: "Additional Stargate data-center capacity agreement; not active capacity."
-    source_id: S410
+    source_id: S249
   - signal_id: PBS052
     reporting_company: OpenAI
     company_bucket: hyperscaler_ai_lab
@@ -828,7 +828,7 @@ rows:
     as_of_date: 2025-07-22
     source_quote: "over 5 gigawatts"
     notes: "Lower-bound aggregate for Stargate AI data-center capacity under development, including Abilene and Oracle expansion."
-    source_id: S410
+    source_id: S249
   - signal_id: PBS053
     campus_id: C044
     reporting_company: OpenAI
@@ -842,7 +842,7 @@ rows:
     as_of_date: 2025-07-22
     source_quote: "parts of the facility are now up and running"
     notes: "OpenAI says early training and inference workloads had begun; source does not disclose active MW."
-    source_id: S410
+    source_id: S249
   - signal_id: PBS054
     reporting_company: OpenAI
     company_bucket: hyperscaler_ai_lab
@@ -857,7 +857,7 @@ rows:
     as_of_date: 2025-07-22
     source_quote: "over 2 million chips"
     notes: "Lower-bound chip count tied to over 5 GW of Stargate AI data-center capacity under development."
-    source_id: S410
+    source_id: S249
   - signal_id: PBS055
     campus_id: C045
     reporting_company: OpenAI
@@ -873,7 +873,7 @@ rows:
     as_of_date: 2025-05-22
     source_quote: "1GW Stargate UAE cluster"
     notes: "International Stargate cluster envelope; not active capacity."
-    source_id: S411
+    source_id: S250
   - signal_id: PBS056
     campus_id: C045
     reporting_company: OpenAI
@@ -890,7 +890,7 @@ rows:
     expected_online_date: 2026
     source_quote: "200MW expected to go live in 2026"
     notes: "Timing target for first Stargate UAE live tranche; do not count as current active capacity."
-    source_id: S411
+    source_id: S250
   - signal_id: PBS057
     reporting_company: OpenAI
     company_bucket: hyperscaler_ai_lab
@@ -952,7 +952,7 @@ rows:
     as_of_date: 2026-02-11
     source_quote: "designed to deliver 1GW"
     notes: "Meta broke ground on the Lebanon campus; one-gigawatt capacity applies once operational."
-    source_id: S415
+    source_id: S235
   - signal_id: PBS061
     campus_id: C029
     reporting_company: Meta
@@ -968,7 +968,7 @@ rows:
     as_of_date: 2026-03-26
     source_quote: "grow to 1 gigawatt"
     notes: "Meta update says the El Paso AI-focused data center will grow to 1 GW; not active capacity."
-    source_id: S416
+    source_id: S234
   - signal_id: PBS062
     reporting_company: Meta
     company_bucket: hyperscaler_ai_lab
@@ -983,7 +983,7 @@ rows:
     as_of_date: 2026-03-26
     source_quote: "5,000 megawatts of clean energy"
     notes: "Power-supply support for Texas data-center growth; do not treat as data-center IT load."
-    source_id: S416
+    source_id: S234
   - signal_id: PBS063
     campus_id: C044
     reporting_company: Oracle
@@ -1200,7 +1200,7 @@ rows:
     as_of_date: 2024-09-10
     source_quote: "480MW data center campus"
     notes: "Full Red Oak critical IT campus capacity; construction had commenced."
-    source_id: S423
+    source_id: S347
   - signal_id: PBS077
     reporting_company: DataBank
     company_bucket: colocation_operator
@@ -1215,7 +1215,7 @@ rows:
     expected_online_date: 2026-Q2
     source_quote: "up to 240MW of critical IT power"
     notes: "Phase 1 design with initial ready-for-service target of Q2 2026."
-    source_id: S423
+    source_id: S347
   - signal_id: PBS078
     reporting_company: DataBank
     company_bucket: colocation_operator
@@ -1229,7 +1229,7 @@ rows:
     as_of_date: 2024-09-10
     source_quote: "792MW of power"
     notes: "Aggregate full-development power across Red Oak, Atlanta, and Northern Virginia acquisitions."
-    source_id: S423
+    source_id: S347
   - signal_id: PBS079
     reporting_company: QTS
     company_bucket: colocation_operator

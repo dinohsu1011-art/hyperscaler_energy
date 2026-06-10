@@ -105,7 +105,7 @@ hyperscaler_cumulative:
     as_of: 2026-01
     metric: Nuclear-Total
     value_gw: 7.7
-    source_id: S42
+    source_id: S16
 
   - company: All-Four
     as_of: 2025-12

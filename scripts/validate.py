@@ -77,12 +77,20 @@ def main() -> int:
     errors: list[str] = []
     warnings: list[str] = []
 
-    # 1. Orphan sources
+    # 1. Orphan sources — a source cited in row prose (notes/cod_note, e.g. "see S49")
+    #    counts as referenced even without a source_id FK pointing at it.
+    prose = " ".join(
+        f"{r['notes'] or ''} {r['cod_note'] or ''}"
+        for r in conn.execute("SELECT notes, cod_note FROM hyperscaler_contracts")
+    )
+    prose_cited = set(re.findall(r"\bS\d{1,3}\b", prose))
     orphans = conn.execute(
         """SELECT s.id, s.publisher FROM sources s
            WHERE NOT EXISTS (SELECT 1 FROM v_fact_provenance v WHERE v.source_id = s.id)"""
     ).fetchall()
     for o in orphans:
+        if o["id"] in prose_cited:
+            continue
         warnings.append(f"orphan source: {o['id']} ({o['publisher']}) — never referenced")
 
     # 2. URL sanity
@@ -100,17 +108,30 @@ def main() -> int:
     if missing:
         errors.append(f"{missing} fact row(s) missing source_id (should be impossible via FK)")
 
-    # 4. Duplicate-value warnings
+    # 4. Duplicate-value warnings — keyed on counterparty too (same MW from two
+    #    different counterparties is a coincidence, not a double-count). Pairs that
+    #    share a counterparty but were manually verified as distinct deals
+    #    (2026-06-10 audit) are whitelisted by deal_name below.
+    KNOWN_DISTINCT = [
+        # Two separate Williams BTM gas plants on the same New Albany OH campus
+        {"Socrates South (Prometheus / New Albany OH) — Phase 1", "Socrates North (New Albany OH)"},
+        # Two separate self-build Vantage campuses that happen to share 192 MW
+        {"OH1 New Albany Ohio campus", "VA4 — Stafford County Northern Virginia"},
+    ]
     dup = conn.execute(
-        """SELECT company, year, generation_type, capacity_mw, COUNT(*) AS n
+        """SELECT company, year, generation_type, capacity_mw, counterparty,
+                  COUNT(*) AS n, GROUP_CONCAT(deal_name, ' ||| ') AS deals
            FROM hyperscaler_contracts
-           GROUP BY company, year, generation_type, capacity_mw
+           GROUP BY company, year, generation_type, capacity_mw, counterparty
            HAVING n > 1"""
     ).fetchall()
     for d in dup:
+        names = set((d["deals"] or "").split(" ||| "))
+        if any(names <= allowed for allowed in KNOWN_DISTINCT):
+            continue
         warnings.append(
             f"possible double-count: {d['company']} {d['year']} {d['generation_type']} "
-            f"{d['capacity_mw']} MW appears {d['n']} times"
+            f"{d['capacity_mw']} MW ({d['counterparty']}) appears {d['n']} times"
         )
 
     # 5. Aggregate parent/child consistency

@@ -51,15 +51,6 @@
   pub_date: 2026-04
   kind: Secondary
   supports: Amazon 2025 breakdown (~4 GW solar, ~2 GW wind, ~4 GW nuclear)
-
-- id: S11
-  publisher: Fortune (duplicate URL; kept as distinct citation)
-  title: Inside Google, Amazon, Microsoft nuclear deals (Amazon context)
-  url: https://fortune.com/2024/10/16/google-amazon-microsoft-nuclear-energy-ai-data-centers/
-  pub_date: 2024-10
-  kind: Secondary
-  supports: Amazon–Dominion SMR MOU near North Anna, VA
-
 - id: S15
   publisher: AI Business
   title: Meta signs deals with nuclear companies
@@ -275,15 +266,6 @@
   pub_date: 2025-12
   kind: Aggregator
   supports: All-four hyperscalers >80 GW clean energy cumulative end-2025
-
-- id: S42
-  publisher: Trellis / CEBA
-  title: Meta nuclear deals and corporate clean-energy strategy
-  url: https://trellis.net/article/what-metas-big-nuclear-deals-say-about-corporate-clean-energy-strategy/
-  pub_date: 2026-01
-  kind: Secondary
-  supports: Meta 7.7 GW nuclear commitment (Jan 2026)
-
 - id: S43
   publisher: World Resources Institute
   title: Clean energy progress — United States 2025
@@ -411,15 +393,6 @@
   pub_date: 2025-07
   kind: Primary
   supports: Oracle–Bloom Energy fuel-cell deployment framework (capacity not disclosed)
-
-- id: S59
-  publisher: Argus Media
-  title: Energy Transfer to supply gas for Oracle AI
-  url: https://www.argusmedia.com/en/news-and-insights/latest-market-news/2750558-energy-transfer-to-supply-gas-for-oracle-ai
-  pub_date: 2025-11
-  kind: Secondary
-  supports: Oracle–Energy Transfer gas supply ~900 MMcf/d for 3 US sites (fuel-supply, not generation)
-
 - id: S60
   publisher: Bridge Michigan
   title: Michigan regulators approve contract for Michigan's first hyperscale data center
@@ -716,15 +689,6 @@
   pub_date: 2025-05
   kind: Primary
   supports: Google–Elementl Power nuclear site development — 3 sites ≥600 MW each; technology-agnostic; option to purchase power when operational
-
-- id: S96
-  publisher: Kairos Power
-  title: Google, Kairos Power and TVA collaborate — Hermes 2 TVA PPA 50 MW
-  url: https://kairospower.com/external_updates/google-kairos-power-tva-collaborate-to-meet-americas-growing-energy-needs
-  pub_date: 2025-08
-  kind: Primary
-  supports: Google–Kairos–TVA Hermes 2 PPA — 50 MW Oak Ridge TN; COD 2030; first unit of broader 500 MW fleet deal (already in DB as S6)
-
 - id: S97
   publisher: Baseload Capital
   title: Baseload Capital and Google forge corporate PPA — Taiwan geothermal 10 MW
@@ -1426,39 +1390,6 @@
   pub_date: 2023-07
   kind: Primary
   supports: New large LWR and SMR overnight capex 2023
-
-- id: S184
-  publisher: Lazard
-  title: Levelized Cost of Energy Analysis - Version 14.0
-  url: https://www.lazard.com/media/451419/lazards-levelized-cost-of-energy-version-140.pdf
-  pub_date: 2020-10
-  kind: Primary
-  supports: Utility-scale solar PV CAPEX range 2020; Nuclear CAPEX range 2020
-
-- id: S185
-  publisher: Lazard
-  title: Levelized Cost of Energy Analysis - Version 15.0
-  url: https://www.lazard.com/research-insights/levelized-cost-of-energy-version-150/
-  pub_date: 2021-10
-  kind: Primary
-  supports: Nuclear new-build CAPEX range 2021
-
-- id: S186
-  publisher: Lazard
-  title: Levelized Cost of Energy+ Version 16.2
-  url: https://www.lazard.com/research-insights/2023-levelized-cost-of-energyplus/
-  pub_date: 2023-04
-  kind: Primary
-  supports: Nuclear new-build CAPEX range 2023
-
-- id: S187
-  publisher: Lazard
-  title: Levelized Cost of Energy+ June 2024
-  url: https://www.lazard.com/research-insights/levelized-cost-of-energyplus/
-  pub_date: 2024-06
-  kind: Primary
-  supports: Nuclear new-build CAPEX range 2024
-
 - id: S188
   publisher: EIA
   title: "Annual Energy Outlook 2022 - Cost and Performance Characteristics of New Generating Technologies"
@@ -1466,15 +1397,6 @@
   pub_date: 2022-03
   kind: Primary
   supports: Advanced nuclear overnight cost 2022 ($6,695/kW, 2021$)
-
-- id: S189
-  publisher: EIA
-  title: AEO2023 Electricity Market Module Assumptions
-  url: https://www.eia.gov/outlooks/aeo/assumptions/pdf/EMM_Assumptions.pdf
-  pub_date: 2023-03
-  kind: Primary
-  supports: Advanced nuclear overnight cost 2023 (~$7,030/kW)
-
 - id: S190
   publisher: EIA
   title: AEO2025 - Cost and Performance Characteristics of New Generating Technologies
@@ -1546,15 +1468,6 @@
   pub_date: 2023-08
   kind: Primary
   supports: Onshore wind installed CAPEX 2022 ($1,370/kW)
-
-- id: S199
-  publisher: US DOE WINDExchange
-  title: Economics and Incentives for Wind
-  url: https://windexchange.energy.gov/projects/economics
-  pub_date: 2024-01
-  kind: Primary
-  supports: Onshore wind installed CAPEX range 2024 (~$1,200-$1,800/kW)
-
 - id: S200
   publisher: EIA / Sargent & Lundy
   title: "Cost and Performance Estimates for New Utility-Scale Electric Power Generating Technologies (SL-014940, Project 13651.005)"
@@ -1664,16 +1577,6 @@
   retrieved_on: 2026-04-25
   kind: Primary
   supports: "Microsoft × Cheyenne (Microsoft) — campus IT-load record"
-
-- id: S212
-  publisher: Nscale
-  title: "Nscale and Microsoft Announce Collaboration with NVIDIA and Caterpillar to Deliver 1.35GW"
-  url: https://www.nscale.com/press-releases/nscale-west-virginia-ai-factory
-  pub_date: 2026-03-01
-  retrieved_on: 2026-04-25
-  kind: Primary
-  supports: "Microsoft × Monarch Compute Campus (Mason County WV) — campus IT-load record"
-
 - id: S213
   publisher: Data Center Dynamics
   title: "Microsoft files for six-building data center campus in Virginia's Mecklenburg County"
@@ -2450,16 +2353,6 @@
   retrieved_on: 2026-05-01
   kind: Primary
   supports: 'Hut 8 × Entergy Louisiana / Fluidstack (Google backstop) — 1330 MW Other announcement'
-
-- id: S299
-  publisher: Hut 8
-  title: 'Hut 8 Energizes Vega Data Center'
-  url: https://www.hut8.com/2025/06/30/hut-8-energizes-vega-data-center/
-  pub_date: 2025-06-30
-  retrieved_on: 2026-05-01
-  kind: Primary
-  supports: 'Hut 8 × BITMAIN (colocation) — 205 MW Other announcement'
-
 - id: S300
   publisher: TeraWulf
   title: "TeraWulf to Deliver over 70 MW of Data Center Infrastructure for G42's US Operations"
@@ -2522,16 +2415,6 @@
   retrieved_on: 2026-05-01
   kind: Primary
   supports: 'Nscale × Microsoft — 1200 MW Other announcement'
-
-- id: S307
-  publisher: Galaxy Digital / PRNewswire
-  title: 'Galaxy Closes $1.4 Billion Project Financing Facility to Accelerate Helios AI Datacenter Development'
-  url: https://www.prnewswire.com/news-releases/galaxy-closes-1-4-billion-project-financing-facility-to-accelerate-helios-ai-datacenter-development-302530804.html
-  pub_date: 2025-08-15
-  retrieved_on: 2026-05-01
-  kind: Primary
-  supports: 'Galaxy Digital × CoreWeave — 393 MW Other announcement'
-
 - id: S308
   publisher: BusinessWire
   title: 'Riot Platforms Launches Formal Evaluation of Potential AI/HPC Uses for Remaining 600 MW'
@@ -2567,25 +2450,6 @@
   retrieved_on: 2026-05-01
   kind: Primary
   supports: 'Soluna Holdings × co-located 200 MW wind farm — 120 MW Wind announcement'
-
-- id: S312
-  publisher: Soluna
-  title: 'Soluna Surpasses One Gigawatt of Clean Computing Projects'
-  url: https://www.solunacomputing.com/news/1gw/
-  pub_date: 2024-09-12
-  retrieved_on: 2026-05-01
-  kind: Primary
-  supports: 'Soluna Holdings × wind farm partner — 150 MW Wind announcement'
-
-- id: S313
-  publisher: Soluna
-  title: 'Soluna Surpasses One Gigawatt of Clean Computing Projects'
-  url: https://www.solunacomputing.com/news/1gw/
-  pub_date: 2024-09-12
-  retrieved_on: 2026-05-01
-  kind: Primary
-  supports: 'Soluna Holdings × 240 MW utility-scale solar — 100 MW Solar announcement'
-
 - id: S314
   publisher: Bit Digital
   title: 'WhiteFiber acquires NC industrial property for up to 200 MW HPC Data Center Campus'
@@ -3096,16 +2960,6 @@
   retrieved_on: 2026-05-13
   kind: Primary
   supports: "Amazon Mattameade - federal/state permit application for 1,143-acre, 11-building data center with three substation pads"
-
-- id: S373
-  publisher: Williams Companies
-  title: "Socrates Power Solution Facilities"
-  url: https://www.williams.com/expansion-project/socrates-power-solution-facilities/
-  pub_date: 2025-06
-  retrieved_on: 2026-05-13
-  kind: Primary
-  supports: "Meta Prometheus - Will-Power Socrates North/South proposed 400 MW natural gas power generation facilities in New Albany"
-
 - id: S374
   publisher: Federal Energy Regulatory Commission
   title: "189 FERC ¶ 61,078 — Order Rejecting Amendments to Interconnection Service Agreement"
@@ -3285,16 +3139,6 @@
   retrieved_on: 2026-05-14
   kind: Primary
   supports: "AWS custom-chip and Project Rainier operational cluster disclosures, including Trainium2 chip counts and 2026 capex guidance"
-
-- id: S394
-  publisher: Amazon
-  title: "AWS activates Project Rainier: One of the world's largest AI compute clusters comes online"
-  url: https://www.aboutamazon.com/news/aws/aws-project-rainier-ai-trainium-chips-compute-cluster
-  pub_date: 2026
-  retrieved_on: 2026-05-14
-  kind: Primary
-  supports: "Project Rainier fully operational / in-use disclosure, Anthropic workloads, and nearly half a million Trainium2 chips"
-
 - id: S395
   publisher: Anthropic
   title: "Anthropic and Amazon expand collaboration for up to 5 gigawatts of new compute"
@@ -3393,16 +3237,6 @@
   retrieved_on: 2026-05-14
   kind: Primary
   supports: "Nebius / NVIDIA partnership to deploy more than 5 GW of NVIDIA systems by end of 2030"
-
-- id: S406
-  publisher: Nebius
-  title: "Nebius to construct 310 MW AI factory in Finland"
-  url: https://nebius.com/newsroom/nebius-to-construct-310-mw-ai-factory-in-finland
-  pub_date: 2026-03-31
-  retrieved_on: 2026-05-14
-  kind: Primary
-  supports: "Nebius Lappeenranta 310 MW AI factory, Mantsala 75 MW expansion, EMEA contracted power, and first-capacity timing"
-
 - id: S407
   publisher: Galaxy Digital
   title: "Galaxy Announces First Quarter 2026 Financial Results"
@@ -3429,25 +3263,6 @@
   retrieved_on: 2026-05-14
   kind: Primary
   supports: "Crusoe Abilene data-center joint venture, project scale, construction financing, phase timing, and announced buildout scope"
-
-- id: S410
-  publisher: OpenAI
-  title: "Stargate advances with 4.5 GW partnership with Oracle"
-  url: https://openai.com/index/stargate-advances-with-partnership-with-oracle/
-  pub_date: 2025-07-22
-  retrieved_on: 2026-05-14
-  kind: Primary
-  supports: "OpenAI / Oracle additional 4.5 GW Stargate data-center capacity, over 5 GW under development, over 2 million chips, and Abilene early workloads"
-
-- id: S411
-  publisher: OpenAI
-  title: "Introducing Stargate UAE"
-  url: https://openai.com/index/introducing-stargate-uae/
-  pub_date: 2025-05-22
-  retrieved_on: 2026-05-14
-  kind: Primary
-  supports: "Stargate UAE 1 GW cluster in Abu Dhabi with 200 MW expected live in 2026"
-
 - id: S412
   publisher: OpenAI
   title: "Building the compute infrastructure for the Intelligence Age"
@@ -3474,25 +3289,6 @@
   retrieved_on: 2026-05-14
   kind: Primary
   supports: "Microsoft Fairwater Wisconsin construction status, early-2026 online timing, second data-center commitment, and GPU-cluster scale"
-
-- id: S415
-  publisher: Meta
-  title: "Meta's New Data Center in Lebanon, Indiana Marks a Milestone AI Investment"
-  url: https://about.fb.com/news/2026/02/metas-new-data-center-lebanon-indiana-marks-milestone-ai-investment/
-  pub_date: 2026-02-11
-  retrieved_on: 2026-05-14
-  kind: Primary
-  supports: "Meta Lebanon, Indiana 1 GW data-center campus breaking ground and once-operational capacity"
-
-- id: S416
-  publisher: Meta
-  title: "Breaking Ground on Our New AI-Optimized Data Center in El Paso"
-  url: https://about.fb.com/news/2025/10/metas-new-ai-optimized-data-center-el-paso/
-  pub_date: 2025-10-15
-  retrieved_on: 2026-05-14
-  kind: Primary
-  supports: "Meta El Paso 1 GW AI-focused data-center site, March 2026 update, and more than 5 GW Texas clean-energy contracts"
-
 - id: S417
   publisher: Oracle
   title: "Oracle Unveils Next-Generation Oracle Cloud Infrastructure Zettascale10 Cluster for AI"
@@ -3546,16 +3342,6 @@
   retrieved_on: 2026-05-14
   kind: Primary
   supports: "Vantage Frontier 1.4 GW critical IT load, ten data centers, 1,200 acre campus, and second-half 2026 first data-center delivery"
-
-- id: S423
-  publisher: DataBank
-  title: "DataBank Announces Development of 480MW Data Center Campus in South Dallas"
-  url: https://www.databank.com/resources/press-releases/databank-announces-development-of-480mw-data-center-campus-in-south-dallas/
-  pub_date: 2024-09-10
-  retrieved_on: 2026-05-14
-  kind: Primary
-  supports: "DataBank Red Oak 480 MW campus, 240 MW Phase 1 critical IT power, Q2 2026 ready-for-service target, and 792 MW multi-campus expansion capacity"
-
 - id: S424
   publisher: QTS Data Centers
   title: "Manassas 1 Data Center Campus"
@@ -3591,16 +3377,6 @@
   retrieved_on: 2026-05-14
   kind: Primary
   supports: "Google Van Buren / Project Cannoli - DTE agreement and MPSC contract filing to support Google's planned 1 GW data center"
-
-- id: S428
-  publisher: Office of Governor Tate Reeves
-  title: "Tech leader xAI investing more than $20 billion in Southaven"
-  url: https://governorreeves.ms.gov/tech-leader-xai-investing-more-than-20-billion-in-southaven/
-  pub_date: 2026-01-08
-  retrieved_on: 2026-05-14
-  kind: Primary
-  supports: "xAI Southaven / Macrohardrr - Mississippi governor announcement of building retrofit, Data Center Incentive approval, planned February 2026 operations, and nearly 2 GW compute-power target"
-
 - id: S429
   publisher: G42
   title: "G42 to lead a consortium with US partners to build 5GW UAE-US AI Campus"

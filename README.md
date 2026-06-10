@@ -11,26 +11,39 @@ to fail — numbers cannot exist in `data.db` without a traceable URL.
 ```
 hyperscaler_energy/
 ├── schema.sql                    # SQLite schema (source_id FK enforced)
-├── data.db                       # built by scripts/load.py
+├── data.db                       # built by scripts/load.py (gitignored)
 ├── data/
 │   ├── sources.yaml              # one entry per citation; stable IDs (S1, S2, ...)
-│   ├── contracts/                # one file per hyperscaler
-│   │   ├── microsoft.yaml
-│   │   ├── google.yaml
-│   │   ├── amazon.yaml
-│   │   └── meta.yaml
+│   ├── contracts/                # energy deals by operator group
+│   │   ├── microsoft.yaml / google.yaml / amazon.yaml / meta.yaml
+│   │   ├── oracle.yaml / xai.yaml
+│   │   └── colocation.yaml / neoclouds.yaml / sovereign.yaml
+│   ├── campuses.yaml             # data-center campus registry
+│   ├── campus_evidence.yaml      # energization evidence per campus
+│   ├── primary_buildout_signals.yaml      # buildout signals from primary sources
+│   ├── proxy_signal_definitions.yaml      # SEC proxy signal definitions
+│   ├── sec_proxy_metrics.yaml             # XBRL facts backing market proxies
+│   ├── sec_filing_text_signals.yaml       # qualitative snippets from filings
+│   ├── qualitative_load_commentary.yaml   # utility/ISO load commentary
 │   ├── lcoe/lcoe.yaml            # LCOE observations by (technology, vintage, report)
-│   ├── capex/
-│   │   ├── gas_capex.yaml
-│   │   ├── renewable_capex.yaml
-│   │   └── turbine_supply.yaml
-│   └── demand/demand.yaml        # power demand, grid plans, hyperscaler cumulative totals
+│   ├── capex/                    # gas_capex / renewable_capex / turbine_supply
+│   ├── demand/demand.yaml        # power demand, grid plans, cumulative totals
+│   └── external/                 # EIA-860M generator workbooks
 ├── scripts/
 │   ├── load.py                   # YAML → SQLite (rebuilds data.db)
-│   ├── validate.py               # integrity checks beyond the schema
-│   └── analyze.py                # charts + CSVs under output/
-└── output/                       # charts, CSVs, provenance audit
+│   ├── validate.py               # integrity checks beyond the schema (exit 2 = warnings-only)
+│   ├── dashboard.py              # builds output/dashboard.html (GitHub Pages)
+│   ├── analyze.py / report.py    # charts + CSVs under output/
+│   ├── capacity_reality_report.py / evidence_coverage.py
+│   ├── primary_buildout_signals.py / primary_buildout_report.py
+│   └── sec_proxy_signals.py / sec_proxy_report.py / sec_filing_text_signals.py
+└── output/                       # dashboard.html (tracked); other artifacts gitignored
 ```
+
+> **Note:** run the pipeline with the project venv (`.venv/bin/python`) — the system
+> `python3` lacks PyYAML. CI (`.github/workflows/build-dashboard.yml`) rebuilds and
+> commits `output/dashboard.html` on every push to `main`; warnings (exit 2) do not
+> fail the build, errors (exit 1) do.
 
 ## Usage
 

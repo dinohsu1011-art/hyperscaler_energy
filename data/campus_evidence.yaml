@@ -360,7 +360,7 @@ rows:
       Williams' project page supports two proposed 200 MW New Albany natural-gas power generation sites
       with target 2026 in-service dates. It supports an on-site power plan for Prometheus but does not
       prove the 1-1.5 GW campus load is energized.
-    source_id: S373
+    source_id: S44
 
   - evidence_id: CE020
     campus_id: C055
@@ -972,7 +972,7 @@ rows:
       has purchased and is retrofitting a building, received Data Center Incentive approval, and expected
       Southaven data-center operations to begin in February 2026. The source mentions nearly 2 GW of
       computing power but does not disclose a normalized campus MW basis.
-    source_id: S428
+    source_id: S248
 
   - evidence_id: CE054
     campus_id: C045

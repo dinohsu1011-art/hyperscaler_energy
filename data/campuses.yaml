@@ -162,7 +162,7 @@ rows:
     March 2026: Nscale acquired 8 GW Monarch site and signed Microsoft LOI for 1.35 GW of compute. Microsoft
     commitment is multi-year compute services + long-term lease for ~430k Vera Rubin NVL72 GPUs. Phased
     deployment from 'late 2027'. Site is fully off-grid (eliminates utility burden but is gas-powered).
-  source_id: S212
+  source_id: S156
 - campus_id: C008
   campus_name: Boydton (Mecklenburg County)
   hyperscaler: Microsoft
