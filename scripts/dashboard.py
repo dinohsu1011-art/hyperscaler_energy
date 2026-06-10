@@ -404,6 +404,29 @@ TEMPLATE = r"""<!doctype html>
                      text-align:right; color:var(--muted); }
   .pipe-row .total b { color:var(--ink); font-weight:600; }
 
+  /* clickable bars + source popover */
+  .pipe-bar.click { cursor:pointer; }
+  .pipe-bar.click:hover { box-shadow:inset 0 0 0 1.5px rgba(14,123,91,.5); }
+  #srcPop { position:fixed; z-index:300; width:min(460px, calc(100vw - 32px));
+            max-height:min(480px, 72vh); overflow-y:auto; background:var(--panel);
+            border-radius:18px; padding:1.05rem 1.15rem 1rem; display:none;
+            box-shadow:0 18px 50px rgba(0,0,0,.18), 0 2px 10px rgba(0,0,0,.08); }
+  #srcPop.open { display:block; }
+  #srcPop h4 { margin:0; font-size:.92rem; font-weight:650; letter-spacing:-.01em; padding-right:1.8rem; }
+  #srcPop .psub { font-size:.72rem; color:var(--muted); margin:.15rem 0 .3rem; }
+  #srcPop .x { position:absolute; top:.75rem; right:.85rem; width:24px; height:24px; border:none;
+               border-radius:50%; background:#F0F0F2; color:var(--muted); font-size:.78rem;
+               cursor:pointer; line-height:1; display:flex; align-items:center; justify-content:center; }
+  #srcPop .x:hover { background:#E7E7EA; color:var(--ink); }
+  #srcPop .it { padding:.55rem 0 .5rem; font-size:.78rem; }
+  #srcPop .it + .it { border-top:1px solid var(--line); }
+  #srcPop .it .row1 { display:flex; justify-content:space-between; gap:.9rem; align-items:baseline; }
+  #srcPop .it .mw { font-variant-numeric:tabular-nums; font-weight:600; white-space:nowrap; }
+  #srcPop .it .quote { color:var(--muted); font-size:.72rem; font-style:italic; margin-top:.12rem; }
+  #srcPop .it .meta { color:var(--muted); font-size:.71rem; margin-top:.14rem; }
+  #srcPop .it .meta a { color:var(--accent); text-decoration:none; font-weight:500; }
+  #srcPop .it .meta a:hover { text-decoration:underline; }
+
   .pipe-legend { display:flex; gap:1.4rem; font-size:.74rem; color:var(--muted);
                  margin:-2px 0 14px; padding:0 .3rem; }
   .pipe-legend .sw { display:inline-block; width:10px; height:10px; border-radius:5px;
@@ -646,7 +669,7 @@ TEMPLATE = r"""<!doctype html>
       </div>
     </div>
 
-    <h3 class="camp-section-title">Pipeline by hyperscaler<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">energized → phase-1 → full plan</span></h3>
+    <h3 class="camp-section-title">Pipeline by hyperscaler<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">energized → phase-1 → full plan · click a bar for sources</span></h3>
     <div class="pipeline-list" id="pipelineList"></div>
     <div class="pipe-legend">
       <span><span class="sw" style="background:#0E7B5B"></span>Energized today</span>
@@ -711,7 +734,7 @@ TEMPLATE = r"""<!doctype html>
       </div>
     </div>
 
-    <h3 class="camp-section-title">Latest disclosed capacity by stage<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">each stage carries its own as-of quarter</span></h3>
+    <h3 class="camp-section-title">Latest disclosed capacity by stage<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">each stage carries its own as-of quarter · click a segment for sources</span></h3>
     <div class="pipeline-list" id="dsBars"></div>
     <div class="pipe-legend">
       <span><span class="sw" style="background:#0E7B5B"></span>Operational</span>
@@ -724,7 +747,7 @@ TEMPLATE = r"""<!doctype html>
       a stage older than the operator's latest reporting quarter is marked carried.
     </p>
 
-    <h3 class="camp-section-title" style="margin-top:2rem">Quarter by quarter — as disclosed<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">strict per-quarter levels; gaps mean no disclosure, not zero</span></h3>
+    <h3 class="camp-section-title" style="margin-top:2rem">Quarter by quarter — as disclosed<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">strict per-quarter levels; gaps mean no disclosure, not zero · click a column for sources</span></h3>
     <div class="camp-filters" style="margin-bottom:.75rem">
       <label>Operator <select id="dsQoQSelect"></select></label>
       <span class="count" id="dsQoQNote"></span>
@@ -742,7 +765,7 @@ TEMPLATE = r"""<!doctype html>
       </table>
     </div>
 
-    <h3 class="camp-section-title" style="margin-top:2rem">Coverage check — what operators say vs the campuses we track<span class="rule"></span></h3>
+    <h3 class="camp-section-title" style="margin-top:2rem">Coverage check — what operators say vs the campuses we track<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">click either bar for sources</span></h3>
     <div class="pipeline-list" id="dsCoverage"></div>
     <p class="lead" style="margin:.6rem 0 0;max-width:none;font-size:.78rem" id="dsCoverageNote"></p>
   </section>
@@ -1029,6 +1052,72 @@ const CONN_COLORS = { 'BTM':'#C26B4E', 'Grid':'#2F8488', 'Unknown':'#B9B9C0' };
 const CLEAN_TYPES = new Set(['Solar','Wind','Nuclear','Fuel Cell','Storage','Geothermal','Hydro','Solar+Storage','Renewable']);
 function colorFor(t){ return TYPE_COLORS[t] || '#B9B9C0'; }
 
+// ---- Source popover: click a bar or chart column to see the rows + citations behind it ----
+const srcPop = (() => {
+  const el = document.createElement('div');
+  el.id = 'srcPop';
+  document.body.appendChild(el);
+  const esc = s => String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  function srcLine(sid){
+    if (!sid) return '<span>no source on file (recorded absence)</span>';
+    const s = SRC[sid];
+    if (!s) return esc(sid);
+    const date = s.pub_date ? ` · ${esc(s.pub_date)}` : '';
+    return `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title || sid)}</a>` +
+           ` — ${esc(s.publisher || '')}${date} · ${esc(sid)}`;
+  }
+  const close = () => el.classList.remove('open');
+  function show(evt, title, sub, items){
+    el.innerHTML = `<button class="x" aria-label="Close">✕</button><h4>${esc(title)}</h4>` +
+      (sub ? `<div class="psub">${esc(sub)}</div>` : '') +
+      (items.length ? items.join('') : '<div class="it" style="color:var(--muted)">no underlying rows</div>');
+    el.querySelector('.x').addEventListener('click', close);
+    el.classList.add('open');
+    el.scrollTop = 0;
+    const x = Math.max(16, Math.min(evt.clientX + 10, window.innerWidth  - el.offsetWidth  - 16));
+    const y = Math.max(16, Math.min(evt.clientY + 12, window.innerHeight - el.offsetHeight - 16));
+    el.style.left = x + 'px'; el.style.top = y + 'px';
+    evt.stopPropagation();
+  }
+  document.addEventListener('click', e => {
+    if (el.classList.contains('open') && !el.contains(e.target)) close();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  return { show, close, esc, srcLine };
+})();
+
+const POP_STAGE = { planned:'Planned', under_construction:'Under construction',
+                    operational:'Operational', none_disclosed:'None disclosed' };
+const popQ = q => q ? String(q).replace(/^20(\d\d)Q(\d)$/, '$1Q$2') : '';
+
+function disclosureSrcItem(r){
+  const e = srcPop.esc;
+  const mw = r.mw_value != null ? Math.round(r.mw_value).toLocaleString() + ' MW' : '—';
+  const label = r.stage_verbatim || POP_STAGE[r.stage_normalized] || r.stage_normalized;
+  const site = r.component_label ? ` · ${e(r.component_label)}` : '';
+  return `<div class="it">
+    <div class="row1"><span><b>${e(r.fiscal_label || popQ(r.as_of_quarter))}</b> · ${e(label)}${site}</span><span class="mw">${mw}</span></div>
+    ${r.verbatim_quote ? `<div class="quote">“${e(r.verbatim_quote)}”</div>` : ''}
+    <div class="meta">${srcPop.srcLine(r.source_id)}</div>
+  </div>`;
+}
+
+function campusSrcItem(r){
+  const e = srcPop.esc;
+  const lvl = r.it_load_mw_planned != null ? [r.it_load_mw_planned, 'planned']
+            : r.it_load_mw_phase1  != null ? [r.it_load_mw_phase1,  'phase-1']
+            : r.it_load_mw_energized != null ? [r.it_load_mw_energized, 'live'] : null;
+  const mw = lvl ? `${Math.round(lvl[0]).toLocaleString()} MW ${lvl[1]}` : '—';
+  const place = [r.city, r.state_or_region, r.country].filter(Boolean).join(', ');
+  const status = String(r.status || '').replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase();
+  return `<div class="it">
+    <div class="row1"><span><b>${e(r.campus_name)}</b> · ${e(status)}</span><span class="mw">${mw}</span></div>
+    ${place ? `<div class="quote" style="font-style:normal">${e(place)}${r.primary_tenant ? ' · tenant: ' + e(r.primary_tenant) : ''}</div>` : ''}
+    <div class="meta">${srcPop.srcLine(r.source_id)}</div>
+  </div>`;
+}
+
 Chart.defaults.color = '#6E6E73';
 Chart.defaults.borderColor = '#ECECEE';
 Chart.defaults.font.family = "'Inter Tight', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
@@ -1265,23 +1354,41 @@ Chart.register({
       const segs = [];
       const op = c.stages.operational, uc = c.stages.under_construction;
       let acc = 0;
-      const seg = (mw, cls) => { const w = 100*mw/maxTot, l = 100*acc/maxTot; acc += mw;
-        return `<div class="seg ${cls}" style="left:${l}%;width:${w}%"></div>`; };
-      if (op) segs.push(seg(op.mw, 'energized'));
-      if (uc) segs.push(seg(uc.mw, 'phase1'));
-      if (c.planned_shown) segs.push(seg(c.planned_shown, 'planned'));
+      const seg = (mw, cls, stage) => { const w = 100*mw/maxTot, l = 100*acc/maxTot; acc += mw;
+        return `<div class="seg ${cls}" data-stage="${stage}" style="left:${l}%;width:${w}%"></div>`; };
+      if (op) segs.push(seg(op.mw, 'energized', 'operational'));
+      if (uc) segs.push(seg(uc.mw, 'phase1', 'under_construction'));
+      if (c.planned_shown) segs.push(seg(c.planned_shown, 'planned', 'planned'));
       const tags = [];
       ['operational','under_construction'].forEach(k => { const s = c.stages[k];
         if (s && (s.carried || s.as_of_quarter !== c.latest_quarter)) tags.push(`${STAGE_LBL[k]} as of ${qLbl(s.as_of_quarter)}`); });
       const planned = c.stages.planned;
       if (planned && (planned.carried || planned.as_of_quarter !== c.latest_quarter)) tags.push(`Planned as of ${qLbl(planned.as_of_quarter)}`);
       const basis = planned ? planned.basis : (uc ? uc.basis : (op ? op.basis : ''));
-      return `<div class="pipe-row">
+      return `<div class="pipe-row" data-op="${c.operator}">
         <div class="name">${c.operator}<span class="cnt">${qLbl(c.latest_quarter)}${tags.length ? ' · '+tags.join(' · ') : ''}</span></div>
-        <div class="pipe-bar">${segs.join('')}</div>
+        <div class="pipe-bar click" title="Click for the disclosures and sources behind this bar">${segs.join('')}</div>
         <div class="total"><b>${Math.round(totalOf(c)).toLocaleString()}</b> MW<br><span style="font-size:.64rem">${basis}</span></div>
       </div>`;
     }).join('');
+
+  // Click a stage segment → that operator+stage's disclosure rows; the bar
+  // background → all stages. Planned segments note the net-of presentation.
+  document.getElementById('dsBars').addEventListener('click', e => {
+    const bar = e.target.closest('.pipe-bar');
+    const row = e.target.closest('.pipe-row');
+    if (!bar || !row || !row.dataset.op) return;
+    const op = row.dataset.op;
+    const stage = e.target.closest('.seg') ? e.target.closest('.seg').dataset.stage : null;
+    const rows = D.filter(r => r.operator === op && r.stage_normalized !== 'none_disclosed' &&
+                               (!stage || r.stage_normalized === stage))
+      .sort((a,b) => String(b.as_of_date).localeCompare(String(a.as_of_date)));
+    const sub = stage === 'planned'
+      ? 'disclosed planned figures are gross; the bar shows them net of operational + under construction'
+      : 'disclosure rows behind this bar, latest first · the charted figure uses the newest quarter per stage';
+    srcPop.show(e, stage ? `${op} — ${POP_STAGE[stage].toLowerCase()}` : `${op} — all disclosed stages`,
+      sub, rows.map(disclosureSrcItem));
+  });
 
   const tbody = document.querySelector('#dsTable tbody');
   function cite(sid){ const s = SRC[sid]; if (!sid) return '<span style="color:var(--muted)">—</span>';
@@ -1304,21 +1411,42 @@ Chart.register({
   const covMax = Math.max(...covCells.flatMap(c=>[totalOf(c), covByOp[c.operator]||0]), 1);
   document.getElementById('dsCoverage').innerHTML = covCells.map(c => {
     const self = totalOf(c), camp = covByOp[c.operator];
-    return `<div class="pipe-row">
+    return `<div class="pipe-row" data-op="${c.operator}">
       <div class="name">${c.operator}</div>
       <div>
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-          <div class="pipe-bar" style="flex:1;height:12px"><div class="seg energized" style="left:0;width:${100*self/covMax}%"></div></div>
+          <div class="pipe-bar click" data-kind="self" title="Click for the operator's own disclosures" style="flex:1;height:12px"><div class="seg energized" style="left:0;width:${100*self/covMax}%"></div></div>
           <span style="font-size:.7rem;color:var(--muted);min-width:150px">they say · <b style="color:var(--ink)">${Math.round(self).toLocaleString()}</b> MW</span>
         </div>
         <div style="display:flex;align-items:center;gap:8px">
-          <div class="pipe-bar" style="flex:1;height:12px"><div class="seg phase1" style="left:0;width:${100*camp/covMax}%"></div></div>
+          <div class="pipe-bar click" data-kind="camp" title="Click for the campuses we track for this tenant" style="flex:1;height:12px"><div class="seg phase1" style="left:0;width:${100*camp/covMax}%"></div></div>
           <span style="font-size:.7rem;color:var(--muted);min-width:150px">we track · <b style="color:var(--ink)">${Math.round(camp).toLocaleString()}</b> MW</span>
         </div>
       </div>
       <div class="total"></div>
     </div>`;
   }).join('');
+
+  // Coverage bars: "they say" → disclosure rows; "we track" → tenant campuses.
+  document.getElementById('dsCoverage').addEventListener('click', e => {
+    const bar = e.target.closest('.pipe-bar');
+    const row = e.target.closest('.pipe-row');
+    if (!bar || !row || !row.dataset.op) return;
+    const op = row.dataset.op;
+    if (bar.dataset.kind === 'camp') {
+      const rows = (DATA.campuses || []).filter(r => r.hyperscaler === op)
+        .sort((a,b) => (b.it_load_mw_planned||b.it_load_mw_phase1||b.it_load_mw_energized||0) -
+                       (a.it_load_mw_planned||a.it_load_mw_phase1||a.it_load_mw_energized||0));
+      srcPop.show(e, `${op} — campuses we track`,
+        `${rows.length} campuses · fullest disclosed load level per campus (planned, else phase-1, else live)`,
+        rows.map(campusSrcItem));
+    } else {
+      const rows = D.filter(r => r.operator === op && r.stage_normalized !== 'none_disclosed')
+        .sort((a,b) => String(b.as_of_date).localeCompare(String(a.as_of_date)));
+      srcPop.show(e, `${op} — their disclosures`,
+        'disclosure rows behind the self-reported side, latest first', rows.map(disclosureSrcItem));
+    }
+  });
   const SERIES = DATA.disclosure_series || {};
   const sel = document.getElementById('dsQoQSelect');
   Object.keys(SERIES).sort().forEach(op => sel.insertAdjacentHTML('beforeend', `<option>${op}</option>`));
@@ -1338,13 +1466,36 @@ Chart.register({
       options: { maintainAspectRatio:false, responsive:true,
         scales:{ x:{ stacked:true, grid:{display:false} }, y:{ stacked:true, ticks:{ callback:v=>v.toLocaleString()+' MW' } } },
         plugins:{ legend:{ position:'bottom', labels:{ boxWidth:10, boxHeight:10 } },
-          tooltip:{ callbacks:{ label:c=>`${c.dataset.label}: ${(c.parsed.y||0).toLocaleString()} MW` } } }
+          tooltip:{ callbacks:{ label:c=>`${c.dataset.label}: ${(c.parsed.y||0).toLocaleString()} MW` } } },
+        onHover: (evt, els) => { evt.chart.canvas.style.cursor = els.length ? 'pointer' : 'default'; },
+        onClick: (evt, els) => {
+          if (!els.length) return;
+          const quarter = series[els[0].index].quarter;
+          const stage = ['operational','under_construction','planned'][els[0].datasetIndex];
+          const rows = D.filter(r => r.operator === op && r.as_of_quarter === quarter &&
+                                     r.stage_normalized === stage)
+            .sort((a,b) => String(b.as_of_date).localeCompare(String(a.as_of_date)));
+          const sub = stage === 'planned'
+            ? 'disclosed planned figures are gross; the column shows them net of operational + under construction'
+            : 'as disclosed that quarter';
+          srcPop.show(evt.native, `${op} — ${POP_STAGE[stage].toLowerCase()}, ${popQ(quarter)}`,
+            sub, rows.map(disclosureSrcItem));
+        }
       }
     });
     const n = series.filter(q => q.stages && Object.values(q.stages).some(Boolean)).length;
     document.getElementById('dsQoQNote').textContent = `${n} disclosed quarter(s) — values strictly as stated each quarter`;
   }
   if (Object.keys(SERIES).length) { sel.addEventListener('change', renderQoQ); renderQoQ(); }
+
+  // The chart is first built while this panel is display:none, and Chart.js
+  // wedges at 0x0 (even explicit resize() no-ops). Rebuild it once the tab is
+  // actually shown; setTimeout lets the panel-activation handler run first.
+  const dsTab = document.querySelector('.tab[data-tab="disclosures"]');
+  if (dsTab) dsTab.addEventListener('click', () => setTimeout(() => {
+    const ch = Chart.getChart(document.getElementById('dsQoQChart'));
+    if (Object.keys(SERIES).length && (!ch || !ch.width)) renderQoQ();
+  }, 0));
 
   document.getElementById('dsCoverageNote').textContent =
     'A credibility check, never an accounting identity. Operator side: latest self-reported operational + under construction + net planned. ' +
@@ -1807,9 +1958,9 @@ document.querySelectorAll('.tab').forEach(t => {
     const enLabel = en > 0 ? `${fmt(en)}` : '';
     const showInside = wEn > 8;
     return `
-      <div class="pipe-row">
+      <div class="pipe-row" data-op="${p.hyperscaler}">
         <div class="name">${p.hyperscaler}<span class="cnt">${p.campus_count} sites</span></div>
-        <div class="pipe-bar">
+        <div class="pipe-bar click" title="Click for the campuses and sources behind this bar">
           <div class="seg planned"   style="width:${wPlan.toFixed(2)}%"></div>
           <div class="seg phase1"    style="width:${wPh1.toFixed(2)}%"></div>
           <div class="seg energized" style="width:${wEn.toFixed(2)}%"></div>
@@ -1819,6 +1970,20 @@ document.querySelectorAll('.tab').forEach(t => {
         <div class="total"><b>${fmt(plan)}</b> MW</div>
       </div>`;
   }).join('');
+
+  // Click a pipeline bar → the campuses (and their citations) it aggregates.
+  list.addEventListener('click', e => {
+    const bar = e.target.closest('.pipe-bar');
+    const row = e.target.closest('.pipe-row');
+    if (!bar || !row || !row.dataset.op) return;
+    const op = row.dataset.op;
+    const rows = CAMP.filter(r => r.hyperscaler === op)
+      .sort((a,b) => (b.it_load_mw_planned||b.it_load_mw_phase1||b.it_load_mw_energized||0) -
+                     (a.it_load_mw_planned||a.it_load_mw_phase1||a.it_load_mw_energized||0));
+    srcPop.show(e, `${op} — tracked campuses`,
+      `${rows.length} campuses behind this bar · each links to its citation`,
+      rows.map(campusSrcItem));
+  });
 
   // ---- Campus table ----
   const tbody = document.querySelector('#campTable tbody');
