@@ -3601,3 +3601,282 @@
   retrieved_on: 2026-06-08
   kind: Primary
   supports: "Google x Voltus - up to 100 MW/yr distributed energy resource VPP in PJM, 3-yr Bring Your Own Capacity agreement"
+
+- id: S454
+  publisher: Applied Digital IR
+  title: "Applied Digital Reports Fiscal Fourth Quarter and Full Year 2025 Results"
+  url: https://ir.applieddigital.com/news-events/press-releases/detail/126/applied-digital-reports-fiscal-fourth-quarter-and-full-year
+  pub_date: 2025-07-30
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Applied Digital FY25 Q4"
+
+- id: S455
+  publisher: Applied Digital IR
+  title: "Applied Digital Reports Fiscal First Quarter 2026 Results"
+  url: https://ir.applieddigital.com/news-events/press-releases/detail/131/applied-digital-reports-fiscal-first-quarter-2026-results
+  pub_date: 2025-10-09
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Applied Digital FY26 Q1"
+
+- id: S456
+  publisher: Applied Digital IR
+  title: "Applied Digital Reports Fiscal Second Quarter 2026 Results"
+  url: https://ir.applieddigital.com/news-events/press-releases/detail/142/applied-digital-reports-fiscal-second-quarter-2026-results
+  pub_date: 2026-01-07
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Applied Digital FY26 Q2"
+
+- id: S457
+  publisher: GlobeNewswire
+  title: "Cipher Mining Provides Second Quarter 2025 Business Update"
+  url: https://www.globenewswire.com/news-release/2025/08/07/3129074/0/en/Cipher-Mining-Provides-Second-Quarter-2025-Business-Update.html
+  pub_date: 2025-08-07
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Cipher 25Q2"
+
+- id: S458
+  publisher: Yahoo Finance (carrier)
+  title: "Cipher Mining Signs 168 MW, 10-Year AI Hosting Agreement with Fluidstack"
+  url: https://finance.yahoo.com/news/cipher-mining-signs-3-billion-104501461.html
+  pub_date: 2025-09-25
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Cipher 25Q3"
+
+- id: S459
+  publisher: AlphaSpread (transcript carrier)
+  title: "Cipher Mining Q3 2025 Business Update — AWS Black Pearl Lease"
+  url: https://www.alphaspread.com/market-news/corporate-moves/cipher-mining-signs-55-billion-ai-infrastructure-lease-deal-with-amazon-web-services
+  pub_date: 2025-11-03
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Cipher 25Q4"
+
+- id: S460
+  publisher: GlobeNewswire
+  title: "Cipher Mining Signs Additional 56 MW, 10-Year AI Hosting Agreement with Fluidstack"
+  url: https://www.globenewswire.com/news-release/2025/11/20/3191801/0/en/Cipher-Mining-Signs-Additional-56-MW-10-Year-AI-Hosting-Agreement-with-Fluidstack.html
+  pub_date: 2025-11-20
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Cipher 25Q4"
+
+- id: S461
+  publisher: The Motley Fool (transcript carrier)
+  title: "Cipher Mining Q1 2026 Earnings Call Transcript"
+  url: https://www.fool.com/earnings/call-transcripts/2026/05/05/cipher-mining-cifr-q1-2026-earnings-transcript/
+  pub_date: 2026-05-05
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Cipher 26Q1"
+
+- id: S462
+  publisher: Core Scientific IR
+  title: "Core Scientific Announces Fiscal Second Quarter 2025 Results (Form 8-K Exhibit 99.1)"
+  url: https://investors.corescientific.com/news-events/press-releases/detail/121/core-scientific-announces-fiscal-second-quarter-2025-results
+  pub_date: 2025-08-08
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Core Scientific Q2 FY2025"
+
+- id: S463
+  publisher: Core Scientific IR
+  title: "Core Scientific Announces Fiscal Third Quarter 2025 Results (Form 8-K Exhibit 99.1)"
+  url: https://investors.corescientific.com/news-events/press-releases/detail/122/core-scientific-announces-fiscal-third-quarter-2025-results
+  pub_date: 2025-10-24
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Core Scientific Q3 FY2025"
+
+- id: S464
+  publisher: The Motley Fool (transcript carrier)
+  title: "Core Scientific (CORZ) Q1 2026 Earnings Call Transcript"
+  url: https://www.fool.com/earnings/call-transcripts/2026/05/06/core-scientific-corz-q1-2026-earnings-transcript/
+  pub_date: 2026-05-06
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Core Scientific Q1 FY2026"
+
+- id: S465
+  publisher: Crusoe
+  title: "Crusoe Announces Flagship Abilene Data Center is Live"
+  url: https://www.crusoe.ai/resources/newsroom/crusoe-announces-flagship-abilene-data-center-is-live
+  pub_date: 2025-09-30
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Crusoe 25Q3"
+
+- id: S466
+  publisher: Crusoe
+  title: "Crusoe, the AI factory company, raising $1.375 billion at a valuation above $10 billion to power the future of AI infrastructure"
+  url: https://www.crusoe.ai/resources/newsroom/crusoe-announces-series-e-funding
+  pub_date: 2025-10-24
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Crusoe 25Q4"
+
+- id: S467
+  publisher: Crusoe
+  title: "Crusoe Announces New 900 MW AI Factory Campus in Abilene, Texas to Support Microsoft AI Infrastructure"
+  url: https://www.crusoe.ai/resources/newsroom/crusoe-announces-new-900-mw-ai-factory-campus-in-abilene-texas-to-support-microsoft-ai-infrastructure
+  pub_date: 2026-03-27
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Crusoe 26Q1"
+
+- id: S468
+  publisher: CoreWeave IR (FactSet transcript)
+  title: "CoreWeave, Inc. (CRWV) Q2 2025 Earnings Call Corrected Transcript"
+  url: https://s205.q4cdn.com/133937190/files/doc_financials/2025/q2/CORRECTED-TRANSCRIPT_-CoreWeave-Inc-CRWV-US-Q2-2025-Earnings-Call-12-August-2025-5_00-PM-ET.pdf
+  pub_date: 2025-08-12
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — CoreWeave Q2 2025"
+
+- id: S469
+  publisher: CoreWeave IR (FactSet transcript)
+  title: "CoreWeave, Inc. (CRWV) Q3 2025 Earnings Call Corrected Transcript"
+  url: https://s205.q4cdn.com/133937190/files/doc_financials/2025/q3/CORRECTED-TRANSCRIPT_-CoreWeave-Inc-CRWV-US-Q3-2025-Earnings-Call-10-November-2025-5_00-PM-ET.pdf
+  pub_date: 2025-11-10
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — CoreWeave Q3 2025"
+
+- id: S470
+  publisher: CoreWeave IR (FactSet transcript)
+  title: "CoreWeave, Inc. (CRWV) Q1 2026 Earnings Call Corrected Transcript"
+  url: https://s205.q4cdn.com/133937190/files/doc_financials/2026/q1/CoreWeave-Inc-CRWV-US-Q1-2026-Earnings-Call-7-May-2026-5_00-PM-ET.pdf
+  pub_date: 2026-05-07
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — CoreWeave Q1 2026"
+
+- id: S471
+  publisher: PR Newswire
+  title: "Galaxy Announces Second Quarter 2025 Financial Results"
+  url: https://www.prnewswire.com/news-releases/galaxy-announces-second-quarter-2025-financial-results-302521785.html
+  pub_date: 2025-08-05
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Galaxy Q2 2025"
+
+- id: S472
+  publisher: PR Newswire
+  title: "Galaxy Announces Third Quarter 2025 Financial Results"
+  url: https://www.prnewswire.com/news-releases/galaxy-announces-third-quarter-2025-financial-results-302590096.html
+  pub_date: 2025-10-21
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Galaxy Q3 2025"
+
+- id: S473
+  publisher: PR Newswire
+  title: "Galaxy Announces Fourth Quarter and Full Year 2025 Financial Results"
+  url: https://www.prnewswire.com/news-releases/galaxy-announces-fourth-quarter-and-full-year-2025-financial-results-302677310.html
+  pub_date: 2026-02-03
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Galaxy Q4 2025"
+
+- id: S474
+  publisher: GlobeNewswire
+  title: "Hut 8 Energizes Vega Data Center"
+  url: https://www.globenewswire.com/news-release/2025/06/30/3107324/0/en/Hut-8-Energizes-Vega-Data-Center.html
+  pub_date: 2025-06-30
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Hut 8 Q2 2025"
+
+- id: S475
+  publisher: Insider Monkey (transcript carrier)
+  title: "Hut 8 Corp. (NASDAQ:HUT) Q3 2025 Earnings Call Transcript"
+  url: https://www.insidermonkey.com/blog/hut-8-corp-nasdaqhut-q3-2025-earnings-call-transcript-1640970/
+  pub_date: 2025-11-04
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Hut 8 Q3 2025"
+
+- id: S476
+  publisher: PR Newswire
+  title: "Hut 8 Reports First Quarter 2026 Results"
+  url: https://www.prnewswire.com/news-releases/hut-8-reports-first-quarter-2026-results-302763660.html
+  pub_date: 2026-05-06
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Hut 8 Q1 2026"
+
+- id: S477
+  publisher: GlobeNewswire
+  title: "IREN Reports Full Year FY25 Results"
+  url: https://www.globenewswire.com/news-release/2025/08/28/3141101/0/en/IREN-Reports-Full-Year-FY25-Results.html
+  pub_date: 2025-08-28
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — IREN FY25 Q4"
+
+- id: S478
+  publisher: GlobeNewswire
+  title: "IREN Reports Q2 FY26 Results"
+  url: https://www.globenewswire.com/news-release/2026/02/05/3233417/0/en/IREN-Reports-Q2-FY26-Results.html
+  pub_date: 2026-02-05
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — IREN FY26 Q2"
+
+- id: S479
+  publisher: Nebius
+  title: "Nebius Group Letter to Shareholders Q2 2025"
+  url: https://assets.nebius.com/assets/98fceb3b-2951-4647-9864-4b0654af057c/Nebius%20-%20Letter%20to%20shareholders%20-%20Q2%202025.pdf
+  pub_date: 2025-08-07
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Nebius Q2 2025"
+
+- id: S480
+  publisher: Nebius
+  title: "Nebius Group Letter to Shareholders Q3 2025"
+  url: https://assets.nebius.com/assets/7f8a9169-0d2b-469d-87e7-44342ea7fcd2/SHLQ3%20(4).pdf
+  pub_date: 2025-11-11
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — Nebius Q3 2025"
+
+- id: S481
+  publisher: GlobeNewswire
+  title: "TeraWulf Reports Third Quarter 2025 Results"
+  url: https://www.globenewswire.com/news-release/2025/11/10/3185056/0/en/TeraWulf-Reports-Third-Quarter-2025-Results.html
+  pub_date: 2025-11-10
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — TeraWulf Q3 2025"
+
+- id: S482
+  publisher: TeraWulf IR
+  title: "TeraWulf Q3 2025 Investor Update (November 2025)"
+  url: https://d1io3yog0oux5.cloudfront.net/_a4ab83614c7df0d999f615015cdddb06/terawulf/db/2265/21636/pdf/WULF+Q3+2025+Investor+Update+(Nov+2025)vF.pdf
+  pub_date: 2025-11-10
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — TeraWulf Q3 2025"
+
+- id: S483
+  publisher: GlobeNewswire
+  title: "TeraWulf Reports Fourth Quarter and Full Year 2025 Results"
+  url: https://www.globenewswire.com/news-release/2026/02/26/3246105/0/en/TeraWulf-Reports-Fourth-Quarter-and-Full-Year-2025-Results.html
+  pub_date: 2026-02-26
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — TeraWulf Q4 2025"
+
+- id: S484
+  publisher: GlobeNewswire
+  title: "TeraWulf Expands Strategic Partnership with Fluidstack Through New 168 MW AI Compute Joint Venture"
+  url: https://www.globenewswire.com/news-release/2025/10/28/3175363/0/en/TeraWulf-Expands-Strategic-Partnership-with-Fluidstack-Through-New-168-MW-AI-Compute-Joint-Venture.html
+  pub_date: 2025-10-28
+  retrieved_on: 2026-06-10
+  kind: Primary
+  supports: "Operator capacity disclosure — TeraWulf Q4 2025"

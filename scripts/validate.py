@@ -531,13 +531,21 @@ def main() -> int:
                 f"operator_capacity_disclosures {rid} ({op}) wording "
                 f"{r['stage_verbatim']!r} not in the term registry"
             )
-        elif mapped[0] != r["stage_normalized"] or mapped[1] != r["row_kind"]:
+        elif mapped[0] != r["stage_normalized"]:
             # capacity_basis is NEVER part of this check — one term legitimately
             # spans two bases in a single statement.
             errors.append(
                 f"operator_capacity_disclosures {rid} ({op}) contradicts the registry: "
-                f"{r['stage_verbatim']!r} maps to {mapped[0]}/{mapped[1]} but row has "
-                f"{r['stage_normalized']}/{r['row_kind']}"
+                f"{r['stage_verbatim']!r} maps to stage {mapped[0]} but row has "
+                f"{r['stage_normalized']}"
+            )
+        elif mapped[1] != r["row_kind"]:
+            # row_kind in the registry is a DEFAULT, not a contract — operators use
+            # one term at both grains (a company UC total and per-building UC
+            # components in the same filing). Grain divergence is reviewable, not red.
+            warnings.append(
+                f"operator_capacity_disclosures {rid} ({op}) row_kind {r['row_kind']} "
+                f"differs from the registry default {mapped[1]} for {r['stage_verbatim']!r}"
             )
         if r["capacity_basis"] not in basis_vocab:
             warnings.append(
