@@ -208,218 +208,230 @@ TEMPLATE = r"""<!doctype html>
 <meta charset="utf-8">
 <title>Hyperscaler Energy Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:#0b0d12; --panel:#141821; --ink:#e6e9ef; --muted:#8b93a7;
-    --line:#232838; --accent:#6ea8fe;
-    --gas:#e07a5f; --clean:#8ac6a4; --nuclear:#b794f4; --geo:#f2cc8f;
-    --solar:#f6c65b; --wind:#7fd1c1; --storage:#9bb0e3; --other:#6b7280;
+    --bg:#F5F5F7; --panel:#FFFFFF; --ink:#1D1D1F; --muted:#6E6E73;
+    --line:#ECECEE; --accent:#0E7B5B;
+    --gas:#3A3A3C; --clean:#0E7B5B; --nuclear:#8273B5; --geo:#C26B4E;
+    --solar:#E2A63D; --wind:#79A6CE; --storage:#2F8488; --other:#B9B9C0;
+    --tile-r:22px;
   }
   * { box-sizing: border-box; }
-  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-         background:var(--bg); color:var(--ink); line-height:1.45; }
-  header { padding:1.5rem 2rem; border-bottom:1px solid var(--line); }
-  h1 { margin:0 0 .3rem; font-size:1.4rem; letter-spacing:-0.01em; }
-  .sub { color:var(--muted); font-size:.9rem; }
-  main { padding:1.5rem 2rem; max-width:1400px; margin:0 auto; }
+  body { margin:0; font-family:'Inter Tight','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+         background:var(--bg); color:var(--ink); line-height:1.5; }
+  header { padding:2.1rem 2.4rem .2rem; }
+  h1 { margin:0 0 .35rem; font-size:1.55rem; font-weight:700; letter-spacing:-.02em; }
+  .sub { color:var(--muted); font-size:.82rem; font-variant-numeric:tabular-nums; }
+  main { padding:1.4rem 2.4rem 2.6rem; max-width:1400px; margin:0 auto; }
   .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-          gap:.8rem; margin-bottom:1.5rem; }
-  .kpi { background:var(--panel); border:1px solid var(--line); border-radius:8px;
-         padding:.9rem 1rem; }
-  .kpi .v { font-size:1.6rem; font-weight:600; letter-spacing:-.02em; }
-  .kpi .l { color:var(--muted); font-size:.78rem; text-transform:uppercase; letter-spacing:.06em; }
-  .grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.5rem; }
-  .card { background:var(--panel); border:1px solid var(--line); border-radius:8px;
-          padding:1rem 1.2rem; }
-  .card h2 { margin:0 0 .3rem; font-size:1rem; font-weight:600; }
-  .card .hint { color:var(--muted); font-size:.8rem; margin-bottom:.6rem; }
+          gap:14px; margin-bottom:14px; }
+  .kpi { background:var(--panel); border-radius:var(--tile-r);
+         padding:1.15rem 1.3rem; display:flex; flex-direction:column-reverse; justify-content:flex-end; }
+  .kpi .v { font-size:1.75rem; font-weight:700; letter-spacing:-.025em; margin-top:.45rem;
+            font-variant-numeric:tabular-nums; line-height:1.05; }
+  .kpi .l { color:var(--muted); font-size:.75rem; font-weight:600; letter-spacing:0; }
+  .kpi:first-child { grid-column:span 2; }
+  .kpi:first-child .v { font-size:2.7rem; }
+  .kpi:last-child { background:#1D1D1F; grid-column:span 2; }
+  .kpi:last-child .v { color:#F5F5F7; }
+  .kpi:last-child .l { color:#86868B; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+  .card { background:var(--panel); border-radius:var(--tile-r); padding:1.35rem 1.5rem; }
+  .card h2 { margin:0 0 .25rem; font-size:.95rem; font-weight:600; letter-spacing:-.01em; }
+  .card .hint { color:var(--muted); font-size:.78rem; margin-bottom:.7rem; }
   .chart-wrap { position:relative; height:320px; }
   .wide { grid-column:1 / -1; }
   .filters { display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:1rem; align-items:center; }
-  .filters label { color:var(--muted); font-size:.85rem; }
+  .filters label { color:var(--muted); font-size:.82rem; font-weight:500; }
   select, input[type="text"] {
-    background:#0f131c; color:var(--ink); border:1px solid var(--line);
-    padding:.35rem .5rem; border-radius:5px; font-size:.85rem;
+    background:#FFFFFF; color:var(--ink); border:0.5px solid #D9D9DE;
+    padding:.42rem .65rem; border-radius:10px; font-size:.84rem; font-family:inherit;
   }
+  select:focus, input[type="text"]:focus { outline:none; border-color:#B9B9C0; }
   table { width:100%; border-collapse:collapse; font-size:.82rem; }
-  th, td { text-align:left; padding:.45rem .55rem; border-bottom:1px solid var(--line);
+  th, td { text-align:left; padding:.5rem .6rem; border-bottom:1px solid #F0F0F2;
            vertical-align:top; }
-  th { color:var(--muted); font-weight:500; font-size:.73rem;
-       text-transform:uppercase; letter-spacing:.06em; position:sticky; top:0;
-       background:var(--panel); cursor:pointer; user-select:none; }
+  th { color:var(--muted); font-weight:600; font-size:.72rem; letter-spacing:0;
+       text-transform:none; position:sticky; top:0; background:var(--panel);
+       cursor:pointer; user-select:none; box-shadow:0 1px 0 #ECECEE; }
   th:hover { color:var(--ink); }
-  .table-wrap { max-height:600px; overflow:auto; border:1px solid var(--line); border-radius:6px; }
+  td { font-variant-numeric:tabular-nums; }
+  tr:hover td { background:#FAFAFA; }
+  .table-wrap { max-height:640px; overflow:auto; background:var(--panel);
+                border-radius:18px; padding:.4rem .9rem .9rem; }
   .cite { color:var(--accent); text-decoration:none; font-size:.72rem;
-          padding:1px 4px; border-radius:3px; background:rgba(110,168,254,.1);
+          padding:1px 6px; border-radius:6px; background:rgba(14,123,91,.08);
           margin-left:.2rem; }
-  .cite:hover { background:rgba(110,168,254,.25); }
-  .badge { display:inline-block; padding:1px 7px; border-radius:10px;
-           font-size:.7rem; font-weight:600; }
-  .b-gas { background:rgba(224,122,95,.2); color:#f4a58e; }
-  .b-fuelcell { background:rgba(250,180,90,.2); color:#fab45a; }
-  .b-clean { background:rgba(138,198,164,.2); color:#a3dcbb; }
-  .b-nuclear { background:rgba(183,148,244,.2); color:#cbb2fa; }
-  .b-geo { background:rgba(242,204,143,.2); color:#f2cc8f; }
-  .b-op { background:rgba(138,198,164,.2); color:#a3dcbb; }
-  .b-pending { background:rgba(242,204,143,.15); color:#d9b36c; }
-  .b-announced { background:rgba(139,147,167,.2); color:var(--muted); }
-  .b-btm { background:rgba(224,122,95,.2); color:#f4a58e; }
-  .b-grid { background:rgba(138,198,164,.2); color:#a3dcbb; }
-  .b-unknown { background:rgba(139,147,167,.2); color:var(--muted); }
-  .deal-link { color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); }
+  .cite:hover { background:rgba(14,123,91,.18); }
+  .badge { display:inline-block; padding:2px 8px; border-radius:999px;
+           font-size:.68rem; font-weight:600; letter-spacing:0; }
+  .b-gas { background:rgba(58,58,60,.09); color:#3A3A3C; }
+  .b-fuelcell { background:rgba(160,140,114,.16); color:#6F5B41; }
+  .b-clean { background:rgba(14,123,91,.10); color:#0E7B5B; }
+  .b-nuclear { background:rgba(130,115,181,.14); color:#5F5286; }
+  .b-geo { background:rgba(194,107,78,.13); color:#A04F33; }
+  .b-op { background:rgba(14,123,91,.10); color:#0E7B5B; }
+  .b-pending { background:rgba(176,122,46,.13); color:#9A6A24; }
+  .b-announced { background:rgba(142,142,147,.13); color:#6E6E73; }
+  .b-btm { background:rgba(194,107,78,.13); color:#A04F33; }
+  .b-grid { background:rgba(47,132,136,.12); color:#236F73; }
+  .b-unknown { background:rgba(142,142,147,.13); color:#6E6E73; }
+  .deal-link { color:var(--ink); text-decoration:none; border-bottom:1px solid #DEDEE1; }
   .deal-link:hover { color:var(--accent); border-bottom-color:var(--accent); }
-  .conf-s { color:#8ac6a4; font-weight:600; font-size:.7rem; }
-  .conf-e { color:#d9b36c; font-weight:600; font-size:.7rem; }
-  .tabs { display:flex; gap:0; border-bottom:1px solid var(--line); margin-bottom:1rem; }
-  .tab { padding:.5rem 1rem; cursor:pointer; color:var(--muted);
-         border-bottom:2px solid transparent; font-size:.88rem; }
-  .tab.active { color:var(--ink); border-bottom-color:var(--accent); }
+  .conf-s { color:#0E7B5B; font-weight:600; font-size:.7rem; }
+  .conf-e { color:#B07A2E; font-weight:600; font-size:.7rem; }
+  .tabs { display:inline-flex; gap:2px; background:#E9E9EB; border-radius:999px;
+          padding:3px; margin-bottom:1.3rem; }
+  .tab { padding:.48rem 1.05rem; cursor:pointer; color:var(--muted);
+         border-radius:999px; font-size:.84rem; font-weight:500; white-space:nowrap; }
+  .tab.active { color:var(--ink); background:#FFFFFF; font-weight:600;
+                border:0.5px solid rgba(0,0,0,.06); }
   .panel { display:none; }
   .panel.active { display:block; }
-  code { background:#0f131c; padding:1px 5px; border-radius:3px;
+  code { background:#EFEFF1; padding:1px 6px; border-radius:6px;
          font-size:.8rem; color:var(--muted); }
-  .legend-swatch { display:inline-block; width:10px; height:10px;
-                   border-radius:2px; margin-right:4px; vertical-align:middle; }
+  .legend-swatch { display:inline-block; width:9px; height:9px;
+                   border-radius:5px; margin-right:5px; vertical-align:middle; }
 
-  /* --- freshness highlight (new announcements within 7 days) --- */
+  /* freshness highlight — deals announced within the last 7 days */
   .new-badge {
-    display:inline-block; margin-left:.35rem; padding:1px 6px;
-    border-radius:4px; font-size:.6rem; font-weight:700;
-    letter-spacing:.08em; text-transform:uppercase;
-    background:#ff333322; color:#ff3333;
-    border:1px solid #ff333377;
-    animation: newpulse 2.2s ease-in-out infinite;
+    display:inline-block; margin-left:.35rem; padding:1px 8px;
+    border-radius:999px; font-size:.62rem; font-weight:600;
+    letter-spacing:.01em;
+    background:rgba(14,123,91,.10); color:#0E7B5B;
     vertical-align:middle;
   }
-  @keyframes newpulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(255,51,51,0.6); }
-    50%      { box-shadow: 0 0 14px 2px rgba(255,51,51,0.6); }
-  }
   .whats-new {
-    background: linear-gradient(90deg,
-      rgba(255,51,51,0.10) 0%, rgba(255,51,51,0.02) 100%);
-    border:1px solid rgba(255,51,51,0.28);
-    border-left:3px solid #ff3333;
-    border-radius:8px; padding:.7rem 1rem; margin-bottom:1.2rem;
+    background:var(--panel);
+    border-radius:var(--tile-r); padding:.85rem 1.3rem; margin-bottom:14px;
     display:flex; align-items:center; gap:.9rem; flex-wrap:wrap;
   }
   .whats-new .wn-label {
-    color:#ff3333; font-size:.68rem; font-weight:700;
-    letter-spacing:.12em; text-transform:uppercase;
-    padding:2px 8px; border-radius:4px;
-    background:rgba(255,51,51,0.14); white-space:nowrap;
+    color:#0E7B5B; font-size:.7rem; font-weight:600;
+    padding:3px 10px; border-radius:999px;
+    background:rgba(14,123,91,.10); white-space:nowrap;
   }
-  .whats-new .wn-item { font-size:.85rem; color:var(--ink); }
-  .whats-new .wn-item .wn-co { color:#ff3333; font-weight:600; }
-  .whats-new .wn-item .wn-date { color:var(--muted); font-size:.75rem; margin-left:.3rem; }
-  .whats-new .wn-sep { color:var(--line); }
+  .whats-new .wn-item { font-size:.84rem; color:var(--ink); }
+  .whats-new .wn-item .wn-co { color:var(--ink); font-weight:600; }
+  .whats-new .wn-item .wn-date { color:var(--muted); font-size:.74rem; margin-left:.3rem;
+                                 font-variant-numeric:tabular-nums; }
+  .whats-new .wn-sep { color:#D9D9DE; }
   .whats-new.empty { display:none; }
 
   @media (max-width: 900px) { .grid { grid-template-columns:1fr; } }
 
-  /* --- Campuses panel: editorial layout, no card-grid soup --- */
+  /* --- Campuses panel --- */
   .camp-hero {
     display:grid; grid-template-columns: 1.6fr 1fr; gap:2.5rem;
-    padding:2rem 0 2.5rem; border-bottom:1px solid var(--line); margin-bottom:2rem;
+    background:var(--panel); border-radius:var(--tile-r);
+    padding:1.6rem 1.7rem; margin-bottom:14px;
   }
-  .camp-hero .lead { color:var(--muted); font-size:.92rem; max-width:48ch; line-height:1.55; }
+  .camp-hero .lead { color:var(--muted); font-size:.9rem; max-width:52ch; line-height:1.6; margin:.2rem 0; }
   .camp-hero .lead b { color:var(--ink); font-weight:600; }
-  .camp-stats { display:grid; grid-template-columns:1fr 1fr; gap:1.4rem 2rem; align-self:end; }
-  .camp-stat .num { font-size:2.4rem; font-weight:700; letter-spacing:-.03em; line-height:1;
+  .camp-stats { display:grid; grid-template-columns:1fr 1fr; gap:1.3rem 2rem; align-self:end; }
+  .camp-stat .num { font-size:2.2rem; font-weight:700; letter-spacing:-.03em; line-height:1;
                     font-variant-numeric: tabular-nums; }
-  .camp-stat .num .gw { font-size:1rem; color:var(--muted); font-weight:500; margin-left:.2em; }
-  .camp-stat .lab { color:var(--muted); font-size:.72rem; text-transform:uppercase;
-                    letter-spacing:.1em; margin-top:.35rem; }
-  .camp-stat.live .num { color:#a3dcbb; }
-  .camp-stat.gap .num { color:#f6c65b; }
+  .camp-stat .num .gw { font-size:.95rem; color:var(--muted); font-weight:500; margin-left:.2em; }
+  .camp-stat .lab { color:var(--muted); font-size:.73rem; font-weight:600; margin-top:.4rem; }
+  .camp-stat.live .num { color:#0E7B5B; }
+  .camp-stat.gap .num { color:#B07A2E; }
 
   .camp-section-title {
-    font-size:.7rem; text-transform:uppercase; letter-spacing:.18em;
-    color:var(--muted); margin:0 0 1rem; font-weight:600;
+    font-size:.8rem; color:var(--ink); margin:0 0 .9rem; font-weight:650;
+    letter-spacing:-.01em; text-transform:none;
     display:flex; align-items:baseline; gap:.8rem;
   }
-  .camp-section-title .rule { flex:1; height:1px; background:var(--line); }
+  .camp-section-title .rule { flex:1; height:1px; background:#E4E4E7; }
+  .camp-section-title span:last-child { color:var(--muted); font-weight:400; font-size:.74rem; }
 
-  /* horizontal pipeline rows (one per hyperscaler) */
   .pipeline-list { display:flex; flex-direction:column; gap:.65rem;
-                   padding-bottom:2rem; border-bottom:1px solid var(--line); margin-bottom:2rem; }
-  .pipe-row { display:grid; grid-template-columns: 130px 1fr 80px;
+                   background:var(--panel); border-radius:var(--tile-r);
+                   padding:1.2rem 1.4rem; margin-bottom:14px; }
+  .pipe-row { display:grid; grid-template-columns: 130px 1fr 84px;
               gap:1rem; align-items:center; }
-  .pipe-row .name { font-weight:600; font-size:.9rem; }
-  .pipe-row .name .cnt { color:var(--muted); font-weight:400; font-size:.74rem; margin-left:.4rem; }
-  .pipe-bar { position:relative; height:24px; background:#0f131c;
-              border-radius:3px; overflow:hidden; }
+  .pipe-row .name { font-weight:600; font-size:.88rem; }
+  .pipe-row .name .cnt { color:var(--muted); font-weight:400; font-size:.73rem; margin-left:.4rem; }
+  .pipe-bar { position:relative; height:24px; background:#F0F0F2;
+              border-radius:7px; overflow:hidden; }
   .pipe-bar .seg { position:absolute; top:0; bottom:0; transition:width .4s ease; }
-  .pipe-bar .seg.energized { background: linear-gradient(180deg, #a3dcbb, #6eb89a); left:0; }
-  .pipe-bar .seg.phase1    { background: rgba(110,168,254,.55); }
-  .pipe-bar .seg.planned   { background: rgba(110,168,254,.18); border-right:1px solid rgba(110,168,254,.45); }
+  .pipe-bar .seg.energized { background:#0E7B5B; left:0; }
+  .pipe-bar .seg.phase1    { background:#7FB5A6; }
+  .pipe-bar .seg.planned   { background:#E2E2E5; }
   .pipe-bar .seg-label { position:absolute; top:50%; transform:translateY(-50%);
-                         font-size:.66rem; color:#0b0d12; font-weight:700; padding:0 .4rem;
+                         font-size:.66rem; color:#FFFFFF; font-weight:600; padding:0 .45rem;
                          white-space:nowrap; pointer-events:none; }
   .pipe-bar .seg-label.outside { color:var(--muted); }
-  .pipe-row .total { font-variant-numeric: tabular-nums; font-size:.85rem;
+  .pipe-row .total { font-variant-numeric: tabular-nums; font-size:.84rem;
                      text-align:right; color:var(--muted); }
   .pipe-row .total b { color:var(--ink); font-weight:600; }
 
-  .pipe-legend { display:flex; gap:1.4rem; font-size:.74rem; color:var(--muted); margin-top:.8rem; }
-  .pipe-legend .sw { display:inline-block; width:11px; height:11px; border-radius:2px;
+  .pipe-legend { display:flex; gap:1.4rem; font-size:.74rem; color:var(--muted);
+                 margin:-2px 0 14px; padding:0 .3rem; }
+  .pipe-legend .sw { display:inline-block; width:10px; height:10px; border-radius:5px;
                      vertical-align:middle; margin-right:.4em; }
 
-  /* campus table */
-  .camp-table-wrap { border:1px solid var(--line); border-radius:6px;
-                     max-height:640px; overflow:auto; }
-  .camp-table-wrap table { width:100%; border-collapse:collapse; font-size:.82rem; }
-  .camp-table-wrap th { background:#0f131c; color:var(--muted); font-weight:500; font-size:.71rem;
-                        text-transform:uppercase; letter-spacing:.07em;
-                        text-align:left; padding:.55rem .7rem; border-bottom:1px solid var(--line);
-                        position:sticky; top:0; cursor:pointer; user-select:none; }
-  .camp-table-wrap td { padding:.55rem .7rem; border-bottom:1px solid var(--line); vertical-align:top; }
+  .camp-table-wrap { background:var(--panel); border-radius:18px;
+                     max-height:640px; overflow:auto; padding:.4rem .9rem .9rem; }
+  .camp-table-wrap table { width:100%; border-collapse:collapse; font-size:.8rem; }
+  .camp-table-wrap th { background:var(--panel); color:var(--muted); font-weight:600; font-size:.71rem;
+                        text-transform:none; letter-spacing:0;
+                        text-align:left; padding:.55rem .6rem; border-bottom:1px solid #F0F0F2;
+                        position:sticky; top:0; cursor:pointer; user-select:none;
+                        box-shadow:0 1px 0 #ECECEE; }
+  .camp-table-wrap td { padding:.55rem .6rem; border-bottom:1px solid #F0F0F2; vertical-align:top; }
   .camp-table-wrap td.r { text-align:right; font-variant-numeric: tabular-nums; white-space:nowrap; }
-  .camp-table-wrap tr:hover td { background:rgba(110,168,254,.04); }
+  .camp-table-wrap tr:hover td { background:#FAFAFA; }
 
-  .b-stat { display:inline-block; padding:1px 7px; border-radius:3px;
-            font-size:.66rem; font-weight:600; letter-spacing:.05em; }
-  .b-Operational      { background:rgba(138,198,164,.18); color:#a3dcbb; }
-  .b-PartiallyEnergized { background:rgba(138,198,164,.10); color:#9ed1b3; border:1px dashed rgba(138,198,164,.35); }
-  .b-UnderConstruction { background:rgba(242,204,143,.18); color:#f2cc8f; }
-  .b-SiteWork         { background:rgba(242,204,143,.10); color:#d9b36c; }
-  .b-Announced        { background:rgba(139,147,167,.18); color:var(--muted); }
-  .b-Paused           { background:rgba(224,122,95,.18); color:#f4a58e; }
-  .b-Cancelled        { background:rgba(224,122,95,.25); color:#f4a58e; text-decoration:line-through; }
+  .b-stat { display:inline-block; padding:2px 8px; border-radius:999px;
+            font-size:.66rem; font-weight:600; letter-spacing:0; }
+  .b-Operational      { background:rgba(14,123,91,.12); color:#0E7B5B; }
+  .b-PartiallyEnergized { background:rgba(14,123,91,.07); color:#3C8A6E; border:1px dashed rgba(14,123,91,.3); }
+  .b-UnderConstruction { background:rgba(226,166,61,.16); color:#8A6420; }
+  .b-SiteWork         { background:rgba(226,166,61,.10); color:#9A6A24; }
+  .b-Announced        { background:rgba(142,142,147,.13); color:#6E6E73; }
+  .b-Paused           { background:rgba(194,107,78,.13); color:#A04F33; }
+  .b-Cancelled        { background:rgba(194,107,78,.18); color:#A04F33; text-decoration:line-through; }
 
   .camp-filters { display:flex; gap:.6rem; flex-wrap:wrap; margin:1rem 0; align-items:center; }
-  .camp-filters label { color:var(--muted); font-size:.83rem; }
+  .camp-filters label { color:var(--muted); font-size:.82rem; font-weight:500; }
   .camp-filters .count { color:var(--muted); font-size:.78rem; margin-left:auto; }
 
   @media (max-width: 900px) {
     .camp-hero { grid-template-columns:1fr; gap:1.5rem; }
     .pipe-row { grid-template-columns:90px 1fr 70px; gap:.6rem; }
+    .kpi:first-child { grid-column:span 1; }
   }
 
-  /* --- Qualitative commentary timeline --- */
+  /* --- Commentary timeline --- */
   .ql-filters { display:flex; gap:.6rem; flex-wrap:wrap; margin:1rem 0; align-items:center; }
-  .ql-filters label { color:var(--muted); font-size:.83rem; }
+  .ql-filters label { color:var(--muted); font-size:.82rem; font-weight:500; }
   .ql-filters .count { color:var(--muted); font-size:.78rem; margin-left:auto; }
-  .ql-layout { display:grid; grid-template-columns:minmax(260px,.9fr) minmax(0,1.6fr); gap:1.2rem; }
-  .ql-timeline { border:1px solid var(--line); border-radius:6px; padding:.8rem 1rem; max-height:680px; overflow:auto; background:#0f131c; }
-  .ql-bucket { display:grid; grid-template-columns:70px 1fr; gap:.8rem; padding:.75rem 0; border-bottom:1px solid var(--line); }
+  .ql-layout { display:grid; grid-template-columns:minmax(260px,.9fr) minmax(0,1.6fr); gap:14px; }
+  .ql-timeline { border-radius:18px; padding:1rem 1.2rem; max-height:680px; overflow:auto;
+                 background:var(--panel); }
+  .ql-bucket { display:grid; grid-template-columns:70px 1fr; gap:.8rem; padding:.75rem 0;
+               border-bottom:1px solid #F0F0F2; }
   .ql-bucket:last-child { border-bottom:0; }
-  .ql-date { color:var(--accent); font-weight:700; font-size:.78rem; font-variant-numeric:tabular-nums; }
-  .ql-item { position:relative; padding:0 0 .75rem 1rem; border-left:1px solid rgba(110,168,254,.35); }
+  .ql-date { color:var(--accent); font-weight:650; font-size:.78rem; font-variant-numeric:tabular-nums; }
+  .ql-item { position:relative; padding:0 0 .75rem 1rem; border-left:1px solid #E4E4E7; }
   .ql-item:last-child { padding-bottom:0; }
-  .ql-item::before { content:""; position:absolute; left:-4px; top:.2rem; width:7px; height:7px; border-radius:50%; background:var(--accent); }
-  .ql-org { font-weight:600; font-size:.88rem; }
-  .ql-meta { color:var(--muted); font-size:.74rem; margin-top:.1rem; }
+  .ql-item::before { content:""; position:absolute; left:-4px; top:.2rem; width:7px; height:7px;
+                     border-radius:50%; background:var(--accent); }
+  .ql-org { font-weight:600; font-size:.86rem; }
+  .ql-meta { color:var(--muted); font-size:.73rem; margin-top:.1rem; }
   .ql-text { color:var(--ink); font-size:.8rem; margin-top:.28rem; }
-  .ql-badge { display:inline-block; padding:1px 6px; border-radius:3px; font-size:.64rem; font-weight:650; margin-right:.25rem; }
-  .ql-pos { background:rgba(138,198,164,.18); color:#a3dcbb; }
-  .ql-mix { background:rgba(242,204,143,.16); color:#f2cc8f; }
-  .ql-neg { background:rgba(224,122,95,.18); color:#f4a58e; }
-  .ql-neutral { background:rgba(139,147,167,.18); color:var(--muted); }
-  .ql-stage { background:rgba(110,168,254,.14); color:#9fc3ff; }
-  .ql-basis { background:rgba(183,148,244,.14); color:#cbb2fa; }
-  .ql-table-wrap { border:1px solid var(--line); border-radius:6px; max-height:680px; overflow:auto; }
-  .ql-table-wrap th { background:#0f131c; }
+  .ql-badge { display:inline-block; padding:1px 7px; border-radius:999px; font-size:.64rem;
+              font-weight:600; margin-right:.25rem; }
+  .ql-pos { background:rgba(14,123,91,.11); color:#0E7B5B; }
+  .ql-mix { background:rgba(226,166,61,.15); color:#8A6420; }
+  .ql-neg { background:rgba(194,107,78,.13); color:#A04F33; }
+  .ql-neutral { background:rgba(142,142,147,.13); color:#6E6E73; }
+  .ql-stage { background:rgba(47,132,136,.12); color:#236F73; }
+  .ql-basis { background:rgba(130,115,181,.13); color:#5F5286; }
+  .ql-table-wrap { background:var(--panel); border-radius:18px; max-height:680px; overflow:auto;
+                   padding:.4rem .9rem .9rem; }
+  .ql-table-wrap th { background:var(--panel); }
   .ql-table-wrap td.r { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
 
   @media (max-width: 1000px) {
@@ -451,12 +463,12 @@ TEMPLATE = r"""<!doctype html>
   <section class="panel active" id="panel-overview">
     <div class="grid">
       <div class="card wide">
-        <h2>Contracted MW by announce year — gas vs clean</h2>
-        <div class="hint">Stacked by generation type. Uses <b>announce year</b>, not COD. Includes Oracle/xAI.</div>
+        <h2>Contracted MW by announcement year — gas vs clean</h2>
+        <div class="hint">Stacked by generation type. Uses <b>announcement year</b>, not COD. Includes Oracle/xAI.</div>
         <div class="chart-wrap"><canvas id="chartYear"></canvas></div>
       </div>
       <div class="card wide">
-        <h2>Battery storage energy by announce year</h2>
+        <h2>Battery storage energy by announcement year</h2>
         <div class="hint">MWh/GWh attached to storage and hybrid rows. This is energy duration, not another MW stack.</div>
         <div class="chart-wrap"><canvas id="chartStorageYear"></canvas></div>
       </div>
@@ -477,8 +489,8 @@ TEMPLATE = r"""<!doctype html>
       </div>
 
       <div class="card">
-        <h2>Behind-the-meter vs grid — all contracts by announce year</h2>
-        <div class="hint">All 133 contracts. Stacked by announcement year regardless of COD disclosure.</div>
+        <h2>Behind-the-meter vs grid — all contracts by announcement year</h2>
+        <div class="hint">Every tracked agreement. Stacked by announcement year regardless of COD disclosure.</div>
         <div class="chart-wrap"><canvas id="chartConnAll"></canvas></div>
       </div>
       <div class="card">
@@ -577,9 +589,9 @@ TEMPLATE = r"""<!doctype html>
     <h3 class="camp-section-title">Pipeline by hyperscaler<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">energized → phase-1 → full plan</span></h3>
     <div class="pipeline-list" id="pipelineList"></div>
     <div class="pipe-legend">
-      <span><span class="sw" style="background:#a3dcbb"></span>Energized today</span>
-      <span><span class="sw" style="background:rgba(110,168,254,.55)"></span>Phase-1 commitment</span>
-      <span><span class="sw" style="background:rgba(110,168,254,.18);border:1px solid rgba(110,168,254,.45)"></span>Full planned build</span>
+      <span><span class="sw" style="background:#0E7B5B"></span>Energized today</span>
+      <span><span class="sw" style="background:#7FB5A6"></span>Phase-1 commitment</span>
+      <span><span class="sw" style="background:#E2E2E5"></span>Full planned build</span>
     </div>
 
     <h3 class="camp-section-title" style="margin-top:2rem">All tracked campuses<span class="rule"></span></h3>
@@ -695,7 +707,7 @@ TEMPLATE = r"""<!doctype html>
           that has filed with EIA — capacity, fuel, planned online date, and a
           <b>construction-status code</b> from "regulatory approvals not initiated"
           all the way to "construction complete." We track the full file across
-          quarterly vintages spanning late 2022–2026. The signal isn't a probability estimate;
+          quarterly data releases spanning late 2022–2026. The signal isn't a probability estimate;
           it's the <b>empirical migration of MW between status tiers</b> over time.
         </p>
         <p class="lead" style="margin-top:.6rem">
@@ -713,11 +725,11 @@ TEMPLATE = r"""<!doctype html>
         </div>
         <div class="camp-stat gap">
           <div class="num"><span id="es-growth">—</span><span class="gw">%</span></div>
-          <div class="lab">Growth vs earliest vintage</div>
+          <div class="lab">Growth vs first release</div>
         </div>
         <div class="camp-stat">
           <div class="num"><span id="es-vintages">—</span></div>
-          <div class="lab">Tracked vintages</div>
+          <div class="lab">Data releases tracked</div>
         </div>
         <div class="camp-stat">
           <div class="num"><span id="es-count">—</span></div>
@@ -742,7 +754,7 @@ TEMPLATE = r"""<!doctype html>
     <h3 class="camp-section-title" style="margin-top:2rem">Construction stage by generation type over time<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">construction complete → under construction → planned / permitting</span></h3>
     <p class="lead" style="margin:0 0 1rem; max-width:none">
       This collapses EIA's detailed status codes into three buildout stages and shows the stage mix
-      for one technology across every tracked vintage. It is the time-series version of the latest
+      for one technology across every data release. It is the time-series version of the latest
       snapshot chart below.
     </p>
     <div class="camp-filters" style="margin-bottom:.75rem;">
@@ -815,8 +827,8 @@ TEMPLATE = r"""<!doctype html>
       </div>
       <div>
         <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:.5rem;">
-          <span style="font-size:.78rem; text-transform:uppercase; letter-spacing:.1em; color:#a3dcbb; font-weight:600;">Probability-weighted</span>
-          <span style="font-size:.78rem; color:var(--muted);"><span id="eiaExpTotal" style="color:#a3dcbb; font-weight:600;">—</span> GW total</span>
+          <span style="font-size:.78rem; text-transform:uppercase; letter-spacing:.1em; color:#0E7B5B; font-weight:600;">Probability-weighted</span>
+          <span style="font-size:.78rem; color:var(--muted);"><span id="eiaExpTotal" style="color:#0E7B5B; font-weight:600;">—</span> GW total</span>
         </div>
         <div class="chart-wrap" style="height:340px;"><canvas id="eiaExpChart"></canvas></div>
       </div>
@@ -853,7 +865,7 @@ TEMPLATE = r"""<!doctype html>
       </div>
       <div class="card">
         <h2>Gas plant CAPEX ($/kW)</h2>
-        <div class="hint">By plant type and data vintage. <b>Click any dot</b> to open its source.</div>
+        <div class="hint">By plant type and report year. <b>Click any dot</b> to open its source.</div>
         <div class="chart-wrap"><canvas id="chartGasCapex"></canvas></div>
       </div>
       <div class="card">
@@ -886,28 +898,28 @@ const SRC = DATA.sources;
 
 // ---- Color palette by generation type ----
 const TYPE_COLORS = {
-  'Gas':'#e07a5f', 'Gas+CCS':'#d97757',
-  'Fuel Cell':'#fab45a',
-  'Nuclear':'#b794f4',
-  'Solar':'#f6c65b', 'Solar+Storage':'#f0ad4e',
-  'Wind':'#7fd1c1',
-  'Geothermal':'#f2cc8f',
-  'Storage':'#9bb0e3',
-  'Renewable':'#8ac6a4',
-  'Hydro':'#5eb0e5',
-  'Other':'#6b7280'
+  'Gas':'#3A3A3C', 'Gas+CCS':'#54545A',
+  'Fuel Cell':'#A08C72',
+  'Nuclear':'#8273B5',
+  'Solar':'#E2A63D', 'Solar+Storage':'#C77F35',
+  'Wind':'#79A6CE',
+  'Geothermal':'#C26B4E',
+  'Storage':'#2F8488',
+  'Renewable':'#0E7B5B',
+  'Hydro':'#4A7BA6',
+  'Other':'#B9B9C0'
 };
-const CONN_COLORS = { 'BTM':'#e07a5f', 'Grid':'#8ac6a4', 'Unknown':'#6b7280' };
+const CONN_COLORS = { 'BTM':'#C26B4E', 'Grid':'#2F8488', 'Unknown':'#B9B9C0' };
 const CLEAN_TYPES = new Set(['Solar','Wind','Nuclear','Fuel Cell','Storage','Geothermal','Hydro','Solar+Storage','Renewable']);
-function colorFor(t){ return TYPE_COLORS[t] || '#6b7280'; }
+function colorFor(t){ return TYPE_COLORS[t] || '#B9B9C0'; }
 
-Chart.defaults.color = '#8b93a7';
-Chart.defaults.borderColor = '#232838';
-Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif';
+Chart.defaults.color = '#6E6E73';
+Chart.defaults.borderColor = '#ECECEE';
+Chart.defaults.font.family = "'Inter Tight', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
 
 // ---- Freshness signal: rows announced within the last 7 days glow red ----
 const FRESH_WINDOW_DAYS = 7;
-const GLOW_COLOR = '#ff3333';    // bright red — high contrast on dark background
+const GLOW_COLOR = '#0E7B5B';    // green ring marks capacity announced in the last 7 days
 function isNew(row) {
   const ad = row && row.announced_date;
   if (!ad) return false;
@@ -927,11 +939,9 @@ function freshMW(rows, buckets, bucketKey) {
         .reduce((s, r) => s + (r.capacity_mw || 0), 0));
 }
 
-// Chart.js plugin — draws a bright red glowing outline on just the fresh
-// portion of each stacked bar segment (no fill — base category color shows
-// through). For vertical bars it's the top slice; for horizontal bars,
-// the stack). Two passes: a wide soft shadow, then a crisp fill+stroke, so
-// the glow reads on dark AND shows inside light segments.
+// Chart.js plugin — draws a flat green ring around just the fresh portion of
+// each stacked bar segment (no fill — base category color shows through).
+// For vertical bars it's the top slice; for horizontal bars, the stack.
 Chart.register({
   id: 'freshGlow',
   afterDatasetsDraw(chart) {
@@ -968,23 +978,10 @@ Chart.register({
           rw = width;
         }
 
-        // Pass 1: wide soft aura — stroke only, no fill, so bar color shows through.
         ctx.save();
-        ctx.shadowColor = GLOW_COLOR;
-        ctx.shadowBlur = 18;
-        ctx.strokeStyle = GLOW_COLOR;
-        ctx.lineWidth = 3;
-        ctx.globalAlpha = 0.7;
-        ctx.strokeRect(rx + 1, ry + 1, rw - 2, rh - 2);
-        ctx.restore();
-
-        // Pass 2: crisp bright stroke on top for a sharp edge.
-        ctx.save();
-        ctx.shadowColor = GLOW_COLOR;
-        ctx.shadowBlur = 6;
         ctx.strokeStyle = GLOW_COLOR;
         ctx.lineWidth = 2;
-        ctx.globalAlpha = 1;
+        ctx.globalAlpha = 0.95;
         ctx.strokeRect(rx + 1, ry + 1, rw - 2, rh - 2);
         ctx.restore();
       });
@@ -1001,16 +998,16 @@ Chart.register({
   const cleanMW = totalMW - gasMW;
   const companies = new Set(C.map(r=>r.company));
   document.getElementById('meta').textContent =
-    `${C.length} contract rows · ${Object.keys(SRC).length} sources · ${companies.size} hyperscalers · generated ` + new Date().toISOString().slice(0,10);
+    `${C.length} agreements · ${Object.keys(SRC).length} sources · ${companies.size} operators · updated ` + new Date().toISOString().slice(0,10);
   const kpis = [
-    {l:'Total contracted MW', v:totalMW.toLocaleString(undefined,{maximumFractionDigits:0})},
-    {l:'Gas MW', v:gasMW.toLocaleString(undefined,{maximumFractionDigits:0}), c:'var(--gas)'},
-    {l:'Clean MW', v:cleanMW.toLocaleString(undefined,{maximumFractionDigits:0}), c:'var(--clean)'},
-    {l:'Storage power MW', v:C.reduce((s,r)=>s+(r.storage_power_mw||0),0).toLocaleString(undefined,{maximumFractionDigits:0}), c:'var(--storage)'},
-    {l:'Storage energy GWh', v:(C.reduce((s,r)=>s+(r.storage_energy_mwh||0),0)/1000).toLocaleString(undefined,{maximumFractionDigits:1}), c:'var(--storage)'},
+    {l:'Contracted capacity, MW', v:totalMW.toLocaleString(undefined,{maximumFractionDigits:0})},
+    {l:'Gas, MW', v:gasMW.toLocaleString(undefined,{maximumFractionDigits:0}), c:'var(--gas)'},
+    {l:'Clean + storage, MW', v:cleanMW.toLocaleString(undefined,{maximumFractionDigits:0}), c:'var(--clean)'},
+    {l:'Storage power, MW', v:C.reduce((s,r)=>s+(r.storage_power_mw||0),0).toLocaleString(undefined,{maximumFractionDigits:0}), c:'var(--storage)'},
+    {l:'Storage energy, GWh', v:(C.reduce((s,r)=>s+(r.storage_energy_mwh||0),0)/1000).toLocaleString(undefined,{maximumFractionDigits:1}), c:'var(--storage)'},
     {l:'Gas share', v:(100*gasMW/totalMW).toFixed(1)+'%'},
-    {l:'Contract rows', v:C.length},
-    {l:'Sources', v:Object.keys(SRC).length},
+    {l:'Agreements', v:C.length},
+    {l:'Sources — every number links to one', v:Object.keys(SRC).length},
   ];
   document.getElementById('kpis').innerHTML = kpis.map(k =>
     `<div class="kpi"><div class="v" ${k.c?`style="color:${k.c}"`:''}>${k.v}</div><div class="l">${k.l}</div></div>`
@@ -1042,7 +1039,7 @@ Chart.register({
   }
 })();
 
-// ---- Chart: storage energy by announce year ----
+// ---- Chart: storage energy by announcement year ----
 (function(){
   const C = DATA.contracts.filter(r => r.storage_energy_mwh);
   const el = document.getElementById('chartStorageYear');
@@ -1055,7 +1052,7 @@ Chart.register({
       label: co,
       data: years.map(y => rowsC.filter(r=>r.year===y)
                                 .reduce((s,r)=>s+(r.storage_energy_mwh||0),0) / 1000),
-      backgroundColor: '#9bb0e3',
+      backgroundColor: '#2F8488',
       borderWidth: 0
     };
   }).filter(d => d.data.some(v=>v>0));
@@ -1080,7 +1077,7 @@ document.querySelectorAll('.tab').forEach(t => {
   });
 });
 
-// ---- Chart: MW by announce year, stacked by type ----
+// ---- Chart: MW by announcement year, stacked by type ----
 (function(){
   const C = DATA.contracts;
   const years = [...new Set(C.map(r=>r.year))].sort((a,b)=>a-b);
@@ -1158,7 +1155,7 @@ document.querySelectorAll('.tab').forEach(t => {
   });
 })();
 
-// ---- Chart: BTM vs Grid by announce year (all contracts) ----
+// ---- Chart: BTM vs Grid by announcement year (all contracts) ----
 (function(){
   const C = DATA.contracts;
   const years = [...new Set(C.map(r=>r.year))].sort((a,b)=>a-b);
@@ -1304,7 +1301,7 @@ document.querySelectorAll('.tab').forEach(t => {
         const src = SRC[r.source_id];
         return {x:r.year, y:r.cost_mid_kw||r.cost_low_kw||r.cost_high_kw, label:r.label, url: src ? src.url : null, publisher: src ? src.publisher : ''};
       }),
-      backgroundColor:'#e07a5f', borderColor:'#e07a5f', pointRadius:5, pointHoverRadius:8
+      backgroundColor:'#C26B4E', borderColor:'#C26B4E', pointRadius:5, pointHoverRadius:8
     }))},
     options:{ maintainAspectRatio:false, responsive:true,
       scales:{ x:{type:'linear', ticks:{stepSize:1, callback:v=>v}},
@@ -1369,11 +1366,11 @@ document.querySelectorAll('.tab').forEach(t => {
 
   // Operator-type breakdown ribbon (count + total MW per operator type)
   const OP_COLORS = {
-    'Hyperscaler': '#6ea8fe',
-    'AI-Cloud':    '#a3dcbb',
-    'Colocation':  '#f6c65b',
-    'Sovereign':   '#b794f4',
-    'Other':       '#6b7280',
+    'Hyperscaler': '#1D1D1F',
+    'AI-Cloud':    '#2F8488',
+    'Colocation':  '#E2A63D',
+    'Sovereign':   '#8273B5',
+    'Other':       '#8E8E93',
   };
   const opAgg = {};
   for (const r of C) {
@@ -1386,9 +1383,9 @@ document.querySelectorAll('.tab').forEach(t => {
   ribbon.innerHTML = Object.entries(opAgg)
     .sort((a,b) => b[1].mw - a[1].mw)
     .map(([t, a]) => `
-      <div style="background:var(--panel); border:1px solid var(--line); border-left:3px solid ${OP_COLORS[t]||'#6b7280'};
-                  border-radius:6px; padding:.6rem .9rem; min-width:130px;">
-        <div style="font-size:.66rem; text-transform:uppercase; letter-spacing:.1em; color:var(--muted);">${t}</div>
+      <div style="background:var(--panel);
+                  border-radius:16px; padding:.75rem 1rem; min-width:132px;">
+        <div style="font-size:.7rem; font-weight:600; color:var(--muted);"><span style="display:inline-block;width:8px;height:8px;border-radius:4px;background:${OP_COLORS[t]||'#8E8E93'};margin-right:6px;"></span>${t}</div>
         <div style="font-size:1.4rem; font-weight:700; line-height:1.1; margin-top:.2rem;
                     font-variant-numeric:tabular-nums;">${(a.mw/1000).toFixed(1)} <span style="font-size:.7rem;color:var(--muted);font-weight:500;">GW</span></div>
         <div style="font-size:.72rem; color:var(--muted); margin-top:.2rem;">${a.deals} deals</div>
@@ -1463,7 +1460,7 @@ document.querySelectorAll('.tab').forEach(t => {
         : r.source_id;
       const newPill = isNew(r) ? ` <span class="new-badge" title="Announced within the last ${FRESH_WINDOW_DAYS} days">New</span>` : '';
       const opType = r.operator_type || 'Hyperscaler';
-      const opColor = OP_COLORS[opType] || '#6b7280';
+      const opColor = OP_COLORS[opType] || '#8E8E93';
       return `<tr>
         <td><span style="display:inline-block;padding:1px 6px;border-radius:3px;font-size:.65rem;font-weight:600;background:${opColor}33;color:${opColor};border:1px solid ${opColor}55;">${opType}</span></td>
         <td>${r.company}${newPill}</td>
@@ -1684,14 +1681,14 @@ document.querySelectorAll('.tab').forEach(t => {
     const buckets = [...new Set(rows.map(r => r.timeline_bucket))].sort();
     const stages = [...new Set(rows.map(r => r.load_stage))].sort();
     const colors = {
-      narrative_demand: '#6ea8fe',
-      announced_pipeline: '#9bb0e3',
-      contracted_service: '#8ac6a4',
-      under_construction: '#f6c65b',
-      ready_for_service: '#a3dcbb',
-      energized_or_metered: '#5fd0a5',
-      bottleneck_constraint: '#f2cc8f',
-      interconnection_queue: '#b794f4'
+      narrative_demand: '#B9B9C0',
+      announced_pipeline: '#79A6CE',
+      contracted_service: '#2F8488',
+      under_construction: '#E2A63D',
+      ready_for_service: '#7FB5A6',
+      energized_or_metered: '#0E7B5B',
+      bottleneck_constraint: '#C26B4E',
+      interconnection_queue: '#8273B5'
     };
     if (bucketChart) bucketChart.destroy();
     bucketChart = new Chart(document.getElementById('qlBucketChart'), {
@@ -1701,7 +1698,7 @@ document.querySelectorAll('.tab').forEach(t => {
         datasets: stages.map(stage => ({
           label: label(stage),
           data: buckets.map(b => rows.filter(r => r.timeline_bucket === b && r.load_stage === stage).length),
-          backgroundColor: colors[stage] || '#6b7280',
+          backgroundColor: colors[stage] || '#8E8E93',
           borderWidth: 0
         }))
       },
@@ -1832,13 +1829,13 @@ document.querySelectorAll('.tab').forEach(t => {
   // ---------- Time-series chart: status by vintage ----------
   // Color scheme — green at the bottom (close to delivery), gray at the top (just announced)
   const STATUS_COLOR = {
-    'ConstructionComplete': '#5fae87',
-    'MajorityComplete':     '#7fc4a4',
-    'MinorityComplete':     '#a3dcbb',
-    'ApprovalsReceived':    '#d9b36c',
-    'ApprovalsPending':     '#e07a5f',
-    'PlannedOnly':          '#6b7280',
-    'Other':                '#3b3f4d',
+    'ConstructionComplete': '#0E7B5B',
+    'MajorityComplete':     '#4D9678',
+    'MinorityComplete':     '#7FB5A6',
+    'ApprovalsReceived':    '#E2A63D',
+    'ApprovalsPending':     '#C26B4E',
+    'PlannedOnly':          '#B9B9C0',
+    'Other':                '#E4E4E7',
   };
   const STATUS_LABEL = {
     'ConstructionComplete': 'Construction complete',
@@ -1898,8 +1895,8 @@ document.querySelectorAll('.tab').forEach(t => {
   // ---------- Time-series chart: tech by vintage ----------
   const TECH_ORDER  = ['Solar','Wind','Storage','Gas','Nuclear','Geothermal','Hydro','Other'];
   const TECH_COLOR  = {
-    Solar:'#f6c65b', Wind:'#7fd1c1', Storage:'#9bb0e3', Gas:'#e07a5f',
-    Nuclear:'#b794f4', Geothermal:'#f2cc8f', Hydro:'#5eb0e5', Other:'#6b7280'
+    Solar:'#E2A63D', Wind:'#79A6CE', Storage:'#2F8488', Gas:'#C26B4E',
+    Nuclear:'#8273B5', Geothermal:'#C26B4E', Hydro:'#4A7BA6', Other:'#8E8E93'
   };
   const techsInTV = TECH_ORDER.filter(t => TV.some(r => r.tech_group === t));
   const techDatasets = techsInTV.map(t => ({
@@ -1942,9 +1939,9 @@ document.querySelectorAll('.tab').forEach(t => {
     PlannedPermitting: 'Planned / permitting',
   };
   const STAGE_COLOR = {
-    ConstructionComplete: '#5fae87',
-    UnderConstruction: '#a3dcbb',
-    PlannedPermitting: '#6b7280',
+    ConstructionComplete: '#0E7B5B',
+    UnderConstruction: '#E2A63D',
+    PlannedPermitting: '#B9B9C0',
   };
   const stageSelect = document.getElementById('eiaStageTechSelect');
   const stageSummary = document.getElementById('eiaStageTechSummary');
@@ -2116,19 +2113,19 @@ document.querySelectorAll('.tab').forEach(t => {
           {
             label: 'Completed (directly observed from EIA Operating Year/Month)',
             data: TR.map(t => t.operated_mw),
-            backgroundColor: '#5fae87',
+            backgroundColor: '#0E7B5B',
             borderWidth: 0
           },
           {
             label: 'Newly announced',
             data: TR.map(t => t.new_mw),
-            backgroundColor: '#6b7280',
+            backgroundColor: '#8E8E93',
             borderWidth: 0
           },
           {
             label: 'Cancelled / withdrawn',
             data: TR.map(t => t.cancelled_mw),
-            backgroundColor: '#e07a5f',
+            backgroundColor: '#C26B4E',
             borderWidth: 0
           },
         ]
@@ -2158,9 +2155,9 @@ document.querySelectorAll('.tab').forEach(t => {
           <thead><tr>
             <th>Window</th>
             <th class="r">Months</th>
-            <th class="r" style="color:#5fae87;">Completed</th>
-            <th class="r" style="color:#6b7280;">Newly announced</th>
-            <th class="r" style="color:#e07a5f;">Cancelled</th>
+            <th class="r" style="color:#0E7B5B;">Completed</th>
+            <th class="r" style="color:#8E8E93;">Newly announced</th>
+            <th class="r" style="color:#C26B4E;">Cancelled</th>
             <th class="r">Announced ÷ Completed</th>
           </tr></thead>
           <tbody>
@@ -2168,9 +2165,9 @@ document.querySelectorAll('.tab').forEach(t => {
               <tr>
                 <td><b>${vintageLabel(t.v_from)} → ${vintageLabel(t.v_to)}</b></td>
                 <td class="r">${t.months}</td>
-                <td class="r" style="color:#5fae87;"><b>${fmt(t.operated_mw)}</b> MW</td>
-                <td class="r" style="color:#6b7280;"><b>${fmt(t.new_mw)}</b> MW</td>
-                <td class="r" style="color:#e07a5f;">${fmt(t.cancelled_mw)} MW</td>
+                <td class="r" style="color:#0E7B5B;"><b>${fmt(t.operated_mw)}</b> MW</td>
+                <td class="r" style="color:#8E8E93;"><b>${fmt(t.new_mw)}</b> MW</td>
+                <td class="r" style="color:#C26B4E;">${fmt(t.cancelled_mw)} MW</td>
                 <td class="r"><b>${(t.new_mw / Math.max(t.operated_mw, 1)).toFixed(1)}×</b></td>
               </tr>`).join('')}
           </tbody>
@@ -2199,12 +2196,12 @@ document.querySelectorAll('.tab').forEach(t => {
           {
             label: 'Completed',
             data: years.map(y => yearAgg[y].completed / 1000),
-            backgroundColor: '#5fae87', borderWidth: 0
+            backgroundColor: '#0E7B5B', borderWidth: 0
           },
           {
             label: 'Newly announced',
             data: years.map(y => yearAgg[y].announced / 1000),
-            backgroundColor: '#6b7280', borderWidth: 0
+            backgroundColor: '#8E8E93', borderWidth: 0
           },
         ]
       },
@@ -2230,11 +2227,11 @@ document.querySelectorAll('.tab').forEach(t => {
         <table style="width:100%; border-collapse:collapse; font-size:.82rem;">
           <thead><tr>
             <th>Year</th>
-            <th class="r" style="color:#5fae87;">Completed</th>
-            <th class="r" style="color:#5fae87;">YoY %</th>
-            <th class="r" style="color:#6b7280;">Announced</th>
-            <th class="r" style="color:#6b7280;">YoY %</th>
-            <th class="r" style="color:#e07a5f;">Cancelled</th>
+            <th class="r" style="color:#0E7B5B;">Completed</th>
+            <th class="r" style="color:#0E7B5B;">YoY %</th>
+            <th class="r" style="color:#8E8E93;">Announced</th>
+            <th class="r" style="color:#8E8E93;">YoY %</th>
+            <th class="r" style="color:#C26B4E;">Cancelled</th>
             <th class="r">Announced ÷ Completed</th>
           </tr></thead>
           <tbody>
@@ -2249,11 +2246,11 @@ document.querySelectorAll('.tab').forEach(t => {
               const f = n => n == null ? '—' : ((n > 0 ? '+' : '') + n.toFixed(0) + '%');
               return `<tr>
                 <td><b>${y}</b>${partial ? ' <span style="color:var(--muted);font-size:.75rem">(Q1 only)</span>' : ''}</td>
-                <td class="r" style="color:#5fae87;"><b>${(a.completed/1000).toFixed(1)}</b> GW</td>
-                <td class="r" style="color:${(yoyDone||0) >= 0 ? '#5fae87' : '#e07a5f'}">${f(yoyDone)}</td>
-                <td class="r" style="color:#6b7280;"><b>${(a.announced/1000).toFixed(1)}</b> GW</td>
-                <td class="r" style="color:${(yoyAnn||0) >= 0 ? '#6b7280' : '#e07a5f'}">${f(yoyAnn)}</td>
-                <td class="r" style="color:#e07a5f;">${(a.cancelled/1000).toFixed(1)} GW</td>
+                <td class="r" style="color:#0E7B5B;"><b>${(a.completed/1000).toFixed(1)}</b> GW</td>
+                <td class="r" style="color:${(yoyDone||0) >= 0 ? '#0E7B5B' : '#C26B4E'}">${f(yoyDone)}</td>
+                <td class="r" style="color:#8E8E93;"><b>${(a.announced/1000).toFixed(1)}</b> GW</td>
+                <td class="r" style="color:${(yoyAnn||0) >= 0 ? '#8E8E93' : '#C26B4E'}">${f(yoyAnn)}</td>
+                <td class="r" style="color:#C26B4E;">${(a.cancelled/1000).toFixed(1)} GW</td>
                 <td class="r"><b>${a.completed > 0 ? (a.announced/a.completed).toFixed(1) : '—'}×</b></td>
               </tr>`;
             }).join('')}
@@ -2282,14 +2279,14 @@ document.querySelectorAll('.tab').forEach(t => {
           {
             label: 'Completed QoQ %',
             data: qoq.map(t => t.pctDone),
-            backgroundColor: qoq.map(t => t.pctDone >= 0 ? '#5fae87' : 'rgba(95,174,135,.35)'),
-            borderColor: '#5fae87', borderWidth: 1
+            backgroundColor: qoq.map(t => t.pctDone >= 0 ? '#0E7B5B' : 'rgba(14,123,91,.35)'),
+            borderColor: '#0E7B5B', borderWidth: 1
           },
           {
             label: 'Announced QoQ %',
             data: qoq.map(t => t.pctAnn),
-            backgroundColor: qoq.map(t => t.pctAnn >= 0 ? '#6b7280' : 'rgba(107,114,128,.35)'),
-            borderColor: '#6b7280', borderWidth: 1
+            backgroundColor: qoq.map(t => t.pctAnn >= 0 ? '#8E8E93' : 'rgba(142,142,147,.35)'),
+            borderColor: '#8E8E93', borderWidth: 1
           },
         ]
       },
@@ -2300,7 +2297,7 @@ document.querySelectorAll('.tab').forEach(t => {
           y: {
             ticks: { callback: v => (v > 0 ? '+' : '') + v.toFixed(0) + '%' },
             grid: {
-              color: ctx => ctx.tick.value === 0 ? 'rgba(255,255,255,.35)' : 'rgba(255,255,255,.05)',
+              color: ctx => ctx.tick.value === 0 ? 'rgba(29,29,31,.35)' : 'rgba(29,29,31,.04)',
               lineWidth: ctx => ctx.tick.value === 0 ? 1.5 : 1
             }
           }
@@ -2328,10 +2325,10 @@ document.querySelectorAll('.tab').forEach(t => {
         <table style="width:100%; border-collapse:collapse; font-size:.82rem;">
           <thead><tr>
             <th>Quarter</th>
-            <th class="r" style="color:#5fae87;">Completed MW</th>
-            <th class="r" style="color:#5fae87;">Completed QoQ</th>
-            <th class="r" style="color:#6b7280;">Announced MW</th>
-            <th class="r" style="color:#6b7280;">Announced QoQ</th>
+            <th class="r" style="color:#0E7B5B;">Completed MW</th>
+            <th class="r" style="color:#0E7B5B;">Completed QoQ</th>
+            <th class="r" style="color:#8E8E93;">Announced MW</th>
+            <th class="r" style="color:#8E8E93;">Announced QoQ</th>
           </tr></thead>
           <tbody>
             ${qoq.map(t => {
@@ -2339,9 +2336,9 @@ document.querySelectorAll('.tab').forEach(t => {
               return `<tr>
                 <td><b>${vintageLabel(t.v_to)}</b></td>
                 <td class="r"><b>${fmt(t.q_done)}</b></td>
-                <td class="r" style="color:${(t.pctDone||0) >= 0 ? '#5fae87' : '#e07a5f'}">${f(t.pctDone)}</td>
+                <td class="r" style="color:${(t.pctDone||0) >= 0 ? '#0E7B5B' : '#C26B4E'}">${f(t.pctDone)}</td>
                 <td class="r"><b>${fmt(t.q_ann)}</b></td>
-                <td class="r" style="color:${(t.pctAnn||0) >= 0 ? '#6b7280' : '#e07a5f'}">${f(t.pctAnn)}</td>
+                <td class="r" style="color:${(t.pctAnn||0) >= 0 ? '#8E8E93' : '#C26B4E'}">${f(t.pctAnn)}</td>
               </tr>`;
             }).join('')}
           </tbody>
@@ -2466,7 +2463,7 @@ document.querySelectorAll('.tab').forEach(t => {
       <td class="r">${cell('Nuclear')}</td>
       <td class="r" style="color:var(--muted);">${otherMw ? fmt(otherMw) : '—'}</td>
       <td class="r"><b>${fmt(d.total)}</b></td>
-      <td class="r" style="color:#a3dcbb;">${fmt(d.expected)}</td>
+      <td class="r" style="color:#0E7B5B;">${fmt(d.expected)}</td>
     </tr>`;
   }).join('');
 })();
