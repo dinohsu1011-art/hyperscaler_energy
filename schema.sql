@@ -375,6 +375,101 @@ CREATE INDEX idx_pbs_bucket ON primary_buildout_signals(company_bucket);
 CREATE INDEX idx_pbs_claim ON primary_buildout_signals(claim_type);
 CREATE INDEX idx_pbs_status ON primary_buildout_signals(status_stage);
 
+-- Operator self-disclosed capacity by stage. Verbatim rows only: each row is one
+-- MW level the operator itself stated (period-state LEVEL, never a flow figure or
+-- forward target — those stay in notes), or one recorded absence per quarter.
+-- This table is authoritative for operator capacity-by-stage; primary_buildout_signals
+-- is retained for non-capacity signals and historical capture.
+--
+-- Conventions:
+--   as_of_date        period-end for period-state metrics (the normal earnings case);
+--                     statement date only for genuine point-in-time claims.
+--   as_of_quarter     calendar 'YYYYQn', derived by the loader from as_of_date.
+--   stage_verbatim    NOT NULL DEFAULT '' — NULLs in UNIQUE columns are always-distinct
+--                     in SQLite, and absence rows must collide, not multiply.
+--   none_disclosed    one row per operator-quarter (partial unique index below) in one
+--                     of three states: reviewed-and-silent (cited, notes name the
+--                     document), no materials exist (NULL source, notes say so), or
+--                     identified-but-inaccessible (NULL source, notes name the document).
+--   capacity_basis    row-level data validated against the registry vocabulary —
+--                     one disclosed term can span two bases in a single statement,
+--                     so basis is NEVER part of the wording map. 'None' on absence rows.
+--   operator roster   enforced against operator_term_registry by validate.py, not here.
+-- Residuals, carry-forward, and supersession are computed at emit by scripts/stacks.py —
+-- never stored. Corrections to the same statement replace in place; new statements append.
+CREATE TABLE operator_capacity_disclosures (
+  disclosure_id     TEXT PRIMARY KEY,              -- 'OCD001' … (stable, append-only)
+  operator          TEXT NOT NULL,
+  operator_bucket   TEXT CHECK(operator_bucket IN ('hyperscaler','neocloud')),
+  as_of_date        TEXT NOT NULL,                 -- YYYY-MM-DD
+  as_of_quarter     TEXT NOT NULL,                 -- calendar 'YYYYQn' (loader-derived)
+  fiscal_label      TEXT,                          -- operator's own period label, e.g. 'FY26 Q3'
+  stage_normalized  TEXT NOT NULL CHECK(stage_normalized IN
+                      ('planned','under_construction','operational','none_disclosed')),
+  stage_verbatim    TEXT NOT NULL DEFAULT '',      -- operator's exact wording ('' on absence rows)
+  row_kind          TEXT NOT NULL CHECK(row_kind IN ('component','total','none')),
+  component_label   TEXT NOT NULL DEFAULT '',      -- site/project/tenant label on component rows
+  mw_value          REAL CHECK(mw_value IS NULL OR mw_value >= 0),  -- MW only; GW ×1,000 at entry
+  capacity_basis    TEXT NOT NULL,
+  tenant_operator   TEXT,                          -- tenant the capacity is attributed to, if named
+  verbatim_quote    TEXT,
+  notes             TEXT,
+  source_id         TEXT REFERENCES sources(id),   -- NULL only on none_disclosed rows
+  created_at        TEXT DEFAULT (datetime('now')),
+  -- absence-row shape: the three markers must agree
+  CHECK ((stage_normalized = 'none_disclosed') = (mw_value IS NULL)),
+  CHECK ((stage_normalized = 'none_disclosed') = (row_kind = 'none')),
+  CHECK (source_id IS NOT NULL OR stage_normalized = 'none_disclosed'),
+  UNIQUE(operator, as_of_date, stage_normalized, stage_verbatim, capacity_basis,
+         row_kind, component_label)
+);
+-- one absence row per operator-quarter regardless of as_of_date variance
+CREATE UNIQUE INDEX idx_ocd_absence ON operator_capacity_disclosures(operator, as_of_quarter)
+  WHERE stage_normalized = 'none_disclosed';
+CREATE INDEX idx_ocd_operator ON operator_capacity_disclosures(operator);
+CREATE INDEX idx_ocd_quarter ON operator_capacity_disclosures(as_of_quarter);
+
+-- Per-operator term registry for operator_capacity_disclosures: the roster, fiscal
+-- year ends, cross-table name map, the wording map, preferred bases, and the
+-- capacity_basis vocabulary. Loaded from the terms: block of data/operator_disclosures.yaml.
+-- The wording map ties (operator, stage_verbatim) to stage_normalized + default_row_kind
+-- ONLY — capacity_basis is row-level data and never part of the wording map.
+-- Four entry kinds share the table:
+--   'operator'        one per roster member — fiscal_year_end ('MM-DD'), pbs_name
+--                     (spelling in primary_buildout_signals), campuses_name (spelling
+--                     in data_center_campuses; NULL when that table keys the operator's
+--                     sites to its tenants), disclosure_channel, cumulative_planned_flag.
+--   'term'            wording map: stage_verbatim → stage_normalized + default_row_kind.
+--   'preferred_basis' per operator × stage_normalized: the basis charted when it has a
+--                     live-or-carried snapshot (set only for multi-basis stages).
+--   'basis'           one capacity_basis vocabulary token per row (operator = '').
+CREATE TABLE operator_term_registry (
+  id                      INTEGER PRIMARY KEY AUTOINCREMENT,
+  entry_kind              TEXT NOT NULL CHECK(entry_kind IN
+                            ('operator','term','preferred_basis','basis')),
+  operator                TEXT NOT NULL DEFAULT '',
+  stage_verbatim          TEXT NOT NULL DEFAULT '',
+  stage_normalized        TEXT NOT NULL DEFAULT '' CHECK(stage_normalized IN
+                            ('','planned','under_construction','operational')),
+  default_row_kind        TEXT CHECK(default_row_kind IS NULL OR
+                                     default_row_kind IN ('component','total')),
+  preferred_basis         TEXT,
+  basis_token             TEXT NOT NULL DEFAULT '',
+  fiscal_year_end         TEXT,                    -- 'MM-DD'
+  pbs_name                TEXT,
+  campuses_name           TEXT,
+  disclosure_channel      TEXT,
+  cumulative_planned_flag INTEGER NOT NULL DEFAULT 0 CHECK(cumulative_planned_flag IN (0,1)),
+  CHECK (entry_kind != 'operator' OR operator != ''),
+  CHECK (entry_kind != 'term' OR (operator != '' AND stage_verbatim != ''
+         AND stage_normalized != '' AND default_row_kind IS NOT NULL
+         AND preferred_basis IS NULL AND basis_token = '')),
+  CHECK (entry_kind != 'preferred_basis' OR (operator != '' AND stage_normalized != ''
+         AND preferred_basis IS NOT NULL)),
+  CHECK (entry_kind != 'basis' OR (operator = '' AND basis_token != '')),
+  UNIQUE(entry_kind, operator, stage_verbatim, stage_normalized, basis_token)
+);
+
 -- Qualitative narrative anchors for management, utility, grid-operator,
 -- regulator, and expert commentary. These rows timestamp public statements
 -- about demand, contracting, construction pace, and bottlenecks. They are
@@ -713,6 +808,14 @@ UNION ALL SELECT 'primary_buildout_signals', id,
        ' (' || capacity_basis || ', ' || status_stage || ')',
        source_id
 FROM primary_buildout_signals
+-- NULL-source none_disclosed rows are legal by design (no-materials / inaccessible
+-- quarters), so only cited rows enter the audit view.
+UNION ALL SELECT 'operator_capacity_disclosures', disclosure_id,
+       operator || ' ' || as_of_quarter || ' ' || stage_normalized || ' ' ||
+       COALESCE(mw_value, '') || ' MW (' || capacity_basis || ', ' || row_kind || ')',
+       source_id
+FROM operator_capacity_disclosures
+WHERE source_id IS NOT NULL
 UNION ALL SELECT 'qualitative_load_commentary', id,
        organization || ' ' || event_name || ' ' || statement_taxonomy ||
        ' (' || timeline_bucket || ', ' || load_stage || ', ' || capacity_basis || ')',

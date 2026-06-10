@@ -1,0 +1,239 @@
+# Operator self-disclosed capacity by stage — term registry + verbatim rows.
+#
+# terms: loaded into operator_term_registry.
+#   operators:        the roster v1 — the only operator names validate.py accepts on
+#                     rows. Each entry carries:
+#                       fiscal_year_end    'MM-DD' (drives period-end normalization at
+#                                          transcription: Applied Digital & Oracle 05-31,
+#                                          Microsoft & IREN 06-30, rest 12-31)
+#                       pbs_name           spelling in primary_buildout_signals
+#                       campuses_name      spelling in data_center_campuses, or null when
+#                                          that table keys the operator's sites to its
+#                                          tenants (miners-turned-neoclouds)
+#                       disclosure_channel where MW disclosures, if any, appear
+#                       cumulative_planned true when the operator's own statements show
+#                                          the planned-stage figure includes capacity
+#                                          already operating or under construction.
+#                                          Informational in v1: the displayed planned
+#                                          residual subtracts regardless (stacks.py).
+#                       terms              the wording map — the operator's exact disclosed
+#                                          wording -> stage + default_row_kind ONLY.
+#                                          capacity_basis is NEVER part of this map: one
+#                                          term can span two bases in a single statement
+#                                          (Galaxy contracted 526 Critical-IT + 800
+#                                          Gross-power, same 2026-04-28 statement), so
+#                                          basis lives on each row.
+#                       preferred_basis    per stage, the basis charted when it has a
+#                                          live-or-carried snapshot. Set ONLY for the
+#                                          stages observed on more than one basis;
+#                                          single-basis stages need no entry.
+#   basis_vocabulary: allowed capacity_basis values on rows. 'None' is reserved for
+#                     none_disclosed rows; 'Unclear' is for statements that name no basis.
+#
+# rows: verbatim disclosure rows (empty until the seed transcription lands).
+#   disclosure_id    'OCD001' ... stable, append-only
+#   operator         a roster name above
+#   operator_bucket  hyperscaler | neocloud
+#   as_of_date       YYYY-MM-DD — period-end for period-state metrics (the normal
+#                    earnings case); statement date only for genuine point-in-time
+#                    claims. as_of_quarter is derived by the loader, never entered.
+#   fiscal_label     operator's own period label, e.g. 'FY26 Q3' (optional)
+#   stage_normalized planned | under_construction | operational | none_disclosed
+#   stage_verbatim   the operator's exact wording ('' on absence rows)
+#   row_kind         component | total | none
+#   component_label  site/project/tenant label on component rows ('' otherwise)
+#   mw_value         MW only — convert GW at entry; null on absence rows
+#   capacity_basis   one of basis_vocabulary ('None' on absence rows)
+#   tenant_operator  tenant the capacity is attributed to, if named (optional)
+#   verbatim_quote   the sentence the figure comes from (every disclosed row)
+#   notes            context. Absence rows MUST say which document was reviewed and
+#                    silent, that no public materials exist, or which identified
+#                    document was inaccessible.
+#   source_id        Sxxx — omitted ONLY on no-materials / inaccessible absence rows
+#
+# Levels, not flows: only period-state LEVELS qualify as stage rows. Trailing
+# additions ('added 3.8 GW over the past 12 months'), in-service-by-date claims, and
+# forward targets are notes-only, with the quarter recorded as none_disclosed with a
+# citation. 'Up to' attached to a multi-year commitment cap with no current physical
+# referent is a forward target (notes); attached to an identified facility that is
+# operational or under construction it is an admissible level at face value.
+# A disclosed phase/subset of a larger same-stage figure is never a sibling row —
+# the parent is the row, the subset goes in notes.
+
+terms:
+  basis_vocabulary:
+    - Critical-IT
+    - Gross-power
+    - Active-power
+    - Utility-capacity
+    - Billable-critical-IT
+    - Contracted-power
+    - Unclear
+    - 'None'
+
+  operators:
+    # --- hyperscalers ---
+    - name: Microsoft
+      fiscal_year_end: '06-30'
+      pbs_name: Microsoft
+      campuses_name: Microsoft
+      disclosure_channel: earnings_call
+      cumulative_planned: false
+      terms: []
+
+    - name: Google
+      fiscal_year_end: '12-31'
+      pbs_name: Google
+      campuses_name: Google
+      disclosure_channel: earnings_call
+      cumulative_planned: false
+      terms: []
+
+    - name: Amazon
+      fiscal_year_end: '12-31'
+      pbs_name: Amazon/AWS
+      campuses_name: Amazon
+      disclosure_channel: earnings_call
+      cumulative_planned: false
+      terms:
+        # tenant capacity commitments ("approximately two gigawatts" for OpenAI);
+        # 'up to' commitment caps are forward targets and stay in notes
+        - {verbatim: 'contracted capacity', stage: planned, row_kind: component}
+
+    - name: Meta
+      fiscal_year_end: '12-31'
+      pbs_name: Meta
+      campuses_name: Meta
+      disclosure_channel: earnings_call
+      cumulative_planned: false
+      terms: []
+
+    - name: Oracle
+      fiscal_year_end: '05-31'
+      pbs_name: Oracle
+      campuses_name: Oracle
+      disclosure_channel: earnings_call
+      cumulative_planned: false
+      terms: []
+
+    - name: xAI
+      fiscal_year_end: '12-31'
+      pbs_name: xAI
+      campuses_name: xAI
+      disclosure_channel: press_release
+      cumulative_planned: false
+      terms: []
+
+    # --- neoclouds ---
+    - name: CoreWeave
+      fiscal_year_end: '12-31'
+      pbs_name: CoreWeave
+      campuses_name: CoreWeave
+      disclosure_channel: earnings_call
+      cumulative_planned: true   # total contracted power includes active power
+      terms:
+        - {verbatim: 'active power', stage: operational, row_kind: total}
+        - {verbatim: 'total contracted power', stage: planned, row_kind: total}
+
+    - name: Core Scientific
+      fiscal_year_end: '12-31'
+      pbs_name: Core Scientific
+      campuses_name: null
+      disclosure_channel: earnings_call
+      cumulative_planned: false
+      terms:
+        - {verbatim: 'billable capacity', stage: operational, row_kind: total}
+        - {verbatim: 'contracted capacity', stage: planned, row_kind: total}
+
+    - name: Nebius
+      fiscal_year_end: '12-31'
+      pbs_name: Nebius
+      campuses_name: Nebius
+      disclosure_channel: earnings_call
+      cumulative_planned: true   # contracted capacity includes delivered + under construction
+      terms:
+        - {verbatim: 'secured capacity', stage: planned, row_kind: total}
+        - {verbatim: 'contracted capacity', stage: planned, row_kind: total}
+        - {verbatim: 'active power', stage: operational, row_kind: total}
+        - {verbatim: 'delivered', stage: operational, row_kind: component}
+        - {verbatim: 'under construction', stage: under_construction, row_kind: component}
+      preferred_basis:
+        # operational disclosed as Active-power (platform) in 25Q4 and Critical-IT
+        # (Mantsala) in 26Q1 — the platform figure charts when live or carried
+        - {stage: operational, basis: Active-power}
+
+    - name: Applied Digital
+      fiscal_year_end: '05-31'
+      pbs_name: Applied Digital
+      campuses_name: null
+      disclosure_channel: earnings_call
+      cumulative_planned: true   # contracted leases match capacity already building
+      terms:
+        - {verbatim: 'under construction', stage: under_construction, row_kind: total}
+        - {verbatim: 'contracted', stage: planned, row_kind: total}
+        - {verbatim: 'in service', stage: operational, row_kind: component}
+
+    - name: Cipher
+      fiscal_year_end: '12-31'
+      pbs_name: Cipher Mining
+      campuses_name: null
+      disclosure_channel: earnings_call
+      cumulative_planned: false
+      terms: []   # backfill-only: terms proposed with the first transcribed rows
+
+    - name: IREN
+      fiscal_year_end: '06-30'
+      pbs_name: IREN
+      campuses_name: null
+      disclosure_channel: earnings_call
+      cumulative_planned: false
+      terms:
+        - {verbatim: 'under construction', stage: under_construction, row_kind: component}
+        - {verbatim: 'secured power', stage: planned, row_kind: total}
+
+    - name: TeraWulf
+      fiscal_year_end: '12-31'
+      pbs_name: TeraWulf
+      campuses_name: null
+      disclosure_channel: earnings_call
+      cumulative_planned: false
+      terms:
+        - {verbatim: 'contracted', stage: planned, row_kind: component}
+        - {verbatim: 'under construction', stage: under_construction, row_kind: component}
+
+    - name: Hut 8
+      fiscal_year_end: '12-31'
+      pbs_name: Hut 8
+      campuses_name: null
+      disclosure_channel: earnings_call
+      cumulative_planned: false
+      terms:
+        - {verbatim: 'under construction', stage: under_construction, row_kind: component}
+      preferred_basis:
+        # River Bend disclosed at 245 Critical-IT and 330 Utility-capacity
+        - {stage: under_construction, basis: Critical-IT}
+
+    - name: Galaxy
+      fiscal_year_end: '12-31'
+      pbs_name: Galaxy Digital
+      campuses_name: null
+      disclosure_channel: earnings_call
+      cumulative_planned: false
+      terms:
+        - {verbatim: 'contracted capacity', stage: planned, row_kind: total}
+        - {verbatim: 'secured capacity', stage: planned, row_kind: total}
+        - {verbatim: 'under construction', stage: under_construction, row_kind: component}
+      preferred_basis:
+        # contracted disclosed at 526 Critical-IT and 800 Gross-power in one statement
+        - {stage: planned, basis: Critical-IT}
+
+    - name: Crusoe
+      fiscal_year_end: '12-31'
+      pbs_name: Crusoe
+      campuses_name: null
+      disclosure_channel: press_release
+      cumulative_planned: false
+      terms:
+        - {verbatim: 'under construction', stage: under_construction, row_kind: component}
+
+rows: []

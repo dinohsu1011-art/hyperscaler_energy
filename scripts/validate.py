@@ -445,6 +445,169 @@ def main() -> int:
             f"from {r['source_id']} appears {r['n']} times"
         )
 
+    # 12. Operator capacity disclosure hygiene. The table's own CHECKs already pin
+    # the absence-row shape and the source rule, and the partial unique index keeps
+    # absence rows to one per operator-quarter — so these checks cover what DDL
+    # cannot: date sanity, agreement with the term registry, and the deterministic
+    # smells (flow language, collisions, coexistence) a human must adjudicate.
+    roster = {
+        r["operator"]
+        for r in conn.execute(
+            "SELECT operator FROM operator_term_registry WHERE entry_kind='operator'"
+        )
+    }
+    term_map = {
+        (r["operator"], r["stage_verbatim"]): (r["stage_normalized"], r["default_row_kind"])
+        for r in conn.execute(
+            """SELECT operator, stage_verbatim, stage_normalized, default_row_kind
+               FROM operator_term_registry WHERE entry_kind='term'"""
+        )
+    }
+    basis_vocab = {
+        r["basis_token"]
+        for r in conn.execute(
+            "SELECT basis_token FROM operator_term_registry WHERE entry_kind='basis'"
+        )
+    }
+    # Flow figures and forward targets masquerading as levels — kept a warning so a
+    # human adjudicates each hit ('up to' is deliberately two-sided).
+    forward_language = re.compile(
+        r"added|past 12 months|coming online|by 20\d\d|target|scale to|up to", re.I
+    )
+
+    disclosure_rows = conn.execute(
+        """SELECT d.disclosure_id, d.operator, d.as_of_date, d.stage_normalized,
+                  d.stage_verbatim, d.row_kind, d.mw_value, d.capacity_basis,
+                  d.verbatim_quote, d.notes, d.source_id, s.kind AS source_kind
+           FROM operator_capacity_disclosures d
+           LEFT JOIN sources s ON s.id = d.source_id
+           ORDER BY d.disclosure_id"""
+    ).fetchall()
+    for r in disclosure_rows:
+        rid, op = r["disclosure_id"], r["operator"]
+        m = re.fullmatch(r"(\d{4})-(\d{2})-(\d{2})", str(r["as_of_date"] or ""))
+        if not m or not (1 <= int(m.group(2)) <= 12) or not (1 <= int(m.group(3)) <= 31):
+            errors.append(
+                f"operator_capacity_disclosures {rid} as_of_date {r['as_of_date']!r} "
+                f"is not YYYY-MM-DD"
+            )
+        elif not (2020 <= int(m.group(1)) <= 2030):
+            errors.append(
+                f"operator_capacity_disclosures {rid} as_of_date {r['as_of_date']} "
+                f"outside 2020..2030"
+            )
+        if op not in roster:
+            errors.append(
+                f"operator_capacity_disclosures {rid} operator {op!r} not in the registry roster"
+            )
+        if r["source_id"] is not None and r["source_kind"] != "Primary":
+            warnings.append(
+                f"operator_capacity_disclosures {rid} ({op}) cites {r['source_id']} "
+                f"with kind {r['source_kind']!r}, expected Primary"
+            )
+        if r["stage_normalized"] == "none_disclosed":
+            # Shape beyond the DDL CHECKs: absence rows use basis 'None' and must
+            # say which document was reviewed / missing / inaccessible.
+            if r["capacity_basis"] != "None":
+                errors.append(
+                    f"operator_capacity_disclosures {rid} ({op}) is none_disclosed "
+                    f"but capacity_basis is {r['capacity_basis']!r}, expected 'None'"
+                )
+            if not (r["notes"] or "").strip():
+                errors.append(
+                    f"operator_capacity_disclosures {rid} ({op}) is none_disclosed "
+                    f"without notes naming the reviewed, missing, or inaccessible document"
+                )
+            continue
+        # Disclosed rows from here on.
+        if r["capacity_basis"] == "None":
+            errors.append(
+                f"operator_capacity_disclosures {rid} ({op}) discloses a level "
+                f"but capacity_basis is 'None' (reserved for absence rows)"
+            )
+        mapped = term_map.get((op, r["stage_verbatim"]))
+        if mapped is None:
+            warnings.append(
+                f"operator_capacity_disclosures {rid} ({op}) wording "
+                f"{r['stage_verbatim']!r} not in the term registry"
+            )
+        elif mapped[0] != r["stage_normalized"] or mapped[1] != r["row_kind"]:
+            # capacity_basis is NEVER part of this check — one term legitimately
+            # spans two bases in a single statement.
+            errors.append(
+                f"operator_capacity_disclosures {rid} ({op}) contradicts the registry: "
+                f"{r['stage_verbatim']!r} maps to {mapped[0]}/{mapped[1]} but row has "
+                f"{r['stage_normalized']}/{r['row_kind']}"
+            )
+        if r["capacity_basis"] not in basis_vocab:
+            warnings.append(
+                f"operator_capacity_disclosures {rid} ({op}) capacity_basis "
+                f"{r['capacity_basis']!r} not in the basis vocabulary"
+            )
+        if r["mw_value"] is not None and not (5 <= r["mw_value"] <= 40000):
+            warnings.append(
+                f"operator_capacity_disclosures {rid} ({op}) mw_value {r['mw_value']} "
+                f"outside the plausible 5..40,000 MW band"
+            )
+        flagged = forward_language.search(
+            f"{r['stage_verbatim']} {r['verbatim_quote'] or ''}"
+        )
+        if flagged:
+            warnings.append(
+                f"operator_capacity_disclosures {rid} ({op}) wording or quote contains "
+                f"flow/forward language ({flagged.group(0)!r}) — confirm it is a level"
+            )
+
+    # Intra-quarter collision: two statements landing in one operator x stage x
+    # basis x quarter. stacks.py already charts only the latest as_of_date; this
+    # surfaces each occurrence for adjudication.
+    collisions = conn.execute(
+        """SELECT operator, stage_normalized, capacity_basis, as_of_quarter,
+                  COUNT(DISTINCT as_of_date) AS n
+           FROM operator_capacity_disclosures
+           WHERE stage_normalized != 'none_disclosed'
+           GROUP BY operator, stage_normalized, capacity_basis, as_of_quarter
+           HAVING n > 1"""
+    ).fetchall()
+    for r in collisions:
+        warnings.append(
+            f"intra-quarter collision: {r['operator']} {r['stage_normalized']} "
+            f"{r['capacity_basis']} {r['as_of_quarter']} has {r['n']} statement dates; "
+            f"only the latest is charted"
+        )
+
+    # Absence-disclosure coexistence: legal under the DDL, always wrong in applied
+    # data — a disclosure landing in a none_disclosed-covered quarter must delete
+    # the absence row in the same diff.
+    coexist = conn.execute(
+        """SELECT operator, as_of_quarter,
+                  SUM(stage_normalized = 'none_disclosed') AS n_absent,
+                  SUM(stage_normalized != 'none_disclosed') AS n_disclosed
+           FROM operator_capacity_disclosures
+           GROUP BY operator, as_of_quarter
+           HAVING n_absent > 0 AND n_disclosed > 0"""
+    ).fetchall()
+    for r in coexist:
+        warnings.append(
+            f"absence-disclosure coexistence: {r['operator']} {r['as_of_quarter']} has "
+            f"a none_disclosed row alongside {r['n_disclosed']} disclosure row(s)"
+        )
+
+    # Preferred-basis pick check — implemented via stacks.py headline cells, so the
+    # full carry nuance is included (live-or-carried, not live-only). Structurally
+    # zero under the pick rule; firing means the pick logic drifted.
+    from stacks import headline_cells  # scripts/ is sys.path[0] when run as a script
+    for cell in headline_cells(conn):
+        for stage_name, stage in cell["stages"].items():
+            if stage is None or stage["preferred_basis"] is None:
+                continue
+            if stage["preferred_basis"] in stage["live_bases"] and \
+                    stage["basis"] != stage["preferred_basis"]:
+                warnings.append(
+                    f"preferred basis not charted: {cell['operator']} {stage_name} "
+                    f"prefers {stage['preferred_basis']} but {stage['basis']} is charted"
+                )
+
     conn.close()
 
     for w in warnings:

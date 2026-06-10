@@ -533,6 +533,99 @@ def load_primary_buildout_signals(conn: sqlite3.Connection) -> int:
     return n
 
 
+def calendar_quarter(as_of_date: object) -> str:
+    """Calendar quarter 'YYYYQn' derived from a YYYY-MM-DD as_of_date.
+
+    YAML may hand us a datetime.date (unquoted dates) or a string; both work.
+    """
+    if isinstance(as_of_date, (dt.date, dt.datetime)):
+        as_of_date = as_of_date.isoformat()[:10]
+    s = str(as_of_date)
+    m = re.fullmatch(r"(\d{4})-(\d{2})-(\d{2})", s)
+    if not m:
+        raise ValueError(f"as_of_date requires YYYY-MM-DD, got {s!r}")
+    month = int(m.group(2))
+    if not 1 <= month <= 12:
+        raise ValueError(f"invalid month in as_of_date {s!r}")
+    return f"{m.group(1)}Q{((month - 1) // 3) + 1}"
+
+
+def load_operator_disclosures(conn: sqlite3.Connection) -> tuple[int, int]:
+    """Load operator capacity disclosures: terms registry + verbatim rows.
+
+    terms: → operator_term_registry — roster, fiscal year ends, cross-table name
+    map, the wording map, preferred bases, and the basis vocabulary. The wording
+    map carries (stage_normalized, default_row_kind) ONLY; capacity_basis is
+    row-level data and never part of the wording map.
+    rows:  → operator_capacity_disclosures — as_of_quarter is derived here from
+    as_of_date (calendar quarter), never hand-entered. source_id FK is enforced
+    by SQLite, so a typo fails the load rather than passing silently.
+    """
+    p = DATA / "operator_disclosures.yaml"
+    if not p.exists():
+        return 0, 0
+    doc = read_yaml(p) or {}
+    terms = doc.get("terms") or {}
+    n_reg = 0
+    for token in terms.get("basis_vocabulary") or []:
+        conn.execute(
+            "INSERT INTO operator_term_registry (entry_kind, basis_token) VALUES ('basis', ?)",
+            (token,),
+        )
+        n_reg += 1
+    for op in terms.get("operators") or []:
+        name = op["name"]
+        conn.execute(
+            """INSERT INTO operator_term_registry
+               (entry_kind, operator, fiscal_year_end, pbs_name, campuses_name,
+                disclosure_channel, cumulative_planned_flag)
+               VALUES ('operator',?,?,?,?,?,?)""",
+            (name, op.get("fiscal_year_end"), op.get("pbs_name"),
+             op.get("campuses_name"), op.get("disclosure_channel"),
+             int(bool(op.get("cumulative_planned", False)))),
+        )
+        n_reg += 1
+        for t in op.get("terms") or []:
+            conn.execute(
+                """INSERT INTO operator_term_registry
+                   (entry_kind, operator, stage_verbatim, stage_normalized, default_row_kind)
+                   VALUES ('term',?,?,?,?)""",
+                (name, t["verbatim"], t["stage"], t["row_kind"]),
+            )
+            n_reg += 1
+        for pb in op.get("preferred_basis") or []:
+            conn.execute(
+                """INSERT INTO operator_term_registry
+                   (entry_kind, operator, stage_normalized, preferred_basis)
+                   VALUES ('preferred_basis',?,?,?)""",
+                (name, pb["stage"], pb["basis"]),
+            )
+            n_reg += 1
+    n_rows = 0
+    for r in doc.get("rows") or []:
+        as_of = r["as_of_date"]
+        if isinstance(as_of, (dt.date, dt.datetime)):
+            as_of = as_of.isoformat()[:10]
+        as_of = str(as_of)
+        conn.execute(
+            """INSERT INTO operator_capacity_disclosures
+               (disclosure_id, operator, operator_bucket, as_of_date, as_of_quarter,
+                fiscal_label, stage_normalized, stage_verbatim, row_kind,
+                component_label, mw_value, capacity_basis, tenant_operator,
+                verbatim_quote, notes, source_id)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (r["disclosure_id"], r["operator"], r.get("operator_bucket"),
+             as_of, calendar_quarter(as_of), r.get("fiscal_label"),
+             r["stage_normalized"], r.get("stage_verbatim", ""),
+             r["row_kind"], r.get("component_label", ""),
+             r.get("mw_value"), r["capacity_basis"], r.get("tenant_operator"),
+             r.get("verbatim_quote"), r.get("notes"), r.get("source_id")),
+        )
+        n_rows += 1
+    conn.commit()
+    return n_reg, n_rows
+
+
 def load_qualitative_load_commentary(conn: sqlite3.Connection) -> int:
     p = DATA / "qualitative_load_commentary.yaml"
     if not p.exists():
@@ -693,6 +786,7 @@ def main() -> int:
         n_spm = load_sec_proxy_metrics(conn)
         n_sfts = load_sec_filing_text_signals(conn)
         n_pbs = load_primary_buildout_signals(conn)
+        n_otr, n_ocd = load_operator_disclosures(conn)
         n_pg = load_planned_generators(conn)
         n_og = load_operating_generators(conn)
         n_l = load_lcoe(conn)
@@ -716,6 +810,8 @@ def main() -> int:
     print(f"        {n_spm} sec_proxy_metrics")
     print(f"        {n_sfts} sec_filing_text_signals")
     print(f"        {n_pbs} primary_buildout_signals")
+    print(f"        {n_ocd} operator_capacity_disclosures")
+    print(f"        {n_otr} operator_term_registry entries")
     print(f"        {n_qlc} qualitative_load_commentary")
     print(f"        {n_pg} planned_generators (EIA-860M)")
     print(f"        {n_og} operating_generators (EIA-860M latest)")
