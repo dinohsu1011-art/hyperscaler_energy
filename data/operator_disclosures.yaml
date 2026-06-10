@@ -236,4 +236,650 @@ terms:
       terms:
         - {verbatim: 'under construction', stage: under_construction, row_kind: component}
 
-rows: []
+# Seed = wave 0: qualifying primary_buildout_signals rows transcribed through the
+# step-9 whitelist (31 mechanical passes, 3 adjudicated out: PBS049 nested-subset
+# merge into PBS048's row; PBS067 'up to 5 GW' commitment cap -> Amazon row notes;
+# PBS083 ORCL Bloom 'up to 2.45 GW' -> ORCL none_disclosed notes), plus one absence
+# row per hyperscaler whose latest reported quarter yields nothing. source_ids are
+# the PBS rows' existing ids — the seed mints no sources.
+rows:
+  # --- hyperscalers, latest reported quarter ---
+  - disclosure_id: OCD001
+    operator: Microsoft
+    operator_bucket: hyperscaler
+    as_of_date: '2026-03-31'
+    fiscal_label: 'FY26 Q3'
+    stage_normalized: none_disclosed
+    stage_verbatim: ''
+    row_kind: none
+    component_label: ''
+    mw_value: null
+    capacity_basis: 'None'
+    notes: >-
+      Reviewed (canary lane, proposals/canary-msft-26Q1.yaml, fidelity-verified
+      2026-06-10): FY26 Q3 earnings call transcript (2026-04-29), earnings press
+      release, and 10-Q (period ended 2026-03-31) — no MW/GW period-state capacity
+      level disclosed. The only GW figure is a flow (Nadella: "All up, we added
+      another gigawatt of capacity this quarter and remain on track to double our
+      overall footprint in just two years."); Hood flagged remaining capacity
+      constrained "at least through 2026"; the 10-Q's $196.6B of datacenter leases
+      not yet commenced is a dollar figure, not MW. No PBS source on file covers
+      this quarter and the seed mints no sources, so the reviewed transcript is
+      identified but not citable here — its source_id lands with the wave-0 apply.
+
+  - disclosure_id: OCD002
+    operator: Google
+    operator_bucket: hyperscaler
+    as_of_date: '2026-03-31'
+    fiscal_label: 'Q1 2026'
+    stage_normalized: none_disclosed
+    stage_verbatim: ''
+    row_kind: none
+    component_label: ''
+    mw_value: null
+    capacity_basis: 'None'
+    notes: >-
+      No Google source covering the Q1 2026 reporting cycle is on file: the only
+      Google source in the buildout-signal ledger (S420, the Arkansas data-center
+      announcement) is undated within 2026 and discloses no data-center MW level
+      (PBS070 site count; PBS071 is a 600 MW solar supply project, not IT
+      capacity). Alphabet's Q1 2026 earnings materials are identified but were not
+      reviewed for the seed — recorded as not-yet-reviewed, never as certified
+      silence; the hyperscaler backfill wave covers this quarter.
+
+  - disclosure_id: OCD003
+    operator: Amazon
+    operator_bucket: hyperscaler
+    as_of_date: '2026-03-31'
+    fiscal_label: 'Q1 2026'
+    stage_normalized: planned
+    stage_verbatim: 'contracted capacity'
+    row_kind: component
+    component_label: 'OpenAI Trainium capacity commitment'
+    mw_value: 2000
+    capacity_basis: Contracted-power
+    tenant_operator: OpenAI
+    verbatim_quote: "approximately two gigawatts"
+    notes: >-
+      OpenAI commitment to consume AWS Trainium capacity, ramping from 2027 — a
+      firm level ("approximately two gigawatts"). The same release corroborates
+      Anthropic's commitment of "up to five gigawatts" of Trainium capacity
+      (PBS067) — an 'up to' multi-year commitment cap with no current physical
+      referent, recorded here as notes only under the levels-not-flows rule, never
+      a stage row. Transcribed from PBS066.
+    source_id: S419
+
+  - disclosure_id: OCD004
+    operator: Meta
+    operator_bucket: hyperscaler
+    as_of_date: '2026-03-31'
+    fiscal_label: 'Q1 2026'
+    stage_normalized: none_disclosed
+    stage_verbatim: ''
+    row_kind: none
+    component_label: ''
+    mw_value: null
+    capacity_basis: 'None'
+    notes: >-
+      Reviewed and silent on period-state MW levels: the cited Meta Newsroom
+      release "Meta's New Data Center in Lebanon, Indiana Marks a Milestone AI
+      Investment" (2026-02-11) discloses only future scale — "designed to deliver
+      1GW" once operational (PBS060, planned status, whitelist-excluded). The El
+      Paso update ("grow to 1 gigawatt", PBS061) and the 5,000 MW Texas
+      clean-energy supply contracts (PBS062, buildout constraint) are likewise
+      future-scale or power-supply figures, not capacity levels. No operational,
+      under-construction, or contracted MW level in Meta materials on file for
+      this quarter.
+    source_id: S235
+
+  - disclosure_id: OCD005
+    operator: Oracle
+    operator_bucket: hyperscaler
+    as_of_date: '2026-02-28'
+    fiscal_label: 'FY26 Q3'
+    stage_normalized: none_disclosed
+    stage_verbatim: ''
+    row_kind: none
+    component_label: ''
+    mw_value: null
+    capacity_basis: 'None'
+    notes: >-
+      Reviewed and silent on period-state MW levels: the cited Oracle post
+      "Oracle AI Infrastructure in 2026 and Our Commitment to Local Communities"
+      (2026-01-26) discloses the OpenAI buildout as site counts only — "two
+      campuses in Texas and sites in New Mexico, Wisconsin, and Michigan"
+      (PBS065/085/086/087); Zettascale10 is "multi-gigawatt" with no figure
+      (PBS063). Separately, Oracle's 2026-04-27 Project Jupiter release (S71,
+      PBS083) claims "up to 2.45 GW of installed Bloom fuel cell capacity" — an
+      'up to' point-in-time press claim on a power-side (utility) basis, kept
+      notes-only under the ratified default, never a stage row; admission would
+      post under_construction 2,450 MW Utility-capacity at 26Q2.
+    source_id: S418
+
+  - disclosure_id: OCD006
+    operator: xAI
+    operator_bucket: hyperscaler
+    as_of_date: '2026-03-31'
+    stage_normalized: none_disclosed
+    stage_verbatim: ''
+    row_kind: none
+    component_label: ''
+    mw_value: null
+    capacity_basis: 'None'
+    notes: >-
+      No public earnings materials or operator-issued capacity-level disclosures
+      exist for xAI this quarter (private; no periodic reporting). Colossus
+      campus figures in this repo are tracked per-site in data_center_campuses,
+      not as operator self-disclosures.
+
+  # --- CoreWeave, Q4 2025 ---
+  - disclosure_id: OCD007
+    operator: CoreWeave
+    operator_bucket: neocloud
+    as_of_date: '2025-12-31'
+    fiscal_label: 'Q4 2025'
+    stage_normalized: operational
+    stage_verbatim: 'active power'
+    row_kind: total
+    component_label: ''
+    mw_value: 850
+    capacity_basis: Active-power
+    verbatim_quote: "more than 850 MW"
+    notes: >-
+      CoreWeave active power capacity after adding about 260 MW in Q4 2025;
+      lower-bound value. Transcribed from PBS006.
+    source_id: S396
+
+  - disclosure_id: OCD008
+    operator: CoreWeave
+    operator_bucket: neocloud
+    as_of_date: '2025-12-31'
+    fiscal_label: 'Q4 2025'
+    stage_normalized: planned
+    stage_verbatim: 'total contracted power'
+    row_kind: total
+    component_label: ''
+    mw_value: 3100
+    capacity_basis: Contracted-power
+    verbatim_quote: "approximately 3.1 GW"
+    notes: >-
+      Total contracted power, not active capacity; includes the 850 MW already
+      active (cumulative_planned — the displayed residual subtracts). Transcribed
+      from PBS007.
+    source_id: S396
+
+  # --- Core Scientific, Q4 FY2025 ---
+  - disclosure_id: OCD009
+    operator: Core Scientific
+    operator_bucket: neocloud
+    as_of_date: '2025-12-31'
+    fiscal_label: 'Q4 FY2025'
+    stage_normalized: operational
+    stage_verbatim: 'billable capacity'
+    row_kind: total
+    component_label: ''
+    mw_value: 185
+    capacity_basis: Billable-critical-IT
+    tenant_operator: CoreWeave
+    verbatim_quote: "185+ MW"
+    notes: >-
+      Billable capacity delivered to date across CoreWeave sites; lower-bound
+      value. as_of normalized: 2026-03-02 statement -> 2025-12-31 period end.
+      Transcribed from PBS010.
+    source_id: S398
+
+  - disclosure_id: OCD010
+    operator: Core Scientific
+    operator_bucket: neocloud
+    as_of_date: '2025-12-31'
+    fiscal_label: 'Q4 FY2025'
+    stage_normalized: planned
+    stage_verbatim: 'contracted capacity'
+    row_kind: total
+    component_label: ''
+    mw_value: 590
+    capacity_basis: Critical-IT
+    tenant_operator: CoreWeave
+    verbatim_quote: "Total leased power"
+    notes: >-
+      Customer leased power capacity across five CoreWeave sites. as_of
+      normalized: 2026-03-02 statement -> 2025-12-31 period end. Transcribed
+      from PBS012.
+    source_id: S398
+
+  # --- Nebius: Q4 2025 platform figures, then 26Q1 site releases ---
+  - disclosure_id: OCD011
+    operator: Nebius
+    operator_bucket: neocloud
+    as_of_date: '2025-12-31'
+    fiscal_label: 'Q4 2025'
+    stage_normalized: operational
+    stage_verbatim: 'active power'
+    row_kind: total
+    component_label: ''
+    mw_value: 170
+    capacity_basis: Active-power
+    verbatim_quote: "about 170 MW"
+    notes: >-
+      Active power being consumed by IT equipment, per Nebius definition.
+      Transcribed from PBS030.
+    source_id: S404
+
+  - disclosure_id: OCD012
+    operator: Nebius
+    operator_bucket: neocloud
+    as_of_date: '2025-12-31'
+    fiscal_label: 'Q4 2025'
+    stage_normalized: planned
+    stage_verbatim: 'contracted capacity'
+    row_kind: total
+    component_label: ''
+    mw_value: 2000
+    capacity_basis: Contracted-power
+    verbatim_quote: "more than 2 GW"
+    notes: >-
+      Contracted power secured by contracts; lower-bound value. Includes
+      delivered and under-construction capacity (cumulative_planned). as_of
+      normalized: 2026-02-12 shareholder-letter statement -> 2025-12-31 period
+      end. Transcribed from PBS031.
+    source_id: S404
+
+  - disclosure_id: OCD013
+    operator: Nebius
+    operator_bucket: neocloud
+    as_of_date: '2026-03-31'
+    stage_normalized: operational
+    stage_verbatim: 'delivered'
+    row_kind: component
+    component_label: 'Mantsala data center'
+    mw_value: 75
+    capacity_basis: Critical-IT
+    verbatim_quote: "up to 75 MW"
+    notes: >-
+      Expansion of Nebius's first Finnish data center completed earlier in 2026.
+      'up to' attaches to an identified delivered facility — admissible level at
+      face value, adjudicated and kept. Critical-IT basis; the registry prefers
+      Active-power for Nebius operational, so this row registers but the platform
+      figure charts while live or carried. Point-in-time release dated on the
+      period end. Transcribed from PBS037.
+    source_id: S284
+
+  - disclosure_id: OCD014
+    operator: Nebius
+    operator_bucket: neocloud
+    as_of_date: '2026-03-31'
+    stage_normalized: under_construction
+    stage_verbatim: 'under construction'
+    row_kind: component
+    component_label: 'Lappeenranta AI factory'
+    mw_value: 310
+    capacity_basis: Critical-IT
+    verbatim_quote: "up to 310 MW"
+    notes: >-
+      New AI factory; first capacity expected to be available to customers in
+      2027. 'up to' attaches to an identified facility under construction —
+      admissible level at face value, adjudicated and kept. Point-in-time release
+      dated on the period end. Transcribed from PBS036.
+    source_id: S284
+
+  # --- Applied Digital, FY26 Q3 ---
+  - disclosure_id: OCD015
+    operator: Applied Digital
+    operator_bucket: neocloud
+    as_of_date: '2026-02-28'
+    fiscal_label: 'FY26 Q3'
+    stage_normalized: operational
+    stage_verbatim: 'in service'
+    row_kind: component
+    component_label: 'Polaris Forge 1'
+    mw_value: 100
+    capacity_basis: Critical-IT
+    verbatim_quote: "100 MW Operating Capacity"
+    notes: >-
+      Site-level operating critical IT load disclosed for Polaris Forge 1. as_of
+      normalized: 2026-04 statement -> 2026-02-28 FY26 Q3 period end (FYE 05-31).
+      Transcribed from PBS020.
+    source_id: S401
+
+  - disclosure_id: OCD016
+    operator: Applied Digital
+    operator_bucket: neocloud
+    as_of_date: '2026-02-28'
+    fiscal_label: 'FY26 Q3'
+    stage_normalized: under_construction
+    stage_verbatim: 'under construction'
+    row_kind: total
+    component_label: ''
+    mw_value: 900
+    capacity_basis: Critical-IT
+    verbatim_quote: "900 MW Critical IT"
+    notes: >-
+      Critical IT load under construction across PF1, PF2, and DF1. as_of
+      normalized: 2026-04 statement -> 2026-02-28 period end. Transcribed from
+      PBS021.
+    source_id: S401
+
+  - disclosure_id: OCD017
+    operator: Applied Digital
+    operator_bucket: neocloud
+    as_of_date: '2026-02-28'
+    fiscal_label: 'FY26 Q3'
+    stage_normalized: planned
+    stage_verbatim: 'contracted'
+    row_kind: total
+    component_label: ''
+    mw_value: 900
+    capacity_basis: Critical-IT
+    verbatim_quote: "900 MW is fully contracted"
+    notes: >-
+      Seven long-term leases across three campuses with three hyperscalers; the
+      contracted 900 matches capacity already operating or building
+      (cumulative_planned — displayed residual is 0). as_of normalized: 2026-04
+      statement -> 2026-02-28 period end. Transcribed from PBS022.
+    source_id: S401
+
+  # --- IREN: FY26 Q1, then FY26 Q3 supersedes the UC cell ---
+  - disclosure_id: OCD018
+    operator: IREN
+    operator_bucket: neocloud
+    as_of_date: '2025-09-30'
+    fiscal_label: 'FY26 Q1'
+    stage_normalized: under_construction
+    stage_verbatim: 'under construction'
+    row_kind: component
+    component_label: 'Childress Horizon 1-4'
+    mw_value: 200
+    capacity_basis: Critical-IT
+    tenant_operator: Microsoft
+    verbatim_quote: "200MW of critical IT load"
+    notes: >-
+      Liquid-cooled data centers supporting phased Microsoft GB300 deployments
+      through 2026. as_of normalized: 2025-11-03 statement -> 2025-09-30 FY26 Q1
+      period end (FYE 06-30). Superseded in display by the 26Q1 snapshot
+      (480 + 1,210). Transcribed from PBS016.
+    source_id: S399
+
+  - disclosure_id: OCD019
+    operator: IREN
+    operator_bucket: neocloud
+    as_of_date: '2025-09-30'
+    fiscal_label: 'FY26 Q1'
+    stage_normalized: planned
+    stage_verbatim: 'secured power'
+    row_kind: total
+    component_label: ''
+    mw_value: 3000
+    capacity_basis: Contracted-power
+    verbatim_quote: "3GW secured power portfolio"
+    notes: >-
+      Portfolio-level secured power; not active AI cloud capacity. as_of
+      normalized: 2025-11-03 statement -> 2025-09-30 period end. Transcribed
+      from PBS017.
+    source_id: S399
+
+  - disclosure_id: OCD020
+    operator: IREN
+    operator_bucket: neocloud
+    as_of_date: '2026-03-31'
+    fiscal_label: 'FY26 Q3'
+    stage_normalized: under_construction
+    stage_verbatim: 'under construction'
+    row_kind: component
+    component_label: '2026 AI cloud expansion'
+    mw_value: 480
+    capacity_basis: Critical-IT
+    verbatim_quote: "480MW on track"
+    notes: >-
+      Described as fully contracted in the Q3 FY26 update; targeted online during
+      2026. Transcribed from PBS018.
+    source_id: S400
+
+  - disclosure_id: OCD021
+    operator: IREN
+    operator_bucket: neocloud
+    as_of_date: '2026-03-31'
+    fiscal_label: 'FY26 Q3'
+    stage_normalized: under_construction
+    stage_verbatim: 'under construction'
+    row_kind: component
+    component_label: '2027 AI cloud expansion'
+    mw_value: 1210
+    capacity_basis: Critical-IT
+    verbatim_quote: "1,210MW in build"
+    notes: >-
+      Includes Childress Horizons 5-6, Childress air-cooled capacity, and
+      Sweetwater 1 initial phase; targeted online during 2027. Transcribed from
+      PBS019.
+    source_id: S400
+
+  # --- TeraWulf: Q2 2025 Fluidstack signing, then Q1 2026 10-Q ---
+  - disclosure_id: OCD022
+    operator: TeraWulf
+    operator_bucket: neocloud
+    as_of_date: '2025-06-30'
+    fiscal_label: 'Q2 2025'
+    stage_normalized: planned
+    stage_verbatim: 'contracted'
+    row_kind: component
+    component_label: 'Lake Mariner'
+    mw_value: 200
+    capacity_basis: Critical-IT
+    tenant_operator: Fluidstack
+    verbatim_quote: "more than 200 MW"
+    notes: >-
+      Fluidstack 10-year HPC colocation agreements; lower-bound critical IT
+      load. as_of normalized: 2025-08-14 statement -> 2025-06-30 Q2 period end.
+      Dual-basis same-term pair with the 250 MW gross row from the same
+      statement. Transcribed from PBS024.
+    source_id: S402
+
+  - disclosure_id: OCD023
+    operator: TeraWulf
+    operator_bucket: neocloud
+    as_of_date: '2025-06-30'
+    fiscal_label: 'Q2 2025'
+    stage_normalized: planned
+    stage_verbatim: 'contracted'
+    row_kind: component
+    component_label: 'Lake Mariner'
+    mw_value: 250
+    capacity_basis: Gross-power
+    tenant_operator: Fluidstack
+    verbatim_quote: "about 250 MW"
+    notes: >-
+      Gross-capacity equivalent for the same Fluidstack deal — never added to
+      the 200 MW critical-IT row. as_of normalized: 2025-08-14 statement ->
+      2025-06-30 period end. Transcribed from PBS025.
+    source_id: S402
+
+  - disclosure_id: OCD024
+    operator: TeraWulf
+    operator_bucket: neocloud
+    as_of_date: '2025-06-30'
+    fiscal_label: 'Q2 2025'
+    stage_normalized: under_construction
+    stage_verbatim: 'under construction'
+    row_kind: component
+    component_label: 'Lake Mariner phase one'
+    mw_value: 40
+    capacity_basis: Critical-IT
+    tenant_operator: Fluidstack
+    verbatim_quote: "approximately 40 MW"
+    notes: >-
+      Phase-one critical IT load expected online in the first half of 2026.
+      as_of normalized: 2025-08-14 statement -> 2025-06-30 period end.
+      Transcribed from PBS026.
+    source_id: S402
+
+  - disclosure_id: OCD025
+    operator: TeraWulf
+    operator_bucket: neocloud
+    as_of_date: '2026-03-31'
+    fiscal_label: 'Q1 2026'
+    stage_normalized: planned
+    stage_verbatim: 'contracted'
+    row_kind: component
+    component_label: 'Lake Mariner'
+    mw_value: 438
+    capacity_basis: Critical-IT
+    verbatim_quote: "438 MW"
+    notes: >-
+      La Lupa plus Akela contracted critical IT HPC capacity at Lake Mariner.
+      Transcribed from PBS028.
+    source_id: S403
+
+  - disclosure_id: OCD026
+    operator: TeraWulf
+    operator_bucket: neocloud
+    as_of_date: '2026-03-31'
+    fiscal_label: 'Q1 2026'
+    stage_normalized: planned
+    stage_verbatim: 'contracted'
+    row_kind: component
+    component_label: 'Abernathy HPC Campus'
+    mw_value: 168
+    capacity_basis: Critical-IT
+    tenant_operator: Fluidstack
+    verbatim_quote: "168 MW critical IT load"
+    notes: >-
+      Abernathy full build-out is fully pre-leased to Fluidstack USA III.
+      Transcribed from PBS029.
+    source_id: S403
+
+  # --- Hut 8, River Bend announcement (point-in-time, 25Q4) ---
+  - disclosure_id: OCD027
+    operator: Hut 8
+    operator_bucket: neocloud
+    as_of_date: '2025-12-17'
+    stage_normalized: under_construction
+    stage_verbatim: 'under construction'
+    row_kind: component
+    component_label: 'River Bend'
+    mw_value: 245
+    capacity_basis: Critical-IT
+    tenant_operator: 'Anthropic / Fluidstack'
+    verbatim_quote: "245 MW of IT capacity"
+    notes: >-
+      Initial River Bend tranche to be developed by Hut 8 and Fluidstack;
+      statement date kept (genuine point-in-time press claim). Dual-basis pair
+      with the 330 MW utility row from the same release. Transcribed from
+      PBS044.
+    source_id: S408
+
+  - disclosure_id: OCD028
+    operator: Hut 8
+    operator_bucket: neocloud
+    as_of_date: '2025-12-17'
+    stage_normalized: under_construction
+    stage_verbatim: 'under construction'
+    row_kind: component
+    component_label: 'River Bend'
+    mw_value: 330
+    capacity_basis: Utility-capacity
+    tenant_operator: 'Anthropic / Fluidstack'
+    verbatim_quote: "330 MW"
+    notes: >-
+      Utility capacity supporting the initial 245 MW IT-capacity tranche —
+      registers but does not chart (preferred basis for Hut 8 under_construction
+      is Critical-IT). Transcribed from PBS045.
+    source_id: S408
+
+  # --- Galaxy, Q1 2026 ---
+  - disclosure_id: OCD029
+    operator: Galaxy
+    operator_bucket: neocloud
+    as_of_date: '2026-03-31'
+    fiscal_label: 'Q1 2026'
+    stage_normalized: under_construction
+    stage_verbatim: 'under construction'
+    row_kind: component
+    component_label: 'Helios Phase I'
+    mw_value: 133
+    capacity_basis: Critical-IT
+    tenant_operator: CoreWeave
+    verbatim_quote: "133 megawatts"
+    notes: >-
+      Galaxy remained on schedule to deliver substantially all Phase I critical
+      IT load by end of Q2 2026. as_of normalized: 2026-04-28 statement ->
+      2026-03-31 period end. Transcribed from PBS040.
+    source_id: S407
+
+  - disclosure_id: OCD030
+    operator: Galaxy
+    operator_bucket: neocloud
+    as_of_date: '2026-03-31'
+    fiscal_label: 'Q1 2026'
+    stage_normalized: planned
+    stage_verbatim: 'contracted capacity'
+    row_kind: total
+    component_label: ''
+    mw_value: 526
+    capacity_basis: Critical-IT
+    tenant_operator: CoreWeave
+    verbatim_quote: "526MW"
+    notes: >-
+      Critical IT load across CoreWeave lease phases I, II, and III at Helios.
+      Dual-basis same-term pair with the 800 MW gross row from the same
+      statement. as_of normalized: 2026-04-28 statement -> 2026-03-31 period
+      end. Transcribed from PBS041.
+    source_id: S407
+
+  - disclosure_id: OCD031
+    operator: Galaxy
+    operator_bucket: neocloud
+    as_of_date: '2026-03-31'
+    fiscal_label: 'Q1 2026'
+    stage_normalized: planned
+    stage_verbatim: 'contracted capacity'
+    row_kind: total
+    component_label: ''
+    mw_value: 800
+    capacity_basis: Gross-power
+    tenant_operator: CoreWeave
+    verbatim_quote: "800MW"
+    notes: >-
+      Gross power capacity for the same CoreWeave leases — never added to the
+      526 MW critical-IT row. as_of normalized: 2026-04-28 statement ->
+      2026-03-31 period end. Transcribed from PBS042.
+    source_id: S407
+
+  - disclosure_id: OCD032
+    operator: Galaxy
+    operator_bucket: neocloud
+    as_of_date: '2026-03-31'
+    fiscal_label: 'Q1 2026'
+    stage_normalized: planned
+    stage_verbatim: 'secured capacity'
+    row_kind: total
+    component_label: ''
+    mw_value: 1630
+    capacity_basis: Gross-power
+    verbatim_quote: "1.63GW"
+    notes: >-
+      Total approved gross power capacity for the Helios campus after ERCOT
+      approval; includes uncontracted capacity, so no tenant attribution. as_of
+      normalized: 2026-04-28 statement -> 2026-03-31 period end. Transcribed
+      from PBS043.
+    source_id: S407
+
+  # --- Crusoe, Abilene announcement (point-in-time, 25Q2) ---
+  - disclosure_id: OCD033
+    operator: Crusoe
+    operator_bucket: neocloud
+    as_of_date: '2025-05-21'
+    stage_normalized: under_construction
+    stage_verbatim: 'under construction'
+    row_kind: component
+    component_label: 'Abilene AI data center'
+    mw_value: 1200
+    capacity_basis: Gross-power
+    tenant_operator: 'OpenAI / Oracle'
+    verbatim_quote: "1.2 gigawatt"
+    notes: >-
+      Second phase of the Abilene campus; statement date kept (genuine
+      point-in-time press claim). Nested subset: the same statement's first
+      phase ("200+ megawatts", two buildings, energization expected H1 2025 —
+      PBS049) lives in these notes, never as a sibling row; the campus row is
+      1,200, not 1,400. Basis is project scale (gross power), not critical IT
+      load. Transcribed from PBS048.
+    source_id: S409
