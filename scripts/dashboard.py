@@ -197,6 +197,21 @@ def build(conn: sqlite3.Connection) -> str:
             WHERE vintage = (SELECT MAX(vintage) FROM planned_generators)
             GROUP BY status_tier, tech_group"""),
         "sources": {r["id"]: dict(r) for r in conn.execute("SELECT * FROM sources")},
+        "disclosures": q(conn, """
+            SELECT disclosure_id, operator, operator_bucket, as_of_date, as_of_quarter,
+                   fiscal_label, stage_normalized, stage_verbatim, row_kind, component_label,
+                   mw_value, capacity_basis, tenant_operator, verbatim_quote, notes, source_id
+            FROM operator_capacity_disclosures
+            ORDER BY operator, as_of_quarter DESC, stage_normalized, capacity_basis"""),
+        "disclosure_cells": __import__("stacks").headline_cells(conn),
+        "disclosure_coverage": [
+            dict(r) for r in conn.execute("""
+                SELECT hyperscaler AS operator,
+                       ROUND(SUM(COALESCE(it_load_mw_planned, it_load_mw_phase1, it_load_mw_energized)), 0) AS campus_mw
+                FROM data_center_campuses
+                WHERE hyperscaler IN ('Microsoft','Google','Amazon','Meta','Oracle','xAI','CoreWeave','Nebius')
+                GROUP BY hyperscaler""")
+        ],
     }
     payload = json.dumps(data, default=str)
 
@@ -465,6 +480,7 @@ TEMPLATE = r"""<!doctype html>
     <div class="tab active" data-tab="overview">Overview</div>
     <div class="tab" data-tab="contracts">Contracts</div>
     <div class="tab" data-tab="campuses">Campuses</div>
+    <div class="tab" data-tab="disclosures">Operator disclosures</div>
     <div class="tab" data-tab="commentary">Commentary Timeline</div>
     <div class="tab" data-tab="eia">Federal Cross-Check</div>
     <div class="tab" data-tab="costs">Costs (LCOE / CAPEX)</div>
@@ -665,6 +681,55 @@ TEMPLATE = r"""<!doctype html>
         <tbody></tbody>
       </table>
     </div>
+  </section>
+
+  <section class="panel" id="panel-disclosures">
+    <div class="camp-hero">
+      <div>
+        <p class="lead">
+          What each operator <b>says it is building</b>, in its own words — capacity levels
+          from earnings calls, releases, and filings, split into the operator's own
+          <b>planned / under construction / operational</b> stages. Self-reported figures,
+          kept separate from the per-site estimates on the Campuses tab; the coverage check
+          below compares the two without ever mixing them. Quarters where an operator
+          discloses nothing are recorded as exactly that.
+        </p>
+      </div>
+      <div class="camp-stats">
+        <div class="camp-stat"><div class="num"><span id="dsOps">—</span></div><div class="lab">Operators tracked</div></div>
+        <div class="camp-stat live"><div class="num"><span id="dsRows">—</span></div><div class="lab">Disclosure rows</div></div>
+        <div class="camp-stat"><div class="num"><span id="dsQtrs">—</span></div><div class="lab">Quarters covered</div></div>
+        <div class="camp-stat gap"><div class="num"><span id="dsSilent">—</span></div><div class="lab">Silent operator-quarters</div></div>
+      </div>
+    </div>
+
+    <h3 class="camp-section-title">Latest disclosed capacity by stage<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">each stage carries its own as-of quarter</span></h3>
+    <div class="pipeline-list" id="dsBars"></div>
+    <div class="pipe-legend">
+      <span><span class="sw" style="background:#0E7B5B"></span>Operational</span>
+      <span><span class="sw" style="background:#7FB5A6"></span>Under construction</span>
+      <span><span class="sw" style="background:#E2E2E5"></span>Planned (shown net)</span>
+    </div>
+    <p class="lead" style="margin:.6rem 0 0;max-width:none;font-size:.78rem">
+      Planned is shown net — disclosed contracted or secured capacity less anything already
+      operational or under construction, never below zero. Stages carry their own as-of dates;
+      a stage older than the operator's latest reporting quarter is marked carried.
+    </p>
+
+    <h3 class="camp-section-title" style="margin-top:2rem">Disclosure register<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">the operator's own words, linked to the filing</span></h3>
+    <div class="camp-table-wrap" style="max-height:560px">
+      <table id="dsTable">
+        <thead><tr>
+          <th>Operator</th><th>Quarter</th><th>Their label</th><th>Stage</th>
+          <th class="r">MW</th><th>Basis</th><th>Site</th><th>Quote</th><th>Src</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <h3 class="camp-section-title" style="margin-top:2rem">Coverage check — what operators say vs the campuses we track<span class="rule"></span></h3>
+    <div class="pipeline-list" id="dsCoverage"></div>
+    <p class="lead" style="margin:.6rem 0 0;max-width:none;font-size:.78rem" id="dsCoverageNote"></p>
   </section>
 
   <section class="panel" id="panel-commentary">
@@ -1160,6 +1225,89 @@ Chart.register({
   document.getElementById('bentoLegend').innerHTML =
     types.map(ty => `<span><span class="bdot" style="background:${colorFor(ty)}"></span>${ty}</span>`).join('') +
     `<span><span class="bdot" style="background:#B9B9C0"></span>2021–23 (all types)</span>`;
+})();
+
+// ---- Operator disclosures panel ----
+(function(){
+  const D = DATA.disclosures || [];
+  const CELLS = DATA.disclosure_cells || [];
+  if (!D.length && !CELLS.length) return;
+  const STAGE_LBL = { planned:'Planned', under_construction:'Under construction', operational:'Operational', none_disclosed:'None disclosed' };
+  const STAGE_BADGE = { planned:'b-announced', under_construction:'b-pending', operational:'b-op', none_disclosed:'b-unknown' };
+
+  document.getElementById('dsOps').textContent = new Set(D.map(r=>r.operator)).size;
+  document.getElementById('dsRows').textContent = D.filter(r=>r.stage_normalized!=='none_disclosed').length;
+  document.getElementById('dsQtrs').textContent = new Set(D.map(r=>r.as_of_quarter)).size;
+  document.getElementById('dsSilent').textContent = D.filter(r=>r.stage_normalized==='none_disclosed').length;
+
+  const qLbl = q => q ? q.replace(/^20(\d\d)Q(\d)$/, "$1Q$2") : '';
+  const withCells = CELLS.filter(c => c.stages.operational || c.stages.under_construction || c.stages.planned);
+  const totalOf = c => ['operational','under_construction'].reduce((s,k)=>s+((c.stages[k]&&c.stages[k].mw)||0),0) + (c.planned_shown||0);
+  const maxTot = Math.max(...withCells.map(totalOf), 1);
+  document.getElementById('dsBars').innerHTML = withCells
+    .sort((a,b)=>totalOf(b)-totalOf(a))
+    .map(c => {
+      const segs = [];
+      const op = c.stages.operational, uc = c.stages.under_construction;
+      let acc = 0;
+      const seg = (mw, cls) => { const w = 100*mw/maxTot, l = 100*acc/maxTot; acc += mw;
+        return `<div class="seg ${cls}" style="left:${l}%;width:${w}%"></div>`; };
+      if (op) segs.push(seg(op.mw, 'energized'));
+      if (uc) segs.push(seg(uc.mw, 'phase1'));
+      if (c.planned_shown) segs.push(seg(c.planned_shown, 'planned'));
+      const tags = [];
+      ['operational','under_construction'].forEach(k => { const s = c.stages[k];
+        if (s && (s.carried || s.as_of_quarter !== c.latest_quarter)) tags.push(`${STAGE_LBL[k]} as of ${qLbl(s.as_of_quarter)}`); });
+      const planned = c.stages.planned;
+      if (planned && (planned.carried || planned.as_of_quarter !== c.latest_quarter)) tags.push(`Planned as of ${qLbl(planned.as_of_quarter)}`);
+      const basis = planned ? planned.basis : (uc ? uc.basis : (op ? op.basis : ''));
+      return `<div class="pipe-row">
+        <div class="name">${c.operator}<span class="cnt">${qLbl(c.latest_quarter)}${tags.length ? ' · '+tags.join(' · ') : ''}</span></div>
+        <div class="pipe-bar">${segs.join('')}</div>
+        <div class="total"><b>${Math.round(totalOf(c)).toLocaleString()}</b> MW<br><span style="font-size:.64rem">${basis}</span></div>
+      </div>`;
+    }).join('');
+
+  const tbody = document.querySelector('#dsTable tbody');
+  function cite(sid){ const s = SRC[sid]; if (!sid) return '<span style="color:var(--muted)">—</span>';
+    if (!s) return sid;
+    return `<a class="cite" href="${s.url}" target="_blank" title="${(s.title||'').replace(/"/g,'&quot;')}">${sid}</a>`; }
+  tbody.innerHTML = D.map(r => `<tr>
+    <td style="font-weight:500">${r.operator}${r.tenant_operator ? `<span class="cnt" style="font-size:.68rem;color:var(--muted)"> for ${r.tenant_operator}</span>` : ''}</td>
+    <td>${r.fiscal_label || qLbl(r.as_of_quarter)}</td>
+    <td style="color:var(--muted)">${r.stage_verbatim || '—'}</td>
+    <td><span class="badge ${STAGE_BADGE[r.stage_normalized]||'b-unknown'}">${STAGE_LBL[r.stage_normalized]||r.stage_normalized}</span></td>
+    <td class="r" style="text-align:right;font-variant-numeric:tabular-nums">${r.mw_value!=null ? Math.round(r.mw_value).toLocaleString() : '—'}</td>
+    <td><span class="badge b-unknown">${r.capacity_basis==='None' ? '—' : r.capacity_basis}</span></td>
+    <td style="color:var(--muted)">${r.component_label || ''}</td>
+    <td style="color:var(--muted);font-size:.74rem;max-width:340px">${(r.verbatim_quote || (r.notes||'').slice(0,160)) }</td>
+    <td>${cite(r.source_id)}</td></tr>`).join('');
+
+  const cov = DATA.disclosure_coverage || [];
+  const covByOp = Object.fromEntries(cov.map(r=>[r.operator, r.campus_mw]));
+  const covCells = CELLS.filter(c => covByOp[c.operator] != null && totalOf(c) > 0);
+  const covMax = Math.max(...covCells.flatMap(c=>[totalOf(c), covByOp[c.operator]||0]), 1);
+  document.getElementById('dsCoverage').innerHTML = covCells.map(c => {
+    const self = totalOf(c), camp = covByOp[c.operator];
+    return `<div class="pipe-row">
+      <div class="name">${c.operator}</div>
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div class="pipe-bar" style="flex:1;height:12px"><div class="seg energized" style="left:0;width:${100*self/covMax}%"></div></div>
+          <span style="font-size:.7rem;color:var(--muted);min-width:150px">they say · <b style="color:var(--ink)">${Math.round(self).toLocaleString()}</b> MW</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="pipe-bar" style="flex:1;height:12px"><div class="seg phase1" style="left:0;width:${100*camp/covMax}%"></div></div>
+          <span style="font-size:.7rem;color:var(--muted);min-width:150px">we track · <b style="color:var(--ink)">${Math.round(camp).toLocaleString()}</b> MW</span>
+        </div>
+      </div>
+      <div class="total"></div>
+    </div>`;
+  }).join('');
+  document.getElementById('dsCoverageNote').textContent =
+    'A credibility check, never an accounting identity. Operator side: latest self-reported operational + under construction + net planned. ' +
+    'Campus side: the sum over campuses operated by that tenant of the fullest disclosed load level per campus — planned if known, else phase-1, else live (COALESCE(planned, phase1, energized)). ' +
+    'Only operators whose disclosures cover their own tenant footprint are compared; landlords whose capacity is tracked under their tenants are excluded to avoid double-attribution. Bases may differ between the two sides.';
 })();
 
 // ---- Tabs ----
