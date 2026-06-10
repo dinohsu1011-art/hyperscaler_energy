@@ -1,0 +1,1377 @@
+rows:
+  - signal_id: PBS001
+    campus_id: C059
+    reporting_company: Amazon/AWS
+    company_bucket: hyperscaler_ai_lab
+    ticker: AMZN
+    counterparty: Anthropic
+    project_name: Project Rainier
+    geography: United States
+    claim_type: current_active_capacity
+    status_stage: active
+    capacity_basis: Not-capacity
+    metric_value: 1
+    metric_unit: cluster
+    as_of_date: 2026-05-14
+    source_quote: "now fully operational"
+    notes: "Official AWS source says Project Rainier is in use; this proves live cluster status, not MW."
+    source_id: S394
+  - signal_id: PBS002
+    campus_id: C059
+    reporting_company: Amazon/AWS
+    company_bucket: hyperscaler_ai_lab
+    ticker: AMZN
+    counterparty: Anthropic
+    project_name: Project Rainier
+    geography: United States
+    claim_type: gpu_or_chip_count
+    status_stage: active
+    capacity_basis: Chip-count
+    metric_value: 500000
+    metric_unit: chips
+    as_of_date: 2026-02-05
+    source_quote: "500,000+ Trainium2 chips"
+    notes: "Reported as 500,000+; stored as lower-bound chip count for the operational Rainier cluster."
+    source_id: S393
+  - signal_id: PBS003
+    reporting_company: Anthropic
+    company_bucket: hyperscaler_ai_lab
+    counterparty: Amazon/AWS
+    project_name: Claude on AWS Trainium
+    geography: Global
+    claim_type: gpu_or_chip_count
+    status_stage: active
+    capacity_basis: Chip-count
+    metric_value: 1000000
+    metric_unit: chips
+    as_of_date: 2026-04-20
+    source_quote: "over one million Trainium2 chips"
+    notes: "Reported as over 1 million chips currently used by Anthropic to train and serve Claude."
+    source_id: S395
+  - signal_id: PBS004
+    reporting_company: Anthropic
+    company_bucket: hyperscaler_ai_lab
+    counterparty: Amazon/AWS
+    project_name: Anthropic AWS capacity agreement
+    geography: Global
+    claim_type: secured_capacity
+    status_stage: secured
+    capacity_basis: Contracted-power
+    metric_value: 5
+    metric_unit: GW
+    as_of_date: 2026-04-20
+    source_quote: "up to 5 gigawatts"
+    notes: "Secured capacity, not online capacity; spans a ten-year AWS technology commitment."
+    source_id: S395
+  - signal_id: PBS005
+    reporting_company: Anthropic
+    company_bucket: hyperscaler_ai_lab
+    counterparty: Amazon/AWS
+    project_name: Anthropic AWS capacity agreement
+    geography: Global
+    claim_type: under_construction_capacity
+    status_stage: future_target
+    capacity_basis: Contracted-power
+    metric_value: 1
+    metric_unit: GW
+    as_of_date: 2026-04-20
+    expected_online_date: 2026-12-31
+    source_quote: "nearly 1GW in total"
+    notes: "Reported as nearly 1 GW by year-end 2026; stored as lower-bound magnitude and not counted as active."
+    source_id: S395
+  - signal_id: PBS006
+    reporting_company: CoreWeave
+    company_bucket: neocloud_operator
+    ticker: CRWV
+    project_name: CoreWeave AI cloud footprint
+    geography: Global
+    claim_type: current_active_capacity
+    status_stage: active
+    capacity_basis: Active-power
+    metric_value: 850
+    metric_unit: MW
+    as_of_date: 2025-12-31
+    source_quote: "more than 850 MW"
+    notes: "CoreWeave active power capacity after adding about 260 MW in Q4 2025."
+    source_id: S396
+  - signal_id: PBS007
+    reporting_company: CoreWeave
+    company_bucket: neocloud_operator
+    ticker: CRWV
+    project_name: CoreWeave AI cloud footprint
+    geography: Global
+    claim_type: contracted_capacity
+    status_stage: contracted
+    capacity_basis: Contracted-power
+    metric_value: 3100
+    metric_unit: MW
+    as_of_date: 2025-12-31
+    source_quote: "approximately 3.1 GW"
+    notes: "Total contracted power, not active capacity."
+    source_id: S396
+  - signal_id: PBS008
+    reporting_company: CoreWeave
+    company_bucket: neocloud_operator
+    ticker: CRWV
+    project_name: CoreWeave customer contracts
+    geography: Global
+    claim_type: rpo_or_revenue_backlog
+    status_stage: backlog
+    capacity_basis: Revenue-backlog
+    metric_value: 66.8
+    metric_unit: USD_b
+    as_of_date: 2025-12-31
+    source_quote: "$66.8 billion"
+    notes: "Revenue backlog includes RPO plus other estimated future revenue under committed contracts."
+    source_id: S396
+  - signal_id: PBS009
+    reporting_company: CoreWeave
+    company_bucket: neocloud_operator
+    ticker: CRWV
+    project_name: CoreWeave customer contracts
+    geography: Global
+    claim_type: rpo_or_revenue_backlog
+    status_stage: backlog
+    capacity_basis: Revenue-backlog
+    metric_value: 60.7
+    metric_unit: USD_b
+    as_of_date: 2025-12-31
+    source_quote: "$60.7 billion of RPO"
+    notes: "SEC filing RPO excludes other amounts included in CoreWeave's broader revenue-backlog figure."
+    source_id: S397
+  - signal_id: PBS010
+    campus_id: C074
+    reporting_company: Core Scientific
+    company_bucket: neocloud_operator
+    ticker: CORZ
+    counterparty: CoreWeave
+    project_name: CoreWeave contracted sites
+    geography: United States
+    claim_type: billable_capacity
+    status_stage: billable
+    capacity_basis: Billable-critical-IT
+    metric_value: 185
+    metric_unit: MW
+    as_of_date: 2026-03-02
+    source_quote: "185+ MW"
+    notes: "Billable capacity delivered to date; lower-bound value."
+    source_id: S398
+  - signal_id: PBS011
+    campus_id: C074
+    reporting_company: Core Scientific
+    company_bucket: neocloud_operator
+    ticker: CORZ
+    counterparty: CoreWeave
+    project_name: CoreWeave contracted sites
+    geography: United States
+    claim_type: connected_capacity
+    status_stage: connected
+    capacity_basis: Energized-power
+    metric_value: 350
+    metric_unit: MW
+    as_of_date: 2026-03-02
+    source_quote: "350 MW"
+    notes: "Energized-to-date figure from construction update; do not treat as billable IT load."
+    source_id: S398
+  - signal_id: PBS012
+    campus_id: C074
+    reporting_company: Core Scientific
+    company_bucket: neocloud_operator
+    ticker: CORZ
+    counterparty: CoreWeave
+    project_name: CoreWeave contracted sites
+    geography: United States
+    claim_type: contracted_capacity
+    status_stage: contracted
+    capacity_basis: Critical-IT
+    metric_value: 590
+    metric_unit: MW
+    as_of_date: 2026-03-02
+    source_quote: "Total leased power"
+    notes: "Customer leased power capacity across five CoreWeave sites."
+    source_id: S398
+  - signal_id: PBS013
+    reporting_company: Core Scientific
+    company_bucket: neocloud_operator
+    ticker: CORZ
+    project_name: Customer leasable power pipeline
+    geography: United States
+    claim_type: announced_future_capacity
+    status_stage: planned
+    capacity_basis: Critical-IT
+    metric_value: 1500
+    metric_unit: MW
+    as_of_date: 2026-03-02
+    source_quote: "about 1.5 GW"
+    notes: "Total leasable customer power pipeline; excludes about 590 MW of already contracted power per company deck."
+    source_id: S398
+  - signal_id: PBS014
+    campus_id: C074
+    reporting_company: Core Scientific
+    company_bucket: neocloud_operator
+    ticker: CORZ
+    counterparty: CoreWeave
+    project_name: CoreWeave contracted sites
+    geography: United States
+    claim_type: gpu_or_chip_count
+    status_stage: under_construction
+    capacity_basis: Chip-count
+    metric_value: 65000
+    metric_unit: GPUs
+    as_of_date: 2026-03-02
+    source_quote: "65K+"
+    notes: "Customer GPUs supported by constructed shells; lower-bound count."
+    source_id: S398
+  - signal_id: PBS015
+    reporting_company: IREN
+    company_bucket: neocloud_operator
+    ticker: IREN
+    counterparty: Microsoft
+    project_name: Microsoft GPU cloud services contract
+    geography: Childress, Texas
+    claim_type: contract_value
+    status_stage: contracted
+    capacity_basis: Contract-value
+    metric_value: 9.7
+    metric_unit: USD_b
+    as_of_date: 2025-11-03
+    source_quote: "$9.7 billion"
+    notes: "Five-year Microsoft GPU cloud services contract value including 20% prepayment."
+    source_id: S399
+  - signal_id: PBS016
+    reporting_company: IREN
+    company_bucket: neocloud_operator
+    ticker: IREN
+    counterparty: Microsoft
+    project_name: Childress Horizon 1-4
+    geography: Childress, Texas
+    claim_type: under_construction_capacity
+    status_stage: under_construction
+    capacity_basis: Critical-IT
+    metric_value: 200
+    metric_unit: MW
+    as_of_date: 2025-11-03
+    expected_online_date: 2026-12-31
+    source_quote: "200MW of critical IT load"
+    notes: "Liquid-cooled data centers supporting phased Microsoft GB300 deployments through 2026."
+    source_id: S399
+  - signal_id: PBS017
+    reporting_company: IREN
+    company_bucket: neocloud_operator
+    ticker: IREN
+    project_name: North America secured power portfolio
+    geography: North America
+    claim_type: secured_capacity
+    status_stage: secured
+    capacity_basis: Contracted-power
+    metric_value: 3000
+    metric_unit: MW
+    as_of_date: 2025-11-03
+    source_quote: "3GW secured power portfolio"
+    notes: "Portfolio-level secured power; not active AI cloud capacity."
+    source_id: S399
+  - signal_id: PBS018
+    reporting_company: IREN
+    company_bucket: neocloud_operator
+    ticker: IREN
+    project_name: 2026 AI cloud expansion
+    geography: United States
+    claim_type: under_construction_capacity
+    status_stage: under_construction
+    capacity_basis: Critical-IT
+    metric_value: 480
+    metric_unit: MW
+    as_of_date: 2026-03-31
+    expected_online_date: 2026-12-31
+    source_quote: "480MW on track"
+    notes: "Operational capacity described as fully contracted in Q3 FY26 update."
+    source_id: S400
+  - signal_id: PBS019
+    reporting_company: IREN
+    company_bucket: neocloud_operator
+    ticker: IREN
+    project_name: 2027 AI cloud expansion
+    geography: United States
+    claim_type: under_construction_capacity
+    status_stage: under_construction
+    capacity_basis: Critical-IT
+    metric_value: 1210
+    metric_unit: MW
+    as_of_date: 2026-03-31
+    expected_online_date: 2027-12-31
+    source_quote: "1,210MW in build"
+    notes: "Includes Childress Horizons 5-6, Childress air-cooled capacity, and Sweetwater 1 initial phase."
+    source_id: S400
+  - signal_id: PBS020
+    campus_id: C073
+    reporting_company: Applied Digital
+    company_bucket: neocloud_operator
+    ticker: APLD
+    project_name: Polaris Forge 1
+    geography: Ellendale, North Dakota
+    claim_type: current_active_capacity
+    status_stage: active
+    capacity_basis: Critical-IT
+    metric_value: 100
+    metric_unit: MW
+    as_of_date: 2026-04
+    source_quote: "100 MW Operating Capacity"
+    notes: "Site-level operating critical IT load disclosed for Polaris Forge 1."
+    source_id: S401
+  - signal_id: PBS021
+    reporting_company: Applied Digital
+    company_bucket: neocloud_operator
+    ticker: APLD
+    project_name: AI data center sites
+    geography: United States
+    claim_type: under_construction_capacity
+    status_stage: under_construction
+    capacity_basis: Critical-IT
+    metric_value: 900
+    metric_unit: MW
+    as_of_date: 2026-04
+    source_quote: "900 MW Critical IT"
+    notes: "Critical IT load under construction across PF1, PF2, and DF1."
+    source_id: S401
+  - signal_id: PBS022
+    reporting_company: Applied Digital
+    company_bucket: neocloud_operator
+    ticker: APLD
+    project_name: AI data center leases
+    geography: United States
+    claim_type: contracted_capacity
+    status_stage: contracted
+    capacity_basis: Critical-IT
+    metric_value: 900
+    metric_unit: MW
+    as_of_date: 2026-04
+    source_quote: "900 MW is fully contracted"
+    notes: "Seven long-term leases across three campuses with three hyperscalers."
+    source_id: S401
+  - signal_id: PBS023
+    reporting_company: Applied Digital
+    company_bucket: neocloud_operator
+    ticker: APLD
+    project_name: Active pipeline sites
+    geography: United States
+    claim_type: announced_future_capacity
+    status_stage: planned
+    capacity_basis: Utility-capacity
+    metric_value: 3500
+    metric_unit: MW
+    as_of_date: 2026-04
+    source_quote: "about 3.5 GW"
+    notes: "Utility-power active pipeline; includes sites under control or utility agreements, not built IT load."
+    source_id: S401
+  - signal_id: PBS024
+    reporting_company: TeraWulf
+    company_bucket: neocloud_operator
+    ticker: WULF
+    counterparty: Fluidstack
+    project_name: Lake Mariner
+    geography: Barker, New York
+    claim_type: contracted_capacity
+    status_stage: contracted
+    capacity_basis: Critical-IT
+    metric_value: 200
+    metric_unit: MW
+    as_of_date: 2025-08-14
+    expected_online_date: 2026-12-31
+    source_quote: "more than 200 MW"
+    notes: "Fluidstack 10-year HPC colocation agreements; stored as lower-bound critical IT load."
+    source_id: S402
+  - signal_id: PBS025
+    reporting_company: TeraWulf
+    company_bucket: neocloud_operator
+    ticker: WULF
+    counterparty: Fluidstack
+    project_name: Lake Mariner
+    geography: Barker, New York
+    claim_type: contracted_capacity
+    status_stage: contracted
+    capacity_basis: Gross-power
+    metric_value: 250
+    metric_unit: MW
+    as_of_date: 2025-08-14
+    expected_online_date: 2026-12-31
+    source_quote: "about 250 MW"
+    notes: "Gross-capacity equivalent for the same Fluidstack deal; keep separate from critical IT load."
+    source_id: S402
+  - signal_id: PBS026
+    reporting_company: TeraWulf
+    company_bucket: neocloud_operator
+    ticker: WULF
+    counterparty: Fluidstack
+    project_name: Lake Mariner phase one
+    geography: Barker, New York
+    claim_type: under_construction_capacity
+    status_stage: under_construction
+    capacity_basis: Critical-IT
+    metric_value: 40
+    metric_unit: MW
+    as_of_date: 2025-08-14
+    expected_online_date: 2026-H1
+    source_quote: "approximately 40 MW"
+    notes: "Phase-one critical IT load expected online in the first half of 2026."
+    source_id: S402
+  - signal_id: PBS027
+    reporting_company: TeraWulf
+    company_bucket: neocloud_operator
+    ticker: WULF
+    project_name: Lake Mariner
+    geography: Barker, New York
+    claim_type: connected_capacity
+    status_stage: connected
+    capacity_basis: Critical-IT
+    metric_value: 60
+    metric_unit: MW
+    as_of_date: 2026-03-31
+    source_quote: "60 critical IT MW"
+    notes: "Energized HPC leasing capacity at Lake Mariner as of March 31, 2026."
+    source_id: S403
+  - signal_id: PBS028
+    reporting_company: TeraWulf
+    company_bucket: neocloud_operator
+    ticker: WULF
+    project_name: Lake Mariner
+    geography: Barker, New York
+    claim_type: contracted_capacity
+    status_stage: contracted
+    capacity_basis: Critical-IT
+    metric_value: 438
+    metric_unit: MW
+    as_of_date: 2026-03-31
+    source_quote: "438 MW"
+    notes: "La Lupa plus Akela contracted critical IT HPC capacity at Lake Mariner."
+    source_id: S403
+  - signal_id: PBS029
+    reporting_company: TeraWulf
+    company_bucket: neocloud_operator
+    ticker: WULF
+    counterparty: Fluidstack
+    project_name: Abernathy HPC Campus
+    geography: Abernathy, Texas
+    claim_type: contracted_capacity
+    status_stage: contracted
+    capacity_basis: Critical-IT
+    metric_value: 168
+    metric_unit: MW
+    as_of_date: 2026-03-31
+    expected_online_date: 2026-H2
+    source_quote: "168 MW critical IT load"
+    notes: "Abernathy full build-out is fully pre-leased to Fluidstack USA III."
+    source_id: S403
+  - signal_id: PBS030
+    reporting_company: Nebius
+    company_bucket: neocloud_operator
+    ticker: NBIS
+    project_name: Global AI cloud platform
+    geography: Global
+    claim_type: current_active_capacity
+    status_stage: active
+    capacity_basis: Active-power
+    metric_value: 170
+    metric_unit: MW
+    as_of_date: 2025-12-31
+    source_quote: "about 170 MW"
+    notes: "Active power being consumed by IT equipment, per Nebius definition."
+    source_id: S404
+  - signal_id: PBS031
+    reporting_company: Nebius
+    company_bucket: neocloud_operator
+    ticker: NBIS
+    project_name: Global AI cloud platform
+    geography: Global
+    claim_type: contracted_capacity
+    status_stage: contracted
+    capacity_basis: Contracted-power
+    metric_value: 2000
+    metric_unit: MW
+    as_of_date: 2026-02-12
+    source_quote: "more than 2 GW"
+    notes: "Contracted power secured by contracts; stored as lower-bound value."
+    source_id: S404
+  - signal_id: PBS032
+    reporting_company: Nebius
+    company_bucket: neocloud_operator
+    ticker: NBIS
+    project_name: 2026 contracted-power target
+    geography: Global
+    claim_type: announced_future_capacity
+    status_stage: future_target
+    capacity_basis: Contracted-power
+    metric_value: 3000
+    metric_unit: MW
+    as_of_date: 2026-02-12
+    expected_online_date: 2026-12-31
+    source_quote: "more than 3 GW"
+    notes: "Year-end 2026 contracted-power target; not connected or active power."
+    source_id: S404
+  - signal_id: PBS033
+    reporting_company: Nebius
+    company_bucket: neocloud_operator
+    ticker: NBIS
+    project_name: 2026 connected-power target
+    geography: Global
+    claim_type: connected_capacity
+    status_stage: future_target
+    capacity_basis: Connected-power
+    metric_value: 800
+    metric_unit: MW
+    as_of_date: 2026-02-12
+    expected_online_date: 2026-12-31
+    source_quote: "800 MW to 1 GW"
+    notes: "Range stored as lower bound; connected power means power connected into data centers."
+    source_id: S404
+  - signal_id: PBS034
+    reporting_company: Nebius
+    company_bucket: neocloud_operator
+    ticker: NBIS
+    counterparty: Microsoft
+    project_name: Microsoft capacity delivery
+    geography: United States
+    claim_type: delivered_capacity
+    status_stage: delivered
+    capacity_basis: Not-capacity
+    as_of_date: 2025-11
+    source_quote: "first tranche of capacity"
+    notes: "First tranche to Microsoft delivered on time; no MW disclosed in this source excerpt."
+    source_id: S404
+  - signal_id: PBS035
+    reporting_company: Nebius
+    company_bucket: neocloud_operator
+    ticker: NBIS
+    project_name: Core AI cloud business
+    geography: Global
+    claim_type: utilization_or_sold_out
+    status_stage: constraint
+    capacity_basis: Not-capacity
+    as_of_date: 2025-12-31
+    source_quote: "sold out of capacity"
+    notes: "Management said demand exceeded capacity and the core AI cloud business was sold out in Q4 2025."
+    source_id: S404
+  - signal_id: PBS036
+    campus_id: C080
+    reporting_company: Nebius
+    company_bucket: neocloud_operator
+    ticker: NBIS
+    project_name: Lappeenranta AI factory
+    geography: Lappeenranta, Finland
+    claim_type: under_construction_capacity
+    status_stage: under_construction
+    capacity_basis: Critical-IT
+    metric_value: 310
+    metric_unit: MW
+    as_of_date: 2026-03-31
+    expected_online_date: 2027
+    source_quote: "up to 310 MW"
+    notes: "New AI factory; first capacity expected to be available to customers in 2027."
+    source_id: S406
+  - signal_id: PBS037
+    campus_id: C079
+    reporting_company: Nebius
+    company_bucket: neocloud_operator
+    ticker: NBIS
+    project_name: Mantsala data center
+    geography: Mantsala, Finland
+    claim_type: delivered_capacity
+    status_stage: delivered
+    capacity_basis: Critical-IT
+    metric_value: 75
+    metric_unit: MW
+    as_of_date: 2026-03-31
+    source_quote: "up to 75 MW"
+    notes: "Expansion of Nebius's first Finnish data center completed earlier in 2026."
+    source_id: S406
+  - signal_id: PBS038
+    reporting_company: Nebius
+    company_bucket: neocloud_operator
+    ticker: NBIS
+    counterparty: NVIDIA
+    project_name: NVIDIA systems partnership
+    geography: Global
+    claim_type: announced_future_capacity
+    status_stage: future_target
+    capacity_basis: Contracted-power
+    metric_value: 5
+    metric_unit: GW
+    as_of_date: 2026-03-11
+    expected_online_date: 2030-12-31
+    source_quote: "more than 5 gigawatts"
+    notes: "Strategic partnership target for NVIDIA systems by end of 2030."
+    source_id: S405
+  - signal_id: PBS039
+    campus_id: C067
+    reporting_company: Galaxy Digital
+    company_bucket: neocloud_operator
+    ticker: GLXY
+    counterparty: CoreWeave
+    project_name: Helios Phase I
+    geography: West Texas
+    claim_type: delivered_capacity
+    status_stage: delivered
+    capacity_basis: Not-capacity
+    metric_value: 1
+    metric_unit: data_halls
+    as_of_date: 2026-04
+    source_quote: "first data hall"
+    notes: "First Helios data hall delivered to CoreWeave; transition to revenue-generating operations."
+    source_id: S407
+  - signal_id: PBS040
+    campus_id: C067
+    reporting_company: Galaxy Digital
+    company_bucket: neocloud_operator
+    ticker: GLXY
+    counterparty: CoreWeave
+    project_name: Helios Phase I
+    geography: West Texas
+    claim_type: under_construction_capacity
+    status_stage: under_construction
+    capacity_basis: Critical-IT
+    metric_value: 133
+    metric_unit: MW
+    as_of_date: 2026-04-28
+    expected_online_date: 2026-Q2
+    source_quote: "133 megawatts"
+    notes: "Galaxy remained on schedule to deliver substantially all Phase I critical IT load by end of Q2 2026."
+    source_id: S407
+  - signal_id: PBS041
+    campus_id: C067
+    reporting_company: Galaxy Digital
+    company_bucket: neocloud_operator
+    ticker: GLXY
+    counterparty: CoreWeave
+    project_name: Helios CoreWeave leases
+    geography: West Texas
+    claim_type: contracted_capacity
+    status_stage: contracted
+    capacity_basis: Critical-IT
+    metric_value: 526
+    metric_unit: MW
+    as_of_date: 2026-04-28
+    source_quote: "526MW"
+    notes: "Critical IT load across CoreWeave lease phases I, II, and III."
+    source_id: S407
+  - signal_id: PBS042
+    campus_id: C067
+    reporting_company: Galaxy Digital
+    company_bucket: neocloud_operator
+    ticker: GLXY
+    counterparty: CoreWeave
+    project_name: Helios CoreWeave leases
+    geography: West Texas
+    claim_type: contracted_capacity
+    status_stage: contracted
+    capacity_basis: Gross-power
+    metric_value: 800
+    metric_unit: MW
+    as_of_date: 2026-04-28
+    source_quote: "800MW"
+    notes: "Gross power capacity for CoreWeave leases; do not add to 526 MW critical IT load."
+    source_id: S407
+  - signal_id: PBS043
+    campus_id: C067
+    reporting_company: Galaxy Digital
+    company_bucket: neocloud_operator
+    ticker: GLXY
+    project_name: Helios campus
+    geography: West Texas
+    claim_type: secured_capacity
+    status_stage: secured
+    capacity_basis: Gross-power
+    metric_value: 1630
+    metric_unit: MW
+    as_of_date: 2026-04-28
+    source_quote: "1.63GW"
+    notes: "Total approved gross power capacity after ERCOT approval; includes uncontracted capacity."
+    source_id: S407
+  - signal_id: PBS044
+    reporting_company: Hut 8
+    company_bucket: neocloud_operator
+    ticker: HUT
+    counterparty: Anthropic / Fluidstack
+    project_name: River Bend
+    geography: Louisiana
+    claim_type: under_construction_capacity
+    status_stage: under_construction
+    capacity_basis: Critical-IT
+    metric_value: 245
+    metric_unit: MW
+    as_of_date: 2025-12-17
+    expected_online_date: 2027-H1
+    source_quote: "245 MW of IT capacity"
+    notes: "Initial River Bend tranche to be developed by Hut 8 and Fluidstack."
+    source_id: S408
+  - signal_id: PBS045
+    reporting_company: Hut 8
+    company_bucket: neocloud_operator
+    ticker: HUT
+    counterparty: Anthropic / Fluidstack
+    project_name: River Bend
+    geography: Louisiana
+    claim_type: under_construction_capacity
+    status_stage: under_construction
+    capacity_basis: Utility-capacity
+    metric_value: 330
+    metric_unit: MW
+    as_of_date: 2025-12-17
+    expected_online_date: 2027-H1
+    source_quote: "330 MW"
+    notes: "Utility capacity supporting the initial 245 MW IT-capacity tranche."
+    source_id: S408
+  - signal_id: PBS046
+    reporting_company: Hut 8
+    company_bucket: neocloud_operator
+    ticker: HUT
+    counterparty: Anthropic / Fluidstack
+    project_name: River Bend ROFO
+    geography: Louisiana
+    claim_type: announced_future_capacity
+    status_stage: planned
+    capacity_basis: Critical-IT
+    metric_value: 1000
+    metric_unit: MW
+    as_of_date: 2025-12-17
+    source_quote: "up to 1,000 MW"
+    notes: "Right of first offer for additional IT capacity, subject to power expansion."
+    source_id: S408
+  - signal_id: PBS047
+    reporting_company: Hut 8
+    company_bucket: neocloud_operator
+    ticker: HUT
+    counterparty: Anthropic
+    project_name: Hut 8 development pipeline
+    geography: United States and Canada
+    claim_type: announced_future_capacity
+    status_stage: planned
+    capacity_basis: Critical-IT
+    metric_value: 1050
+    metric_unit: MW
+    as_of_date: 2025-12-17
+    source_quote: "up to 1,050 MW"
+    notes: "Optional additional capacity beyond River Bend; treat as low-conviction announced future capacity."
+    source_id: S408
+  - signal_id: PBS048
+    campus_id: C044
+    reporting_company: Crusoe
+    company_bucket: neocloud_operator
+    counterparty: OpenAI / Oracle
+    project_name: Abilene AI data center
+    geography: Abilene, Texas
+    claim_type: under_construction_capacity
+    status_stage: under_construction
+    capacity_basis: Gross-power
+    metric_value: 1200
+    metric_unit: MW
+    as_of_date: 2025-05-21
+    expected_online_date: 2026-H1
+    source_quote: "1.2 gigawatt"
+    notes: "Second phase announced and under construction; capacity basis is project scale, not critical IT load."
+    source_id: S409
+  - signal_id: PBS049
+    campus_id: C044
+    reporting_company: Crusoe
+    company_bucket: neocloud_operator
+    counterparty: OpenAI / Oracle
+    project_name: Abilene first phase
+    geography: Abilene, Texas
+    claim_type: under_construction_capacity
+    status_stage: under_construction
+    capacity_basis: Gross-power
+    metric_value: 200
+    metric_unit: MW
+    as_of_date: 2025-05-21
+    expected_online_date: 2025-H1
+    source_quote: "200+ megawatts"
+    notes: "First phase of two buildings; source said expected to be energized in first half 2025."
+    source_id: S409
+  - signal_id: PBS050
+    campus_id: C044
+    reporting_company: Crusoe
+    company_bucket: neocloud_operator
+    counterparty: OpenAI / Oracle
+    project_name: Abilene first phase
+    geography: Abilene, Texas
+    claim_type: current_active_capacity
+    status_stage: active
+    capacity_basis: Not-capacity
+    as_of_date: 2025-09-30
+    source_quote: "first phase live"
+    notes: "Crusoe later announced the first phase live, with early workloads running; source does not disclose active MW."
+    source_id: S386
+  - signal_id: PBS051
+    reporting_company: OpenAI
+    company_bucket: hyperscaler_ai_lab
+    counterparty: Oracle
+    project_name: Stargate Oracle expansion
+    geography: United States
+    claim_type: announced_future_capacity
+    status_stage: planned
+    capacity_basis: Gross-power
+    metric_value: 4.5
+    metric_unit: GW
+    as_of_date: 2025-07-22
+    source_quote: "4.5 gigawatts"
+    notes: "Additional Stargate data-center capacity agreement; not active capacity."
+    source_id: S410
+  - signal_id: PBS052
+    reporting_company: OpenAI
+    company_bucket: hyperscaler_ai_lab
+    counterparty: Oracle
+    project_name: Stargate U.S. platform
+    geography: United States
+    claim_type: under_construction_capacity
+    status_stage: under_construction
+    capacity_basis: Gross-power
+    metric_value: 5
+    metric_unit: GW
+    as_of_date: 2025-07-22
+    source_quote: "over 5 gigawatts"
+    notes: "Lower-bound aggregate for Stargate AI data-center capacity under development, including Abilene and Oracle expansion."
+    source_id: S410
+  - signal_id: PBS053
+    campus_id: C044
+    reporting_company: OpenAI
+    company_bucket: hyperscaler_ai_lab
+    counterparty: Oracle
+    project_name: Stargate I Abilene
+    geography: Abilene, Texas
+    claim_type: current_active_capacity
+    status_stage: active
+    capacity_basis: Not-capacity
+    as_of_date: 2025-07-22
+    source_quote: "parts of the facility are now up and running"
+    notes: "OpenAI says early training and inference workloads had begun; source does not disclose active MW."
+    source_id: S410
+  - signal_id: PBS054
+    reporting_company: OpenAI
+    company_bucket: hyperscaler_ai_lab
+    counterparty: Oracle
+    project_name: Stargate U.S. platform
+    geography: United States
+    claim_type: gpu_or_chip_count
+    status_stage: future_target
+    capacity_basis: Chip-count
+    metric_value: 2000000
+    metric_unit: chips
+    as_of_date: 2025-07-22
+    source_quote: "over 2 million chips"
+    notes: "Lower-bound chip count tied to over 5 GW of Stargate AI data-center capacity under development."
+    source_id: S410
+  - signal_id: PBS055
+    campus_id: C045
+    reporting_company: OpenAI
+    company_bucket: hyperscaler_ai_lab
+    counterparty: G42 / Oracle / NVIDIA / Cisco / SoftBank
+    project_name: Stargate UAE
+    geography: Abu Dhabi, United Arab Emirates
+    claim_type: announced_future_capacity
+    status_stage: planned
+    capacity_basis: Gross-power
+    metric_value: 1
+    metric_unit: GW
+    as_of_date: 2025-05-22
+    source_quote: "1GW Stargate UAE cluster"
+    notes: "International Stargate cluster envelope; not active capacity."
+    source_id: S411
+  - signal_id: PBS056
+    campus_id: C045
+    reporting_company: OpenAI
+    company_bucket: hyperscaler_ai_lab
+    counterparty: G42 / Oracle / NVIDIA / Cisco / SoftBank
+    project_name: Stargate UAE first live tranche
+    geography: Abu Dhabi, United Arab Emirates
+    claim_type: under_construction_capacity
+    status_stage: future_target
+    capacity_basis: Gross-power
+    metric_value: 200
+    metric_unit: MW
+    as_of_date: 2025-05-22
+    expected_online_date: 2026
+    source_quote: "200MW expected to go live in 2026"
+    notes: "Timing target for first Stargate UAE live tranche; do not count as current active capacity."
+    source_id: S411
+  - signal_id: PBS057
+    reporting_company: OpenAI
+    company_bucket: hyperscaler_ai_lab
+    project_name: Stargate secured U.S. capacity
+    geography: United States
+    claim_type: secured_capacity
+    status_stage: secured
+    capacity_basis: Gross-power
+    metric_value: 10
+    metric_unit: GW
+    as_of_date: 2026-04-29
+    source_quote: "surpassed that milestone"
+    notes: "Lower-bound secured-capacity signal because OpenAI says the original 10 GW U.S. infrastructure milestone has been surpassed."
+    source_id: S412
+  - signal_id: PBS058
+    campus_id: C001
+    reporting_company: Microsoft
+    company_bucket: hyperscaler_ai_lab
+    ticker: MSFT
+    project_name: Fairwater Wisconsin
+    geography: Mount Pleasant, Wisconsin
+    claim_type: under_construction_capacity
+    status_stage: future_target
+    capacity_basis: Gross-power
+    metric_value: 2
+    metric_unit: GW
+    as_of_date: 2025-10
+    expected_online_date: 2026
+    source_quote: "scale to two gigawatts alone"
+    notes: "Microsoft earnings-call disclosure for Fairwater; future scale, not current active capacity."
+    source_id: S413
+  - signal_id: PBS059
+    campus_id: C001
+    reporting_company: Microsoft
+    company_bucket: hyperscaler_ai_lab
+    ticker: MSFT
+    project_name: Fairwater Wisconsin
+    geography: Mount Pleasant, Wisconsin
+    claim_type: ramp_or_rfs_date
+    status_stage: future_target
+    capacity_basis: Date
+    as_of_date: 2025-09-18
+    expected_online_date: 2026-H1
+    source_quote: "online in early 2026"
+    notes: "RFS timing for Microsoft's Mount Pleasant AI data center; no MW in this source row."
+    source_id: S414
+  - signal_id: PBS060
+    campus_id: C030
+    reporting_company: Meta
+    company_bucket: hyperscaler_ai_lab
+    ticker: META
+    project_name: Lebanon data center
+    geography: Lebanon, Indiana
+    claim_type: under_construction_capacity
+    status_stage: planned
+    capacity_basis: Gross-power
+    metric_value: 1
+    metric_unit: GW
+    as_of_date: 2026-02-11
+    source_quote: "designed to deliver 1GW"
+    notes: "Meta broke ground on the Lebanon campus; one-gigawatt capacity applies once operational."
+    source_id: S415
+  - signal_id: PBS061
+    campus_id: C029
+    reporting_company: Meta
+    company_bucket: hyperscaler_ai_lab
+    ticker: META
+    project_name: El Paso data center
+    geography: El Paso, Texas
+    claim_type: under_construction_capacity
+    status_stage: planned
+    capacity_basis: Gross-power
+    metric_value: 1
+    metric_unit: GW
+    as_of_date: 2026-03-26
+    source_quote: "grow to 1 gigawatt"
+    notes: "Meta update says the El Paso AI-focused data center will grow to 1 GW; not active capacity."
+    source_id: S416
+  - signal_id: PBS062
+    reporting_company: Meta
+    company_bucket: hyperscaler_ai_lab
+    ticker: META
+    project_name: Texas clean-energy contracts
+    geography: Texas
+    claim_type: buildout_constraints
+    status_stage: secured
+    capacity_basis: Utility-capacity
+    metric_value: 5000
+    metric_unit: MW
+    as_of_date: 2026-03-26
+    source_quote: "5,000 megawatts of clean energy"
+    notes: "Power-supply support for Texas data-center growth; do not treat as data-center IT load."
+    source_id: S416
+  - signal_id: PBS063
+    campus_id: C044
+    reporting_company: Oracle
+    company_bucket: hyperscaler_ai_lab
+    ticker: ORCL
+    counterparty: OpenAI
+    project_name: OCI Zettascale10
+    geography: Abilene, Texas
+    claim_type: announced_future_capacity
+    status_stage: planned
+    capacity_basis: Gross-power
+    as_of_date: 2025-10-14
+    source_quote: "multi-gigawatt AI capacity"
+    notes: "Oracle describes Zettascale10 capacity as multi-gigawatt but does not provide a precise MW figure in this row."
+    source_id: S417
+  - signal_id: PBS064
+    campus_id: C044
+    reporting_company: Oracle
+    company_bucket: hyperscaler_ai_lab
+    ticker: ORCL
+    counterparty: OpenAI
+    project_name: OCI Zettascale10
+    geography: Global
+    claim_type: gpu_or_chip_count
+    status_stage: future_target
+    capacity_basis: Chip-count
+    metric_value: 800000
+    metric_unit: GPUs
+    as_of_date: 2025-10-14
+    source_quote: "up to 800,000 NVIDIA GPUs"
+    notes: "Initial Zettascale10 deployment target; planned GPU count, not deployed active capacity."
+    source_id: S417
+  - signal_id: PBS065
+    reporting_company: Oracle
+    company_bucket: hyperscaler_ai_lab
+    ticker: ORCL
+    counterparty: OpenAI
+    project_name: OpenAI AI infrastructure campuses
+    geography: Texas / New Mexico / Wisconsin / Michigan
+    claim_type: site_count
+    status_stage: under_construction
+    capacity_basis: Data-center-count
+    metric_value: 5
+    metric_unit: sites
+    as_of_date: 2026-01-26
+    source_quote: "two campuses in Texas and sites in New Mexico, Wisconsin, and Michigan"
+    notes: "Oracle disclosure of active project footprint with OpenAI; counts campuses/sites, not MW."
+    source_id: S418
+  - signal_id: PBS066
+    reporting_company: Amazon/AWS
+    company_bucket: hyperscaler_ai_lab
+    ticker: AMZN
+    counterparty: OpenAI
+    project_name: OpenAI Trainium capacity commitment
+    geography: Global
+    claim_type: contracted_capacity
+    status_stage: contracted
+    capacity_basis: Contracted-power
+    metric_value: 2
+    metric_unit: GW
+    as_of_date: 2026-03-31
+    expected_online_date: 2027
+    source_quote: "approximately two gigawatts"
+    notes: "OpenAI commitment to consume AWS Trainium capacity begins ramping in 2027; not current active capacity."
+    source_id: S419
+  - signal_id: PBS067
+    reporting_company: Amazon/AWS
+    company_bucket: hyperscaler_ai_lab
+    ticker: AMZN
+    counterparty: Anthropic
+    project_name: Anthropic Trainium commitment
+    geography: Global
+    claim_type: secured_capacity
+    status_stage: secured
+    capacity_basis: Contracted-power
+    metric_value: 5
+    metric_unit: GW
+    as_of_date: 2026-03-31
+    source_quote: "up to five gigawatts"
+    notes: "AWS official corroboration of Anthropic Trainium commitment; current and future generations."
+    source_id: S419
+  - signal_id: PBS068
+    reporting_company: Amazon/AWS
+    company_bucket: hyperscaler_ai_lab
+    ticker: AMZN
+    project_name: AWS AI chip landings
+    geography: Global
+    claim_type: gpu_or_chip_count
+    status_stage: delivered
+    capacity_basis: Chip-count
+    metric_value: 2100000
+    metric_unit: chips
+    as_of_date: 2026-03-31
+    source_quote: "2.1 million+ AI chips"
+    notes: "AI chips landed over the prior 12 months; more than half were Trainium."
+    source_id: S419
+  - signal_id: PBS069
+    reporting_company: Amazon/AWS
+    company_bucket: hyperscaler_ai_lab
+    ticker: AMZN
+    project_name: AWS NVIDIA GPU deployment
+    geography: Global
+    claim_type: gpu_or_chip_count
+    status_stage: future_target
+    capacity_basis: Chip-count
+    metric_value: 1000000
+    metric_unit: GPUs
+    as_of_date: 2026-03-31
+    expected_online_date: 2026
+    source_quote: "one million+ NVIDIA GPUs"
+    notes: "AWS announced NVIDIA GPU deployments starting in 2026; planned deployment, not active capacity."
+    source_id: S419
+  - signal_id: PBS070
+    reporting_company: Google
+    company_bucket: hyperscaler_ai_lab
+    ticker: GOOGL
+    project_name: West Memphis data center
+    geography: West Memphis, Arkansas
+    claim_type: site_count
+    status_stage: planned
+    capacity_basis: Data-center-count
+    metric_value: 1
+    metric_unit: sites
+    as_of_date: 2026
+    source_quote: "first data center in the state"
+    notes: "Google official source identifies cloud and AI infrastructure investment but does not disclose data-center MW."
+    source_id: S420
+  - signal_id: PBS071
+    reporting_company: Google
+    company_bucket: hyperscaler_ai_lab
+    ticker: GOOGL
+    project_name: West Memphis energy support
+    geography: Arkansas
+    claim_type: buildout_constraints
+    status_stage: secured
+    capacity_basis: Utility-capacity
+    metric_value: 600
+    metric_unit: MW
+    as_of_date: 2026
+    source_quote: "600 MW solar project"
+    notes: "Utility support for Arkansas data-center load; not data-center IT capacity."
+    source_id: S420
+  - signal_id: PBS072
+    reporting_company: Equinix
+    company_bucket: colocation_operator
+    ticker: EQIX
+    project_name: U.S. xScale hyperscale JV
+    geography: United States
+    claim_type: announced_future_capacity
+    status_stage: planned
+    capacity_basis: Gross-power
+    metric_value: 1.5
+    metric_unit: GW
+    as_of_date: 2024-10-01
+    source_quote: "more than 1.5 gigawatts"
+    notes: "New xScale capacity for hyperscale customers; expected full-buildout capacity, not active capacity."
+    source_id: S421
+  - signal_id: PBS073
+    reporting_company: Equinix
+    company_bucket: colocation_operator
+    ticker: EQIX
+    project_name: Existing xScale JV portfolio
+    geography: Global
+    claim_type: announced_future_capacity
+    status_stage: planned
+    capacity_basis: Gross-power
+    metric_value: 725
+    metric_unit: MW
+    as_of_date: 2024-10-01
+    source_quote: "greater than 725 MW"
+    notes: "Committed investment expected capacity across more than 35 xScale facilities at full buildout."
+    source_id: S421
+  - signal_id: PBS074
+    campus_id: C047
+    reporting_company: Vantage Data Centers
+    company_bucket: colocation_operator
+    project_name: Frontier
+    geography: Shackelford County, Texas
+    claim_type: under_construction_capacity
+    status_stage: under_construction
+    capacity_basis: Critical-IT
+    metric_value: 1.4
+    metric_unit: GW
+    as_of_date: 2026
+    expected_online_date: 2026-H2
+    source_quote: "1.4 GW of critical IT capacity"
+    notes: "Frontier campus critical IT envelope; first data center scheduled for delivery in the second half of 2026."
+    source_id: S422
+  - signal_id: PBS075
+    campus_id: C047
+    reporting_company: Vantage Data Centers
+    company_bucket: colocation_operator
+    project_name: Frontier
+    geography: Shackelford County, Texas
+    claim_type: site_count
+    status_stage: planned
+    capacity_basis: Data-center-count
+    metric_value: 10
+    metric_unit: sites
+    as_of_date: 2026
+    source_quote: "10 single-story data centers"
+    notes: "Campus count for Vantage Frontier; paired with separate 1.4 GW critical IT row."
+    source_id: S422
+  - signal_id: PBS076
+    reporting_company: DataBank
+    company_bucket: colocation_operator
+    project_name: Red Oak Campus
+    geography: Red Oak, Texas
+    claim_type: under_construction_capacity
+    status_stage: under_construction
+    capacity_basis: Critical-IT
+    metric_value: 480
+    metric_unit: MW
+    as_of_date: 2024-09-10
+    source_quote: "480MW data center campus"
+    notes: "Full Red Oak critical IT campus capacity; construction had commenced."
+    source_id: S423
+  - signal_id: PBS077
+    reporting_company: DataBank
+    company_bucket: colocation_operator
+    project_name: Red Oak Campus Phase 1
+    geography: Red Oak, Texas
+    claim_type: under_construction_capacity
+    status_stage: under_construction
+    capacity_basis: Critical-IT
+    metric_value: 240
+    metric_unit: MW
+    as_of_date: 2024-09-10
+    expected_online_date: 2026-Q2
+    source_quote: "up to 240MW of critical IT power"
+    notes: "Phase 1 design with initial ready-for-service target of Q2 2026."
+    source_id: S423
+  - signal_id: PBS078
+    reporting_company: DataBank
+    company_bucket: colocation_operator
+    project_name: Multi-campus expansion acquisitions
+    geography: Dallas / Atlanta / Northern Virginia
+    claim_type: announced_future_capacity
+    status_stage: planned
+    capacity_basis: Gross-power
+    metric_value: 792
+    metric_unit: MW
+    as_of_date: 2024-09-10
+    source_quote: "792MW of power"
+    notes: "Aggregate full-development power across Red Oak, Atlanta, and Northern Virginia acquisitions."
+    source_id: S423
+  - signal_id: PBS079
+    reporting_company: QTS
+    company_bucket: colocation_operator
+    project_name: Manassas 1
+    geography: Manassas, Virginia
+    claim_type: announced_future_capacity
+    status_stage: planned
+    capacity_basis: Critical-IT
+    metric_value: 190
+    metric_unit: MW
+    as_of_date: 2026
+    source_quote: "190+ MW of critical campus capacity"
+    notes: "QTS campus page describes planned six-building campus; lower-bound critical campus capacity."
+    source_id: S424
+  - signal_id: PBS080
+    reporting_company: QTS
+    company_bucket: colocation_operator
+    project_name: Atlanta 1
+    geography: Atlanta, Georgia
+    claim_type: announced_future_capacity
+    status_stage: planned
+    capacity_basis: Critical-IT
+    metric_value: 278
+    metric_unit: MW
+    as_of_date: 2026
+    source_quote: "278 MW+"
+    notes: "QTS Atlanta 1 critical campus capacity; lower-bound value from operator campus page."
+    source_id: S425
+  - signal_id: PBS081
+    campus_id: C050
+    reporting_company: OpenAI
+    company_bucket: hyperscaler_ai_lab
+    counterparty: SB Energy / SoftBank
+    project_name: Stargate Milam County
+    geography: Milam County, Texas
+    claim_type: under_construction_capacity
+    status_stage: under_construction
+    capacity_basis: Gross-power
+    metric_value: 1.2
+    metric_unit: GW
+    as_of_date: 2026-01-09
+    expected_online_date: 2026
+    source_quote: "1.2 GW data center lease"
+    notes: "OpenAI selected SB Energy to build and operate the Milam County data-center site; source does not prove energization."
+    source_id: S384
+  - signal_id: PBS082
+    campus_id: C046
+    reporting_company: Vantage Data Centers
+    company_bucket: colocation_operator
+    project_name: Lighthouse
+    geography: Port Washington, Wisconsin
+    claim_type: announced_future_capacity
+    status_stage: planned
+    capacity_basis: Critical-IT
+    metric_value: 902
+    metric_unit: MW
+    as_of_date: 2026
+    expected_online_date: 2028
+    source_quote: "902MW of critical IT load"
+    notes: "Official campus page describes the critical IT envelope, data-center count, We Energies supply, and onsite substation; not active capacity."
+    source_id: S387
+  - signal_id: PBS083
+    campus_id: C048
+    reporting_company: Oracle
+    company_bucket: hyperscaler_ai_lab
+    ticker: ORCL
+    counterparty: BorderPlex / Bloom Energy
+    project_name: Project Jupiter
+    geography: Dona Ana County / Santa Teresa, New Mexico
+    claim_type: under_construction_capacity
+    status_stage: under_construction
+    capacity_basis: Utility-capacity
+    metric_value: 2.45
+    metric_unit: GW
+    as_of_date: 2026-04-27
+    source_quote: "up to 2.45 GW of installed Bloom fuel cell capacity"
+    notes: "Power-side capacity for the redesigned fuel-cell microgrid; do not treat as critical IT load."
+    source_id: S71
+  - signal_id: PBS084
+    campus_id: C053
+    reporting_company: OpenAI
+    company_bucket: hyperscaler_ai_lab
+    counterparty: Tata Consultancy Services
+    project_name: TCS HyperVault / Stargate India
+    geography: India
+    claim_type: contracted_capacity
+    status_stage: contracted
+    capacity_basis: Contracted-power
+    metric_value: 100
+    metric_unit: MW
+    as_of_date: 2026-02-18
+    source_quote: "beginning with 100 megawatts of capacity"
+    notes: "Initial AI-ready capacity commitment; the separate 1 GW figure remains a potential scale-up option."
+    source_id: S389
+  - signal_id: PBS085
+    campus_id: C051
+    reporting_company: Oracle
+    company_bucket: hyperscaler_ai_lab
+    ticker: ORCL
+    counterparty: OpenAI
+    project_name: Stargate Michigan
+    geography: Saline Township, Michigan
+    claim_type: site_count
+    status_stage: under_construction
+    capacity_basis: Data-center-count
+    metric_value: 1
+    metric_unit: sites
+    as_of_date: 2026-01-26
+    source_quote: "sites in New Mexico, Wisconsin, and Michigan"
+    notes: "Oracle disclosure confirms the Michigan site is part of its OpenAI AI-infrastructure project footprint; no MW is assigned in this row."
+    source_id: S418
+  - signal_id: PBS086
+    campus_id: C046
+    reporting_company: Oracle
+    company_bucket: hyperscaler_ai_lab
+    ticker: ORCL
+    counterparty: OpenAI / Vantage Data Centers
+    project_name: Stargate Lighthouse
+    geography: Port Washington, Wisconsin
+    claim_type: site_count
+    status_stage: under_construction
+    capacity_basis: Data-center-count
+    metric_value: 1
+    metric_unit: sites
+    as_of_date: 2026-01-26
+    source_quote: "sites in New Mexico, Wisconsin, and Michigan"
+    notes: "Oracle disclosure confirms the Wisconsin site is part of its OpenAI AI-infrastructure project footprint; no MW is assigned in this row."
+    source_id: S418
+  - signal_id: PBS087
+    campus_id: C048
+    reporting_company: Oracle
+    company_bucket: hyperscaler_ai_lab
+    ticker: ORCL
+    counterparty: OpenAI / BorderPlex
+    project_name: Stargate Project Jupiter
+    geography: Dona Ana County / Santa Teresa, New Mexico
+    claim_type: site_count
+    status_stage: under_construction
+    capacity_basis: Data-center-count
+    metric_value: 1
+    metric_unit: sites
+    as_of_date: 2026-01-26
+    source_quote: "sites in New Mexico, Wisconsin, and Michigan"
+    notes: "Oracle disclosure confirms the New Mexico site is part of its OpenAI AI-infrastructure project footprint; no MW is assigned in this row."
+    source_id: S418

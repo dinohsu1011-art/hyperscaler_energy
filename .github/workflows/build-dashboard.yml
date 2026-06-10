@@ -36,7 +36,9 @@ jobs:
         run: python scripts/load.py
 
       - name: Validate
-        run: python scripts/validate.py
+        # validate.py exits 0=clean, 1=errors, 2=warnings-only.
+        # Warnings must not block the deploy — only real errors (exit 1) fail the build.
+        run: python scripts/validate.py || [ $? -eq 2 ]
 
       - name: Generate dashboard
         run: python scripts/dashboard.py

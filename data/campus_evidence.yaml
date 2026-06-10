@@ -1,0 +1,1030 @@
+# Normalized source-backed evidence for campus-level capacity claims.
+#
+# Rows should not overwrite data/campuses.yaml by themselves. They document the
+# underlying public record route so later review can decide whether a campus is
+# merely announced, deliverable, partially energized, or not publicly knowable.
+#
+# Expected row shape:
+# - evidence_id: CE001
+#   campus_id: C001
+#   evidence_date: 2026-01-15
+#   evidence_type: utility_service_agreement
+#   independence_group: regulator
+#   claim_status: approved
+#   capacity_definition: Contracted-load
+#   capacity_mw: 400
+#   phase: Phase 1
+#   collectability: Portal
+#   evidence_strength: High
+#   quote: Short source-backed excerpt or null
+#   notes: Why this evidence matters and what it cannot prove
+#   source_id: S206
+rows:
+  - evidence_id: CE001
+    campus_id: C027
+    evidence_date: 2024-12-06
+    evidence_type: substation_transmission
+    independence_group: utility
+    claim_status: announced
+    capacity_definition: Generation-nameplate
+    capacity_mw: 2260
+    phase: Initial Entergy generation and grid package
+    collectability: Manual
+    evidence_strength: Medium
+    quote: "Build three combined-cycle combustion turbines with a combined capacity of 2,260 megawatts."
+    notes: >-
+      Entergy's first public utility-side plan for Hyperion: generation, substations, and transmission.
+      This is supply-side generation nameplate, not Meta critical IT load, and was still pending
+      regulatory approval as of this announcement.
+    source_id: S364
+
+  - evidence_id: CE002
+    campus_id: C027
+    evidence_date: 2025-08-20
+    evidence_type: commission_order
+    independence_group: regulator
+    claim_status: approved
+    capacity_definition: Generation-nameplate
+    capacity_mw: 2260
+    phase: LPSC-approved initial generation and transmission package
+    collectability: Manual
+    evidence_strength: High
+    quote: "The Louisiana Public Service Commission, or LPSC, has approved a landmark agreement."
+    notes: >-
+      Entergy reports LPSC approval for three combined-cycle generation facilities plus transmission
+      infrastructure tied to Meta's Richland Parish data center. This materially improves deliverability
+      evidence but remains generation nameplate rather than energized data-center load.
+    source_id: S365
+
+  - evidence_id: CE003
+    campus_id: C027
+    evidence_date: 2025-04-22
+    evidence_type: substation_transmission
+    independence_group: utility
+    claim_status: site_work
+    capacity_definition: Contracted-load
+    capacity_mw: 10
+    phase: Construction power
+    collectability: Manual
+    evidence_strength: Medium
+    quote: "The work completed will help deliver 10-megawatts of power."
+    notes: >-
+      Completed distribution-line and voltage-regulation work is a small construction-power signal, not
+      operating data-center capacity. Useful as a physical-progress checkpoint before large generation
+      comes online.
+    source_id: S366
+
+  - evidence_id: CE004
+    campus_id: C027
+    evidence_date: 2026-03
+    evidence_type: eia_generator_crosscheck
+    independence_group: federal_dataset
+    claim_status: announced
+    capacity_definition: Generation-nameplate
+    capacity_mw: 1560.6
+    phase: Franklin Farms 1&2 planned generators
+    collectability: Programmatic
+    evidence_strength: Medium
+    quote: null
+    notes: >-
+      EIA 860M March 2026 planned-generator rows show Entergy Louisiana Franklin Farms 1&2 in
+      Richland Parish: four natural-gas combined-cycle generator records totaling 1,560.6 MW,
+      status_tier ApprovalsPending, planned December 2028. EIA cautions 860M is preliminary and not
+      a capacity commitment.
+    source_id: S291
+
+  - evidence_id: CE005
+    campus_id: C027
+    evidence_date: 2026-03
+    evidence_type: eia_generator_crosscheck
+    independence_group: federal_dataset
+    claim_status: announced
+    capacity_definition: Generation-nameplate
+    capacity_mw: 3121.2
+    phase: Richland Parish Power Station planned-only generators
+    collectability: Programmatic
+    evidence_strength: Low
+    quote: null
+    notes: >-
+      EIA 860M March 2026 planned-generator rows show Richland Parish Power Station 1&2, 3, and 4
+      totaling 3,121.2 MW, status_tier PlannedOnly, planned March-October 2030. Treat as a pipeline
+      marker only, not approved or energized capacity.
+    source_id: S291
+
+  - evidence_id: CE006
+    campus_id: C051
+    evidence_date: 2025-12-18
+    evidence_type: utility_service_agreement
+    independence_group: regulator
+    claim_status: approved
+    capacity_definition: Contracted-load
+    capacity_mw: 1383
+    phase: DTE / Green Chile Ventures special contracts
+    collectability: Portal
+    evidence_strength: High
+    quote: "1,383- megawatt (MW) data center in Saline Township."
+    notes: >-
+      MPSC conditionally approved DTE special contracts in Case U-21990 for the Saline Township data
+      center developed by Green Chile Ventures, tied to Oracle/OpenAI/Related Digital. This is contracted
+      utility load, not proof of energized campus load.
+    source_id: S367
+
+  - evidence_id: CE007
+    campus_id: C051
+    evidence_date: 2026-03-27
+    evidence_type: commission_order
+    independence_group: regulator
+    claim_status: approved
+    capacity_definition: Generation-nameplate
+    capacity_mw: 332
+    phase: Data-center-linked DTE battery storage projects
+    collectability: Manual
+    evidence_strength: High
+    quote: "the first 332 MW of 1,383 MW of company-owned energy storage facilities"
+    notes: >-
+      MPSC approved Cold Creek, Fish Creek, and Pine River storage projects as the first tranche of
+      battery assets tied to the Saline data-center contract. This corroborates utility infrastructure
+      buildout, not energized IT load.
+    source_id: S368
+
+  - evidence_id: CE008
+    campus_id: C018
+    evidence_date: 2026-03
+    evidence_type: utility_service_agreement
+    independence_group: operator
+    claim_status: announced
+    capacity_definition: Generation-nameplate
+    capacity_mw: 2050
+    phase: Google / DTE clean-energy reliability package
+    collectability: Manual
+    evidence_strength: Medium
+    quote: null
+    notes: >-
+      Google source supports 1,600 MW solar, 400 MW BESS, and 50 MW long-duration storage for the
+      Michigan data-center package, with MPSC approval pending. This is generation/storage nameplate,
+      not the Van Buren critical IT load.
+    source_id: S110
+
+  - evidence_id: CE009
+    campus_id: C018
+    evidence_date: 2026-03-17
+    evidence_type: commission_order
+    independence_group: regulator
+    claim_status: announced
+    capacity_definition: Unknown
+    capacity_mw: null
+    phase: DTE utility-contract review route
+    collectability: Portal
+    evidence_strength: Medium
+    quote: "they will pursue a contested case before the Public Service Commission"
+    notes: >-
+      Michigan AG statement creates a regulator-route checkpoint for future DTE/Google contracts.
+      It does not disclose campus MW and should be used to monitor process status, not capacity.
+    source_id: S369
+
+  - evidence_id: CE010
+    campus_id: C060
+    evidence_date: 2025-11-01
+    evidence_type: utility_service_agreement
+    independence_group: operator
+    claim_status: announced
+    capacity_definition: Facility-power
+    capacity_mw: 2400
+    phase: Northern Indiana Phase 2 data-center capacity
+    collectability: Manual
+    evidence_strength: Medium
+    quote: "The new project will add 2.4 gigawatts of data center capacity in the region."
+    notes: >-
+      Amazon states the incremental Northern Indiana project adds 2.4 GW of data-center capacity
+      and is paired with the NIPSCO framework. Sites were not finalized in the source, so treat this
+      as announced capacity pending site and docket evidence.
+    source_id: S264
+
+  - evidence_id: CE011
+    campus_id: C060
+    evidence_date: 2025-11-24
+    evidence_type: utility_service_agreement
+    independence_group: utility
+    claim_status: approved
+    capacity_definition: Generation-nameplate
+    capacity_mw: 3000
+    phase: NIPSCO GenCo / Amazon generation partnership
+    collectability: Manual
+    evidence_strength: Medium
+    quote: "up to 3 gigawatts of new generation capacity to serve Amazon's needs"
+    notes: >-
+      NIPSCO says the Amazon partnership is under its IURC-approved GenCo structure and enables up to
+      3 GW of new generation capacity. This supports deliverability for the Indiana load but is not a
+      site-specific energized capacity record.
+    source_id: S371
+
+  - evidence_id: CE012
+    campus_id: C060
+    evidence_date: 2026-03
+    evidence_type: eia_generator_crosscheck
+    independence_group: federal_dataset
+    claim_status: approved
+    capacity_definition: Generation-nameplate
+    capacity_mw: 448.3
+    phase: R M Schahfer planned combustion turbines
+    collectability: Programmatic
+    evidence_strength: Medium
+    quote: null
+    notes: >-
+      EIA 860M March 2026 planned-generator rows show Northern Indiana Public Service Co. R M Schahfer
+      natural-gas combustion turbine records totaling 448.3 MW, status_tier ApprovalsReceived, planned
+      December 2027. This is a federal supply-side cross-check, not a full 2.4 GW load proof.
+    source_id: S291
+
+  - evidence_id: CE013
+    campus_id: C059
+    evidence_date: 2025-10-29
+    evidence_type: corporate_activation
+    independence_group: operator
+    claim_status: energized_partial
+    capacity_definition: Unknown
+    capacity_mw: null
+    phase: Project Rainier Trainium2 UltraCluster activation
+    collectability: Manual
+    evidence_strength: High
+    quote: "Project Rainier, one of the world's largest AI compute clusters, is now fully operational."
+    notes: >-
+      Amazon says Project Rainier is online, in use by Anthropic, and built around nearly half a million
+      Trainium2 chips, with Claude expected to use more than 1 million Trainium2 chips by year-end.
+      The source does not disclose MW, so this is activation evidence without a source-backed capacity
+      figure.
+    source_id: S263
+
+  - evidence_id: CE014
+    campus_id: C055
+    evidence_date: 2025-06-11
+    evidence_type: utility_service_agreement
+    independence_group: utility
+    claim_status: approved
+    capacity_definition: Contracted-load
+    capacity_mw: 1920
+    phase: Expanded Susquehanna PPA
+    collectability: Manual
+    evidence_strength: High
+    quote: "at the full contract quantity, Talen will provide Amazon with 1,920 megawatts"
+    notes: >-
+      Talen's primary release supports a contracted-load ramp through 2042, with front-of-the-meter
+      transition after transmission reconfiguration. It does not prove the full 1,920 MW is already
+      energized.
+    source_id: S259
+
+  - evidence_id: CE015
+    campus_id: C062
+    evidence_date: 2025-02-13
+    evidence_type: local_site_plan
+    independence_group: environmental_agency
+    claim_status: site_work
+    capacity_definition: Building-count
+    capacity_mw: null
+    phase: USACE joint permit application
+    collectability: Manual
+    evidence_strength: High
+    quote: "11, two-story data center buildings"
+    notes: >-
+      USACE public notice confirms Amazon Data Services' joint permit application for the 1,143-acre
+      Mattameade Data Center, including 11 data-center buildings, three substation pads, and associated
+      utility infrastructure. It does not disclose MW.
+    source_id: S372
+
+  - evidence_id: CE016
+    campus_id: C062
+    evidence_date: 2025-02-18
+    evidence_type: media_report
+    independence_group: media
+    claim_status: site_work
+    capacity_definition: Facility-power
+    capacity_mw: 770
+    phase: Mattameade phase 1 capacity target
+    collectability: Manual
+    evidence_strength: Medium
+    quote: null
+    notes: >-
+      Secondary reporting on Amazon's permit request cites a minimum roughly 770 MW data-center capacity
+      by 2027, matching the campus phase-one estimate. Use as media corroboration until the underlying
+      permit attachment is extracted directly.
+    source_id: S266
+
+  - evidence_id: CE017
+    campus_id: C007
+    evidence_date: 2026-03-16
+    evidence_type: other
+    independence_group: operator
+    claim_status: announced
+    capacity_definition: Critical-IT
+    capacity_mw: 1350
+    phase: Microsoft LOI for Monarch AI compute
+    collectability: Manual
+    evidence_strength: Medium
+    quote: "letter of intent with Microsoft to provide 1.35 gigawatts of AI compute capacity"
+    notes: >-
+      Nscale's primary announcement supports a Microsoft LOI for 1.35 GW of AI compute at Monarch,
+      beginning in late 2027. It remains an LOI/announced compute-services signal, not energized load.
+    source_id: S156
+
+  - evidence_id: CE018
+    campus_id: C007
+    evidence_date: 2026-03-16
+    evidence_type: other
+    independence_group: operator
+    claim_status: announced
+    capacity_definition: Generation-nameplate
+    capacity_mw: 2000
+    phase: Caterpillar-backed onsite microgrid target
+    collectability: Manual
+    evidence_strength: Medium
+    quote: "achieve two gigawatts of power generation by the first half of 2028"
+    notes: >-
+      Nscale says Caterpillar G3500 natural-gas generators would support 2 GW of on-site generation by
+      H1 2028 and that the site operates independently of the local grid. This is planned generation
+      nameplate, not IT load or operational capacity.
+    source_id: S156
+
+  - evidence_id: CE019
+    campus_id: C028
+    evidence_date: 2025-06
+    evidence_type: onsite_generation_permit
+    independence_group: utility
+    claim_status: announced
+    capacity_definition: Generation-nameplate
+    capacity_mw: 400
+    phase: Socrates North and South power facilities
+    collectability: Manual
+    evidence_strength: Medium
+    quote: "two separate power generation sites, with a combined generating capacity of 400 megawatts"
+    notes: >-
+      Williams' project page supports two proposed 200 MW New Albany natural-gas power generation sites
+      with target 2026 in-service dates. It supports an on-site power plan for Prometheus but does not
+      prove the 1-1.5 GW campus load is energized.
+    source_id: S373
+
+  - evidence_id: CE020
+    campus_id: C055
+    evidence_date: 2024-11-01
+    evidence_type: commission_order
+    independence_group: regulator
+    claim_status: approved
+    capacity_definition: Contracted-load
+    capacity_mw: 300
+    phase: Legacy Susquehanna co-located load boundary
+    collectability: Manual
+    evidence_strength: High
+    quote: "includes the previously authorized 300 MW"
+    notes: >-
+      FERC rejected PJM's amendment to increase the co-located load from 300 MW to 480 MW, while
+      documenting the previously authorized 300 MW boundary. This corroborates the legacy energized
+      phase but does not validate the later 1,920 MW front-of-the-meter PPA ramp.
+    source_id: S374
+
+  - evidence_id: CE021
+    campus_id: C028
+    evidence_date: 2025-06-09
+    evidence_type: commission_order
+    independence_group: regulator
+    claim_status: approved
+    capacity_definition: Generation-nameplate
+    capacity_mw: 200
+    phase: Socrates South BTM generation approval
+    collectability: Portal
+    evidence_strength: High
+    quote: null
+    notes: >-
+      OPSB approved Socrates South, a 200 MW behind-the-meter natural-gas generation project serving
+      an adjacent Sidecat / Meta data center load. This is approved generation nameplate, not campus
+      IT load.
+    source_id: S375
+
+  - evidence_id: CE022
+    campus_id: C028
+    evidence_date: 2025-09-18
+    evidence_type: commission_order
+    independence_group: regulator
+    claim_status: approved
+    capacity_definition: Generation-nameplate
+    capacity_mw: 200
+    phase: Socrates North BTM generation approval
+    collectability: Portal
+    evidence_strength: High
+    quote: "approved the construction of a 200 megawatt (MW) natural gas fired electric generation facility"
+    notes: >-
+      OPSB/PUCO authorized Socrates North to operate behind the meter for an adjacent data center and
+      not connect physically to the electric grid. Together with Socrates South it corroborates the
+      400 MW onsite-generation plan, not the full Prometheus campus load.
+    source_id: S376
+
+  - evidence_id: CE023
+    campus_id: C007
+    evidence_date: 2026-04-20
+    evidence_type: onsite_generation_permit
+    independence_group: environmental_agency
+    claim_status: site_work
+    capacity_definition: Unknown
+    capacity_mw: null
+    phase: Monarch Cloud Campus WVDEP construction permit application
+    collectability: Portal
+    evidence_strength: Medium
+    quote: "Permit Number: R14-0042"
+    notes: >-
+      WVDEP's NSR application page lists Monarch Cloud Campus, LLC, Point Pleasant Campus, permit
+      R14-0042, Facility ID 053-00136, permit type Construction. The page is a strong official route
+      for generation-permit follow-up but does not disclose MW in the public index.
+    source_id: S377
+
+  - evidence_id: CE024
+    campus_id: C051
+    evidence_date: 2026-04-29
+    evidence_type: local_site_plan
+    independence_group: local_government
+    claim_status: site_work
+    capacity_definition: Building-count
+    capacity_mw: null
+    phase: Saline Township construction and permit updates
+    collectability: Manual
+    evidence_strength: High
+    quote: "Permits have been issued for Operations and Warehouse building foundations."
+    notes: >-
+      Saline Township posts direct construction updates: Compute 1 pylons finished, utility and
+      foundation work underway, permits issued for operations/warehouse foundations, and EGLE-related
+      water and generator permitting updates. This proves site activity but does not disclose MW.
+    source_id: S382
+
+  - evidence_id: CE025
+    campus_id: C059
+    evidence_date: 2025-11-24
+    evidence_type: utility_service_agreement
+    independence_group: utility
+    claim_status: approved
+    capacity_definition: Generation-nameplate
+    capacity_mw: 3000
+    phase: Northern Indiana Amazon generation deliverability
+    collectability: Manual
+    evidence_strength: Medium
+    quote: "up to 3 gigawatts of new generation capacity to serve Amazon's needs"
+    notes: >-
+      NIPSCO's GenCo/Amazon source is broader than Project Rainier alone but materially corroborates
+      the utility-side generation path for Amazon's Northern Indiana load. Do not treat as Rainier-only
+      IT load or energized capacity.
+    source_id: S371
+
+  - evidence_id: CE026
+    campus_id: C029
+    evidence_date: 2026
+    evidence_type: local_site_plan
+    independence_group: local_government
+    claim_status: site_work
+    capacity_definition: Building-count
+    capacity_mw: null
+    phase: City of El Paso Meta project hub
+    collectability: Manual
+    evidence_strength: High
+    quote: "phase 1 already under way"
+    notes: >-
+      The City of El Paso identifies the Wurldwide / Meta project, approximate 1,000-acre location,
+      five construction phases, phase 1 under way, city agreements, and standard building/electrical
+      permit requirements. It does not prove energized MW.
+    source_id: S378
+
+  - evidence_id: CE027
+    campus_id: C029
+    evidence_date: 2025-12-15
+    evidence_type: utility_service_agreement
+    independence_group: regulator
+    claim_status: announced
+    capacity_definition: Generation-nameplate
+    capacity_mw: 366
+    phase: McCloud Generation Project / PUCT Docket 59076
+    collectability: Portal
+    evidence_strength: High
+    quote: "366-megawatt (MW) natural gas generation facility"
+    notes: >-
+      El Paso Electric's public notice says McCloud Generation would serve the Wurldwide Data Center
+      at the same location and is expected to be operational in Q1 2027, subject to PUCT CCN review.
+      This is proposed dedicated generation, not current energized data-center load.
+    source_id: S379
+
+  - evidence_id: CE028
+    campus_id: C011
+    evidence_date: 2026-03-31
+    evidence_type: other
+    independence_group: utility
+    claim_status: not_publicly_knowable
+    capacity_definition: Unknown
+    capacity_mw: null
+    phase: Chevron / Microsoft / Engine No. 1 exclusivity
+    collectability: Manual
+    evidence_strength: Medium
+    quote: "No commercial terms have been finalized, and there is no definitive agreement at this time."
+    notes: >-
+      Chevron confirms exclusivity negotiations for a proposed co-located behind-the-meter power
+      generation and offtake arrangement with Microsoft and Engine No. 1. It does not disclose a site,
+      MW, signed offtake, or permit; keep the Permian row announcement-only until a site or definitive
+      agreement appears.
+    source_id: S380
+
+  - evidence_id: CE029
+    campus_id: C045
+    evidence_date: 2025-05-22
+    evidence_type: other
+    independence_group: operator
+    claim_status: announced
+    capacity_definition: Facility-power
+    capacity_mw: 1000
+    phase: Stargate UAE cluster
+    collectability: Manual
+    evidence_strength: Medium
+    quote: "A 1GW Stargate UAE cluster in Abu Dhabi with 200MW expected to go live in 2026"
+    notes: >-
+      OpenAI supports a 1 GW Stargate UAE cluster and 200 MW expected live in 2026. The existing
+      5 GW campus row is broader UAE-US AI Campus capacity and should not be interpreted as
+      source-backed OpenAI IT load.
+    source_id: S250
+
+  - evidence_id: CE030
+    campus_id: C045
+    evidence_date: 2025-10-17
+    evidence_type: local_site_plan
+    independence_group: operator
+    claim_status: under_construction
+    capacity_definition: Facility-power
+    capacity_mw: 200
+    phase: First 200 MW construction tranche
+    collectability: Manual
+    evidence_strength: Medium
+    quote: "the first 200 MW of the 1-GW megainfrastructure"
+    notes: >-
+      G42/Khazna says construction is underway and the first 200 MW of the 1 GW cluster is being built
+      on an accelerated schedule for 2026. This is construction-progress evidence, not proof of
+      energization.
+    source_id: S381
+
+  - evidence_id: CE031
+    campus_id: C047
+    evidence_date: 2025-08-19
+    evidence_type: local_site_plan
+    independence_group: operator
+    claim_status: under_construction
+    capacity_definition: Facility-power
+    capacity_mw: 1400
+    phase: Vantage Frontier campus
+    collectability: Manual
+    evidence_strength: High
+    quote: "1.4GW data center campus in Shackelford County, Texas"
+    notes: >-
+      Vantage's primary announcement supports 1.4 GW, 1,200 acres, 10 data centers, 3.7 million square
+      feet, construction begun, and first building delivery in the second half of 2026. It does not
+      prove utility energization.
+    source_id: S383
+
+  - evidence_id: CE032
+    campus_id: C050
+    evidence_date: 2026-01-09
+    evidence_type: utility_service_agreement
+    independence_group: operator
+    claim_status: under_construction
+    capacity_definition: Facility-power
+    capacity_mw: 1200
+    phase: OpenAI / SB Energy Milam County lease
+    collectability: Manual
+    evidence_strength: High
+    quote: "OpenAI signs 1.2 GW data center lease for initial data center buildout"
+    notes: >-
+      OpenAI says it selected SB Energy to build and operate the previously announced 1.2 GW Milam
+      County data center site and that initial facilities are under construction/expected to enter
+      service starting in 2026. This is a primary lease/buildout signal, not energized capacity.
+    source_id: S384
+
+  - evidence_id: CE033
+    campus_id: C042
+    evidence_date: 2026-03
+    evidence_type: media_report
+    independence_group: media
+    claim_status: approved
+    capacity_definition: Generation-nameplate
+    capacity_mw: 1200
+    phase: Southaven MDEQ permit ceiling
+    collectability: Manual
+    evidence_strength: Medium
+    quote: null
+    notes: >-
+      Existing source S66 reports MDEQ permit approval for 41 gas turbines with an approximately
+      1,200 MW permit ceiling. Treat as permit-ceiling power-side evidence for Colossus 2 supply,
+      not a data-center load commitment or energized IT capacity.
+    source_id: S66
+
+  - evidence_id: CE034
+    campus_id: C030
+    evidence_date: 2026-02-11
+    evidence_type: corporate_activation
+    independence_group: operator
+    claim_status: site_work
+    capacity_definition: Facility-power
+    capacity_mw: 1000
+    phase: Lebanon groundbreaking / designed capacity
+    collectability: Manual
+    evidence_strength: High
+    quote: "designed to deliver 1GW of capacity once operational"
+    notes: >-
+      Meta says it is breaking ground on a 1 GW Lebanon, Indiana campus and will fund utility,
+      transmission, road, water, and wastewater infrastructure. This is operator source evidence for
+      site work and designed capacity, not energized load or a utility-service approval.
+    source_id: S235
+
+  - evidence_id: CE035
+    campus_id: C044
+    evidence_date: 2026
+    evidence_type: substation_transmission
+    independence_group: operator
+    claim_status: approved
+    capacity_definition: Substation-capacity
+    capacity_mw: 1200
+    phase: Lancium Abilene interconnect
+    collectability: Manual
+    evidence_strength: Medium
+    quote: "a 1.2GW interconnect, which has been fully approved by ERCOT"
+    notes: >-
+      Lancium's developer-hosted page says the Abilene campus has a 1.2 GW ERCOT-approved interconnect
+      and onsite gas generation complete by 2025. This is not an ERCOT primary record, but it is a
+      source-backed deliverability signal distinct from OpenAI/Crusoe activation.
+    source_id: S385
+
+  - evidence_id: CE036
+    campus_id: C044
+    evidence_date: 2025-09-30
+    evidence_type: corporate_activation
+    independence_group: operator
+    claim_status: energized_partial
+    capacity_definition: Unknown
+    capacity_mw: null
+    phase: Abilene first phase live
+    collectability: Manual
+    evidence_strength: High
+    quote: "the first two buildings were energized"
+    notes: >-
+      Crusoe says the first phase of Abilene is up and running on Oracle Cloud Infrastructure, with
+      GB200 racks delivered and early training/inference workloads running. The source does not state
+      MW on this live announcement, so capacity remains blank rather than inferred from secondary
+      reporting.
+    source_id: S386
+
+  - evidence_id: CE037
+    campus_id: C046
+    evidence_date: 2026
+    evidence_type: local_site_plan
+    independence_group: operator
+    claim_status: announced
+    capacity_definition: Critical-IT
+    capacity_mw: 902
+    phase: Vantage Lighthouse official campus spec
+    collectability: Manual
+    evidence_strength: High
+    quote: "902MW of critical IT load"
+    notes: >-
+      Vantage's official Port Washington page gives 902 MW critical IT load, four data centers, 2.5M
+      square feet, 2028 completion, We Energies supply, diverse feeds, and an onsite substation. This
+      differs from the rounded 1,000 MW campus row and should be reconciled in a later campus-rollup task.
+    source_id: S387
+
+  - evidence_id: CE038
+    campus_id: C046
+    evidence_date: 2026-04-24
+    evidence_type: commission_order
+    independence_group: regulator
+    claim_status: approved
+    capacity_definition: Unknown
+    capacity_mw: null
+    phase: We Energies data-center tariff
+    collectability: Portal
+    evidence_strength: Medium
+    quote: "Very Large Customer (VLC) and Bespoke Resources Tariff"
+    notes: >-
+      PSC Wisconsin approved/modified We Energies tariffs for very large data-center customers in its
+      territory. This supports the utility-service route for Lighthouse but does not name Vantage or
+      disclose a site-specific MW.
+    source_id: S388
+
+  - evidence_id: CE039
+    campus_id: C048
+    evidence_date: 2026-04-27
+    evidence_type: onsite_generation_permit
+    independence_group: operator
+    claim_status: announced
+    capacity_definition: Generation-nameplate
+    capacity_mw: 2450
+    phase: Bloom fuel-cell microgrid redesign
+    collectability: Manual
+    evidence_strength: High
+    quote: "up to 2.45 GW of installed Bloom fuel cell capacity"
+    notes: >-
+      Oracle/BorderPlex say Project Jupiter will use Bloom fuel cells to fully power the campus,
+      replacing the previously planned gas turbines and diesel generators. This is generation-nameplate
+      evidence and contradicts the older gas-microgrid summary; it is not critical IT load.
+    source_id: S71
+
+  - evidence_id: CE040
+    campus_id: C048
+    evidence_date: 2026-04-27
+    evidence_type: corporate_activation
+    independence_group: operator
+    claim_status: site_work
+    capacity_definition: Unknown
+    capacity_mw: null
+    phase: Project Jupiter construction status
+    collectability: Manual
+    evidence_strength: Medium
+    quote: "Construction continues to move forward on schedule."
+    notes: >-
+      Oracle states construction is continuing on schedule and commits to bear all energy costs for
+      Project Jupiter. This is construction-progress evidence, not energized-load or MW evidence.
+    source_id: S71
+
+  - evidence_id: CE041
+    campus_id: C053
+    evidence_date: 2026-02-18
+    evidence_type: utility_service_agreement
+    independence_group: operator
+    claim_status: announced
+    capacity_definition: Contracted-load
+    capacity_mw: 100
+    phase: OpenAI / Tata HyperVault initial capacity
+    collectability: Manual
+    evidence_strength: High
+    quote: "beginning with 100 megawatts of capacity"
+    notes: >-
+      OpenAI says it will become the first customer of TCS HyperVault, beginning with 100 MW of
+      AI-ready local data-center capacity in India. This is the committed initial capacity; site and
+      utility route are not disclosed.
+    source_id: S389
+
+  - evidence_id: CE042
+    campus_id: C053
+    evidence_date: 2026-02-18
+    evidence_type: other
+    independence_group: operator
+    claim_status: announced
+    capacity_definition: Contracted-load
+    capacity_mw: 1000
+    phase: OpenAI / Tata HyperVault scale option
+    collectability: Manual
+    evidence_strength: Medium
+    quote: "potential to scale to 1 gigawatt over time"
+    notes: >-
+      OpenAI's 1 GW India figure is an option/potential scale-up, not an approved or energized 1 GW
+      campus. Keep separate from the 100 MW initial capacity to avoid overstating committed near-term
+      buildout.
+    source_id: S389
+
+  - evidence_id: CE043
+    campus_id: C047
+    evidence_date: 2025-07-17
+    evidence_type: air_permit_backup_generation
+    independence_group: environmental_agency
+    claim_status: approved
+    capacity_definition: Generation-nameplate
+    capacity_mw: 709
+    phase: VoltaGrid ABI-1 EGU
+    collectability: Portal
+    evidence_strength: High
+    quote: "The total generating capacity of all EGUs proposed for installation at this site will be equivalent to 709 MW."
+    notes: >-
+      TCEQ technical review supports 210 natural-gas generators at VoltaGrid ABI-1 just south of
+      TX-351 and FM-604 in Shackelford County. Treat as onsite/near-site generation lower-bound
+      evidence for Frontier deliverability, not the full 1.4 GW facility-power claim.
+    source_id: S390
+
+  - evidence_id: CE044
+    campus_id: C009
+    evidence_date: 2026-03-27
+    evidence_type: other
+    independence_group: operator
+    claim_status: site_work
+    capacity_definition: Facility-power
+    capacity_mw: 900
+    phase: Crusoe / Microsoft Abilene AI factory campus
+    collectability: Manual
+    evidence_strength: High
+    quote: "The 900 MW site includes two new buildings and an onsite power plant."
+    notes: >-
+      Crusoe's primary announcement says land clearing and site preparation are underway, with the first
+      building expected to be energized in mid-2027. This is separate from the 1.2 GW OpenAI/Oracle
+      Abilene campus and is not yet energized.
+    source_id: S391
+
+  - evidence_id: CE045
+    campus_id: C067
+    evidence_date: 2025-08-01
+    evidence_type: other
+    independence_group: operator
+    claim_status: approved
+    capacity_definition: Critical-IT
+    capacity_mw: 800
+    phase: Galaxy Helios / CoreWeave 15-year lease
+    collectability: Manual
+    evidence_strength: High
+    quote: null
+    notes: >-
+      Galaxy/Converge source supports CoreWeave's full 800 MW commitment at Helios under a long-term
+      lease. This is committed critical IT capacity, not currently energized capacity; phase timing is
+      tracked separately in the campus row.
+    source_id: S271
+
+  - evidence_id: CE046
+    campus_id: C073
+    evidence_date: 2025-05-01
+    evidence_type: other
+    independence_group: operator
+    claim_status: approved
+    capacity_definition: Critical-IT
+    capacity_mw: 250
+    phase: Applied Digital / CoreWeave initial North Dakota lease
+    collectability: Manual
+    evidence_strength: High
+    quote: null
+    notes: >-
+      Applied Digital primary source supports a 250 MW AI data-center lease with CoreWeave in North
+      Dakota. It supports contracted critical IT capacity, not proof that the full 250 MW is online.
+    source_id: S277
+
+  - evidence_id: CE047
+    campus_id: C073
+    evidence_date: 2025-06-02
+    evidence_type: other
+    independence_group: operator
+    claim_status: approved
+    capacity_definition: Critical-IT
+    capacity_mw: 150
+    phase: Applied Digital / CoreWeave additional lease
+    collectability: Manual
+    evidence_strength: High
+    quote: null
+    notes: >-
+      Applied Digital primary source supports an additional 150 MW lease with CoreWeave, bringing the
+      contracted CoreWeave capacity toward the campus-row total. Treat as contracted capacity, not
+      energized capacity.
+    source_id: S294
+
+  - evidence_id: CE048
+    campus_id: C074
+    evidence_date: 2024-06-03
+    evidence_type: other
+    independence_group: operator
+    claim_status: approved
+    capacity_definition: Critical-IT
+    capacity_mw: 200
+    phase: Core Scientific initial CoreWeave hosting agreement
+    collectability: Manual
+    evidence_strength: High
+    quote: null
+    notes: >-
+      Core Scientific primary release supports approximately 200 MW of infrastructure to host CoreWeave
+      HPC services. This is part of the multi-site portfolio, not a single-campus energized figure.
+    source_id: S317
+
+  - evidence_id: CE049
+    campus_id: C074
+    evidence_date: 2025-10-30
+    evidence_type: other
+    independence_group: financial_filing
+    claim_status: approved
+    capacity_definition: Critical-IT
+    capacity_mw: 840
+    phase: Core Scientific multi-site CoreWeave portfolio
+    collectability: Manual
+    evidence_strength: Medium
+    quote: null
+    notes: >-
+      Core Scientific investor presentation supports the broader CoreWeave multi-site hosting portfolio.
+      This is a portfolio-level contracted capacity signal and should not be treated as a single physical
+      campus or as fully energized.
+    source_id: S278
+
+  - evidence_id: CE050
+    campus_id: C043
+    evidence_date: 2025-12-15
+    evidence_type: other
+    independence_group: other
+    claim_status: announced
+    capacity_definition: Unknown
+    capacity_mw: null
+    phase: xAI Southaven / Macrohardrr announcement
+    collectability: Manual
+    evidence_strength: Medium
+    quote: null
+    notes: >-
+      Mississippi Governor's Office source confirms xAI's more than $20B Southaven investment, but it
+      does not disclose campus MW. Keep capacity blank until a power contract, permit, or operator source
+      discloses a site-specific capacity figure.
+    source_id: S248
+
+  - evidence_id: CE051
+    campus_id: C030
+    evidence_date: 2026-02-11
+    evidence_type: local_site_plan
+    independence_group: local_government
+    claim_status: site_work
+    capacity_definition: Building-count
+    capacity_mw: null
+    phase: Indiana LEAP District Meta campus groundbreaking
+    collectability: Manual
+    evidence_strength: High
+    quote: "13 total buildings, including 10 data center buildings"
+    notes: >-
+      IEDC says Indiana and local officials joined Meta at the Lebanon groundbreaking and describes
+      the 1,500-acre multi-phase campus and state incentive route. This corroborates site work and
+      project scale from a government/economic-development source but does not disclose energized MW.
+    source_id: S426
+
+  - evidence_id: CE052
+    campus_id: C018
+    evidence_date: 2026-04-30
+    evidence_type: utility_service_agreement
+    independence_group: utility
+    claim_status: announced
+    capacity_definition: Contracted-load
+    capacity_mw: 1000
+    phase: DTE / Google Van Buren data-center contract filing
+    collectability: Manual
+    evidence_strength: High
+    quote: "Google's planned 1 gigawatt (GW) data center in Van Buren Township"
+    notes: >-
+      DTE says it submitted energy contracts to the MPSC to support Google's planned 1 GW Van Buren
+      data center and that Google would pay the full cost of energy usage and related infrastructure.
+      Treat as a utility contract-filing signal, not final MPSC approval or energized load.
+    source_id: S427
+
+  - evidence_id: CE053
+    campus_id: C042
+    evidence_date: 2026-01-08
+    evidence_type: tax_abatement
+    independence_group: local_government
+    claim_status: site_work
+    capacity_definition: Unknown
+    capacity_mw: null
+    phase: Mississippi xAI Southaven / Macrohardrr incentive announcement
+    collectability: Manual
+    evidence_strength: High
+    quote: "purchased and is retrofitting a building"
+    notes: >-
+      The Mississippi Governor's Office says xAI is locating the Macrohardrr data center in Southaven,
+      has purchased and is retrofitting a building, received Data Center Incentive approval, and expected
+      Southaven data-center operations to begin in February 2026. The source mentions nearly 2 GW of
+      computing power but does not disclose a normalized campus MW basis.
+    source_id: S428
+
+  - evidence_id: CE054
+    campus_id: C045
+    evidence_date: 2025-05-15
+    evidence_type: other
+    independence_group: operator
+    claim_status: not_publicly_knowable
+    capacity_definition: Facility-power
+    capacity_mw: 5000
+    phase: Full UAE-US AI Campus public-evidence limitation
+    collectability: Manual
+    evidence_strength: Medium
+    quote: "new 5GW UAE-US AI Campus"
+    notes: >-
+      G42's official source supports the broad 5 GW UAE-US AI Campus envelope, while OpenAI/G42
+      sources separately support the 1 GW Stargate UAE cluster and first 200 MW 2026 target. No public
+      independent utility, regulator, or site evidence was found for full 5 GW timing, committed load,
+      or energized capacity; keep the full-campus row as not publicly knowable until such evidence appears.
+    source_id: S429
+
+  - evidence_id: CE055
+    campus_id: C011
+    evidence_date: 2026-05-01
+    evidence_type: other
+    independence_group: utility
+    claim_status: not_publicly_knowable
+    capacity_definition: Unknown
+    capacity_mw: null
+    phase: Chevron / Microsoft / Engine No. 1 Q1 update
+    collectability: Manual
+    evidence_strength: Medium
+    quote: "proposed power generation and electricity offtake agreement"
+    notes: >-
+      Chevron's subsequent Q1 release still describes the Microsoft / Engine No. 1 route as an exclusivity
+      agreement related to a proposed West Texas power project. It does not disclose site, MW, permit,
+      signed offtake, or final commercial terms, reinforcing the current not-publicly-knowable verdict.
+    source_id: S430
+
+  - evidence_id: CE056
+    campus_id: C053
+    evidence_date: 2025-11-20
+    evidence_type: other
+    independence_group: operator
+    claim_status: not_publicly_knowable
+    capacity_definition: Unknown
+    capacity_mw: null
+    phase: TCS HyperVault GW-scale platform route
+    collectability: Manual
+    evidence_strength: Medium
+    quote: "capacity in excess of a GW over the next few years"
+    notes: >-
+      TCS confirms HyperVault's GW-scale platform plan and funding route, but the source predates the
+      OpenAI for India announcement and does not identify site, utility approval, regulatory route, or
+      committed OpenAI capacity beyond the separately tracked 100 MW initial signal.
+    source_id: S431

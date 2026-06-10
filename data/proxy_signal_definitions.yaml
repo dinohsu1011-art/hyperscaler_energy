@@ -1,0 +1,110 @@
+# Market-proxy signal definitions for triangulating real AI/data-center capacity.
+#
+# These rows define what a proxy can and cannot prove. They are deliberately
+# separate from campus_evidence so official financial/hardware signals can
+# support confidence scoring without being mistaken for direct energization.
+rows:
+  - signal_id: sec_hyperscaler_capex_depreciation
+    signal_name: Hyperscaler capex, PP&E, and depreciation ramp
+    signal_group: hyperscaler_accounting
+    metric_keys:
+      - capex_ppe
+      - ppe_net
+      - depreciation_amortization
+      - finance_lease_rou_asset
+      - operating_lease_rou_asset
+      - finance_lease_liability
+      - operating_lease_liability
+    source_route: SEC companyfacts XBRL API
+    update_frequency: Quarterly / annual
+    confidence: High
+    validates: >-
+      Whether the balance-sheet and cash-flow base needed for large data-center capacity additions is
+      rising at the same time as announced capacity ramps, while preserving the exact XBRL tag used
+      when companies disclose PP&E, PP&E plus finance-lease assets, depreciation, or D&A differently.
+    cannot_validate: >-
+      AI-only capacity, campus-level MW, actual server utilization, or whether a specific announced
+      campus has been energized.
+    notes: >-
+      Best used as a spend-vs-capacity sanity check. Rising capex and depreciation can include cloud,
+      office, logistics, or general infrastructure unrelated to AI training clusters.
+
+  - signal_id: sec_server_supply_working_capital
+    signal_name: Server-vendor inventory, receivables, and deferred-revenue signal
+    signal_group: server_supply_chain
+    metric_keys:
+      - inventory_net
+      - accounts_receivable_net
+      - contract_liability
+      - revenue
+    source_route: SEC companyfacts XBRL API
+    update_frequency: Quarterly / annual
+    confidence: High
+    validates: >-
+      Whether AI server vendors are carrying or shipping more hardware through inventory, receivables,
+      revenue, and customer-liability balances.
+    cannot_validate: >-
+      End-customer utilization, exact GPU counts, or whether shipped servers are installed in energized
+      data centers rather than staged, delayed, or concentrated at a few customers.
+    notes: >-
+      This signal is cleanest for direction and magnitude by vendor; backlog and AI-server detail often
+      require filing-text extraction in a later tranche.
+
+  - signal_id: sec_chip_vendor_demand_commitments
+    signal_name: Chip-vendor demand, working capital, and commitments signal
+    signal_group: chip_vendor_demand
+    metric_keys:
+      - revenue
+      - inventory_net
+      - accounts_receivable_net
+      - contract_liability
+      - purchase_obligation
+      - remaining_performance_obligation
+    source_route: SEC companyfacts XBRL API
+    update_frequency: Quarterly / annual
+    confidence: High
+    validates: >-
+      Whether GPU, accelerator, networking, and memory suppliers show demand absorption or supply-chain
+      buildup consistent with announced AI infrastructure ramps.
+    cannot_validate: >-
+      Whether chip sell-in has become deployed inference capacity, training utilization, or active MW at
+      a named campus.
+    notes: >-
+      Customer concentration and purchase-commitment nuance is often textual; numeric XBRL is the first
+      clean layer, with filing-text snippets deferred.
+
+  - signal_id: gpu_cloud_rental_market
+    signal_name: GPU cloud rental price and availability
+    signal_group: gpu_cloud_marketplace
+    metric_keys:
+      - gpu_hour_price
+      - gpu_availability_count
+    source_route: Public GPU marketplace APIs and pricing pages
+    update_frequency: Daily / weekly snapshot
+    confidence: Medium
+    validates: >-
+      High-frequency evidence of spot GPU supply, listed availability, and price pressure outside
+      hyperscaler private clusters.
+    cannot_validate: >-
+      Hyperscaler utilization, private-contract pricing, or physical energization at named campuses.
+    notes: This is the next high-frequency proxy after official SEC data.
+
+  - signal_id: tsmc_hpc_foundry_memory_supply
+    signal_name: Foundry, HBM, and advanced-packaging supply pressure
+    signal_group: foundry_memory_supply
+    metric_keys:
+      - monthly_revenue
+      - hpc_platform_mix
+      - hbm_revenue
+      - advanced_packaging_capacity
+    source_route: Official monthly/quarterly company releases, then labeled paid or rumor overlays
+    update_frequency: Monthly / quarterly
+    confidence: Medium
+    validates: >-
+      Whether upstream AI-chip supply pressure is broadening, easing, or being pushed out.
+    cannot_validate: >-
+      Customer-specific deployed capacity or whether a headline GW campus has actually received and
+      energized servers.
+    notes: >-
+      Official revenue/platform-mix data is cleaner than CoWoS allocation rumors. Rumors should remain
+      explicitly labeled low-confidence overlays.

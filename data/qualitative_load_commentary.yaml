@@ -1,0 +1,409 @@
+# Timestamped qualitative commentary anchors for AI/data-center load reality.
+#
+# These rows preserve public statements as narrative evidence. They must not be
+# used to overwrite campus_evidence, primary_buildout_signals, or energized MW.
+rows:
+  - statement_id: qual_hyp_meta_2024q4_001
+    source_id: S432
+    statement_date: 2025-01-29
+    date_precision: day
+    timeline_bucket: 2025Q1
+    event_name: Q4 2024 earnings call
+    speaker_name: Susan Li
+    speaker_title: CFO
+    organization: Meta
+    organization_bucket: hyperscaler_ai_lab
+    source_route: official_company
+    source_type: earnings_call
+    statement_taxonomy: capex_or_power_procurement
+    polarity: positive_acceleration
+    load_stage: announced_pipeline
+    geography: Global
+    related_company: Meta
+    short_quote: "servers, data centers, and network infrastructure"
+    paraphrase: Meta guided 2025 capital expenditures sharply higher for AI infrastructure, including servers, data centers, and network infrastructure.
+    capacity_basis: capex
+    time_horizon_start: 2025
+    time_horizon_end: 2025
+    confidence: High
+    independence_group: operator
+    notes: Capex/infrastructure guidance only; not evidence of energized MW.
+
+  - statement_id: qual_hyp_openai_2025_stargate_001
+    source_id: S433
+    statement_date: 2025-01-21
+    date_precision: day
+    timeline_bucket: 2025Q1
+    event_name: Announcing The Stargate Project
+    speaker_name: OpenAI
+    speaker_title: Company announcement
+    organization: OpenAI
+    organization_bucket: hyperscaler_ai_lab
+    source_route: official_company
+    source_type: official_blog
+    statement_taxonomy: capex_or_power_procurement
+    polarity: positive_acceleration
+    load_stage: announced_pipeline
+    geography: United States
+    related_company: Oracle; SoftBank; OpenAI
+    short_quote: "$500 billion over the next four years"
+    paraphrase: OpenAI announced Stargate as a new U.S. AI infrastructure initiative intended to invest up to $500 billion over four years.
+    numeric_value: 500
+    numeric_unit: USD_b
+    capacity_basis: capex
+    time_horizon_start: 2025
+    time_horizon_end: 2029
+    confidence: High
+    independence_group: operator
+    notes: Investment commitment, not energized capacity.
+
+  - statement_id: qual_hyp_goog_2024q4_001
+    source_id: S434
+    statement_date: 2025-02-04
+    date_precision: day
+    timeline_bucket: 2025Q1
+    event_name: 2024 Q4 earnings call
+    speaker_name: Sundar Pichai
+    speaker_title: CEO
+    organization: Alphabet/Google
+    organization_bucket: hyperscaler_ai_lab
+    source_route: official_company
+    source_type: earnings_call
+    statement_taxonomy: construction_delivery_pace
+    polarity: positive_acceleration
+    load_stage: under_construction
+    geography: Global
+    related_company: Google
+    short_quote: "broke ground on 11"
+    paraphrase: Alphabet said it broke ground on 11 new Cloud regions and data-center campuses in 2024.
+    capacity_basis: construction_status
+    time_horizon_start: 2024
+    time_horizon_end: 2024
+    confidence: High
+    independence_group: operator
+    notes: Construction pace anchor; not evidence that those campuses are energized.
+
+  - statement_id: qual_hyp_amzn_2024_letter_001
+    source_id: S435
+    statement_date: 2025-04
+    date_precision: month
+    timeline_bucket: 2025Q2
+    event_name: 2024 shareholder letter
+    speaker_name: Andy Jassy
+    speaker_title: CEO
+    organization: Amazon/AWS
+    organization_bucket: hyperscaler_ai_lab
+    source_route: official_company
+    source_type: shareholder_letter
+    statement_taxonomy: capex_or_power_procurement
+    polarity: positive_acceleration
+    load_stage: narrative_demand
+    geography: Global
+    related_company: Amazon/AWS
+    short_quote: "more datacenters, chips, and hardware"
+    paraphrase: Jassy linked unusually fast AWS AI demand to the need to procure more data centers, chips, and hardware.
+    capacity_basis: capex
+    confidence: High
+    independence_group: operator
+    notes: Demand/capex framing only; not capacity evidence.
+
+  - statement_id: qual_hyp_msft_2025q4_001
+    source_id: S436
+    statement_date: 2025-07-30
+    date_precision: day
+    timeline_bucket: 2025Q3
+    event_name: FY25 Q4 earnings call
+    speaker_name: Satya Nadella
+    speaker_title: CEO
+    organization: Microsoft
+    organization_bucket: hyperscaler_ai_lab
+    source_route: official_company
+    source_type: earnings_call
+    statement_taxonomy: energization_or_ready_for_service
+    polarity: positive_acceleration
+    load_stage: ready_for_service
+    geography: Global
+    related_company: Microsoft
+    short_quote: "more than two gigawatts"
+    paraphrase: Microsoft said it had stood up more than 2 GW of new data-center capacity over the prior 12 months and opened new data centers across six continents.
+    numeric_value: 2
+    numeric_unit: GW
+    capacity_basis: ready_for_service
+    time_horizon_start: 2024-07
+    time_horizon_end: 2025-07
+    confidence: High
+    independence_group: operator
+    notes: Company ready-for-service capacity statement; not utility-metered load.
+
+  - statement_id: qual_hyp_orcl_2025q1_001
+    source_id: S437
+    statement_date: 2025-09-09
+    date_precision: day
+    timeline_bucket: 2025Q3
+    event_name: FY26 Q1 financial results
+    speaker_name: Oracle
+    speaker_title: Company release
+    organization: Oracle
+    organization_bucket: hyperscaler_ai_lab
+    source_route: official_company
+    source_type: earnings_release
+    statement_taxonomy: contracted_or_committed_demand
+    polarity: positive_acceleration
+    load_stage: contracted_service
+    geography: Global
+    related_company: Oracle
+    short_quote: "remaining performance obligations"
+    paraphrase: Oracle reported sharply higher remaining performance obligations, a contracted-demand signal for cloud and AI infrastructure.
+    numeric_value: 455
+    numeric_unit: USD_b
+    capacity_basis: backlog
+    confidence: High
+    independence_group: operator
+    notes: Backlog/RPO proxy, not MW or energized capacity.
+
+  - statement_id: qual_util_d_2025irp_001
+    source_id: S438
+    statement_date: 2025-07
+    date_precision: month
+    timeline_bucket: 2025Q3
+    event_name: Dominion 2025 IRP update
+    speaker_name: Dominion Energy
+    speaker_title: Utility filing
+    organization: Dominion Energy Virginia
+    organization_bucket: utility_ipp_generation_owner
+    source_route: official_company
+    source_type: technical_report
+    statement_taxonomy: contracted_or_committed_demand
+    polarity: positive_acceleration
+    load_stage: contracted_service
+    geography: Virginia
+    related_company: Dominion Energy Virginia
+    paraphrase: Dominion disclosed data-center customer load contract values across July 2023, July 2024, and July 2025, showing escalation over time.
+    capacity_basis: contracted
+    confidence: High
+    independence_group: utility
+    notes: Utility planning/contracted-load anchor; not a named campus energization record.
+
+  - statement_id: qual_util_vst_2026_meta_001
+    source_id: S73
+    statement_date: 2026-01-09
+    date_precision: day
+    timeline_bucket: 2026Q1
+    event_name: Vistra-Meta nuclear PPA announcement
+    speaker_name: Vistra / Jim Burke
+    speaker_title: Company / CEO
+    organization: Vistra
+    organization_bucket: utility_ipp_generation_owner
+    source_route: official_company
+    source_type: press_release
+    statement_taxonomy: capex_or_power_procurement
+    polarity: positive_acceleration
+    load_stage: contracted_service
+    geography: PJM / Pennsylvania / Ohio
+    related_company: Meta
+    short_quote: "more than 2,600 megawatts"
+    paraphrase: Vistra announced 20-year PPAs for more than 2.6 GW of nuclear energy to support Meta operations in PJM.
+    numeric_value: 2.6
+    numeric_unit: GW
+    capacity_basis: generation_supply
+    time_horizon_start: 2027
+    time_horizon_end: 2047
+    confidence: High
+    independence_group: utility
+    notes: Generation-supply contract, not metered data-center load.
+
+  - statement_id: qual_util_aep_2026q4_001
+    source_id: S439
+    statement_date: 2026-02-12
+    date_precision: day
+    timeline_bucket: 2026Q1
+    event_name: AEP Q4 2025 earnings
+    speaker_name: AEP management
+    speaker_title: Company release
+    organization: AEP
+    organization_bucket: utility_ipp_generation_owner
+    source_route: official_company
+    source_type: earnings_release
+    statement_taxonomy: contracted_or_committed_demand
+    polarity: positive_acceleration
+    load_stage: contracted_service
+    geography: AEP system
+    related_company: AEP
+    short_quote: "incremental load"
+    paraphrase: AEP reported a large incremental-load outlook backed by signed agreements, with data centers and industrial load as core drivers.
+    numeric_value: 56
+    numeric_unit: GW
+    capacity_basis: contracted
+    time_horizon_end: 2030
+    confidence: High
+    independence_group: utility
+    notes: Contracted load outlook; not all data centers and not all energized.
+
+  - statement_id: qual_grid_ferc_2025_colocation_001
+    source_id: S440
+    statement_date: 2025-02-20
+    date_precision: day
+    timeline_bucket: 2025Q1
+    event_name: FERC order on co-location issues related to data centers running AI
+    speaker_name: FERC
+    speaker_title: Federal regulator
+    organization: FERC
+    organization_bucket: grid_regulator_planning_body
+    source_route: regulator
+    source_type: regulatory_order
+    statement_taxonomy: grid_or_regulatory_constraint
+    polarity: mixed_or_uncertain
+    load_stage: bottleneck_constraint
+    geography: United States / PJM
+    related_company: PJM
+    paraphrase: FERC opened review of PJM tariff issues for large co-located loads such as AI-enabled data centers, focusing on reliability and cost-allocation clarity.
+    capacity_basis: regulatory_constraint
+    confidence: High
+    independence_group: regulator
+    notes: Regulatory-constraint evidence; not load materialization proof.
+
+  - statement_id: qual_grid_ercot_2025_ltdef_001
+    source_id: S441
+    statement_date: 2025-04-08
+    date_precision: day
+    timeline_bucket: 2025Q2
+    event_name: 2025 Long-Term Load Forecast Report
+    speaker_name: ERCOT
+    speaker_title: Grid operator
+    organization: ERCOT
+    organization_bucket: grid_regulator_planning_body
+    source_route: grid_operator
+    source_type: load_forecast
+    statement_taxonomy: demand_future
+    polarity: positive_acceleration
+    load_stage: announced_pipeline
+    geography: Texas
+    related_company: ERCOT
+    paraphrase: ERCOT forecast methodology incorporates transmission-service-provider large-load additions and separately tracks large flexible load.
+    capacity_basis: forecast
+    confidence: High
+    independence_group: grid_operator
+    notes: Regional forecast input only; not evidence any named data center is energized.
+
+  - statement_id: qual_grid_eia_2026_steo_001
+    source_id: S442
+    statement_date: 2026-03-12
+    date_precision: day
+    timeline_bucket: 2026Q1
+    event_name: EIA Today in Energy data-center power demand analysis
+    speaker_name: EIA
+    speaker_title: Federal data agency
+    organization: EIA
+    organization_bucket: grid_regulator_planning_body
+    source_route: federal_dataset
+    source_type: institutional_report
+    statement_taxonomy: observed_or_metered_load
+    polarity: positive_acceleration
+    load_stage: energized_or_metered
+    geography: United States
+    related_company: EIA
+    paraphrase: EIA said U.S. electricity demand grew about 1.7% annually from 2020 through 2025 and that data-center electricity use is driving demand growth.
+    numeric_value: 1.7
+    numeric_unit: pct_annual_growth
+    capacity_basis: aggregate_demand_context
+    time_horizon_start: 2020
+    time_horizon_end: 2025
+    confidence: High
+    independence_group: federal_dataset
+    notes: National demand context; not usable for named campus MW.
+
+  - statement_id: qual_neocloud_crusoe_2025_abilene_live_001
+    source_id: S386
+    statement_date: 2025-09-30
+    date_precision: day
+    timeline_bucket: 2025Q3
+    event_name: Abilene Stargate first phase live
+    speaker_name: Crusoe
+    speaker_title: Company release
+    organization: Crusoe
+    organization_bucket: neocloud_colocation_contractor
+    source_route: official_company
+    source_type: press_release
+    statement_taxonomy: energization_or_ready_for_service
+    polarity: positive_acceleration
+    load_stage: ready_for_service
+    geography: Abilene, Texas
+    related_company: OpenAI; Oracle
+    short_quote: "now up and running"
+    paraphrase: Crusoe said the first phase of its Abilene campus was up and running on Oracle Cloud Infrastructure.
+    capacity_basis: live_cluster
+    confidence: High
+    independence_group: operator
+    notes: Live-cluster anchor, not a metered utility-load figure.
+
+  - statement_id: qual_supply_tsmc_2025q1_cowos_001
+    source_id: S443
+    statement_date: 2025-04
+    date_precision: month
+    timeline_bucket: 2025Q2
+    event_name: TSMC Q1 2025 earnings call
+    speaker_name: TSMC management
+    speaker_title: Company management
+    organization: TSMC
+    organization_bucket: supply_chain_infrastructure_expert
+    source_route: official_company
+    source_type: earnings_call
+    statement_taxonomy: supply_chain_bottleneck
+    polarity: mixed_or_uncertain
+    load_stage: bottleneck_constraint
+    geography: Global
+    related_company: TSMC
+    short_quote: "double CoWoS capacity"
+    paraphrase: TSMC said it was working to double CoWoS capacity in 2025 and building advanced-packaging facilities.
+    capacity_basis: supplier_proxy
+    time_horizon_start: 2025
+    time_horizon_end: 2025
+    confidence: High
+    independence_group: supply_chain
+    notes: Upstream packaging-capacity bottleneck, not installed data-center capacity.
+
+  - statement_id: qual_supply_eaton_2025q4_electrical_001
+    source_id: S444
+    statement_date: 2026-02-05
+    date_precision: day
+    timeline_bucket: 2026Q1
+    event_name: Eaton Q4 2025 results
+    speaker_name: Eaton
+    speaker_title: Company release
+    organization: Eaton
+    organization_bucket: supply_chain_infrastructure_expert
+    source_route: official_company
+    source_type: earnings_release
+    statement_taxonomy: supply_chain_bottleneck
+    polarity: mixed_or_uncertain
+    load_stage: bottleneck_constraint
+    geography: Global
+    related_company: Eaton
+    paraphrase: Eaton reported strong electrical order momentum and backlog growth, including data-center-driven demand.
+    capacity_basis: supplier_proxy
+    confidence: High
+    independence_group: supply_chain
+    notes: Electrical-equipment demand/backlog signal; not data-center MW proof.
+
+  - statement_id: qual_supply_iea_2026_energy_ai_001
+    source_id: S445
+    statement_date: 2026-04-16
+    date_precision: day
+    timeline_bucket: 2026Q2
+    event_name: IEA Key Questions on Energy and AI
+    speaker_name: IEA / Fatih Birol
+    speaker_title: Institutional energy agency
+    organization: IEA
+    organization_bucket: supply_chain_infrastructure_expert
+    source_route: institutional_research
+    source_type: institutional_report
+    statement_taxonomy: grid_or_regulatory_constraint
+    polarity: mixed_or_uncertain
+    load_stage: bottleneck_constraint
+    geography: Global
+    related_company: IEA
+    paraphrase: IEA described tightening bottlenecks for data-center electricity use, including gas turbines, transformers, chips, planning, regulation, and grid connections.
+    capacity_basis: aggregate_demand_context
+    confidence: High
+    independence_group: institutional_expert
+    notes: Institutional bottleneck context; not campus-level capacity evidence.

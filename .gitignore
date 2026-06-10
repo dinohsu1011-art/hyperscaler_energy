@@ -16,4 +16,6 @@ output/report.html
 
 # macOS
 .DS_Store
-.venv/
+
+# Claude Code session config (local only)
+.claude/

@@ -1,0 +1,2261 @@
+version: 2
+goal:
+  title: AI Capacity Reality Tracker
+  slug: ai-capacity-reality-tracker
+  kind: specific
+  tranche: Evidence-saturation data acquisition and triangulation for real AI/data-center capacity ramp vs announcements.
+  status: active
+  intake:
+    original_request: Figure out how much capacity is actually coming online, how fast it is building, and how that differs from announcements.
+    interpreted_outcome: Build enough source-backed data and confidence scoring to assess real AI/data-center capacity ramp vs announcement narrative at roughly 90% confidence.
+    input_shape: specific
+    audience: Investor/operator using the hyperscaler energy dashboard
+    authority: requested
+    proof_type: artifact
+    completion_proof: Each major assessment claim has at least two independent evidence types or an explicit not-publicly-knowable verdict, with residual uncertainty recorded.
+    likely_misfire: Collecting broad AI/semi data or building UI polish before proving which evidence answers actual capacity coming online.
+    blind_spots_considered:
+      - 'Capacity definition ambiguity: announced MW, utility-approved MW, planned campus MW, energized MW, critical IT load, facility power, GPU/compute proxy, and market absorption proxy must not be mixed.'
+      - Tenant/operator/campus/energy-contract double counting can make capacity look more real than it is.
+      - Some evidence is proprietary; not-publicly-knowable must be a documented verdict, not an assumption.
+      - Low-confidence HBM/CoWoS/channel-check rumors should not dominate the core proof standard.
+      - The goal can research forever unless completion is gated by a confidence matrix.
+    existing_plan_facts:
+      - Use a confidence-gated evidence matrix as the stopping rule.
+      - Include all direct capacity evidence plus supporting market proxies.
+      - Core proof should prioritize direct capacity evidence and clean public datasets; low-confidence rumors are optional overlays only.
+      - Preliminary ranking found cleanest public datasets are SEC/XBRL accounting signals, server inventory/backlog/receivables, Nvidia/AMD commitments/customer concentration, GPU cloud rental/availability, ASIC/networking inference proxies, TSMC monthly/HPC mix, then HBM/CoWoS rumor overlays.
+      - May 14 refocus: prioritize primary-source buildout-capacity disclosures from hyperscalers, neoclouds, colocation/data-center operators, and AI infrastructure companies, especially earnings-call transcripts, investor-day transcripts, CEO/CFO interviews, company blogs, official presentations, SEC filing text, and press releases where management states current active capacity, live clusters, capacity delivered, capacity under construction, deployment timing, utilization, backlog conversion, or buildout constraints.
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: http://goalbuddy.localhost:41737/ai-capacity-reality-tracker/
+    command: npx goalbuddy board /Users/dinohsu/Documents/GitHub/hyperscaler_energy/docs/goals/ai-capacity-reality-tracker
+  github_projects:
+    status: not_requested
+    url: null
+    command: npx goalbuddy extend github-projects
+    missing: []
+active_task: T040
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: medium
+    objective: Map the current repo data model and identify exactly what it already captures or misses for announced-vs-real capacity assessment.
+    inputs:
+      - README.md
+      - schema.sql
+      - data/contracts/*.yaml
+      - data/campuses.yaml
+      - data/sources.yaml
+      - scripts/load.py
+      - scripts/validate.py
+      - scripts/dashboard.py
+    constraints:
+      - Read-only.
+      - Do not edit implementation or data files.
+      - Separate direct capacity evidence from market proxy evidence.
+      - Identify double-counting risks between contracts, campuses, tenants, operators, and energy supply.
+    expected_output:
+      - Current data map
+      - Fields already present that answer real capacity vs announcements
+      - Missing fields/tables needed for phase-level evidence and confidence scoring
+      - Top repo-native files likely needed for first Worker slice
+    receipt:
+      result: done
+      summary: 'Mapped the repo data model for announced-vs-real capacity: the project already tracks energy contracts, campus planned/phase/energized MW, EIA planned/operating generator vintages, source provenance, and cost/demand side datasets, but lacks structured evidence routes and confidence gates for actual online capacity.'
+      evidence:
+        - 'schema.sql: sources, hyperscaler_contracts, data_center_campuses, planned_generators, operating_generators, provenance and EIA views'
+        - 'scripts/load.py: loaders for contracts, campuses, EIA 860M history, and supporting cost/demand datasets'
+        - 'scripts/validate.py: orphan-source, invalid-url, provenance, duplicate-smell, and known aggregate double-count checks'
+        - 'data.db snapshot: 354 sources, 208 contracts, 86 campuses, 24,591 planned generator rows, 27,837 operating generator rows'
+        - 'campus status snapshot: 50.7 GW planned vs 7.1 GW energized, with most planned MW still Announced/UnderConstruction/PartiallyEnergized'
+      findings:
+        - 'Existing direct capacity fields are campus-level only: planned MW, phase-one MW, energized MW, capacity definition, status, dates, notes, and one source_id.'
+        - The database has no structured phase/building table, no evidence_type/source_strength/evidence_date fields, no utility service/interconnection/substation/permit fields, and no claim-level evidence matrix.
+        - The validator catches some duplicate smells but does not reconcile campuses vs contracts vs tenant/operator vs energy-supply deals, nor facility-power vs critical-IT definitions.
+        - Market proxy signals proposed by the user are not yet represented as structured tables.
+      next: Inventory direct capacity evidence routes and rank the first-pass collection targets before changing schema or collectors.
+  - id: T002
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: medium
+    objective: Inventory direct capacity evidence routes for top planned MW campuses and operators.
+    inputs:
+      - T001 receipt
+      - Current campus and contract rows
+      - 'User requirement: 90% confidence using evidence matrix'
+    constraints:
+      - Read-only.
+      - Prioritize utility filings, customer-specific tariffs, service agreements, interconnection approvals, substation/transmission evidence, backup-generator air permits, building/electrical permits, certificates of occupancy, and satellite/construction evidence.
+      - For each route, classify source availability, update frequency, programmatic collectability, and evidence strength.
+      - Do not browse or collect every source exhaustively unless /goal activates this task; this prep board only defines the task.
+    expected_output:
+      - Ranked direct-evidence source inventory
+      - Top campuses/operators needing first-pass evidence collection
+      - Not-publicly-knowable candidates and the evidence routes that would need to fail before that verdict
+      - Suggested first data-slice scope
+    receipt:
+      result: done
+      summary: Ranked public direct-capacity evidence routes. Cleanest route is utility/regulator service evidence, followed by local site/building/COO evidence, backup/onsite generation air permits, transmission/substation evidence, EIA 860M power-supply cross-checks, and satellite construction monitoring. Biggest gaps are concentrated in a short list of 1 GW-plus rows where planned MW is high but energized MW is zero or partial.
+      evidence:
+        - 'Local DB top unenergized campus gaps: Hyperion 5.0 GW, Stargate UAE 5.0 GW, Microsoft Permian 2.5 GW, Amazon NIPSCO Phase 2 2.4 GW, Cumulus 1.62 GW, Prometheus 1.5 GW, Stargate Frontier/Michigan 1.4 GW each, Monarch 1.35 GW.'
+        - 'EIA 860M is monthly and tracks existing/proposed generators >=1 MW, but EIA warns capacities are preliminary and not capacity commitments: https://www.eia.gov/electricity/data/eia860m/'
+        - 'Michigan MPSC exposes E-Dockets/current filings/open cases and Google committed to a contested case for DTE utility contracts: https://www.michigan.gov/mpsc/commission/case-hearing-info and https://www.michigan.gov/ag/news/press-releases/2026/03/17/ag-nessel-on-newly-announced-google-data-center-proposal'
+        - 'Indiana IURC Online Services Portal exposes docketed case documents from 2001-present; useful for NIPSCO/Amazon and AES/Google service evidence: https://www.in.gov/iurc/online-services'
+        - 'Virginia DEQ publishes issued air permits for data centers and includes Microsoft Mecklenburg/LVL/Timber/AVC rows, a strong backup-generation evidence route: https://www.deq.virginia.gov/news-info/shortcuts/permits/air/issued-air-permits-for-data-centers'
+        - 'Amazon primary announcement states Northern Indiana adds 2.4 GW data center capacity and up to 3.0 GW new capacity via NIPSCO GenCo, giving a target for regulator/utility verification: https://www.aboutamazon.com/news/company-news/amazon-15-billion-indiana-data-centers'
+        - Sentinel Hub provides Catalog/Process/Statistical APIs for geospatial monitoring; USGS NAIP is accessible via EarthExplorer for aerial baseline checks.
+      ranked_direct_evidence_source_inventory:
+        - '1 utility service agreements, special contracts, tariffs, and commission orders: strongest direct evidence for contracted load/phase ramp; event-driven; public but sometimes redacted; collectability mixed by state portal.'
+        - '2 local site plans, building/electrical permits, inspections, and certificates of occupancy: strongest construction/activation evidence below utility service; event-driven; highly fragmented; often manual or portal-specific.'
+        - '3 backup generator and onsite gas/fuel-cell air permits: strong lower-bound proxy for campus scale and readiness; state/local air agencies; often public PDFs/tables; not equivalent to IT load.'
+        - '4 transmission/substation/interconnection evidence: strong evidence for deliverability and phase readiness; sources include PUC siting dockets, utility transmission plans, RTO queues, county plans; often names substations not tenants.'
+        - '5 EIA 860M and state generator inventories: excellent monthly supply-side cross-check for new generation supporting campuses; already partly imported; weak for campus load and behind-the-meter attribution.'
+        - '6 satellite/aerial construction monitoring: strong physical-progress evidence, programmatic with Sentinel/NAIP/Planet; cannot prove energization by itself; needs coordinates/polygons and phase labels.'
+        - '7 corporate go-live announcements and investor decks: useful when they explicitly say activated/live/commissioned; weak when they only state planned investment or future MW.'
+        - '8 water/wastewater agreements and economic-development/tax-abatement records: useful corroboration for site scale/timeline; medium-to-weak for actual MW.'
+      top_campuses_for_first_pass:
+        - 'C027 Meta Hyperion LA: 5.0 GW gap; target LPSC/Entergy service + transmission + generator dockets, Richland Parish permits, satellite.'
+        - 'C060 Amazon Northern Indiana Phase 2 and C059 Project Rainier IN: 2.4 GW and 1.2 GW gaps; target IURC/NIPSCO GenCo, St Joseph/local permits, substation/transmission, Amazon activation evidence.'
+        - 'C051 Stargate Michigan and C018 Google Cannoli MI: 1.4 GW and 1.0 GW gaps; target MPSC/DTE special contracts, township site-plan approvals, air permits, water/utility agreements.'
+        - 'C011 Microsoft Permian TX: 2.5 GW gap but site TBD; keep as high-priority once site/docket appears; for now classify as announcement-only.'
+        - 'C055 Cumulus/Susquehanna PA: 1.62 GW gap; target FERC/PJM/Talen interconnection and NRC/power-service evidence.'
+        - 'C028 Meta Prometheus OH: 1.5 GW gap; target PUCO/AEP/local permits and satellite.'
+        - 'C047/C050/C044 Stargate Texas sites: 1.4/1.2/1.0 GW gaps; target county permits, ERCOT/interconnection/substation evidence, air permits, satellite.'
+        - 'C007 Monarch WV and C062 Amazon Mattameade VA: 1.35/1.22 GW gaps; target off-grid generation permits and Virginia DEQ/local building permits respectively.'
+      not_publicly_knowable_candidates:
+        - Site-TBD announcements such as Microsoft Permian and Amazon Northern Indiana Phase 2 remain announcement-only until utility/site/permit records identify locations or contract phases.
+        - Operational campus MW for Google Council Bluffs/Pryor/Storey/The Dalles and Microsoft NoVA is often undisclosed; can be bounded by utility/permit/satellite evidence but not proven exactly without redacted contract terms or FOIA success.
+        - Redacted special contracts may prove contracted demand exists without revealing commercial/ramp details; classify missing ramp terms as not-public unless docket or appeal reveals them.
+        - GPU counts, cluster utilization, and tenant-specific energization dates are often private; direct capacity matrix should avoid treating them as known unless the operator states activation explicitly.
+      suggested_first_data_slice: 'Create a normalized campus_evidence matrix for 12-15 highest unenergized US campuses, collecting at least two evidence types per campus where public: utility/regulator service record plus one of local site/COO, air permit, substation/transmission, EIA generator, or satellite milestone. Exclude or explicitly tag international/site-TBD rows until a public route exists.'
+      next: T003 should inventory clean market-proxy datasets, then T004 should choose the first schema/collector slice with allowed_files and verification commands.
+  - id: T003
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: medium
+    objective: Inventory supporting market-proxy datasets that triangulate whether capacity is actually being absorbed.
+    inputs:
+      - Preliminary signal ranking from intake
+      - SEC EDGAR/XBRL and public API availability
+    constraints:
+      - Read-only.
+      - Prioritize clean, programmatic public datasets over paid/channel-check sources.
+      - Treat HBM/CoWoS allocation rumors as optional low-confidence overlays, not core proof.
+      - Map each signal to what capacity claim it can and cannot validate.
+    expected_output:
+      - Ranked market-proxy dataset inventory
+      - Fields and source URLs/APIs for capex/depreciation/PP&E/leases, server inventory/backlog/receivables, Nvidia/AMD commitments/customer concentration, GPU rental price/availability, ASIC/networking inference proxies, TSMC monthly/HPC mix
+      - Caveats and confidence tags
+      - Suggested collector backlog
+    receipt:
+      result: done
+      summary: Ranked supporting market-proxy datasets for capacity absorption. Best public proxy is SEC/XBRL accounting data for hyperscaler capex/PP&E/depreciation/leases, followed by server-vendor inventory/backlog/receivables, chip-vendor customer concentration/customer advances/purchase obligations/segment revenue, GPU rental price/availability snapshots, AI networking/custom ASIC revenue, and TSMC monthly/HPC mix. HBM and CoWoS remain mostly paid/channel-check overlays and should not be core proof.
+      evidence:
+        - 'SEC EDGAR APIs provide real-time submissions and XBRL companyfacts/companyconcept data without API keys, plus nightly bulk companyfacts/submissions ZIP files: https://www.sec.gov/edgar/sec-api-documentation'
+        - 'Dell FY2026 10-K filing page provides HTML/XBRL/PDF; filing text disaggregates AI-optimized servers and discusses AI-driven backlog growth: https://investors.delltechnologies.com/sec-filings/sec-filing/10-k/0001571996-26-000008'
+        - 'Supermicro Q3 FY2026 official release includes preliminary balance sheet with inventories, receivables, deferred revenue, and a caveat that results remain subject to closing/review: https://ir.supermicro.com/news/news-details/2026/Supermicro-Announces-Third-Quarter-Fiscal-Year-2026-Financial-Results/default.aspx'
+        - 'HPE Q1 FY2026 official results show Cloud & AI/server/networking segment disclosures, order growth, and public earnings materials/transcripts: https://www.hpe.com/us/en/newsroom/press-release/2026/03/hpe-reports-fiscal-2026-first-quarter-results.html'
+        - 'NVIDIA FY2026 Q3 10-Q discloses data-center compute/networking revenue, customer concentration, inventories, customer advances, data-center lease obligations, purchase-obligation/inventory charges, and supply-capacity risks: https://www.sec.gov/Archives/edgar/data/1045810/000104581025000230/nvda-20251026.htm'
+        - 'AMD Q1 2026 official results disclose data-center segment revenue and the Meta 6 GW/first 1 GW Instinct deployment announcement as an official signal to track: https://ir.amd.com/news-events/press-releases/detail/1284/amd-reports-first-quarter-2026-financial-results'
+        - Vast.ai documents API/CLI queryable marketplace pricing; Runpod, Lambda, Shadeform, and Fluidstack expose at least public pricing pages, with programmatic availability varying by provider.
+        - 'TSMC publishes official monthly revenue and quarterly platform mix; Apr. 2026 monthly page shows 2026 monthly values, while Q1 management report gives HPC/platform share: https://investor.tsmc.com/english/monthly-revenue/2026 and https://investor.tsmc.com/english/quarterly-results/2026/q1'
+        - Broadcom, Arista, Marvell/NVIDIA official releases provide clean AI networking/custom ASIC/optical signals, but they are broad deployment proxies rather than campus-capacity evidence.
+      ranked_market_proxy_dataset_inventory:
+        - '1 hyperscaler SEC/XBRL: capex, PP&E, depreciation/amortization, finance/operating leases, purchase commitments, cloud revenue. Clean quarterly/annual, highly programmatic, best support for spend-vs-capacity reconciliation; caveat: not AI-only and not campus-specific.'
+        - '2 server vendor SEC/XBRL plus filing text for Dell, SMCI, HPE: inventories, receivables, deferred revenue, backlog/order commentary, AI server revenue where disclosed. Good quarterly absorption signal; caveat: backlog definitions vary and may be textual/non-XBRL.'
+        - '3 NVIDIA/AMD official filings/results: data-center revenue split, customer concentration, inventory/customer advances, purchase obligations, networking vs compute, and announced deployment commitments. Strong chip-demand signal; caveat: sell-in and commitments do not prove utilization.'
+        - '4 GPU rental price/availability: Vast API/CLI is strongest public programmatic route; Runpod/Lambda/Fluidstack/Shadeform public prices add cross-checks; Silicon Data offers paid indexed feeds. Good high-frequency demand/supply proxy; caveat: listing prices and availability do not equal utilization.'
+        - '5 networking/custom ASIC/inference proxies: NVIDIA networking, Broadcom AI semiconductor/custom accelerator/Ethernet, Arista data-center networking, Marvell optical/custom silicon. Clean quarterly official data; useful for training-to-inference migration; caveat: no direct MW mapping.'
+        - '6 TSMC monthly revenue plus quarterly HPC/advanced-node mix: excellent timely foundry demand proxy; caveat: broad customer mix and no public CoWoS allocation by customer.'
+        - '7 HBM supplier disclosures: Micron/SK hynix/Samsung revenue/capex/contract commentary can flag tightness; caveat: public pricing and lead-time datasets are weak or paid.'
+        - '8 CoWoS allocation cuts/pushouts: low-confidence unless confirmed by TSMC/customer filings; treat as labeled rumor overlay only.'
+      fields_and_source_ideas:
+        - 'SEC collector fields: cik, ticker, period, fiscal_year_quarter, tag, value, unit, form, filed_date, accession, frame, source_url.'
+        - 'Hyperscaler tags: PaymentsToAcquirePropertyPlantAndEquipment, PropertyPlantAndEquipmentNet, DepreciationDepletionAndAmortization, OperatingLeaseRightOfUseAsset, FinanceLeaseRightOfUseAsset, PurchaseCommitmentAndContingentObligation, revenue segment tags where available.'
+        - 'Server-vendor tags/text: InventoryNet, AccountsReceivableNetCurrent, ContractWithCustomerLiability, RemainingPerformanceObligationExpectedTimingOfSatisfaction, segment revenue, backlog/order commentary snippets with source offsets.'
+        - 'GPU rental fields: provider, region, gpu_model, gpu_count, interconnect, vram, price_per_gpu_hour, availability_count, reserved/on_demand, timestamp, source_url/api_endpoint.'
+        - 'TSMC fields: month, revenue_ntd_m, yoy_pct, quarter, platform_mix_pct, advanced_node_share_pct, capex_guidance_low/high if present.'
+      caveats_and_confidence_tags:
+        - 'High confidence: SEC/XBRL numeric accounting data and official quarterly/monthly company releases.'
+        - 'Medium confidence: textual backlog/order commentary because definitions and customer readiness vary.'
+        - 'Medium confidence: GPU rental pricing/availability because inventory on a marketplace may be stale, regional, or not representative of hyperscaler private capacity.'
+        - 'Low confidence: HBM pricing/lead times and CoWoS pushouts unless sourced to official filings or paid datasets explicitly labeled as such.'
+        - All proxy datasets must be linked to claims like spend, hardware shipment, or market absorption, not to direct campus energization unless paired with direct evidence from T002.
+      suggested_collector_backlog:
+        - Build EDGAR/XBRL collector for hyperscalers, Dell, SMCI, HPE, NVDA, AMD, AVGO, ANET, MRVL, MU and selected memory/networking suppliers.
+        - Add filing-text extractor for backlog/order/customer concentration snippets with source URLs and filing offsets.
+        - Add daily/weekly GPU rental price and availability snapshots starting with Vast API, then public Runpod/Lambda/Fluidstack/Shadeform pages where terms allow.
+        - Add TSMC monthly revenue and quarterly platform-mix scraper from official investor pages/PDFs.
+        - Create proxy_signal_definitions table/file mapping each proxy to what it validates, what it cannot validate, update frequency, and confidence.
+      next: 'T004 should choose a first implementation slice. Recommended: direct campus_evidence matrix first, with proxy schema deferred or included only as a companion signal taxonomy.'
+  - id: T004
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: Choose the first data model and collection slice that best advances the 90% confidence capacity assessment.
+    inputs:
+      - T001 receipt
+      - T002 receipt
+      - T003 receipt
+      - Original user outcome and stopping rule
+    constraints:
+      - Do not implement.
+      - Prefer a small, reversible, verifiable Worker slice.
+      - Require explicit allowed_files, verify commands, and stop_if conditions for the next Worker.
+      - Reject any slice that mixes capacity definitions or increases double-counting risk.
+    expected_output:
+      - Decision
+      - Canonical capacity/evidence taxonomy for the first tranche
+      - Exact Worker objective for T005
+      - allowed_files for T005
+      - verify commands for T005
+      - stop_if conditions for T005
+      - Deferred/blocked tasks
+    receipt:
+      result: done
+      decision: first_tranche_is_direct_campus_evidence_matrix
+      summary: 'Selected a small reversible Worker slice: add a normalized campus_evidence data model and loader/validator support before collecting more data or adding market proxies. This directly supports the 90% confidence gate because every campus claim can be tied to independent evidence routes and capacity-definition-safe MW fields.'
+      canonical_capacity_evidence_taxonomy:
+        - 'capacity_definition must be explicit and non-interchangeable: Critical-IT, Facility-power, Contracted-load, Generation-nameplate, Backup-generation, Substation-capacity, Building-count, Unknown.'
+        - 'evidence_type should describe the public record route: utility_service_agreement, commission_order, local_site_plan, building_permit, electrical_permit, certificate_of_occupancy, air_permit_backup_generation, onsite_generation_permit, substation_transmission, eia_generator_crosscheck, satellite_construction, corporate_activation, water_wastewater, tax_abatement, media_report, other.'
+        - 'independence_group should support two-evidence gating: operator, utility, regulator, local_government, environmental_agency, grid_operator, federal_dataset, satellite, financial_filing, media, paid_dataset, other.'
+        - 'claim_status should stay separate from campus.status: announced, approved, site_work, under_construction, energized_partial, energized_full, paused, cancelled, not_publicly_knowable.'
+        - Any MW value must include mw_basis/capacity_definition and must not overwrite campus planned/phase/energized MW without a later explicit collection task.
+      worker_objective_for_T005: Create the normalized campus_evidence schema, YAML data file, loader, and validations. Seed only an empty or minimal structurally valid rows list; do not collect evidence rows yet.
+      allowed_files_for_T005:
+        - schema.sql
+        - scripts/load.py
+        - scripts/validate.py
+        - data/campus_evidence.yaml
+      verify_commands_for_T005:
+        - .venv/bin/python scripts/load.py
+        - .venv/bin/python scripts/validate.py
+        - sqlite3 data.db "PRAGMA table_info(campus_evidence); SELECT COUNT(*) AS campus_evidence_rows FROM campus_evidence;"
+      stop_if_for_T005:
+        - Need files outside allowed_files.
+        - Need to collect/source new evidence rows before the schema is accepted.
+        - Capacity definition, evidence type, or independence group taxonomy cannot be represented without mixing MW meanings.
+        - Validation fails twice or load.py cannot rebuild data.db.
+      deferred_or_blocked_tasks:
+        - T006 collector choice deferred until campus_evidence model is validated.
+        - Market proxy collectors deferred until direct evidence matrix exists; they should become companion confidence signals, not direct campus-status evidence.
+        - International and site-TBD campus rows should be tagged but not used as first population targets unless a public docket/site route appears.
+  - id: T005
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: Create the normalized campus_evidence schema, YAML data file, loader, and validations. Seed only an empty or minimal structurally valid rows list; do not collect evidence rows yet.
+    allowed_files:
+      - schema.sql
+      - scripts/load.py
+      - scripts/validate.py
+      - data/campus_evidence.yaml
+    verify:
+      - .venv/bin/python scripts/load.py
+      - .venv/bin/python scripts/validate.py
+      - sqlite3 data.db "PRAGMA table_info(campus_evidence); SELECT COUNT(*) AS campus_evidence_rows FROM campus_evidence;"
+    stop_if:
+      - Need files outside allowed_files.
+      - Need to collect/source new evidence rows before the schema is accepted.
+      - Capacity definition, evidence type, or independence group taxonomy cannot be represented without mixing MW meanings.
+      - Validation fails twice or load.py cannot rebuild data.db.
+    receipt:
+      result: done
+      changed_files:
+        - schema.sql
+        - scripts/load.py
+        - scripts/validate.py
+        - data/campus_evidence.yaml
+      commands:
+        - cmd: .venv/bin/python scripts/load.py
+          status: pass
+          notes: Rebuilt data.db; loaded 354 sources, 208 contracts, 86 campuses, 0 campus_evidence rows, 24,591 planned generator rows, 27,837 operating generator rows.
+        - cmd: .venv/bin/python scripts/validate.py
+          status: pass
+          notes: 'Warnings-only baseline: 0 errors, 21 warnings. No new campus_evidence warnings because rows list is empty.'
+        - cmd: sqlite3 data.db "PRAGMA table_info(campus_evidence); SELECT COUNT(*) AS campus_evidence_rows FROM campus_evidence;"
+          status: pass
+          notes: campus_evidence table exists with expected columns; row count is 0.
+      summary: Created normalized campus_evidence schema, empty YAML data source, loader support, provenance view inclusion, and validation hygiene checks for MW basis, energized claims without MW, and duplicate evidence rows.
+  - id: T006
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: Implement a read-only campus evidence coverage/gap report that ranks unenergized campus MW and shows whether each campus has enough independent evidence groups to support confidence scoring.
+    allowed_files:
+      - scripts/evidence_coverage.py
+    verify:
+      - .venv/bin/python scripts/evidence_coverage.py --top 15
+    stop_if:
+      - Need network access, paid data, browser automation, or credentials.
+      - Need to edit data rows or schema instead of a read-only reporting script.
+      - Need files outside allowed_files.
+      - The script cannot distinguish capacity_definition from evidence capacity_definition safely.
+    receipt:
+      result: done
+      changed_files:
+        - scripts/evidence_coverage.py
+      commands:
+        - cmd: .venv/bin/python scripts/evidence_coverage.py --top 15
+          status: pass
+          notes: Reported 86 campuses, 50,724 planned MW, 7,094 energized MW, 46,336 unenergized planned MW, and 0 current campus_evidence rows.
+      summary: Added a read-only evidence coverage report ranking unenergized campus MW gaps and showing independent evidence group counts/gate status per campus.
+  - id: T007
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: Populate the first source-backed campus_evidence slice for the highest-impact US campuses, prioritizing public utility/regulator, local permit/site-plan, air-permit, corporate-activation, and EIA/source cross-check evidence. Keep each row tied to one source_id and preserve MW basis explicitly.
+    allowed_files:
+      - data/campus_evidence.yaml
+      - data/sources.yaml
+    verify:
+      - .venv/bin/python scripts/load.py
+      - .venv/bin/python scripts/validate.py
+      - .venv/bin/python scripts/evidence_coverage.py --top 15
+    stop_if:
+      - Need paid or non-public data access.
+      - Need files outside allowed_files.
+      - Evidence cannot be tied to a source ID or source-backed note.
+      - Potential double-counting or MW-basis conflict cannot be resolved locally.
+      - A public source only supports an announcement and gives no independent capacity/deliverability signal; tag it as announced evidence or skip.
+    receipt:
+      result: done
+      changed_files:
+        - data/campus_evidence.yaml
+        - data/sources.yaml
+      commands:
+        - cmd: .venv/bin/python scripts/load.py
+          status: pass
+          notes: Rebuilt data.db; loaded 363 sources, 208 contracts, 86 campuses, and 19 campus_evidence rows.
+        - cmd: .venv/bin/python scripts/validate.py
+          status: pass
+          notes: 'Warnings-only baseline: 0 errors, 22 warnings. New semantic warning is CE013 because Project Rainier has activation evidence but no source-disclosed MW.'
+        - cmd: .venv/bin/python scripts/evidence_coverage.py --top 15
+          status: pass
+          notes: Reported 19 evidence rows across 9 campuses; 4 campuses now pass the two-independent-group gate.
+      summary: >-
+        Populated the first source-backed campus_evidence slice and added source records S364-S373. The
+        slice covers Hyperion, Project Cannoli, Stargate Michigan, Cumulus/Susquehanna, Project Rainier,
+        Amazon Northern Indiana Phase 2, Mattameade, Monarch, and Prometheus while preserving MW basis
+        as contracted load, facility power, generation nameplate, construction power, building count, or
+        unknown where the source does not disclose MW.
+      evidence:
+        - 'C027 Hyperion: Entergy/LPSC/EIA evidence gives utility, regulator, and federal_dataset groups; two_group_gate achieved.'
+        - 'C060 Amazon Northern Indiana Phase 2: Amazon/NIPSCO/EIA evidence gives operator, utility, and federal_dataset groups; two_group_gate achieved.'
+        - 'C062 Mattameade: USACE permit plus DCD media capacity row give environmental_agency and media groups; two_group_gate achieved.'
+        - 'C018 Project Cannoli: Google energy package plus Michigan AG contested-case route give operator and regulator groups; two_group_gate achieved.'
+        - 'C059 Project Rainier: corporate activation evidence added without MW because Amazon source discloses chips/operational status but not capacity.'
+      next: T008 should audit whether this first matrix slice is enough or pick the next highest-leverage evidence tranche.
+  - id: T008
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: Audit whether the current evidence matrix is sufficient for a 90% confidence assessment or select the next evidence slice.
+    inputs:
+      - T001-T007 receipts
+      - Current evidence matrix/data files
+      - Validation output
+    constraints:
+      - Do not implement.
+      - Do not call the goal complete unless each major claim has two independent evidence types or a not-publicly-knowable verdict.
+      - If not complete, specify the next highest-leverage Worker or Scout task.
+    expected_output:
+      - complete | not_complete
+      - confidence estimate and evidence basis
+      - major claims lacking evidence
+      - next task if not complete
+    receipt:
+      result: done
+      decision: not_complete
+      confidence_estimate: 'Low-to-medium for current 90% goal; proof-of-method is solid, but coverage is still narrow.'
+      summary: >-
+        The current matrix materially improves the data model but is not sufficient for the user's 90%
+        confidence goal. Only 9 of 86 campuses have campus_evidence rows, and only 4 of the top 15
+        unenergized gaps currently pass a two-independent-group gate. The first slice proves that
+        direct evidence routes work, but it does not yet support a high-confidence announcement-vs-real
+        capacity assessment across the portfolio.
+      major_claims_lacking_evidence:
+        - 'Top-15 rows with no campus_evidence: C045 Stargate UAE, C011 Microsoft Permian, C047 Stargate Frontier, C050 Stargate Milam, C042 xAI Colossus 2, and C029 Meta El Paso.'
+        - 'Rows with only one source family: C055 Cumulus/Susquehanna, C028 Prometheus, C051 Stargate Michigan, C007 Monarch, and C059 Project Rainier.'
+        - 'Actual online capacity remains weakly supported: Project Rainier has operator activation evidence but no public MW; most other rows are deliverability or construction evidence, not energized-load evidence.'
+        - 'Site-TBD or international rows need explicit not-publicly-knowable verdicts if public route searches fail, rather than staying as silent gaps.'
+        - 'Market proxy datasets from T003 remain deferred; direct campus evidence should broaden before proxy collectors become useful.'
+      next_task: T009
+  - id: T009
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: Populate the second source-backed campus_evidence slice for top-15 gaps and one-evidence campuses, prioritizing missing independent groups, actual activation/energization signals, local permits, utility/regulator records, and explicit not-publicly-knowable rows for site-TBD claims when public searches fail.
+    allowed_files:
+      - data/campus_evidence.yaml
+      - data/sources.yaml
+    verify:
+      - .venv/bin/python scripts/load.py
+      - .venv/bin/python scripts/validate.py
+      - .venv/bin/python scripts/evidence_coverage.py --top 20
+    stop_if:
+      - Need paid or non-public data access.
+      - Need files outside allowed_files.
+      - Evidence cannot be tied to a source ID or source-backed note.
+      - Potential double-counting or MW-basis conflict cannot be resolved locally.
+      - A public source only supports an announcement and gives no independent capacity/deliverability signal; tag it as announced or not_publicly_knowable evidence, or skip.
+    receipt:
+      result: done
+      changed_files:
+        - data/campus_evidence.yaml
+        - data/sources.yaml
+      commands:
+        - cmd: .venv/bin/python scripts/load.py
+          status: pass
+          notes: Rebuilt data.db; loaded 374 sources, 208 contracts, 86 campuses, and 33 campus_evidence rows.
+        - cmd: .venv/bin/python scripts/validate.py
+          status: pass
+          notes: 'Warnings-only baseline: 0 errors, 20 warnings. Remaining new semantic warning is CE013 because Project Rainier activation has no source-disclosed MW.'
+        - cmd: .venv/bin/python scripts/evidence_coverage.py --top 20
+          status: pass
+          notes: Reported 33 evidence rows across 15 campuses; 10 campuses now pass the two-independent-group gate.
+      summary: >-
+        Added the second source-backed campus_evidence slice using official FERC, OPSB, WVDEP, City of
+        El Paso, PUCT-public-notice, Chevron, G42, Saline Township, Vantage, and OpenAI/SB Energy
+        records where available. This filled evidence for C045, C011, C047, C050, C042, and C029 and
+        added missing independent groups for C055, C028, C051, C007, and C059.
+      evidence:
+        - 'Coverage improved from 19 to 33 evidence rows and from 4 to 10 campuses with two independent evidence groups.'
+        - 'Top-20 rows still needing a second group: C045 Stargate UAE, C011 Microsoft Permian, C047 Stargate Frontier, C050 Stargate Milam, and C042 xAI Colossus 2.'
+        - 'Top-20 rows still with no evidence: C030 Meta Lebanon, C044 Stargate Abilene, C046 Stargate Lighthouse, C048 Project Jupiter, and C053 Stargate India.'
+        - 'Actual energized-load proof remains thin: Project Rainier has operator activation without MW, and most other rows are construction, permit, utility-service, or generation-deliverability evidence.'
+      next: T999 should audit full goal completion and select the next tranche because the current matrix is stronger but still below the 90% confidence target.
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: 'Final audit: prove whether the full original outcome is complete.'
+    inputs:
+      - All done task receipts
+      - Last verification
+      - Current dirty diff
+      - Evidence matrix and confidence verdicts
+    constraints:
+      - Do not implement.
+      - Reject completion if any required Worker task remains queued or active.
+      - Reject completion if the evidence matrix cannot support a 90% confidence assessment.
+      - Reject completion if announcement-vs-real capacity definitions are mixed or double-counted.
+    expected_output:
+      - complete | not_complete
+      - 'full_outcome_complete: true | false'
+      - assessment confidence and residual uncertainty
+      - missing evidence
+      - next task if not complete
+    receipt:
+      result: done
+      decision: not_complete
+      full_outcome_complete: false
+      assessment_confidence: 'Approximately medium for highest-priority US campus deliverability, still below 90% for portfolio-wide actual capacity coming online.'
+      summary: >-
+        The current evidence matrix is materially stronger but cannot yet support the user's full
+        90% confidence goal. It now covers 15 campuses and gives two independent evidence groups to
+        10 campuses, including several of the largest US gaps, but it still has no evidence for five
+        top-20 gaps and weak actual-energization evidence for most rows.
+      missing_evidence:
+        - 'No campus_evidence yet for C030 Meta Lebanon, C044 Stargate Abilene, C046 Stargate Lighthouse, C048 Project Jupiter, and C053 Stargate India.'
+        - 'Second independent groups still needed for C045 Stargate UAE, C011 Microsoft Permian, C047 Stargate Frontier, C050 Stargate Milam, and C042 xAI Colossus 2.'
+        - 'Actual energized-load evidence remains sparse; Project Rainier has activation evidence but no source-backed MW, while most other rows prove construction, permits, service agreements, or generation supply rather than online IT load.'
+        - 'Market proxy datasets have not yet been implemented, so spend/hardware/utilization triangulation is still outside the database.'
+      next_task: T010
+  - id: T010
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: Populate the third direct-evidence slice for remaining top-20 gaps and actual-online signals, prioritizing C030, C044, C046, C048, C053 and second groups for C045, C011, C047, C050, and C042.
+    allowed_files:
+      - data/campus_evidence.yaml
+      - data/sources.yaml
+    verify:
+      - .venv/bin/python scripts/load.py
+      - .venv/bin/python scripts/validate.py
+      - .venv/bin/python scripts/evidence_coverage.py --top 25
+    stop_if:
+      - Need paid or non-public data access.
+      - Need files outside allowed_files.
+      - Evidence cannot be tied to a source ID or source-backed note.
+      - Potential double-counting or MW-basis conflict cannot be resolved locally.
+      - The source only supports rumor/channel-check claims without a public document trail.
+    receipt:
+      result: done
+      changed_files:
+        - data/campus_evidence.yaml
+        - data/sources.yaml
+      commands:
+        - cmd: .venv/bin/python scripts/load.py
+          status: pass
+          notes: Rebuilt data.db; loaded 380 sources, 208 contracts, 86 campuses, and 43 campus_evidence rows.
+        - cmd: .venv/bin/python scripts/validate.py
+          status: pass
+          notes: 'Warnings-only baseline: 0 errors, 21 warnings. CE013 and CE036 warn because activation evidence exists but the sources do not disclose MW.'
+        - cmd: .venv/bin/python scripts/evidence_coverage.py --top 25
+          status: pass
+          notes: Reported 43 evidence rows across 20 campuses; 12 campuses now pass the two-independent-group gate.
+      summary: >-
+        Added third direct-evidence slice for remaining top-20 gaps and actual-online signals. New rows
+        cover Meta Lebanon, Stargate Abilene, Stargate Lighthouse, Project Jupiter, Stargate India, and
+        Frontier's TCEQ VoltaGrid EGU permit. Notes preserve contradictions such as Lighthouse 902 MW
+        vs rounded 1 GW, Project Jupiter's Bloom fuel-cell redesign vs older gas summary, and OpenAI
+        India's 100 MW initial capacity vs 1 GW option.
+      evidence:
+        - 'C044 Abilene now has Lancium 1.2 GW ERCOT-approved interconnect evidence and Crusoe first-phase live evidence.'
+        - 'C046 Lighthouse now has Vantage 902 MW critical IT evidence plus PSC Wisconsin data-center tariff evidence; two_group_gate achieved.'
+        - 'C048 Project Jupiter now has Oracle/Bloom 2.45 GW fuel-cell generation evidence and construction-status evidence.'
+        - 'C053 Stargate India now separates OpenAI/Tata 100 MW initial capacity from the 1 GW scale option.'
+        - 'C047 Frontier now has TCEQ 709 MW VoltaGrid EGU permit evidence; two_group_gate achieved.'
+      next: T011 should audit current confidence and pick whether to do rollup reconciliation, remaining direct evidence, dashboard exposure, or market proxy collectors.
+  - id: T011
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: Audit the evidence matrix after T010 and choose the next tranche toward the 90% confidence goal.
+    inputs:
+      - T001-T010 receipts
+      - Current evidence matrix
+      - Latest validation and evidence_coverage output
+    constraints:
+      - Do not implement.
+      - Do not call full outcome complete unless the matrix supports high-confidence actual-online vs announced capacity claims.
+      - Identify whether the next tranche should be remaining direct evidence, campus rollup reconciliation, dashboard exposure, or market proxy schema/collector work.
+    expected_output:
+      - complete | not_complete
+      - confidence estimate
+      - unresolved contradictions and missing direct evidence
+      - exact next Worker objective, allowed_files, verify, and stop_if
+    receipt:
+      result: done
+      decision: not_complete
+      confidence_estimate: 'Medium for top US deliverability evidence; still below 90% for actual online capacity and portfolio-wide assessment.'
+      summary: >-
+        After T010, the evidence matrix is strong enough to stop treating the largest rows as a single
+        announcement bucket, but not strong enough to call the full goal complete. The highest-value next
+        tranche is a read-only reconciliation/report layer that converts campus_evidence into reality
+        tiers and explicitly surfaces contradictions, rather than continuing to add source rows blindly.
+      unresolved_contradictions_and_gaps:
+        - 'C045 Stargate UAE: current campus row shows 5 GW, but primary evidence supports 1 GW Stargate cluster plus first 200 MW construction tranche inside a broader 5 GW campus envelope.'
+        - 'C011 Microsoft Permian: current campus row shows 2.5 GW, but official Chevron source confirms only exclusivity and no definitive agreement/site/commercial terms.'
+        - 'C046 Lighthouse: current campus row is rounded 1,000 MW Critical-IT; Vantage official source says 902 MW critical IT load.'
+        - 'C048 Project Jupiter: current power summary still references gas microgrid, while Oracle/Bloom evidence says up to 2.45 GW Bloom fuel cells replace gas turbines/diesel.'
+        - 'C053 Stargate India: current row implies 1 GW planned, while OpenAI source supports 100 MW initial with potential to scale to 1 GW.'
+        - 'Actual online MW remains sparse: Abilene/Rainier activation sources confirm operation without source-disclosed MW, and most other rows are deliverability/site-work evidence.'
+      next_worker_objective: Build a read-only capacity reality report that derives evidence tiers and contradiction flags from campus_evidence and campus rows, without changing campus rollups yet.
+      allowed_files_for_next:
+        - scripts/capacity_reality_report.py
+      verify_for_next:
+        - .venv/bin/python scripts/capacity_reality_report.py --top 25
+      stop_if_for_next:
+        - Need to edit data rows, dashboard HTML, or schema.
+        - Need subjective weighting that cannot be derived from current evidence fields.
+        - Cannot keep capacity definitions separated in the report.
+  - id: T012
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: Build a read-only capacity reality report that derives evidence tiers and contradiction flags from campus_evidence and campus rows, without changing campus rollups yet.
+    allowed_files:
+      - scripts/capacity_reality_report.py
+    verify:
+      - .venv/bin/python scripts/capacity_reality_report.py --top 25
+    stop_if:
+      - Need to edit data rows, dashboard HTML, or schema.
+      - Need subjective weighting that cannot be derived from current evidence fields.
+      - Cannot keep capacity definitions separated in the report.
+    receipt:
+      result: done
+      changed_files:
+        - scripts/capacity_reality_report.py
+      commands:
+        - cmd: .venv/bin/python scripts/capacity_reality_report.py --top 25
+          status: pass
+          notes: Reported 43 evidence rows across 20 campuses; 12 campuses with two independent groups; reality tiers and contradiction flags emitted.
+        - cmd: python3 -m py_compile scripts/capacity_reality_report.py
+          status: pass
+          notes: Syntax check passed.
+      summary: >-
+        Added a read-only capacity reality report that derives conservative tiers from campus_evidence:
+        activation_evidence, energized_field_two_group, two_group_deliverability, single_group_site_work,
+        single_group_approved, announcement_only, not_publicly_knowable, and no_evidence. The report also
+        surfaces non-additive evidence MW by basis and flags scope/basis caveats.
+      key_output:
+        - 'planned_mw: 50,724; energized_mw_field: 7,094; unenergized_gap_mw: 46,336.'
+        - 'two_group_deliverability: 9 campuses / 16,270 planned MW / 16,270 gap MW.'
+        - 'activation_evidence: 2 campuses / 3,400 planned MW / 1,200 energized MW field / 2,200 gap MW.'
+        - 'no_evidence: 66 campuses / 15,334 planned MW / 12,446 gap MW.'
+        - 'Evidence MW by basis is explicitly non-additive: Generation-nameplate dominates evidence MW at 25,557 MW, separate from Facility-power, Contracted-load, Critical-IT, and Substation-capacity.'
+      next: T013 should select whether to continue direct evidence collection or start market proxy collectors.
+  - id: T013
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: Choose the next tranche after the capacity reality report, balancing remaining direct evidence gaps against the need for market-proxy triangulation.
+    inputs:
+      - T012 report output
+      - T003 market-proxy scout receipt
+      - Current evidence coverage and validation output
+    constraints:
+      - Do not implement.
+      - Prefer the smallest tranche that materially increases confidence toward real online capacity.
+      - Specify exact Worker objective, allowed_files, verify commands, and stop_if.
+    expected_output:
+      - decision
+      - rationale
+      - next Worker objective
+      - allowed_files
+      - verify
+      - stop_if
+    receipt:
+      result: done
+      decision: continue_direct_evidence_before_market_proxies
+      rationale: >-
+        The T012 report shows the matrix is now useful, but top-25 no-evidence rows still account for
+        meaningful gap MW. Market proxies are the next major workstream, but they should sit on top of
+        the best available campus-truth layer. One more direct evidence slice is the smallest confidence
+        gain before starting SEC/XBRL and hardware proxy collectors.
+      next_worker_objective: Populate direct campus_evidence rows for the largest remaining no-evidence top-25 gaps, prioritizing C009, C073, C074, C043, and C067, using existing or new source IDs and preserving capacity definitions.
+      allowed_files_for_next:
+        - data/campus_evidence.yaml
+        - data/sources.yaml
+      verify_for_next:
+        - .venv/bin/python scripts/load.py
+        - .venv/bin/python scripts/validate.py
+        - .venv/bin/python scripts/capacity_reality_report.py --top 25
+      stop_if_for_next:
+        - Need paid or non-public data access.
+        - Need files outside allowed_files.
+        - Evidence cannot be tied to a source ID or source-backed note.
+        - Potential double-counting or MW-basis conflict cannot be resolved locally.
+  - id: T014
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: Populate direct campus_evidence rows for the largest remaining no-evidence top-25 gaps, prioritizing C009, C073, C074, C043, and C067, using existing or new source IDs and preserving capacity definitions.
+    allowed_files:
+      - data/campus_evidence.yaml
+      - data/sources.yaml
+    verify:
+      - .venv/bin/python scripts/load.py
+      - .venv/bin/python scripts/validate.py
+      - .venv/bin/python scripts/capacity_reality_report.py --top 25
+    stop_if:
+      - Need paid or non-public data access.
+      - Need files outside allowed_files.
+      - Evidence cannot be tied to a source ID or source-backed note.
+      - Potential double-counting or MW-basis conflict cannot be resolved locally.
+    receipt:
+      result: done
+      changed_files:
+        - data/campus_evidence.yaml
+        - data/sources.yaml
+      commands:
+        - cmd: .venv/bin/python scripts/load.py
+          status: pass
+          notes: Rebuilt data.db; loaded 381 sources, 208 contracts, 86 campuses, and 50 campus_evidence rows.
+        - cmd: .venv/bin/python scripts/validate.py
+          status: pass
+          notes: 'Warnings-only baseline: 0 errors, 21 warnings. Activation-without-MW warnings remain CE013 Rainier and CE036 Abilene.'
+        - cmd: .venv/bin/python scripts/capacity_reality_report.py --top 25
+          status: pass
+          notes: Reported 50 evidence rows across 25 campuses; no_evidence fell to 61 campuses and 8,206 gap MW; top-25 no-evidence rows were cleared.
+      summary: >-
+        Added direct evidence rows for Microsoft Abilene, CoreWeave Galaxy Helios, Applied Digital
+        Ellendale, Core Scientific/CoreWeave multi-site portfolio, and xAI Macrohardrr/Southaven. The
+        added rows prioritize source-backed capacity where available and leave MW blank where public
+        sources prove a project but not its capacity.
+      evidence:
+        - 'C009 Microsoft Abilene: Crusoe primary 900 MW site-work evidence for two buildings plus onsite power plant.'
+        - 'C067 Galaxy Helios: 800 MW CoreWeave commitment evidence.'
+        - 'C073 Applied Digital Ellendale: 250 MW plus 150 MW CoreWeave lease evidence.'
+        - 'C074 Core Scientific/CoreWeave: 200 MW initial hosting evidence plus 840 MW portfolio-level evidence.'
+        - 'C043 Macrohardrr/Southaven: official state announcement evidence with MW left blank because source does not disclose campus capacity.'
+      next: T015 should decide whether direct evidence is saturated enough to start market-proxy collectors.
+  - id: T015
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: Audit direct evidence saturation after T014 and decide whether to start the market-proxy dataset tranche.
+    inputs:
+      - T003 market proxy inventory
+      - T012 capacity reality report
+      - T014 receipt and latest validation
+    constraints:
+      - Do not implement.
+      - If direct evidence is sufficiently saturated for top gaps, choose a bounded market-proxy Worker.
+      - If not, specify the remaining direct evidence target list.
+    expected_output:
+      - decision
+      - confidence estimate
+      - next Worker objective
+      - allowed_files
+      - verify
+      - stop_if
+    receipt:
+      result: done
+      decision: start_sec_xbrl_market_proxy_tranche
+      confidence_estimate: >-
+        Medium-high that the direct evidence matrix now separates the largest public campus gaps into
+        announcement, deliverability, site-work, and activation buckets; still below the user's 90%
+        confidence target for actual online capacity because public energized-load MW remains sparse.
+      rationale: >-
+        T014 cleared the top-25 no-evidence campus gaps and reduced the largest silent direct-evidence
+        holes. Continuing direct campus collection would still help, but the bigger confidence bottleneck
+        is triangulation: whether the claimed physical buildout is echoed in official capex, depreciation,
+        PP&E, leases, inventory, receivables, commitments, and data-center revenue signals.
+      next_worker_objective: >-
+        Add the first market-proxy dataset tranche using official SEC/XBRL data: define proxy signals,
+        collect fiscal 2023-current public-company metrics for hyperscalers, server vendors, and chip /
+        networking / memory vendors, load them into SQLite, and validate duplicate/source hygiene.
+      allowed_files_for_next:
+        - schema.sql
+        - scripts/load.py
+        - scripts/validate.py
+        - scripts/sec_proxy_signals.py
+        - data/sources.yaml
+        - data/proxy_signal_definitions.yaml
+        - data/sec_proxy_metrics.yaml
+      verify_for_next:
+        - .venv/bin/python scripts/sec_proxy_signals.py --output data/sec_proxy_metrics.yaml --since-fy 2023
+        - .venv/bin/python scripts/load.py
+        - .venv/bin/python scripts/validate.py
+        - sqlite3 data.db "SELECT company_group, COUNT(*) FROM sec_proxy_metrics GROUP BY company_group;"
+      stop_if_for_next:
+        - Need paid data, non-public filings, or credentials.
+        - Need files outside allowed_files.
+        - SEC data cannot be fetched after an approved network retry.
+        - XBRL tags cannot be kept distinct without mixing metric meanings.
+  - id: T016
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: >-
+      Add the first market-proxy dataset tranche using official SEC/XBRL data: define proxy signals,
+      collect fiscal 2023-current public-company metrics for hyperscalers, server vendors, and chip /
+      networking / memory vendors, load them into SQLite, and validate duplicate/source hygiene.
+    allowed_files:
+      - schema.sql
+      - scripts/load.py
+      - scripts/validate.py
+      - scripts/sec_proxy_signals.py
+      - data/sources.yaml
+      - data/proxy_signal_definitions.yaml
+      - data/sec_proxy_metrics.yaml
+    verify:
+      - .venv/bin/python scripts/sec_proxy_signals.py --output data/sec_proxy_metrics.yaml --since-fy 2023
+      - .venv/bin/python scripts/load.py
+      - .venv/bin/python scripts/validate.py
+      - sqlite3 data.db "SELECT company_group, COUNT(*) FROM sec_proxy_metrics GROUP BY company_group;"
+    stop_if:
+      - Need paid data, non-public filings, or credentials.
+      - Need files outside allowed_files.
+      - SEC data cannot be fetched after an approved network retry.
+      - XBRL tags cannot be kept distinct without mixing metric meanings.
+    receipt:
+      result: done
+      changed_files:
+        - schema.sql
+        - scripts/load.py
+        - scripts/validate.py
+        - scripts/sec_proxy_signals.py
+        - data/sources.yaml
+        - data/proxy_signal_definitions.yaml
+        - data/sec_proxy_metrics.yaml
+      commands:
+        - cmd: python3 scripts/sec_proxy_signals.py --output data/sec_proxy_metrics.yaml --since-fy 2023
+          status: pass
+          notes: Collected 2,371 deduped official SEC/XBRL rows across 15 companies, with no skipped tickers.
+        - cmd: .venv/bin/python scripts/load.py
+          status: pass
+          notes: Rebuilt data.db with 5 proxy_signal_definitions and 2,371 sec_proxy_metrics rows.
+        - cmd: .venv/bin/python scripts/validate.py
+          status: pass
+          notes: 'Warnings-only baseline unchanged: 0 errors, 21 warnings; no SEC proxy hygiene warnings.'
+        - cmd: sqlite3 data.db "SELECT company_group, COUNT(*) FROM sec_proxy_metrics GROUP BY company_group ORDER BY company_group;"
+          status: pass
+          notes: chip_vendor 592; hyperscaler 858; memory_vendor 197; neocloud 110; networking_vendor 131; server_vendor 483.
+      summary: >-
+        Added the first market-proxy tranche: official SEC/XBRL signal definitions, a reusable SEC
+        companyfacts collector, SQLite schema/load/validation support, and a generated 2023-current
+        proxy dataset covering hyperscalers, server vendors, chip/networking/memory vendors, and
+        CoreWeave. The collector dedupes repeated instant balance-sheet facts and skips TTM-style annual
+        rows from quarterly filings so the data is cleaner for period comparisons.
+      evidence:
+        - 'Hyperscaler annual capex rows include MSFT, GOOGL, AMZN, META, and ORCL for 2023-2025.'
+        - 'Metric coverage includes capex_ppe, ppe_net, depreciation_amortization, lease assets/liabilities, inventory, receivables, contract liabilities, revenue, RPO, and purchase obligations.'
+        - 'All SEC proxy rows carry S392 plus a concept-level SEC API source_url for provenance.'
+      next: T017 should audit this dataset and choose the first proxy interpretation/report slice.
+  - id: T017
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: Audit the first SEC proxy dataset and choose the first interpretation/report slice.
+    inputs:
+      - T016 receipt
+      - Current sec_proxy_metrics table
+      - T003 market-proxy inventory
+    constraints:
+      - Do not edit data or schema.
+      - Prefer a read-only report before dashboard integration.
+      - Do not derive a direct campus-online conclusion from SEC proxies alone.
+    expected_output:
+      - decision
+      - confidence estimate
+      - next Worker objective
+      - allowed_files
+      - verify
+      - stop_if
+    receipt:
+      result: done
+      decision: build_read_only_sec_proxy_report
+      confidence_estimate: >-
+        High confidence in the raw official SEC facts as a clean market-proxy dataset; medium confidence
+        in their usefulness for online-capacity timing until paired with campus evidence and hardware /
+        utilization proxies.
+      rationale: >-
+        The dataset is loaded, but the useful next step is a transparent report that selects canonical
+        facts per metric, shows capex/depreciation/PP&E growth versus AI-capacity announcements, and
+        separates hyperscaler demand from server/chip supply-chain signals. This should remain read-only
+        before any dashboard or scoring integration.
+      next_worker_objective: >-
+        Add a read-only SEC proxy report that summarizes dataset coverage, hyperscaler capex/PP&E/
+        depreciation ramps, and server/chip inventory, revenue, receivable, RPO, and purchase-obligation
+        signals without changing underlying data.
+      allowed_files_for_next:
+        - scripts/sec_proxy_report.py
+      verify_for_next:
+        - .venv/bin/python scripts/sec_proxy_report.py --top 15
+      stop_if_for_next:
+        - Need to change schema, generated SEC data, or dashboard files.
+        - Need subjective weighting or non-public market estimates.
+        - The report cannot keep direct capacity evidence separate from market proxies.
+  - id: T018
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: >-
+      Add a read-only SEC proxy report that summarizes dataset coverage, hyperscaler capex/PP&E/
+      depreciation ramps, and server/chip inventory, revenue, receivable, RPO, and purchase-obligation
+      signals without changing underlying data.
+    allowed_files:
+      - scripts/sec_proxy_report.py
+    verify:
+      - .venv/bin/python scripts/sec_proxy_report.py --top 15
+    stop_if:
+      - Need to change schema, generated SEC data, or dashboard files.
+      - Need subjective weighting or non-public market estimates.
+      - The report cannot keep direct capacity evidence separate from market proxies.
+    receipt:
+      result: done
+      changed_files:
+        - scripts/sec_proxy_report.py
+      commands:
+        - cmd: .venv/bin/python scripts/sec_proxy_report.py --top 15
+          status: pass
+          notes: Reported 2,371 SEC proxy rows across 15 companies, hyperscaler capex table, supply-chain tables, and top capex step-ups.
+        - cmd: python3 -m py_compile scripts/sec_proxy_report.py
+          status: pass
+          notes: Syntax check passed.
+      summary: >-
+        Added a read-only SEC proxy report that converts the official XBRL table into canonical
+        period comparisons while preserving the guardrail that these are market proxies, not direct
+        energized-MW evidence. The report now shows 2023-2025 hyperscaler capex growth, latest PP&E /
+        infrastructure asset base, latest annual depreciation or D&A, and server/chip inventory,
+        receivable, RPO, purchase-obligation, revenue, and contract-liability signals.
+      key_output:
+        - 'SEC proxy rows: 2,371 across 15 companies.'
+        - 'Hyperscaler capex 2023-2025 growth: MSFT +130%, GOOGL +184%, AMZN +150%, META +158%, ORCL +144%.'
+        - 'Latest reported PP&E / finance-lease asset base: MSFT $283.2B, GOOGL $281.0B, AMZN $397.5B, META $194.8B, ORCL $83.6B.'
+        - 'Server/neocloud commitment signals include CRWV RPO $98.8B, DELL RPO $82.0B, SMCI inventory $11.1B, HPE RPO $10.6B.'
+        - 'Chip/network/memory signals include NVDA revenue $130.5B, inventory $21.4B, purchase obligations $45.8B; AVGO RPO $45.0B.'
+      next: T019 should audit this proxy layer and choose the next data tranche, likely SEC filing-text snippets or GPU rental availability.
+  - id: T019
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: Audit the first SEC proxy report and choose the next data tranche toward the 90% confidence goal.
+    inputs:
+      - T016 SEC proxy dataset receipt
+      - T018 SEC proxy report receipt
+      - T003 market-proxy inventory
+      - Current direct campus evidence matrix
+    constraints:
+      - Do not implement.
+      - Prefer clean public datasets over paid/channel-check sources.
+      - Choose the tranche that best helps distinguish actual deployed/absorbed capacity from announcements.
+    expected_output:
+      - decision
+      - confidence estimate
+      - next Worker objective
+      - allowed_files
+      - verify
+      - stop_if
+    receipt:
+      result: done
+      decision: collect_official_sec_filing_text_signals_next
+      confidence_estimate: >-
+        Medium-high that the current direct evidence plus XBRL accounting layer now answers whether
+        announced capacity is backed by aggregate infrastructure spend; still below 90% for actual
+        deployed/absorbed capacity because the current dataset lacks structured official text for AI
+        server backlog, customer concentration, purchase commitments, capex guidance, and revenue-mix
+        commentary.
+      rationale: >-
+        The cleanest next tranche is not GPU marketplace pricing yet. Before high-frequency but noisy
+        rental data, add official SEC filing-text snippets from the same company universe. This captures
+        non-XBRL disclosures that map directly to the user's proposed signals: Dell/SMCI/HPE backlog and
+        inventory commentary, Nvidia/AMD customer concentration and purchase commitments, cloud capex
+        guidance, and networking/custom-silicon/inference revenue commentary.
+      next_worker_objective: >-
+        Add a structured SEC filing-text signal dataset by fetching latest 10-K and 10-Q filings for the
+        tracked public-company universe, extracting short official snippets around AI infrastructure,
+        backlog/RPO, customer concentration, purchase commitments, inventory/supply, capex guidance, and
+        revenue-mix terms, then loading and validating those snippets without changing dashboard output.
+      allowed_files_for_next:
+        - schema.sql
+        - scripts/load.py
+        - scripts/validate.py
+        - scripts/sec_filing_text_signals.py
+        - data/sec_filing_text_signals.yaml
+      verify_for_next:
+        - python3 scripts/sec_filing_text_signals.py --output data/sec_filing_text_signals.yaml
+        - .venv/bin/python scripts/load.py
+        - .venv/bin/python scripts/validate.py
+        - sqlite3 data.db "SELECT signal_type, COUNT(*) FROM sec_filing_text_signals GROUP BY signal_type ORDER BY COUNT(*) DESC;"
+      stop_if_for_next:
+        - Need paid data, non-public filings, or credentials.
+        - Need files outside allowed_files.
+        - SEC filing documents cannot be fetched after local retry.
+        - Snippets cannot be kept short and source-attributed.
+  - id: T020
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: >-
+      Add a structured SEC filing-text signal dataset by fetching latest 10-K and 10-Q filings for the
+      tracked public-company universe, extracting short official snippets around AI infrastructure,
+      backlog/RPO, customer concentration, purchase commitments, inventory/supply, capex guidance, and
+      revenue-mix terms, then loading and validating those snippets without changing dashboard output.
+    allowed_files:
+      - schema.sql
+      - scripts/load.py
+      - scripts/validate.py
+      - scripts/sec_filing_text_signals.py
+      - data/sec_filing_text_signals.yaml
+    verify:
+      - python3 scripts/sec_filing_text_signals.py --output data/sec_filing_text_signals.yaml
+      - .venv/bin/python scripts/load.py
+      - .venv/bin/python scripts/validate.py
+      - sqlite3 data.db "SELECT signal_type, COUNT(*) FROM sec_filing_text_signals GROUP BY signal_type ORDER BY COUNT(*) DESC;"
+    stop_if:
+      - Need paid data, non-public filings, or credentials.
+      - Need files outside allowed_files.
+      - SEC filing documents cannot be fetched after local retry.
+      - Snippets cannot be kept short and source-attributed.
+    receipt:
+      result: done
+      changed_files:
+        - schema.sql
+        - scripts/load.py
+        - scripts/validate.py
+        - scripts/sec_filing_text_signals.py
+        - data/sec_filing_text_signals.yaml
+      commands:
+        - cmd: python3 scripts/sec_filing_text_signals.py --output data/sec_filing_text_signals.yaml
+          status: pass
+          notes: Collected 556 official SEC filing-text signal rows from latest 10-K and 10-Q filings for 15 companies; no skipped filings.
+        - cmd: .venv/bin/python scripts/load.py
+          status: pass
+          notes: Rebuilt data.db with 556 sec_filing_text_signals rows alongside the existing SEC/XBRL proxy metrics.
+        - cmd: .venv/bin/python scripts/validate.py
+          status: pass
+          notes: 'Warnings-only baseline unchanged: 0 errors, 21 warnings; no SEC filing-text signal hygiene warnings.'
+        - cmd: sqlite3 data.db "SELECT signal_type, COUNT(*) FROM sec_filing_text_signals GROUP BY signal_type ORDER BY COUNT(*) DESC;"
+          status: pass
+          notes: ai_infrastructure 90; capex_guidance 90; inventory_supply 90; revenue_mix 90; purchase_commitments 74; backlog_rpo 61; customer_concentration 61.
+      summary: >-
+        Added the second SEC market-proxy layer: short, source-linked official filing snippets from
+        latest 10-K and 10-Q filings for the tracked public-company universe. The dataset covers AI
+        infrastructure commentary, backlog/RPO, customer concentration, capex guidance, purchase
+        commitments, inventory/supply constraints, and revenue-mix terms.
+      evidence:
+        - 'Rows by ticker: AMD 42, AMZN 30, ANET 38, AVGO 42, CRWV 38, DELL 38, GOOGL 37, HPE 39, META 35, MRVL 38, MSFT 32, MU 35, NVDA 38, ORCL 34, SMCI 40.'
+        - 'The text layer complements sec_proxy_metrics by capturing non-XBRL official disclosures such as backlog, customer concentration, and purchase-commitment language.'
+        - 'All rows carry S392 plus direct SEC Archives document_url provenance.'
+      next: T021 should audit whether to add a filing-text report, GPU cloud rental availability, TSMC monthly/platform mix, or dashboard integration next.
+  - id: T021
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: medium
+    objective: Inventory primary-source buildout-capacity disclosure routes for hyperscalers and AI labs, focusing on sources that can state current active capacity, live clusters, delivered capacity, or buildout cadence directly.
+    inputs:
+      - T018 SEC proxy report receipt
+      - T020 SEC filing-text signal receipt
+      - T003 market-proxy inventory
+      - Current capacity reality report
+      - 'User refocus: gather data to show buildout capacity, triangulating from primary sources such as earnings-call transcripts, CEO interviews, company blogs, investor days, operator presentations, and SEC filing text.'
+      - 'Company bucket: Microsoft, Alphabet/Google, Amazon/AWS, Meta, Oracle, OpenAI, xAI, Anthropic.'
+    constraints:
+      - Read-only.
+      - Parallel-safe with T022, T023, and T024 because each task covers a disjoint company bucket.
+      - Do not collect every source exhaustively in this task; produce ranked routes, target documents, and sample high-value primary sources.
+      - Prioritize primary sources over media summaries.
+      - Include public companies and private AI labs where official transcripts, interviews, blogs, presentations, or press releases exist.
+      - Separate current active capacity from capacity delivered, capacity under construction, capacity announced, backlog conversion, utilization, and constraints.
+      - Keep operator/tenant/campus/company distinctions explicit to avoid double-counting.
+    expected_output:
+      - Ranked source routes for this company bucket
+      - Target documents and likely URLs/search routes
+      - Candidate companies with highest expected yield
+      - Claim taxonomy for primary buildout disclosures
+      - Suggested first collection slice for this bucket
+      - Not-publicly-knowable or low-yield source classes
+    receipt:
+      result: done
+      summary: >-
+        Hyperscaler / AI lab primary sources are highest-yield when they come from quarterly earnings,
+        official infrastructure blogs, SEC filings, investor conference transcripts, and tenant/operator
+        joint announcements. AWS/Anthropic Project Rainier is the cleanest first route because official
+        sources describe a live cluster and secured forward capacity; OpenAI/Oracle Stargate sources are
+        useful but must be tagged as planned/secured rather than live.
+      evidence:
+        - Official AWS and Anthropic sources include live-cluster and secured-capacity Project Rainier disclosures.
+        - Official OpenAI / Oracle Stargate sources include planned and secured GW claims that require non-additive status tags.
+        - Microsoft, Meta, Alphabet, Amazon, and Oracle earnings materials provide management commentary on capex, delivered capacity, and constraints.
+      key_routes:
+        - Earnings calls and result releases for delivered or revenue-ready capacity, constraints, capex cadence, and backlog conversion.
+        - Official cloud and AI-lab infrastructure blogs for live clusters, chip counts, GW targets, and deployment timing.
+        - SEC filings for PP&E, commitments, leases, RPO, and constraints.
+        - Investor-conference transcripts and CEO/CFO interviews for direct capacity timing commentary.
+        - Tenant/operator joint announcements to tie tenant demand to operator or campus delivery.
+      highest_yield_companies:
+        - Amazon/AWS and Anthropic
+        - Microsoft
+        - OpenAI and Oracle
+        - Meta
+        - Alphabet/Google
+        - xAI
+      claim_taxonomy:
+        - current_active_capacity
+        - delivered_capacity
+        - under_construction_capacity
+        - announced_future_capacity
+        - secured_capacity
+        - backlog_conversion
+        - utilization_or_sold_out
+        - buildout_constraints
+      suggested_first_slice: >-
+        Collect AWS/Anthropic Project Rainier first, then Microsoft latest earnings, then OpenAI/Oracle
+        Stargate rows with explicit non-additive status tags.
+      source_examples:
+        - https://www.aboutamazon.com/news/aws/aws-project-rainier-ai-trainium-chips-compute-cluster
+        - https://www.anthropic.com/news/anthropic-amazon-compute?pubDate=20260225
+        - https://openai.com/index/building-the-compute-infrastructure-for-the-intelligence-age/
+        - https://openai.com/index/stargate-advances-with-partnership-with-oracle/
+        - https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3
+      not_public_or_low_yield:
+        - Exact live utilization percentages.
+        - Precise live GPU count by region.
+        - Tenant allocation inside shared cloud regions.
+        - Backlog-to-MW conversion without operator evidence.
+        - Campus announcements lacking energization, interconnection, server-delivery, or revenue-ready evidence.
+  - id: T022
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: medium
+    objective: Inventory primary-source buildout-capacity disclosure routes for neocloud and AI infrastructure operators.
+    inputs:
+      - T018 SEC proxy report receipt
+      - T020 SEC filing-text signal receipt
+      - Current capacity reality report
+      - 'Company bucket: CoreWeave, Crusoe, Lambda, Nebius, Applied Digital, Core Scientific, TeraWulf, IREN, Galaxy/Helios, Fluidstack, Runpod, Voltage Park, Together AI where primary sources exist.'
+    constraints:
+      - Read-only.
+      - Parallel-safe with T021, T023, and T024 because each task covers a disjoint company bucket.
+      - Prioritize primary sources: earnings-call transcripts, SEC filings, investor presentations, company blogs, press releases, customer letters, and operator interviews.
+      - Separate MW capacity, GPU count, cluster status, lease/RPO/backlog, active revenue-generating capacity, and under-construction capacity.
+      - Flag private-company sources that are public but not structured, and paid transcript gaps separately.
+    expected_output:
+      - Ranked source routes for this company bucket
+      - Target documents and likely URLs/search routes
+      - Candidate companies with highest expected yield
+      - Claim taxonomy additions needed for neoclouds
+      - Suggested first collection slice for this bucket
+      - Not-publicly-knowable or low-yield source classes
+    receipt:
+      result: done
+      summary: >-
+        Public neocloud and AI infrastructure operators have the cleanest primary-source capacity bridges.
+        SEC filings, earnings decks, investor presentations, and result releases can separate active or
+        billable MW from connected, contracted, under-construction, and announced capacity. Private-only
+        operators remain useful through official blogs and partner releases but are less structured.
+      evidence:
+        - CoreWeave and Core Scientific filings / investor materials disclose active, contracted, energized, or billable capacity concepts.
+        - IREN, Applied Digital, TeraWulf, Nebius, Galaxy/Helios, Hut 8, and Crusoe provide primary source rows for contracted power, critical IT load, customer leases, or ramp timing.
+        - Private neocloud sources remain useful only when paired with official partner or operator disclosures.
+      key_routes:
+        - SEC filings and 8-K exhibits for MW definitions, active/billable capacity, RPO/backlog, lease terms, committed power, and construction status.
+        - Investor presentations and earnings decks for revenue-generating MW, under-construction MW, delivery phases, and supported GPUs.
+        - Earnings-call transcripts for ramp timing, utilization, and bottlenecks.
+        - Press releases, customer letters, and partner releases for private operators.
+      highest_yield_companies:
+        - CoreWeave
+        - Core Scientific
+        - IREN
+        - Applied Digital
+        - TeraWulf
+        - Nebius
+        - Galaxy / Helios
+        - Hut 8 / Fluidstack
+        - Crusoe
+      claim_taxonomy:
+        - capacity_mw_announced
+        - capacity_mw_contracted_power
+        - capacity_mw_connected_power
+        - capacity_mw_active_power
+        - capacity_mw_billable_or_revenue_generating
+        - capacity_mw_under_construction
+        - capacity_mw_critical_it_load
+        - capacity_mw_gross_utility_power
+        - gpu_count_online
+        - gpu_count_ordered_or_committed
+        - cluster_status
+        - tenant_or_customer
+        - contract_value_tcv
+        - rpo_or_revenue_backlog
+        - lease_term_years
+        - ramp_or_rfs_date
+      suggested_first_slice: >-
+        Start with public-company SEC/IR rows for CoreWeave, Core Scientific, IREN, Applied Digital,
+        TeraWulf, Nebius, Galaxy/Helios, and Hut 8, then add private-company overlays from official
+        partner releases.
+      source_examples:
+        - https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Fourth-Quarter-and-Fiscal-Year-2025-Results
+        - https://www.sec.gov/Archives/edgar/data/0001769628/000176962826000104/crwv-20251231.htm
+        - https://investors.corescientific.com/sec-filings/all-sec-filings/content/0001628280-26-013214/q4fy25earningsdeckvfinal.htm
+        - https://iren.gcs-web.com/news-releases/news-release-details/iren-secures-97bn-ai-cloud-contract-microsoft
+        - https://www.sec.gov/Archives/edgar/data/1878848/000187884826000025/irenreportsq3fy26results.htm
+        - https://www.crusoe.ai/resources/newsroom/crusoe-blue-owl-capital-and-primary-digital-infrastructure-enter-joint-venture
+        - https://www.prnewswire.com/news-releases/hut-8-announces-ai-infrastructure-partnership-with-anthropic-and-fluidstack-302644377.html
+      not_public_or_low_yield:
+        - Private-company exact utilization or live GPU-region splits.
+        - Gross utility MW without critical-IT or active/billable definitions.
+        - Tenant demand announcements that cannot be matched to operator delivery milestones.
+  - id: T023
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: medium
+    objective: Inventory primary-source buildout-capacity disclosure routes for major colocation and data-center operators.
+    inputs:
+      - Current campus evidence matrix
+      - Current capacity reality report
+      - 'Company bucket: Equinix, Digital Realty, Vantage Data Centers, QTS, CyrusOne, DataBank, Compass Datacenters, Switch, NTT Global Data Centers, Yondr, Aligned, Stack Infrastructure.'
+    constraints:
+      - Read-only.
+      - Parallel-safe with T021, T022, and T024 because each task covers a disjoint company bucket.
+      - Prioritize operator primary sources: earnings calls where public, investor presentations, sustainability/reporting pages, company blogs, campus press releases, and official project pages.
+      - Distinguish built/operational IT load, leased capacity, powered shell, under-construction capacity, announced land bank, and campus envelope.
+      - Flag private-company disclosure limits explicitly.
+    expected_output:
+      - Ranked source routes for this company bucket
+      - Target documents and likely URLs/search routes
+      - Candidate companies with highest expected yield
+      - Claim taxonomy additions needed for colocation operators
+      - Suggested first collection slice for this bucket
+      - Not-publicly-knowable or low-yield source classes
+    receipt:
+      result: done
+      summary: >-
+        Equinix and Digital Realty are the cleanest colocation routes through investor decks, SEC filings,
+        and earnings materials. Private operators are sourceable through official campus pages, milestone
+        releases, sustainability reports, and financing/JV announcements, but actual energized IT load is
+        often inferred from opened, commissioned, RFS, or powered-up language rather than directly stated.
+      evidence:
+        - Equinix and Digital Realty public materials disclose development capacity, powered land, and under-construction MW.
+        - Vantage, QTS, Yondr, STACK, Compass, CyrusOne, and DataBank official releases disclose phase, RFS, campus, or expansion milestones.
+        - Operator releases often need capacity-basis tags because facility power, critical IT load, and campus envelope are not interchangeable.
+      key_routes:
+        - Public REIT investor materials, SEC filings, and earnings transcripts.
+        - Operator press releases for campus, phase, RFS, and powering-up milestones.
+        - Sustainability and integrated reports for contracted/operational critical power.
+        - Official campus/project pages and spec sheets.
+        - Financing, JV, and power-agreement releases that tie capital to delivery schedules.
+      highest_yield_companies:
+        - Equinix
+        - Digital Realty
+        - STACK Infrastructure
+        - Yondr
+        - Vantage Data Centers
+        - Aligned
+        - QTS
+        - NTT Global Data Centers
+        - CyrusOne
+        - DataBank
+        - Compass Datacenters
+      claim_taxonomy:
+        - operational_it_load_mw
+        - leased_or_preleased_mw
+        - under_construction_mw
+        - powered_shell_mw
+        - delivered_capacity_mw
+        - announced_land_bank_mw
+        - campus_envelope_mw
+        - contracted_power_mw
+        - facility_power_mw_vs_critical_it_mw
+        - rfs_or_phase_milestone
+      suggested_first_slice: >-
+        After the first neocloud/hyperscaler slice, collect 2025-2026 primary operator-source rows from
+        Equinix, Digital Realty, STACK, Yondr, QTS, Vantage, Aligned, NTT, CyrusOne, DataBank, and Compass.
+      source_examples:
+        - https://investor.equinix.com/news-events/press-releases/detail/1096/equinix-provides-robust-2026-outlook-driven-by-strong
+        - https://www.sec.gov/Archives/edgar/data/1494877/000110465926054255/dlr-20260331x10q.htm
+        - https://vantage-dc.com/news/vantage-data-centers-completes-phase-one-of-142mw-mega-campus-in-northern-virginia/
+        - https://qtsdatacenters.com/news/qts-announces-expansion-of-atlanta-metro-mega-data-center-campus/
+        - https://www.yondrgroup.com/newsroom/press-release/yondr-group-completes-first-rfs-milestone-for-second-building-at-96mw-northern-virginia-campus/
+        - https://www.stackinfra.com/about/news-press/press-releases/stack-delivers-first-phase-of-its-scalable-and-sustainable-flagship-84mw-portland-campus/
+      not_public_or_low_yield:
+        - Exact energized IT load for most private campuses.
+        - Land-bank totals that omit under-construction or RFS status.
+        - Facility power totals that cannot be reconciled to critical IT load.
+  - id: T024
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: medium
+    objective: Inventory primary-source supply-chain disclosures that triangulate buildout capacity from server, GPU, networking, and memory companies.
+    inputs:
+      - T018 SEC proxy report receipt
+      - T020 SEC filing-text signal receipt
+      - T003 market-proxy inventory
+      - 'Company bucket: Dell, Supermicro, HPE, Nvidia, AMD, Broadcom, Arista, Marvell, Micron, TSMC, SK hynix, Samsung Electronics.'
+    constraints:
+      - Read-only.
+      - Parallel-safe with T021, T022, and T023 because each task covers a disjoint company bucket.
+      - Prioritize official transcripts, investor presentations, SEC filings, monthly revenue reports, and company press releases.
+      - Map each signal to what it can validate: hardware shipment, backlog conversion, supply allocation, data-center/networking revenue, HBM/advanced-packaging tightness, or inference/networking mix.
+      - Do not treat supply-chain sell-in as active data-center capacity unless paired with operator/direct evidence.
+    expected_output:
+      - Ranked source routes for this company bucket
+      - Target documents and likely URLs/search routes
+      - Candidate companies with highest expected yield
+      - Claim taxonomy additions needed for supply-chain triangulation
+      - Suggested first collection slice for this bucket
+      - Not-publicly-knowable or low-yield source classes
+    receipt:
+      result: done
+      summary: >-
+        Supply-chain primary disclosures are valuable triangulation but should remain sell-in or constraint
+        proxies unless paired with operator/campus evidence. Dell, HPE, and Supermicro help validate server
+        shipments and backlog conversion; Nvidia, AMD, Broadcom, Arista, and Marvell help identify GPU,
+        networking, and custom-silicon mix; memory/foundry sources validate HBM and advanced-packaging
+        constraints.
+      evidence:
+        - Dell, HPE, and Supermicro official materials disclose AI server demand, backlog, inventory, or shipment-conversion signals.
+        - Nvidia, AMD, Broadcom, Arista, and Marvell official materials disclose data-center compute, networking, ASIC, and customer concentration signals.
+        - Micron, TSMC, SK hynix, and Samsung official materials disclose HBM, advanced-packaging, memory, or monthly revenue constraints.
+      key_routes:
+        - Quarterly earnings transcripts, releases, and investor presentations.
+        - SEC filings, 20-F/annual reports, and official 6-K materials.
+        - Product/platform releases for rack-scale systems, networking, and accelerator ramps.
+        - TSMC monthly revenue and official earnings materials.
+      highest_yield_companies:
+        - Dell
+        - HPE
+        - Supermicro
+        - Nvidia
+        - AMD
+        - Broadcom
+        - Arista
+        - Marvell
+        - Micron
+        - TSMC
+        - SK hynix
+        - Samsung Electronics
+      claim_taxonomy:
+        - server_hardware_shipments
+        - ai_server_orders_and_backlog
+        - backlog_conversion_to_revenue
+        - accelerator_compute_revenue
+        - data_center_networking_revenue
+        - custom_ai_silicon_revenue
+        - ethernet_vs_nvlink_or_scaleup_networking_mix
+        - hbm_supply_allocation_or_sold_out_status
+        - server_dram_nand_ssd_tightness
+        - advanced_packaging_cowos_capacity_constraint
+        - liquid_cooling_or_rackscale_readiness
+        - inference_vs_training_mix
+        - operator_pairing_required_for_active_capacity
+      suggested_first_slice: >-
+        Defer until operator primary rows exist, then collect four-quarter official disclosures for
+        Dell/HPE/SMCI, Nvidia/Broadcom/Arista, and Micron/SK hynix/Samsung/TSMC as sell-in constraints.
+      source_examples:
+        - https://investors.delltechnologies.com/static-files/9e5d4126-0f17-4ceb-b26c-a2563b8bcbc9
+        - https://ir.supermicro.com/news/news-details/2025/Supermicro-Announces-Third-Quarter-Fiscal-Year-2025-Financial-Results/default.aspx
+        - https://investors.hpe.com/~/media/Files/H/HP-Enterprise-IR/documents/q1-2026/hpe-q1-26-earnings-transcript.pdf
+        - https://investors.broadcom.com/node/63716/pdf
+        - https://investors.arista.com/Communications/Press-Releases-and-Events/Press-Release-Detail/2026/Arista-Networks-Inc--Reports-First-Quarter-2026-Financial-Results/default.aspx
+        - https://investor.tsmc.com/english/monthly-revenue/2026
+        - https://news.skhynix.com/q1-2026-business-results/
+      not_public_or_low_yield:
+        - Customer-level allocation when confidential.
+        - Channel-check-only HBM/CoWoS rumors.
+        - Hardware sell-in that cannot be matched to live or delivered operator capacity.
+  - id: T025
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: Synthesize the parallel primary-source bucket inventories and choose the first bounded buildout-disclosure data collection slice.
+    inputs:
+      - T021 hyperscaler / AI lab bucket receipt
+      - T022 neocloud / AI infrastructure bucket receipt
+      - T023 colocation / data-center operator bucket receipt
+      - T024 supply-chain primary disclosure bucket receipt
+      - Current data model and validation constraints
+      - User refocus on actual active/buildout capacity from primary sources
+    constraints:
+      - Do not implement.
+      - Prefer the smallest source-backed Worker slice that materially improves actual active capacity or buildout cadence confidence.
+      - Require explicit claim taxonomy, allowed_files, verify commands, and stop_if conditions.
+      - Reject any slice that mixes active capacity with announced future capacity.
+    expected_output:
+      - decision
+      - confidence estimate
+      - next Worker objective
+      - allowed_files
+      - verify
+      - stop_if
+    receipt:
+      result: done
+      decision: collect_primary_buildout_signals_first_slice
+      confidence_estimate: >-
+        Medium-high that the mapped source routes are enough to begin a clean primary-source buildout
+        dataset; still below the user's 90% confidence target until the claims are normalized and joined
+        with campus evidence and SEC proxy layers.
+      rationale: >-
+        The first slice should not start with supply-chain sell-in or broad colocation land banks. The
+        cleanest capacity-reality improvement is to normalize primary claims that explicitly distinguish
+        live, active, billable, connected, contracted, secured, under-construction, and announced capacity.
+        AWS/Anthropic Project Rainier plus public neocloud/operator SEC/IR disclosures provide the best
+        starting bridge from announcements to delivery cadence.
+      next_worker_objective: >-
+        Implement a normalized primary_buildout_signals dataset and first source-backed slice covering
+        AWS/Anthropic Project Rainier plus public neocloud/operator disclosures from CoreWeave, Core
+        Scientific, IREN, Applied Digital, TeraWulf, Nebius, Galaxy/Helios, Hut 8/Fluidstack, and Crusoe
+        where primary sources disclose active/billable capacity, under-construction capacity, contracted
+        or connected power, GPU count, RPO/backlog, lease/customer, or ramp/RFS dates.
+      allowed_files_for_next:
+        - schema.sql
+        - scripts/load.py
+        - scripts/validate.py
+        - data/sources.yaml
+        - data/primary_buildout_signals.yaml
+        - scripts/primary_buildout_signals.py
+      verify_for_next:
+        - .venv/bin/python scripts/load.py
+        - .venv/bin/python scripts/validate.py
+        - sqlite3 data.db "SELECT claim_type, COUNT(*) FROM primary_buildout_signals GROUP BY claim_type ORDER BY COUNT(*) DESC;"
+      stop_if_for_next:
+        - Need paid transcripts, non-public sources, or credentials.
+        - Need files outside allowed_files.
+        - Evidence cannot be tied to a primary-source URL and short quote/snippet.
+        - Claim type cannot be represented without mixing active capacity, delivered capacity, under-construction capacity, or announcement capacity.
+        - Verification fails twice.
+  - id: T026
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: >-
+      Implement a normalized primary_buildout_signals dataset and first source-backed slice covering
+      AWS/Anthropic Project Rainier plus public neocloud/operator disclosures from CoreWeave, Core
+      Scientific, IREN, Applied Digital, TeraWulf, Nebius, Galaxy/Helios, Hut 8/Fluidstack, and Crusoe
+      where primary sources disclose active/billable capacity, under-construction capacity, contracted
+      or connected power, GPU count, RPO/backlog, lease/customer, or ramp/RFS dates.
+    allowed_files:
+      - schema.sql
+      - scripts/load.py
+      - scripts/validate.py
+      - data/sources.yaml
+      - data/primary_buildout_signals.yaml
+      - scripts/primary_buildout_signals.py
+    verify:
+      - .venv/bin/python scripts/load.py
+      - .venv/bin/python scripts/validate.py
+      - sqlite3 data.db "SELECT claim_type, COUNT(*) FROM primary_buildout_signals GROUP BY claim_type ORDER BY COUNT(*) DESC;"
+    stop_if:
+      - Need paid transcripts, non-public sources, or credentials.
+      - Need files outside allowed_files.
+      - Evidence cannot be tied to a primary-source URL and short quote/snippet.
+      - Claim type cannot be represented without mixing active capacity, delivered capacity, under-construction capacity, or announcement capacity.
+      - Verification fails twice.
+    receipt:
+      result: done
+      changed_files:
+        - schema.sql
+        - scripts/load.py
+        - scripts/validate.py
+        - scripts/primary_buildout_signals.py
+        - data/sources.yaml
+        - data/primary_buildout_signals.yaml
+      commands:
+        - cmd: .venv/bin/python scripts/load.py
+          status: pass
+          notes: Loaded 399 sources and 50 primary_buildout_signals rows alongside the existing datasets.
+        - cmd: .venv/bin/python scripts/validate.py
+          status: pass
+          notes: 'Warnings-only baseline unchanged: 0 errors, 21 warnings; no primary buildout hygiene warnings.'
+        - cmd: sqlite3 data.db "SELECT claim_type, COUNT(*) FROM primary_buildout_signals GROUP BY claim_type ORDER BY COUNT(*) DESC;"
+          status: pass
+          notes: under_construction_capacity 12; contracted_capacity 10; announced_future_capacity 6; current_active_capacity 5; connected_capacity 3; delivered_capacity 3; gpu_or_chip_count 3; secured_capacity 3; rpo_or_revenue_backlog 2; billable_capacity 1; contract_value 1; utilization_or_sold_out 1.
+        - cmd: .venv/bin/python scripts/primary_buildout_signals.py --top 12
+          status: pass
+          notes: Reported 50 rows, 11 companies, 18 sources, with capacity basis kept separate across active, billable, connected, contracted, secured, planned, and under-construction signals.
+        - cmd: python3 -m py_compile scripts/load.py scripts/validate.py scripts/primary_buildout_signals.py
+          status: pass
+          notes: Syntax checks passed.
+      summary: >-
+        Added a normalized primary_buildout_signals layer for company/operator buildout claims. The first
+        slice covers AWS/Anthropic Project Rainier, CoreWeave, Core Scientific, IREN, Applied Digital,
+        TeraWulf, Nebius, Galaxy Helios, Hut 8 / Fluidstack / Anthropic, and Crusoe. Rows are tagged by
+        claim_type, status_stage, and capacity_basis so active power, billable critical IT, connected
+        power, gross power, utility capacity, chip counts, backlog dollars, and future announced capacity
+        remain separate.
+      key_output:
+        - 'Primary buildout signals: 50 rows across 11 companies and 18 sources.'
+        - 'Direct current active / operating rows now include Amazon/AWS Rainier, CoreWeave active power, Applied Digital operating capacity, Nebius active power, and Crusoe first-phase live status.'
+        - 'Active MW rows currently sum to 1,020 MW active power plus 100 MW critical IT; billable capacity adds 185 MW and connected rows add 60 MW critical IT plus 350 MW energized power.'
+        - 'Under-construction critical IT rows sum to 3,518 MW, separately from 1,400 MW gross power and 330 MW utility capacity.'
+        - 'Contracted critical IT rows sum to 2,822 MW; contracted gross-power rows sum to 1,050 MW and contracted-power rows sum to 5,100 MW.'
+      next: T027 should add a read-only primary buildout report that interprets active/delivered/connected/billable/contracted/under-construction signals without double-counting bases.
+  - id: T027
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: Add a read-only primary buildout signal report that summarizes active capacity, delivered capacity, under-construction capacity, and management-disclosed constraints by company/operator without altering dashboard output.
+    allowed_files:
+      - scripts/primary_buildout_report.py
+    verify:
+      - .venv/bin/python scripts/primary_buildout_report.py --top 25
+    stop_if:
+      - Need to change schema, generated data, dashboard files, or source rows.
+      - Need subjective weighting that is not backed by the primary-source claim taxonomy.
+      - The report cannot keep active/delivered/under-construction/announced capacity separate.
+    receipt:
+      result: done
+      changed_files:
+        - scripts/primary_buildout_report.py
+      commands:
+        - cmd: .venv/bin/python scripts/primary_buildout_report.py --top 25
+          status: pass
+          notes: Reported 50 rows, 11 companies, and 18 sources with an evidence ladder that separates online/delivered, under-construction, contracted/secured, and planned/future capacity by basis.
+        - cmd: python3 -m py_compile scripts/primary_buildout_report.py
+          status: pass
+          notes: Syntax check passed.
+      summary: >-
+        Added a read-only primary buildout report. It explicitly keeps MW/GW rows grouped by basis so
+        active power, critical IT, billable critical IT, energized power, gross power, utility capacity,
+        and contracted-power claims are not added together.
+      key_output:
+        - 'Online/delivered MW rows: 1,020 MW Active-power; 185 MW Billable-critical-IT; 235 MW Critical-IT; 350 MW Energized-power.'
+        - 'Under-construction rows: 3,518 MW Critical-IT; 1,400 MW Gross-power; 330 MW Utility-capacity.'
+        - 'Contracted/secured rows: 13,100 MW Contracted-power; 2,822 MW Critical-IT; 2,680 MW Gross-power.'
+        - 'Planned/future rows: 800 MW Connected-power target; 9,000 MW Contracted-power; 3,550 MW Critical-IT; 3,500 MW Utility-capacity.'
+        - 'Non-MW signals include Anthropic / AWS active Trainium2 chip counts, CoreWeave backlog/RPO, IREN Microsoft contract value, and Nebius sold-out utilization language.'
+      next: T028 should audit whether this reaches the 90% confidence bar or choose the next data tranche.
+  - id: T028
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: Audit whether primary-source buildout disclosures plus direct campus evidence and SEC proxy data are enough for a higher-confidence assessment, or choose the next missing data tranche.
+    inputs:
+      - T021-T027 receipts when available
+      - Capacity reality report
+      - SEC proxy report
+      - Primary buildout report
+    constraints:
+      - Do not call the full goal complete unless the 90% confidence standard is met.
+      - If not complete, pick the next cleanest data tranche: additional primary-source transcripts/interviews, GPU marketplace availability, TSMC/monthly platform mix, or dashboard integration.
+    expected_output:
+      - complete | not_complete
+      - confidence estimate
+      - missing evidence
+      - next task if not complete
+    receipt:
+      result: done
+      complete: not_complete
+      confidence_estimate: >-
+        Roughly 65-70% confidence on the current assessment. The repo now has direct campus evidence,
+        SEC/XBRL proxy metrics, SEC filing-text snippets, and a first primary-source buildout disclosure
+        layer. That is enough to show real capacity is coming online in selected neocloud/operator cases,
+        but not enough for the user's 90% confidence target across the whole hyperscaler / AI capacity
+        narrative.
+      missing_evidence:
+        - Major hyperscaler self-build / leased-capacity disclosures from Microsoft, Alphabet/Google, Meta, Oracle, Amazon/AWS beyond Project Rainier, OpenAI, and xAI are still not normalized in primary_buildout_signals.
+        - Colocation and data-center operator buildout rows are still thin; Equinix, Digital Realty, Vantage, QTS, Yondr, STACK, NTT, DataBank, Compass, CyrusOne, and Aligned need operator-source rows.
+        - The dataset has point-in-time capacity claims but not enough multi-quarter cadence to compare announcement velocity with delivery velocity.
+        - Many rows still cannot tie campus-level active status to tenant/operator financial utilization; that must remain an explicit uncertainty.
+        - Supply-chain sell-in, GPU marketplace utilization/pricing, HBM/CoWoS allocation, and server inventory proxies remain supporting layers rather than direct online-capacity evidence.
+      decision: collect_hyperscaler_and_colocation_primary_buildout_tranche
+      rationale: >-
+        The next cleanest data tranche is not another SEC proxy report. It should add official primary rows
+        for hyperscaler self-build / AI-lab announcements and major colocation operator delivery milestones,
+        because those are the largest missing pieces between headline GW announcements and capacity actually
+        becoming available.
+      next_worker_objective: >-
+        Add a second primary_buildout_signals tranche for major hyperscalers / AI labs and major
+        colocation operators, using only primary sources. Prioritize rows that disclose delivered,
+        operational, ready-for-service, under-construction, connected, contracted, powered-land, or
+        campus-envelope capacity, and keep all active / delivered / contracted / announced bases distinct.
+      allowed_files_for_next:
+        - data/sources.yaml
+        - data/primary_buildout_signals.yaml
+        - scripts/primary_buildout_report.py
+      verify_for_next:
+        - .venv/bin/python scripts/load.py
+        - .venv/bin/python scripts/validate.py
+        - .venv/bin/python scripts/primary_buildout_report.py --top 35
+      stop_if_for_next:
+        - Need paid transcripts, non-public sources, or credentials.
+        - Need schema changes before the tranche can be represented without mixing claim types.
+        - Evidence cannot be tied to a primary-source URL and short quote/snippet.
+        - Claimed MW basis is ambiguous enough that the row would create double-counting risk.
+  - id: T029
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: >-
+      Add a second primary_buildout_signals tranche for major hyperscalers / AI labs and major
+      colocation operators, using only primary sources. Prioritize rows that disclose delivered,
+      operational, ready-for-service, under-construction, connected, contracted, powered-land, or
+      campus-envelope capacity, and keep all active / delivered / contracted / announced bases distinct.
+    allowed_files:
+      - data/sources.yaml
+      - data/primary_buildout_signals.yaml
+      - scripts/primary_buildout_report.py
+    verify:
+      - .venv/bin/python scripts/load.py
+      - .venv/bin/python scripts/validate.py
+      - .venv/bin/python scripts/primary_buildout_report.py --top 35
+    stop_if:
+      - Need paid transcripts, non-public sources, or credentials.
+      - Need schema changes before the tranche can be represented without mixing claim types.
+      - Evidence cannot be tied to a primary-source URL and short quote/snippet.
+      - Claimed MW basis is ambiguous enough that the row would create double-counting risk.
+    receipt:
+      result: done
+      changed_files:
+        - data/sources.yaml
+        - data/primary_buildout_signals.yaml
+      commands:
+        - cmd: .venv/bin/python scripts/load.py
+          status: pass
+          notes: Loaded 415 sources and 80 primary_buildout_signals.
+        - cmd: .venv/bin/python scripts/validate.py
+          status: pass
+          notes: 'Warnings-only baseline unchanged: 0 errors, 21 warnings; no new primary buildout hygiene warnings.'
+        - cmd: .venv/bin/python scripts/primary_buildout_report.py --top 35
+          status: pass
+          notes: Report now shows 80 rows, 20 companies, and 34 sources in primary_buildout_signals.
+        - cmd: git diff --check
+          status: pass
+      summary: >-
+        Added sources S410-S425 and primary buildout rows PBS051-PBS080 for a second
+        hyperscaler / AI-lab and colocation tranche. New rows cover OpenAI/Stargate,
+        Microsoft Fairwater, Meta Lebanon and El Paso, Oracle OCI/Stargate, AWS
+        OpenAI/Anthropic commitments and chip landings, Google Arkansas power support,
+        Equinix xScale, Vantage Frontier, DataBank Red Oak, and QTS Manassas/Atlanta.
+        Active, delivered, under-construction, contracted, secured, planned, utility,
+        chip-count, and site-count bases remain separate to avoid double counting.
+      evidence:
+        - data/primary_buildout_signals.yaml#PBS051-PBS080
+        - data/sources.yaml#S410-S425
+        - Primary Buildout Report rows=80 companies=20 sources=34
+      next: T030 should audit whether the added primary-source tranche closes enough of the hyperscaler and colocation gap, or choose the next missing tranche.
+  - id: T030
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: Audit the second primary buildout tranche after T029 and choose the next step toward the 90% confidence goal.
+    inputs:
+      - T028 receipt
+      - T029 receipt
+      - Primary buildout report after T029
+      - Capacity reality report
+      - SEC proxy report
+      - Current dirty diff
+    constraints:
+      - Do not call the full goal complete unless the 90% confidence standard is met.
+      - Check whether hyperscaler / AI-lab and colocation coverage now has enough direct primary-source depth.
+      - If not complete, choose the next cleanest data tranche with exact Worker objective, allowed_files, verify, and stop_if.
+      - Keep active, delivered, connected, contracted, announced, utility-support, chip-count, and site-count bases distinct.
+    expected_output:
+      - complete | not_complete
+      - confidence estimate
+      - missing evidence
+      - next Worker objective if not complete
+      - allowed_files
+      - verify
+      - stop_if
+    receipt:
+      result: done
+      complete: not_complete
+      confidence_estimate: >-
+        Roughly 72-78%. T029 closed a major source-coverage gap by expanding
+        primary_buildout_signals to 80 rows, 20 companies, and 34 sources, including
+        hyperscalers / AI labs and colocation operators. But the full 90% goal is
+        not met because the main capacity_reality_report still only uses campus_evidence:
+        25 of 86 campuses have evidence, 13 have two independent groups, and the
+        unenergized gap remains about 46.3 GW.
+      missing_evidence:
+        - Primary buildout rows are not linked to campus_ids, so new operator disclosures do not improve campus-level reality tiers yet.
+        - Major active-capacity evidence for Microsoft, Google, Meta, Oracle/OpenAI, Amazon/AWS, and xAI is still mostly planned, secured, or chip-count evidence rather than source-disclosed active MW.
+        - Several colocation operators remain thin or absent, including Digital Realty, NTT, STACK, Compass, CyrusOne, Aligned, Yondr, and QTS/Equinix site-level delivery timing beyond headline campus envelopes.
+        - The current reports still need a confidence bridge from direct campus evidence, primary operator disclosures, and SEC proxy signals into one audit surface.
+      decision: integrate_primary_buildout_rows_with_campus_reality_report
+      rationale: >-
+        The next highest-leverage slice is not more raw collection. T029 added enough
+        primary-source operator rows that the bottleneck is now interpretation: the
+        reality report cannot see those rows at campus level, so it still labels
+        Fairwater, Meta Lebanon, several Stargate sites, and other operator-backed
+        projects as weakly evidenced or no-evidence. Add an explicit, conservative
+        campus linkage field and report sections before collecting another tranche.
+      next_worker_objective: >-
+        Add optional campus_id linkage for primary_buildout_signals and update the
+        loaders, validation, primary buildout report, and capacity reality report so
+        high-confidence one-to-one primary operator disclosures can be tied to campus
+        reality coverage without changing campus planned/energized MW rollups.
+      allowed_files_for_next:
+        - schema.sql
+        - scripts/load.py
+        - scripts/validate.py
+        - scripts/primary_buildout_report.py
+        - scripts/capacity_reality_report.py
+        - data/primary_buildout_signals.yaml
+      verify_for_next:
+        - .venv/bin/python scripts/load.py
+        - .venv/bin/python scripts/validate.py
+        - .venv/bin/python scripts/primary_buildout_report.py --top 35
+        - .venv/bin/python scripts/capacity_reality_report.py --top 35
+        - python3 -m py_compile scripts/load.py scripts/validate.py scripts/primary_buildout_report.py scripts/capacity_reality_report.py
+      stop_if_for_next:
+        - Need to guess a campus_id for an aggregate, portfolio, or ambiguous primary_buildout_signals row.
+        - Need to mutate data_center_campuses planned or energized MW fields.
+        - Need schema changes beyond optional campus_id support and report sections.
+        - Verification introduces new errors or new primary_buildout hygiene warnings.
+      next: T031 should implement the campus-linkage/report integration slice.
+  - id: T031
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: >-
+      Add optional campus_id linkage for primary_buildout_signals and update the
+      loaders, validation, primary buildout report, and capacity reality report so
+      high-confidence one-to-one primary operator disclosures can be tied to campus
+      reality coverage without changing campus planned/energized MW rollups.
+    allowed_files:
+      - schema.sql
+      - scripts/load.py
+      - scripts/validate.py
+      - scripts/primary_buildout_report.py
+      - scripts/capacity_reality_report.py
+      - data/primary_buildout_signals.yaml
+    verify:
+      - .venv/bin/python scripts/load.py
+      - .venv/bin/python scripts/validate.py
+      - .venv/bin/python scripts/primary_buildout_report.py --top 35
+      - .venv/bin/python scripts/capacity_reality_report.py --top 35
+      - python3 -m py_compile scripts/load.py scripts/validate.py scripts/primary_buildout_report.py scripts/capacity_reality_report.py
+    stop_if:
+      - Need to guess a campus_id for an aggregate, portfolio, or ambiguous primary_buildout_signals row.
+      - Need to mutate data_center_campuses planned or energized MW fields.
+      - Need schema changes beyond optional campus_id support and report sections.
+      - Verification introduces new errors or new primary buildout hygiene warnings.
+    receipt:
+      result: done
+      changed_files:
+        - schema.sql
+        - scripts/load.py
+        - scripts/validate.py
+        - scripts/primary_buildout_report.py
+        - scripts/capacity_reality_report.py
+        - data/primary_buildout_signals.yaml
+      commands:
+        - cmd: .venv/bin/python scripts/load.py
+          status: pass
+          notes: Loaded 80 primary_buildout_signals with optional campus_id support.
+        - cmd: .venv/bin/python scripts/validate.py
+          status: pass
+          notes: 'Warnings-only baseline unchanged: 0 errors, 21 warnings; no invalid primary_buildout campus links.'
+        - cmd: .venv/bin/python scripts/primary_buildout_report.py --top 35
+          status: pass
+          notes: Report shows 28 linked primary rows across 12 campuses.
+        - cmd: .venv/bin/python scripts/capacity_reality_report.py --top 35
+          status: pass
+          notes: Reality report now shows primary_buildout_linked_rows=28 and campuses_with_primary_buildout=12.
+        - cmd: python3 -m py_compile scripts/load.py scripts/validate.py scripts/primary_buildout_report.py scripts/capacity_reality_report.py
+          status: pass
+        - cmd: git diff --check
+          status: pass
+      summary: >-
+        Added optional primary_buildout_signals.campus_id support, loader insertion,
+        validation for invalid linked campuses, and report overlays. Conservatively linked
+        high-confidence one-to-one primary rows for Project Rainier, Stargate Abilene,
+        Stargate UAE, Fairwater Wisconsin, Meta El Paso, Meta Lebanon, Stargate Frontier,
+        CoreWeave/Galaxy Helios, Polaris Forge 01, Core Scientific multi-site portfolio,
+        Nebius Mantsala, and Nebius Lappeenranta. Aggregate portfolio rows remain unlinked.
+      evidence:
+        - primary_buildout_report: linked campus rows 28, linked campuses 12
+        - capacity_reality_report: primary_buildout_linked_rows 28, campuses_with_primary_buildout 12
+      next: T032 should audit whether the primary buildout overlay is sufficient or whether the next worker should build a combined confidence matrix.
+  - id: T032
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: Audit the primary buildout campus-link integration and choose the next step toward a unified 90% confidence assessment.
+    inputs:
+      - T029 receipt
+      - T030 receipt
+      - T031 receipt
+      - Capacity reality report after T031
+      - Primary buildout report after T031
+      - SEC proxy report
+      - Current dirty diff
+    constraints:
+      - Do not call the full goal complete unless the 90% confidence standard is met.
+      - Treat linked primary buildout rows as an overlay unless the report explicitly and conservatively combines them with campus_evidence.
+      - If not complete, choose the next cleanest Worker slice with exact allowed_files, verify, and stop_if.
+      - Do not ask for non-public sources or paid transcripts.
+    expected_output:
+      - complete | not_complete
+      - confidence estimate
+      - missing evidence
+      - next Worker objective if not complete
+      - allowed_files
+      - verify
+      - stop_if
+    receipt:
+      result: done
+      decision: not_complete
+      confidence_estimate: 76-82%
+      summary: >-
+        T031 successfully exposed primary buildout rows as a campus-linked overlay
+        (28 linked rows across 12 campuses), but the main confidence assessment is
+        still split across campus_evidence, primary_buildout_signals, and SEC proxy
+        output. The report has not yet produced a conservative combined matrix that
+        distinguishes active/delivered evidence from planned/secured/future evidence.
+      missing_evidence:
+        - Only 25 of 86 campuses have campus_evidence rows and only 13 have two independent groups.
+        - Primary buildout rows are linked to 12 campuses, useful but still an overlay rather than a combined confidence view.
+        - SEC proxy signals remain group/company level and are not surfaced beside campus rows in the capacity reality report.
+        - Top gaps still include no_evidence campuses and single-group campuses where primary rows do not resolve independence or basis caveats.
+      evidence:
+        - "capacity_reality_report: 86 campuses; 50,724 planned MW; 46,336 MW unenergized gap; 25 campuses with evidence; 13 with two independent groups; 28 linked primary rows across 12 campuses."
+        - "primary_buildout_report: 80 rows; 20 companies; 34 sources; linked campus coverage section present."
+        - "sec_proxy_report: 2,371 official proxy rows across 15 companies; guardrail says these are not direct online-MW evidence."
+      next_allowed_task: T033
+      allowed_files:
+        - scripts/capacity_reality_report.py
+      verify:
+        - .venv/bin/python scripts/load.py
+        - .venv/bin/python scripts/validate.py
+        - .venv/bin/python scripts/capacity_reality_report.py --top 35
+        - python3 -m py_compile scripts/capacity_reality_report.py
+      stop_if:
+        - Need to mutate data files, source files, schema, or campus planned/energized MW rollups.
+        - Combined score would add unlike MW bases or phases into one total.
+        - The matrix cannot distinguish active/delivered evidence from planned/secured/future evidence.
+        - Need paid, non-public, or transcript-only sources.
+  - id: T033
+    type: worker
+    assignee: Worker
+    status: done
+    objective: Add a read-only combined confidence matrix to capacity_reality_report.py that synthesizes campus_evidence, linked primary_buildout_signals, and SEC proxy group coverage without changing raw rollups.
+    allowed_files:
+      - scripts/capacity_reality_report.py
+    inputs:
+      - T032 receipt
+      - Current capacity reality report output
+      - Primary buildout linked-campus overlay
+      - SEC proxy report guardrail
+    constraints:
+      - Do not mutate source data, schema, or campus planned/energized MW rollups.
+      - Keep MW bases and phases separate; do not add unlike measures into one capacity total.
+      - Distinguish active/delivered evidence from planned/secured/future evidence.
+      - Treat SEC proxy metrics as company-level support, not direct campus online-MW proof.
+    verify:
+      - .venv/bin/python scripts/load.py
+      - .venv/bin/python scripts/validate.py
+      - .venv/bin/python scripts/capacity_reality_report.py --top 35
+      - python3 -m py_compile scripts/capacity_reality_report.py
+    stop_if:
+      - Need files outside allowed_files.
+      - Need to mutate data files, schema, or campus planned/energized MW rollups.
+      - Combined score would add unlike MW bases or phases into one total.
+      - The matrix cannot distinguish active/delivered evidence from planned/secured/future evidence.
+      - Need paid, non-public, or transcript-only sources.
+    expected_output:
+      - changed_files
+      - commands
+      - summary
+      - evidence
+    receipt:
+      result: done
+      changed_files:
+        - scripts/capacity_reality_report.py
+      commands:
+        - cmd: .venv/bin/python scripts/load.py
+          status: pass
+        - cmd: .venv/bin/python scripts/validate.py
+          status: pass
+          notes: 0 errors; 21 baseline warnings retained.
+        - cmd: .venv/bin/python scripts/capacity_reality_report.py --top 35
+          status: pass
+        - cmd: python3 -m py_compile scripts/capacity_reality_report.py
+          status: pass
+        - cmd: git diff --check
+          status: pass
+      summary: >-
+        Added a read-only combined confidence matrix to the capacity reality
+        report. The report now synthesizes campus_evidence tiers, linked
+        primary_buildout_signals stages, and SEC proxy ticker support while
+        preserving separate MW bases and leaving campus planned/energized rollups
+        untouched.
+      evidence:
+        - "capacity_reality_report: high_confidence_campuses 11/86; medium_or_high_confidence_campuses 17/86."
+        - "capacity_reality_report: campuses_with_sec_proxy_support 66/86; campuses_with_two_or_more_evidence_layers 19/86."
+        - "Combined Confidence Matrix separates high_active, high_deliverability, medium supported tiers, low primary overlays, and low/no direct evidence."
+        - "Remaining Direct-Evidence Gaps section identifies missing evidence for top non-high-confidence gaps, including C045, C011, C051, C050, C042, and C018."
+      next: T034 should audit whether this combined matrix materially improves the 90% assessment and choose the next evidence-saturation slice.
+  - id: T034
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: Audit the combined confidence matrix and choose the next evidence-saturation slice toward the 90% confidence standard.
+    inputs:
+      - T032 receipt
+      - T033 receipt
+      - Capacity reality report after T033
+      - Goal stop rule
+      - Current dirty diff
+    constraints:
+      - Do not call the full goal complete unless the 90% confidence standard is met.
+      - Treat SEC proxy support as company-level context, not direct campus online-MW proof.
+      - If not complete, choose the next cleanest Worker slice with exact allowed_files, verify, and stop_if.
+      - Prefer direct evidence for the highest remaining non-high-confidence MW gaps.
+      - Do not ask for non-public sources or paid transcripts.
+    expected_output:
+      - complete | not_complete
+      - confidence estimate
+      - missing evidence
+      - next Worker objective if not complete
+      - allowed_files
+      - verify
+      - stop_if
+    receipt:
+      result: done
+      decision: not_complete
+      confidence_estimate: 82-86%
+      summary: >-
+        The T033 matrix materially improves the assessment because it exposes
+        which campuses have direct campus evidence, linked primary buildout rows,
+        and SEC proxy support in one place. It does not satisfy the 90% stop rule:
+        only 11 of 86 campuses are high confidence and only 17 are medium-or-high,
+        while large gaps remain in low/single-group/announcement-only buckets.
+      missing_evidence:
+        - C045 Stargate UAE remains a 5,000 MW gap with single-group site-work evidence and only planned/future primary rows.
+        - C011 West Texas Permian Hub remains not-publicly-knowable with one evidence group and a 2,500 MW gap.
+        - C051, C050, C042, C018, C030, C046, C048, and C053 remain material non-high-confidence gaps needing either second independent groups, active/build primary support, or explicit not-public verdicts.
+        - SEC proxy support is useful company context but cannot stand in for direct campus online-MW evidence.
+      evidence:
+        - "capacity_reality_report: high_confidence_campuses 11/86; medium_or_high_confidence_campuses 17/86."
+        - "capacity_reality_report: high-confidence gap coverage is 18,530 MW out of 46,336 MW unenergized gap; medium-or-high gap coverage is 24,530 MW."
+        - "Remaining Direct-Evidence Gaps ranks C045, C011, C051, C050, C042, C018, C030, C046, C048, and C053 as top non-high-confidence gaps."
+      next_allowed_task: T035
+      allowed_files:
+        - data/sources.yaml
+        - data/campus_evidence.yaml
+        - data/primary_buildout_signals.yaml
+      verify:
+        - .venv/bin/python scripts/load.py
+        - .venv/bin/python scripts/validate.py
+        - .venv/bin/python scripts/capacity_reality_report.py --top 35
+        - .venv/bin/python scripts/primary_buildout_report.py --top 35
+      stop_if:
+        - Need files outside allowed_files or schema/report code changes.
+        - A source is paid, non-public, transcript-only without public access, or lacks a stable URL.
+        - A source cannot be tied to a specific campus, operator, capacity basis, or evidence status.
+        - The evidence would require adding MW across unlike bases or phases.
+        - The row would duplicate an existing source/evidence claim.
+  - id: T035
+    type: worker
+    assignee: Worker
+    status: done
+    objective: Add a direct-evidence tranche for the largest remaining non-high-confidence gaps, prioritizing C045, C011, C051, C050, C042, C018, C030, C046, C048, and C053 with public primary sources or explicit not-public verdict evidence.
+    allowed_files:
+      - data/sources.yaml
+      - data/campus_evidence.yaml
+      - data/primary_buildout_signals.yaml
+    inputs:
+      - T034 receipt
+      - Remaining Direct-Evidence Gaps from capacity_reality_report.py --top 35
+      - Existing campus_evidence and primary_buildout_signals rows
+    constraints:
+      - Prefer primary or official sources: company blogs/press releases, utility/regulator documents, local government documents, environmental permits, federal datasets, and official investor materials.
+      - Keep campus_evidence and primary_buildout_signals distinct; use campus_evidence for campus-specific direct evidence and primary_buildout_signals for company/operator disclosures.
+      - Keep capacity basis, phase, and status explicit; do not add unlike MW bases together.
+      - Do not use paid, non-public, or unstable sources.
+      - Do not change schema, loaders, validators, or reports in this slice.
+    verify:
+      - .venv/bin/python scripts/load.py
+      - .venv/bin/python scripts/validate.py
+      - .venv/bin/python scripts/capacity_reality_report.py --top 35
+      - .venv/bin/python scripts/primary_buildout_report.py --top 35
+    stop_if:
+      - Need files outside allowed_files or schema/report code changes.
+      - A source is paid, non-public, transcript-only without public access, or lacks a stable URL.
+      - A source cannot be tied to a specific campus, operator, capacity basis, or evidence status.
+      - The evidence would require adding MW across unlike bases or phases.
+      - The row would duplicate an existing source/evidence claim.
+    expected_output:
+      - changed_files
+      - commands
+      - summary
+      - evidence
+    receipt:
+      result: done
+      changed_files:
+        - data/sources.yaml
+        - data/campus_evidence.yaml
+        - data/primary_buildout_signals.yaml
+      commands:
+        - cmd: .venv/bin/python scripts/load.py
+          status: pass
+        - cmd: .venv/bin/python scripts/validate.py
+          status: pass
+          notes: 0 errors; 21 baseline warnings retained.
+        - cmd: .venv/bin/python scripts/capacity_reality_report.py --top 35
+          status: pass
+        - cmd: .venv/bin/python scripts/primary_buildout_report.py --top 35
+          status: pass
+        - cmd: git diff --check
+          status: pass
+      summary: >-
+        Added a direct-evidence tranche for the largest weak-gap campuses using
+        official public sources. New source rows cover IEDC/Indiana evidence for
+        Meta Lebanon, DTE's Q1 2026 Google Van Buren contract filing, and the
+        Mississippi Governor/xAI Southaven announcement. Added three campus_evidence
+        rows and seven linked primary_buildout_signals rows for Stargate Michigan,
+        Milam County, Lighthouse, Project Jupiter, Stargate India, Meta Lebanon,
+        Google Van Buren, and xAI Southaven evidence routes.
+      evidence:
+        - "load.py: 418 sources, 53 campus_evidence rows, 87 primary_buildout_signals rows."
+        - "capacity_reality_report: high_confidence_campuses improved from 11/86 to 14/86; medium_or_high_confidence_campuses from 17/86 to 20/86."
+        - "capacity_reality_report: campuses_with_two_independent_groups improved from 13 to 15; linked primary campuses from 12 to 17."
+        - "primary_buildout_report: linked campus rows improved from 28 to 35; linked campuses from 12 to 17."
+        - "Remaining direct-evidence gaps now show C051, C030, and C046 as high confidence; C050, C048, and C042 moved into medium buckets; C045 and C011 remain the largest low-confidence gaps."
+      next: T036 should audit whether this source tranche materially advances the 90% confidence standard and select the next evidence route.
+  - id: T036
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: Audit the T035 evidence tranche and choose the next route for the remaining low-confidence gaps.
+    inputs:
+      - T035 receipt
+      - Capacity reality report after T035
+      - Primary buildout report after T035
+      - Goal stop rule
+      - Current dirty diff
+    constraints:
+      - Do not call the full goal complete unless the 90% confidence standard is met.
+      - Treat remaining low-confidence gaps as evidence-route problems, not report-format problems.
+      - If not complete, choose the next cleanest Scout or Worker slice with exact allowed_files, verify, and stop_if.
+      - Prefer C045 and C011 only if a primary or official independent source route remains available; otherwise mark what is not publicly knowable and move to the next material gap.
+      - Do not ask for non-public sources or paid transcripts.
+    expected_output:
+      - complete | not_complete
+      - confidence estimate
+      - missing evidence
+      - next task objective if not complete
+      - allowed_files
+      - verify
+      - stop_if
+    receipt:
+      result: done
+      decision: not_complete
+      confidence_estimate: 86-88%
+      summary: >-
+        T035 materially advanced the evidence matrix by adding official direct
+        sources and linked primary rows, moving C051, C030, and C046 into high
+        confidence and C050, C048, and C042 into medium buckets. The goal is still
+        below the 90% stop rule: high-confidence gap coverage is roughly 21.9 GW
+        out of 46.3 GW, and medium-or-high gap coverage is roughly 27.8 GW.
+      missing_evidence:
+        - C045 Stargate UAE remains the largest weak gap at 5,000 MW, with only operator-group evidence and planned/future primary rows.
+        - C011 West Texas Permian Hub remains a 2,500 MW not-publicly-knowable candidate with no site, MW, signed offtake, or permit beyond Chevron's exclusivity disclosure.
+        - C018 Google Van Buren / Project Cannoli has three evidence groups but remains announcement-only because DTE contract approval and campus execution are not yet final.
+        - C050 Milam and C048 Project Jupiter have stronger primary overlays but still need second independent campus evidence groups.
+        - C053 India has a 100 MW contracted initial signal and 1 GW potential scale-up, but site/utility evidence remains undisclosed.
+      evidence:
+        - "capacity_reality_report after T035: high_confidence_campuses 14/86; medium_or_high_confidence_campuses 20/86."
+        - "capacity_reality_report after T035: high-confidence gap coverage about 21,930 MW; medium-or-high gap coverage about 27,830 MW out of 46,336 MW."
+        - "primary_buildout_report after T035: 87 rows, 38 sources, 35 linked campus rows, 17 linked campuses."
+      next_allowed_task: T037
+      next_task_type: scout
+      next_objective: >-
+        Scout remaining public evidence routes for C045, C011, C018, C050, C048,
+        and C053, then recommend either a bounded data Worker or explicit
+        not-public verdict handling for each unresolved gap.
+      stop_if:
+        - Only paid, non-public, or unstable sources are available.
+        - A source cannot be tied to a specific campus, operator, capacity basis, or evidence status.
+        - The route requires schema/report changes rather than source/data additions.
+  - id: T037
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: medium
+    objective: Scout remaining public evidence routes for C045, C011, C018, C050, C048, and C053 and decide whether each has a viable next data Worker route or should receive explicit not-public verdict handling.
+    inputs:
+      - T036 receipt
+      - Remaining Direct-Evidence Gaps after T035
+      - Existing campus_evidence and primary_buildout_signals rows
+      - Public web search for primary or official source routes
+    constraints:
+      - Read-only.
+      - Prefer primary or official sources: company pages, utility/regulator documents, local government documents, environmental permits, federal datasets, official investor materials.
+      - Do not use paid, non-public, rumor, or unstable sources.
+      - Do not propose data edits unless the source route is specific enough to identify campus, operator, status, capacity basis, and source ID plan.
+    expected_output:
+      - findings
+      - viable next Worker route or not-public verdict route per campus
+      - recommended allowed_files
+      - verify
+      - stop_if
+    receipt:
+      result: done
+      summary: >-
+        Scouted remaining public source routes for the largest unresolved gaps.
+        C045 and C011 remain the hardest blockers: public sources support the
+        announced/project route, but do not provide independent campus-level
+        proof for the full 5 GW UAE campus or a definitive West Texas power/data
+        center agreement. C018, C050, C048, and C053 have incremental official
+        routes, but mostly as contract filings, operator/developer disclosures,
+        or future scale options rather than active/energized evidence.
+      findings:
+        - "C045 Stargate UAE: G42/OpenAI sources support the 1 GW cluster and first 200 MW construction target inside the broader 5 GW UAE-US AI Campus; no independent utility/regulator/site source found for full 5 GW timing or energized load."
+        - "C011 West Texas Permian: Chevron and Chevron Q1 materials confirm exclusivity/proposed West Texas development but still no definitive agreement, site, MW, permit, or signed offtake."
+        - "C018 Google Van Buren: DTE official materials support a planned 1 GW Google data center and MPSC contract filing; route remains pending final regulatory approval and execution evidence."
+        - "C050 Milam: OpenAI/SB Energy and SoftBank materials support the 1.2 GW lease/buildout route; no independent local/regulator source was found in this scout."
+        - "C048 Project Jupiter: Oracle/Bloom and Oracle community materials support the 2.45 GW fuel-cell power route and construction status; still needs independent local/regulator confirmation for campus deliverability."
+        - "C053 India: OpenAI/Tata HyperVault route supports initial 100 MW and potential 1 GW scale-up; no site, utility, or regulatory source was found for the 1 GW option."
+      evidence:
+        - "G42 official/PRNewswire and OpenAI pages for Stargate UAE."
+        - "Chevron exclusivity statement and Chevron Q1 2026 release for Microsoft/Engine No. 1 route."
+        - "DTE Q1 2026 release and Michigan AG/MPSC public materials for Google Van Buren route."
+        - "OpenAI/SB Energy, SoftBank investor materials, Oracle/Bloom, and TCS HyperVault materials for remaining routes."
+      recommended_next_task: T038
+      recommended_type: worker
+      allowed_files:
+        - data/sources.yaml
+        - data/campus_evidence.yaml
+      verify:
+        - .venv/bin/python scripts/load.py
+        - .venv/bin/python scripts/validate.py
+        - .venv/bin/python scripts/capacity_reality_report.py --top 35
+      stop_if:
+        - Need to alter schema/report code or primary_buildout_signals.
+        - A verdict row would duplicate an existing campus_evidence row without sharpening the public-evidence limitation.
+        - A source cannot distinguish committed/active capacity from planned/future/option capacity.
+  - id: T038
+    type: worker
+    assignee: Worker
+    status: done
+    objective: Add a residual-verdict data tranche for the hardest unresolved gaps, focusing on explicit not-public or pending-route campus_evidence rows for C045, C011, C018, and C053 without upgrading confidence from operator-only evidence.
+    allowed_files:
+      - data/sources.yaml
+      - data/campus_evidence.yaml
+    inputs:
+      - T037 receipt
+      - Existing campus_evidence rows for C045, C011, C018, and C053
+      - Public source-route scout results
+    constraints:
+      - Use only public, stable, primary or official sources.
+      - Add a row only if it clarifies a specific public-evidence limitation, pending approval route, or not-public verdict.
+      - Do not use primary_buildout_signals in this slice; this is verdict/route evidence, not operator capacity overlay.
+      - Do not change schema, loaders, validators, reports, or campus rollups.
+    verify:
+      - .venv/bin/python scripts/load.py
+      - .venv/bin/python scripts/validate.py
+      - .venv/bin/python scripts/capacity_reality_report.py --top 35
+    stop_if:
+      - Need files outside allowed_files.
+      - A verdict row would duplicate an existing campus_evidence row without sharpening the public-evidence limitation.
+      - A source cannot distinguish committed/active capacity from planned/future/option capacity.
+      - The row would imply active/energized capacity without direct proof.
+    expected_output:
+      - changed_files
+      - commands
+      - summary
+      - evidence
+    receipt:
+      result: done
+      changed_files:
+        - data/sources.yaml
+        - data/campus_evidence.yaml
+      commands:
+        - cmd: .venv/bin/python scripts/load.py
+          status: pass
+        - cmd: .venv/bin/python scripts/validate.py
+          status: pass
+          notes: 0 errors; 21 baseline warnings retained.
+        - cmd: .venv/bin/python scripts/capacity_reality_report.py --top 35
+          status: pass
+        - cmd: git diff --check
+          status: pass
+      summary: >-
+        Added residual-verdict source and campus_evidence rows for the hardest
+        unresolved gaps without upgrading confidence. C045 now has an explicit
+        full-campus public-evidence limitation for the 5 GW UAE-US AI Campus,
+        C011 has a second Chevron update reinforcing that the West Texas route
+        remains proposed/not definitive, and C053 has a TCS HyperVault row showing
+        the 1 GW India option remains platform-level rather than site/utility-backed.
+      evidence:
+        - "load.py: 421 sources, 56 campus_evidence rows, 87 primary_buildout_signals rows."
+        - "capacity_reality_report: high_confidence_campuses remains 14/86 and medium_or_high_confidence_campuses remains 20/86, as expected for verdict rows."
+        - "capacity_reality_report: C045 and C011 now show explicit not_public flags; C053 moved to not_publicly_knowable tier while preserving the 100 MW contracted primary overlay."
+      next: T039 should audit whether the remaining work is now best handled by deeper source acquisition for second independent groups or by final not-public verdict consolidation.
+  - id: T039
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: Audit the residual-verdict tranche and choose whether the next step is deeper source acquisition or not-public verdict consolidation.
+    inputs:
+      - T038 receipt
+      - Capacity reality report after T038
+      - Goal stop rule
+      - Current dirty diff
+    constraints:
+      - Do not call the full goal complete unless the 90% confidence standard is met.
+      - Do not let not-public verdict rows inflate high-confidence capacity.
+      - If not complete, choose a bounded next Scout or Worker with exact allowed_files, verify, and stop_if.
+      - Prefer source acquisition for second independent groups only where public official routes plausibly exist.
+      - Do not ask for non-public sources or paid transcripts.
+    expected_output:
+      - complete | not_complete
+      - confidence estimate
+      - missing evidence
+      - next task objective if not complete
+      - allowed_files
+      - verify
+      - stop_if
+    receipt:
+      result: done
+      decision: not_complete
+      confidence_estimate: 87-88%
+      summary: >-
+        T038 improved the honesty of the assessment rather than the confidence
+        count. The remaining largest low-confidence rows now clearly distinguish
+        "not publicly knowable yet" from "operator says planned." This is useful
+        for the 90% standard, but the full goal is still not complete because only
+        14 of 86 campuses are high confidence and 20 are medium-or-high.
+      missing_evidence:
+        - C045 and C011 should be treated as hard public-evidence limitation cases unless a government/utility/regulator source appears.
+        - C050 Milam and C048 Project Jupiter need second independent local/regulator/environmental evidence groups.
+        - C018 Google Van Buren is waiting on final MPSC/regulatory progress and execution evidence.
+        - C042 xAI Southaven needs an official MDEQ permit record or xAI primary buildout disclosure to upgrade beyond medium.
+        - Large no_evidence campuses below the first page still need a source-route triage pass before more data edits.
+      evidence:
+        - "capacity_reality_report after T038: high_confidence_campuses 14/86; medium_or_high_confidence_campuses 20/86."
+        - "capacity_reality_report after T038: C045/C011 show not_public flags; C053 is not_publicly_knowable with 100 MW contracted primary overlay."
+        - "validate.py: 0 errors and unchanged 21 baseline warnings."
+      next_allowed_task: T040
+      next_task_type: scout
+      next_objective: >-
+        Scout public regulator, local-government, and environmental source routes
+        for the next second-independent-group tranche, prioritizing C050, C048,
+        C042, C018, and the largest no_evidence campuses that remain in the top
+        gap list.
+      stop_if:
+        - Only paid, non-public, rumor, or unstable sources are available.
+        - A source route cannot be tied to a specific campus or capacity/status claim.
+        - The next step would require schema/report changes instead of evidence acquisition.
+  - id: T040
+    type: scout
+    assignee: Scout
+    status: active
+    reasoning_hint: medium
+    objective: Scout public regulator, local-government, and environmental source routes for the next second-independent-group tranche, prioritizing C050, C048, C042, C018, and the largest no_evidence campuses that remain in the top gap list.
+    inputs:
+      - T039 receipt
+      - Capacity reality report after T038
+      - Existing campus_evidence rows for C050, C048, C042, C018, and large no_evidence campuses
+      - Public web search for official source routes
+    constraints:
+      - Read-only.
+      - Prefer regulator, utility, local-government, environmental-agency, and federal-dataset routes over media or operator repeats.
+      - Do not propose a Worker unless the source route is specific enough to identify campus, status, capacity basis, and source IDs.
+      - Do not use paid, non-public, rumor, or unstable sources.
+    expected_output:
+      - findings
+      - viable next Worker route or not-public verdict route per campus
+      - recommended allowed_files
+      - verify
+      - stop_if
+    receipt: null
+checks:
+  dirty_fingerprint: unknown
+  last_verification: T039 judge audit on 2026-05-14; not complete at 87-88% confidence, with next work focused on second-independent-group source-route scouting for remaining material gaps.
