@@ -18,6 +18,7 @@ hyperscaler_energy/
 │   │   ├── microsoft.yaml / google.yaml / amazon.yaml / meta.yaml
 │   │   ├── oracle.yaml / xai.yaml
 │   │   └── colocation.yaml / neoclouds.yaml / sovereign.yaml
+│   ├── operator_disclosures.yaml # operator self-disclosed capacity by stage (term registry + quarterly rows)
 │   ├── campuses.yaml             # data-center campus registry
 │   ├── campus_evidence.yaml      # energization evidence per campus
 │   ├── primary_buildout_signals.yaml      # buildout signals from primary sources
@@ -90,3 +91,6 @@ Every `Estimated` row is a candidate for replacement as primary data becomes ava
 | IRENA RPGC              | July            | `lcoe_data`                     |
 | GE Vernova earnings     | quarterly       | `turbine_supply`                |
 | Hyperscaler deals       | as announced    | `hyperscaler_contracts`         |
+| Operator earnings disclosures | quarterly (run Stage E within 2 weeks of each earnings cluster) | `operator_capacity_disclosures` |
+
+**Capacity-by-stage authority:** `operator_capacity_disclosures` is the authoritative table for operator self-reported capacity by stage; `primary_buildout_signals` remains the raw claim ledger and receives no new capacity rows.

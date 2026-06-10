@@ -204,6 +204,14 @@ def build(conn: sqlite3.Connection) -> str:
             FROM operator_capacity_disclosures
             ORDER BY operator, as_of_quarter DESC, stage_normalized, capacity_basis"""),
         "disclosure_cells": __import__("stacks").headline_cells(conn),
+        "disclosure_series": {
+            op: __import__("stacks").quarterly_series(conn, op)
+            for (op,) in conn.execute("""
+                SELECT DISTINCT operator FROM operator_capacity_disclosures
+                WHERE stage_normalized != 'none_disclosed'
+                GROUP BY operator, stage_normalized, capacity_basis
+                HAVING COUNT(DISTINCT as_of_quarter) >= 2""")
+        },
         "disclosure_coverage": [
             dict(r) for r in conn.execute("""
                 SELECT hyperscaler AS operator,
@@ -715,6 +723,13 @@ TEMPLATE = r"""<!doctype html>
       operational or under construction, never below zero. Stages carry their own as-of dates;
       a stage older than the operator's latest reporting quarter is marked carried.
     </p>
+
+    <h3 class="camp-section-title" style="margin-top:2rem">Quarter by quarter — as disclosed<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">strict per-quarter levels; gaps mean no disclosure, not zero</span></h3>
+    <div class="camp-filters" style="margin-bottom:.75rem">
+      <label>Operator <select id="dsQoQSelect"></select></label>
+      <span class="count" id="dsQoQNote"></span>
+    </div>
+    <div class="chart-wrap" style="height:300px;margin-bottom:1.4rem"><canvas id="dsQoQChart"></canvas></div>
 
     <h3 class="camp-section-title" style="margin-top:2rem">Disclosure register<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">the operator's own words, linked to the filing</span></h3>
     <div class="camp-table-wrap" style="max-height:560px">
@@ -1304,6 +1319,33 @@ Chart.register({
       <div class="total"></div>
     </div>`;
   }).join('');
+  const SERIES = DATA.disclosure_series || {};
+  const sel = document.getElementById('dsQoQSelect');
+  Object.keys(SERIES).sort().forEach(op => sel.insertAdjacentHTML('beforeend', `<option>${op}</option>`));
+  let qoqChart = null;
+  function renderQoQ(){
+    const op = sel.value; const series = SERIES[op] || [];
+    const labels = series.map(q => q.quarter ? q.quarter.replace(/^20(\d\d)Q(\d)/, "$1Q$2") : '');
+    const stageData = k => series.map(q => (q.stages && q.stages[k] && q.stages[k].mw) || null);
+    if (qoqChart) qoqChart.destroy();
+    qoqChart = new Chart(document.getElementById('dsQoQChart'), {
+      type: 'bar',
+      data: { labels, datasets: [
+        { label:'Operational', data: stageData('operational'), backgroundColor:'#0E7B5B', borderWidth:0 },
+        { label:'Under construction', data: stageData('under_construction'), backgroundColor:'#7FB5A6', borderWidth:0 },
+        { label:'Planned (net)', data: series.map(q => q.planned_shown || null), backgroundColor:'#E2E2E5', borderWidth:0 }
+      ]},
+      options: { maintainAspectRatio:false, responsive:true,
+        scales:{ x:{ stacked:true, grid:{display:false} }, y:{ stacked:true, ticks:{ callback:v=>v.toLocaleString()+' MW' } } },
+        plugins:{ legend:{ position:'bottom', labels:{ boxWidth:10, boxHeight:10 } },
+          tooltip:{ callbacks:{ label:c=>`${c.dataset.label}: ${(c.parsed.y||0).toLocaleString()} MW` } } }
+      }
+    });
+    const n = series.filter(q => q.stages && Object.values(q.stages).some(Boolean)).length;
+    document.getElementById('dsQoQNote').textContent = `${n} disclosed quarter(s) — values strictly as stated each quarter`;
+  }
+  if (Object.keys(SERIES).length) { sel.addEventListener('change', renderQoQ); renderQoQ(); }
+
   document.getElementById('dsCoverageNote').textContent =
     'A credibility check, never an accounting identity. Operator side: latest self-reported operational + under construction + net planned. ' +
     'Campus side: the sum over campuses operated by that tenant of the fullest disclosed load level per campus — planned if known, else phase-1, else live (COALESCE(planned, phase1, energized)). ' +
