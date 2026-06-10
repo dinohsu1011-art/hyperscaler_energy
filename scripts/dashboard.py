@@ -247,6 +247,24 @@ TEMPLATE = r"""<!doctype html>
               font-size:.8rem; padding:.55rem 0; border-top:1px solid #F0F0F2; }
   .tile .kv b { font-variant-numeric:tabular-nums; font-weight:600; }
   .ph { color:#B9B9C0; font-size:.8rem; text-align:center; padding:2.2rem 0; }
+  .hero-fig { font-size:3.3rem; font-weight:700; letter-spacing:-.035em; line-height:1;
+              margin-top:.7rem; font-variant-numeric:tabular-nums; }
+  .hero-unit { font-size:1.35rem; color:#6E6E73; font-weight:600; margin-left:.15em; }
+  .hero-sub { color:#6E6E73; font-size:.82rem; margin-top:.55rem; }
+  .hero-kvs { margin-top:auto; padding-top:1.1rem; }
+  .bchart-wrap { position:relative; height:296px; margin-top:.8rem; }
+  .blegend { display:flex; flex-wrap:wrap; gap:6px 14px; margin-top:12px; padding-top:12px;
+             border-top:1px solid #F0F0F2; font-size:.72rem; color:#6E6E73; }
+  .bdot { width:8px; height:8px; border-radius:4px; display:inline-block; margin-right:5px; vertical-align:-1px; }
+  .bops { display:grid; grid-template-columns:78px 1fr 40px; gap:9px 10px; align-items:center;
+          font-size:.78rem; margin-top:14px; }
+  .bops .bbar { height:7px; border-radius:4px; background:#1D1D1F; }
+  .blat { display:flex; justify-content:space-between; align-items:center; gap:8px;
+          padding:.5rem 0; border-bottom:1px solid #F0F0F2; font-size:.78rem; }
+  .blat:last-child { border-bottom:0; }
+  .dark-num { font-size:2.2rem; font-weight:700; margin-top:.55rem; font-variant-numeric:tabular-nums; }
+  .dark-cap { font-size:.78rem; color:#A1A1A6; line-height:1.5; margin-top:.35rem; }
+
   @media (max-width:900px) { .bento { grid-template-columns:1fr; grid-template-areas:none; }
     .bento > .tile { grid-area:auto; } }
   .grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
@@ -455,17 +473,34 @@ TEMPLATE = r"""<!doctype html>
 
   <section class="panel active" id="panel-overview">
     <div class="bento">
-      <div class="tile tile-hero"><div class="eyebrow">Contracted capacity</div><div class="ph">hero — big figure + key rows</div></div>
-      <div class="tile tile-chart"><div class="eyebrow">By announcement year and generation type — six hyperscalers, MW</div><div class="ph">main stacked chart</div></div>
-      <div class="tile tile-clean"><div class="eyebrow">Clean share</div><div class="ph">donut</div></div>
-      <div class="tile tile-ops"><div class="eyebrow">By operator, GW</div><div class="ph">graphite bars</div></div>
-      <div class="tile tile-latest"><div class="eyebrow">Latest</div><div class="ph">recent deals</div></div>
-      <div class="tile tile-dark"><div class="eyebrow">Sources</div><div class="ph" style="color:#6E6E73">count + caption</div></div>
+      <div class="tile tile-hero">
+        <div class="eyebrow">Contracted capacity</div>
+        <div class="hero-fig"><span id="bHeroGW">—</span><span class="hero-unit">GW</span></div>
+        <div class="hero-sub" id="bHeroSub"></div>
+        <div class="hero-kvs" id="bHeroKvs"></div>
+      </div>
+      <div class="tile tile-chart">
+        <div class="eyebrow">By announcement year and generation type — six hyperscalers, MW</div>
+        <div class="bchart-wrap"><canvas id="chartBento"></canvas></div>
+        <div class="blegend" id="bentoLegend"></div>
+      </div>
+      <div class="tile tile-clean">
+        <div class="eyebrow">Clean share</div>
+        <div style="text-align:center"><svg id="bDonut" viewBox="0 0 100 100" style="width:118px;margin-top:10px"></svg></div>
+      </div>
+      <div class="tile tile-ops"><div class="eyebrow">By operator, GW</div><div id="bOps" class="bops"></div></div>
+      <div class="tile tile-latest"><div class="eyebrow">Latest</div><div id="bLatest"></div></div>
+      <div class="tile tile-dark">
+        <div class="eyebrow">Sources</div>
+        <div class="dark-num" id="bSrcCount">—</div>
+        <div class="dark-cap">sources on file. Every number links to one.</div>
+      </div>
     </div>
+    <h3 class="camp-section-title" style="margin-top:1.6rem">More detail<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">portfolio views — all 39 operators</span></h3>
     <div class="grid">
       <div class="card wide">
-        <h2>Contracted MW by announcement year — gas vs clean</h2>
-        <div class="hint">Stacked by generation type. Uses <b>announcement year</b>, not COD. Includes Oracle/xAI.</div>
+        <h2>All operators — capacity by announcement year</h2>
+        <div class="hint">Stacked by generation type, announcement-year basis. Includes the colocation, neocloud, and sovereign operators that the six-hyperscaler chart above excludes.</div>
         <div class="chart-wrap"><canvas id="chartYear"></canvas></div>
       </div>
       <div class="card wide">
@@ -1017,6 +1052,114 @@ Chart.register({
                 tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y.toLocaleString()} GWh storage energy`}} }
     }
   });
+})();
+
+// ---- Overview bento tiles ----
+Chart.register({
+  id: 'bentoTotals',
+  afterDatasetsDraw(chart) {
+    if (chart.canvas.id !== 'chartBento') return;
+    const { ctx } = chart;
+    const totals = chart.data.labels.map((_, i) =>
+      chart.data.datasets.reduce((s, d) => s + (d.data[i] || 0), 0));
+    ctx.save();
+    ctx.font = "600 11px 'Inter Tight', 'Inter', sans-serif";
+    ctx.fillStyle = '#1D1D1F';
+    ctx.textAlign = 'center';
+    totals.forEach((tot, i) => {
+      if (!tot) return;
+      const x = chart.scales.x.getPixelForValue(i);
+      const y = chart.scales.y.getPixelForValue(tot);
+      ctx.fillText(Math.round(tot).toLocaleString(), x, y - 6);
+    });
+    ctx.restore();
+  }
+});
+(function(){
+  const C = DATA.contracts;
+  const HS = C.filter(r => r.operator_type === 'Hyperscaler');
+  const totalMW = C.reduce((s,r)=>s+(r.capacity_mw||0),0);
+  const hsMW = HS.reduce((s,r)=>s+(r.capacity_mw||0),0);
+  const gasMW = C.filter(r=>r.generation_type==='Gas'||r.generation_type==='Gas+CCS')
+                 .reduce((s,r)=>s+(r.capacity_mw||0),0);
+  const stoPow = C.reduce((s,r)=>s+(r.storage_power_mw||0),0);
+  const stoEgy = C.reduce((s,r)=>s+(r.storage_energy_mwh||0),0);
+  const cutoff = Date.now() - 45*86400000;
+  const addMW = C.filter(r=>{
+    const ad = r.announced_date; if (!ad) return false;
+    const d = new Date(ad.length===7 ? ad+'-15' : ad);
+    return !isNaN(d.getTime()) && d.getTime() >= cutoff;
+  }).reduce((s,r)=>s+(r.capacity_mw||0),0);
+
+  document.getElementById('bHeroGW').textContent =
+    (totalMW/1000).toLocaleString(undefined,{minimumFractionDigits:1,maximumFractionDigits:1});
+  document.getElementById('bHeroSub').textContent =
+    `${C.length} agreements · ${new Set(C.map(r=>r.company)).size} operators`;
+  document.getElementById('bHeroKvs').innerHTML =
+    `<div class="kv"><span style="color:#6E6E73">Six hyperscalers</span><b>${(hsMW/1000).toFixed(1)} GW</b></div>` +
+    `<div class="kv"><span style="color:#6E6E73">Battery storage</span><b>${(stoPow/1000).toFixed(1)} GW · ${Math.round(stoEgy/1000)} GWh</b></div>` +
+    `<div class="kv"><span style="color:#6E6E73">Added past 45 days</span><b style="color:#0E7B5B">+${Math.round(addMW).toLocaleString()} MW</b></div>`;
+  document.getElementById('bSrcCount').textContent = Object.keys(SRC).length;
+
+  const pct = 100*(totalMW-gasMW)/totalMW;
+  const circ = 2*Math.PI*40, arc = circ*pct/100;
+  document.getElementById('bDonut').innerHTML =
+    `<circle cx="50" cy="50" r="40" fill="none" stroke="#E9E9EC" stroke-width="11"/>` +
+    `<circle cx="50" cy="50" r="40" fill="none" stroke="#0E7B5B" stroke-width="11" stroke-dasharray="${arc.toFixed(1)} ${circ.toFixed(1)}" stroke-linecap="round" transform="rotate(-90 50 50)"/>` +
+    `<text x="50" y="48" text-anchor="middle" font-size="17" font-weight="600" fill="#1D1D1F">${pct.toFixed(1)}%</text>` +
+    `<text x="50" y="63" text-anchor="middle" font-size="8" fill="#6E6E73">clean + storage</text>`;
+
+  const byOp = {};
+  HS.forEach(r => { byOp[r.company] = (byOp[r.company]||0) + (r.capacity_mw||0); });
+  const ops = Object.entries(byOp).sort((a,b)=>b[1]-a[1]);
+  const maxOp = ops.length ? ops[0][1] : 1;
+  document.getElementById('bOps').innerHTML = ops.map(([co,mw]) =>
+    `<span style="font-weight:500">${co}</span>` +
+    `<div class="bbar" style="width:${Math.max(2,(100*mw/maxOp)).toFixed(0)}%"></div>` +
+    `<span style="text-align:right;color:#6E6E73;font-variant-numeric:tabular-nums">${(mw/1000).toFixed(1)}</span>`
+  ).join('');
+
+  const latest = C.filter(r=>r.announced_date)
+                  .sort((a,b)=>String(b.announced_date).localeCompare(String(a.announced_date)))
+                  .slice(0,5);
+  document.getElementById('bLatest').innerHTML = latest.map(r => {
+    const nm = (r.deal_name||'').length > 30 ? r.deal_name.slice(0,29)+'…' : r.deal_name;
+    const mw = r.capacity_mw != null ? '+'+Math.round(r.capacity_mw).toLocaleString() : '—';
+    return `<div class="blat"><span><span class="bdot" style="background:${colorFor(r.generation_type)}"></span><b>${nm}</b></span>` +
+           `<span style="color:#6E6E73;font-variant-numeric:tabular-nums">${mw}</span></div>`;
+  }).join('');
+
+  const pre = HS.filter(r => r.year <= 2023);
+  const post = HS.filter(r => r.year >= 2024);
+  const years = [...new Set(post.map(r=>r.year))].sort((a,b)=>a-b);
+  const labels = ['21–23', ...years.map(String)];
+  const preMW = pre.reduce((s,r)=>s+(r.capacity_mw||0),0);
+  const types = [...new Set(post.map(r=>r.generation_type))]
+    .filter(ty => post.some(r => r.generation_type===ty && (r.capacity_mw||0) > 0))
+    .sort((a,b) =>
+      post.filter(r=>r.generation_type===b).reduce((s,r)=>s+(r.capacity_mw||0),0) -
+      post.filter(r=>r.generation_type===a).reduce((s,r)=>s+(r.capacity_mw||0),0));
+  const ds = [{ label:'2021–23 (all types)', data:[preMW, ...years.map(()=>0)],
+                backgroundColor:'#B9B9C0', borderWidth:0 }]
+    .concat(types.map(ty => ({
+      label: ty,
+      data: [0, ...years.map(y => post.filter(r=>r.year===y && r.generation_type===ty)
+                                      .reduce((s,r)=>s+(r.capacity_mw||0),0))],
+      backgroundColor: colorFor(ty), borderWidth: 0 })));
+  new Chart(document.getElementById('chartBento'), {
+    type:'bar',
+    data:{ labels, datasets: ds },
+    options:{ maintainAspectRatio:false, responsive:true,
+      layout:{ padding:{ top:18 } },
+      scales:{ x:{ stacked:true, grid:{ display:false } },
+               y:{ stacked:true, ticks:{ callback:v=>v.toLocaleString() } } },
+      plugins:{ legend:{ display:false },
+                tooltip:{ callbacks:{ label:c=>`${c.dataset.label}: ${c.parsed.y.toLocaleString()} MW` } } }
+    }
+  });
+  document.getElementById('bentoLegend').innerHTML =
+    types.map(ty => `<span><span class="bdot" style="background:${colorFor(ty)}"></span>${ty}</span>`).join('') +
+    `<span><span class="bdot" style="background:#B9B9C0"></span>2021–23 (all types)</span>`;
 })();
 
 // ---- Tabs ----
