@@ -200,7 +200,10 @@ def build(conn: sqlite3.Connection) -> str:
     }
     payload = json.dumps(data, default=str)
 
-    return TEMPLATE.replace("__DATA__", payload)
+    import datetime as _dt
+    return (TEMPLATE
+            .replace("__DATA__", payload)
+            .replace("__BUILDDATE__", _dt.date.today().strftime("%B %-d, %Y")))
 
 
 TEMPLATE = r"""<!doctype html>
@@ -220,22 +223,32 @@ TEMPLATE = r"""<!doctype html>
   * { box-sizing: border-box; }
   body { margin:0; font-family:'Inter Tight','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
          background:var(--bg); color:var(--ink); line-height:1.5; }
-  header { padding:2.1rem 2.4rem .2rem; }
+  header { padding:2.1rem 2.4rem .2rem; display:flex; justify-content:space-between; align-items:baseline; }
   h1 { margin:0 0 .35rem; font-size:1.55rem; font-weight:700; letter-spacing:-.02em; }
   .sub { color:var(--muted); font-size:.82rem; font-variant-numeric:tabular-nums; }
   main { padding:1.4rem 2.4rem 2.6rem; max-width:1400px; margin:0 auto; }
-  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-          gap:14px; margin-bottom:14px; }
-  .kpi { background:var(--panel); border-radius:var(--tile-r);
-         padding:1.15rem 1.3rem; display:flex; flex-direction:column-reverse; justify-content:flex-end; }
-  .kpi .v { font-size:1.75rem; font-weight:700; letter-spacing:-.025em; margin-top:.45rem;
-            font-variant-numeric:tabular-nums; line-height:1.05; }
-  .kpi .l { color:var(--muted); font-size:.75rem; font-weight:600; letter-spacing:0; }
-  .kpi:first-child { grid-column:span 2; }
-  .kpi:first-child .v { font-size:2.7rem; }
-  .kpi:last-child { background:#1D1D1F; grid-column:span 2; }
-  .kpi:last-child .v { color:#F5F5F7; }
-  .kpi:last-child .l { color:#86868B; }
+  .bento { display:grid; grid-template-columns:repeat(6,1fr);
+           grid-template-areas:
+             "hero hero chart chart chart chart"
+             "hero hero chart chart chart chart"
+             "clean clean ops ops latest latest"
+             "dark dark . . . .";
+           gap:14px; margin-bottom:14px; }
+  .tile { background:var(--panel); border-radius:22px; padding:1.3rem 1.4rem; }
+  .tile-hero { grid-area:hero; display:flex; flex-direction:column; }
+  .tile-chart { grid-area:chart; min-height:430px; }
+  .tile-clean { grid-area:clean; }
+  .tile-ops { grid-area:ops; }
+  .tile-latest { grid-area:latest; }
+  .tile-dark { grid-area:dark; background:#1D1D1F; color:#F5F5F7; }
+  .tile .eyebrow { font-size:.75rem; font-weight:600; color:#6E6E73; }
+  .tile-dark .eyebrow { color:#86868B; }
+  .tile .kv { display:flex; justify-content:space-between; align-items:baseline;
+              font-size:.8rem; padding:.55rem 0; border-top:1px solid #F0F0F2; }
+  .tile .kv b { font-variant-numeric:tabular-nums; font-weight:600; }
+  .ph { color:#B9B9C0; font-size:.8rem; text-align:center; padding:2.2rem 0; }
+  @media (max-width:900px) { .bento { grid-template-columns:1fr; grid-template-areas:none; }
+    .bento > .tile { grid-area:auto; } }
   .grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
   .card { background:var(--panel); border-radius:var(--tile-r); padding:1.35rem 1.5rem; }
   .card h2 { margin:0 0 .25rem; font-size:.95rem; font-weight:600; letter-spacing:-.01em; }
@@ -302,22 +315,6 @@ TEMPLATE = r"""<!doctype html>
     background:rgba(14,123,91,.10); color:#0E7B5B;
     vertical-align:middle;
   }
-  .whats-new {
-    background:var(--panel);
-    border-radius:var(--tile-r); padding:.85rem 1.3rem; margin-bottom:14px;
-    display:flex; align-items:center; gap:.9rem; flex-wrap:wrap;
-  }
-  .whats-new .wn-label {
-    color:#0E7B5B; font-size:.7rem; font-weight:600;
-    padding:3px 10px; border-radius:999px;
-    background:rgba(14,123,91,.10); white-space:nowrap;
-  }
-  .whats-new .wn-item { font-size:.84rem; color:var(--ink); }
-  .whats-new .wn-item .wn-co { color:var(--ink); font-weight:600; }
-  .whats-new .wn-item .wn-date { color:var(--muted); font-size:.74rem; margin-left:.3rem;
-                                 font-variant-numeric:tabular-nums; }
-  .whats-new .wn-sep { color:#D9D9DE; }
-  .whats-new.empty { display:none; }
 
   @media (max-width: 900px) { .grid { grid-template-columns:1fr; } }
 
@@ -441,15 +438,11 @@ TEMPLATE = r"""<!doctype html>
 </head>
 <body>
 <header>
-  <h1>Hyperscaler Energy Dashboard</h1>
-  <div class="sub" id="meta"></div>
+  <h1>Hyperscaler Energy</h1>
+  <div class="sub">Updated __BUILDDATE__</div>
 </header>
 
 <main>
-  <div class="kpis" id="kpis"></div>
-
-  <div class="whats-new empty" id="whatsNew"></div>
-
   <div class="tabs">
     <div class="tab active" data-tab="overview">Overview</div>
     <div class="tab" data-tab="contracts">Contracts</div>
@@ -461,6 +454,14 @@ TEMPLATE = r"""<!doctype html>
   </div>
 
   <section class="panel active" id="panel-overview">
+    <div class="bento">
+      <div class="tile tile-hero"><div class="eyebrow">Contracted capacity</div><div class="ph">hero — big figure + key rows</div></div>
+      <div class="tile tile-chart"><div class="eyebrow">By announcement year and generation type — six hyperscalers, MW</div><div class="ph">main stacked chart</div></div>
+      <div class="tile tile-clean"><div class="eyebrow">Clean share</div><div class="ph">donut</div></div>
+      <div class="tile tile-ops"><div class="eyebrow">By operator, GW</div><div class="ph">graphite bars</div></div>
+      <div class="tile tile-latest"><div class="eyebrow">Latest</div><div class="ph">recent deals</div></div>
+      <div class="tile tile-dark"><div class="eyebrow">Sources</div><div class="ph" style="color:#6E6E73">count + caption</div></div>
+    </div>
     <div class="grid">
       <div class="card wide">
         <h2>Contracted MW by announcement year — gas vs clean</h2>
@@ -989,55 +990,6 @@ Chart.register({
   }
 });
 
-// ---- Meta / KPIs ----
-(function(){
-  const C = DATA.contracts;
-  const totalMW = C.reduce((s,r)=>s+(r.capacity_mw||0),0);
-  const gasMW = C.filter(r=>r.generation_type==='Gas'||r.generation_type==='Gas+CCS')
-                 .reduce((s,r)=>s+(r.capacity_mw||0),0);
-  const cleanMW = totalMW - gasMW;
-  const companies = new Set(C.map(r=>r.company));
-  document.getElementById('meta').textContent =
-    `${C.length} agreements · ${Object.keys(SRC).length} sources · ${companies.size} operators · updated ` + new Date().toISOString().slice(0,10);
-  const kpis = [
-    {l:'Contracted capacity, MW', v:totalMW.toLocaleString(undefined,{maximumFractionDigits:0})},
-    {l:'Gas, MW', v:gasMW.toLocaleString(undefined,{maximumFractionDigits:0}), c:'var(--gas)'},
-    {l:'Clean + storage, MW', v:cleanMW.toLocaleString(undefined,{maximumFractionDigits:0}), c:'var(--clean)'},
-    {l:'Storage power, MW', v:C.reduce((s,r)=>s+(r.storage_power_mw||0),0).toLocaleString(undefined,{maximumFractionDigits:0}), c:'var(--storage)'},
-    {l:'Storage energy, GWh', v:(C.reduce((s,r)=>s+(r.storage_energy_mwh||0),0)/1000).toLocaleString(undefined,{maximumFractionDigits:1}), c:'var(--storage)'},
-    {l:'Gas share', v:(100*gasMW/totalMW).toFixed(1)+'%'},
-    {l:'Agreements', v:C.length},
-    {l:'Sources — every number links to one', v:Object.keys(SRC).length},
-  ];
-  document.getElementById('kpis').innerHTML = kpis.map(k =>
-    `<div class="kpi"><div class="v" ${k.c?`style="color:${k.c}"`:''}>${k.v}</div><div class="l">${k.l}</div></div>`
-  ).join('');
-
-  // ---- What's new this week ribbon ----
-  const fresh = C.filter(isNew).sort((a,b) =>
-    (b.announced_date||'').localeCompare(a.announced_date||''));
-  const wn = document.getElementById('whatsNew');
-  if (fresh.length) {
-    wn.classList.remove('empty');
-    // Group by (company, announced_date, counterparty) so a phased deal (pilot +
-    // framework) surfaces as a single headline, not two near-duplicate lines.
-    const key = r => `${r.company}|${r.announced_date}|${r.counterparty||''}`;
-    const groups = {};
-    fresh.forEach(r => { (groups[key(r)] = groups[key(r)] || []).push(r); });
-    const items = Object.values(groups).map(g => {
-      const r0 = g[0];
-      const totalMW = g.reduce((s,r)=>s+(r.capacity_mw||0), 0);
-      const types = [...new Set(g.map(r=>r.generation_type))].join(' + ');
-      const cp = r0.counterparty ? ` × ${r0.counterparty}` : '';
-      return `<span class="wn-item"><span class="wn-co">${r0.company}${cp}</span>
-              — ${totalMW.toLocaleString()} MW ${types}
-              <span class="wn-date">${r0.announced_date||''}</span></span>`;
-    });
-    wn.innerHTML =
-      `<span class="wn-label">New · last ${FRESH_WINDOW_DAYS}d</span>` +
-      items.join('<span class="wn-sep">·</span>');
-  }
-})();
 
 // ---- Chart: storage energy by announcement year ----
 (function(){
