@@ -543,6 +543,12 @@ TEMPLATE = r"""<!doctype html>
         <div class="dark-cap">sources on file. Every number links to one.</div>
       </div>
     </div>
+    <div class="tile" style="margin-bottom:14px">
+      <div class="eyebrow">By announcement quarter and generation type — six hyperscalers, MW</div>
+      <div class="bchart-wrap" style="height:320px"><canvas id="chartBentoQ"></canvas></div>
+      <div class="blegend" id="bentoQLegend"></div>
+      <div id="bentoQNote" style="font-size:.7rem; color:#86868B; margin-top:8px"></div>
+    </div>
     <h3 class="camp-section-title" style="margin-top:1.6rem">More detail<span class="rule"></span><span style="font-weight:400;text-transform:none;letter-spacing:0">portfolio views — all 39 operators</span></h3>
     <div class="grid">
       <div class="card wide">
@@ -1227,7 +1233,7 @@ Chart.register({
 Chart.register({
   id: 'bentoTotals',
   afterDatasetsDraw(chart) {
-    if (chart.canvas.id !== 'chartBento') return;
+    if (chart.canvas.id !== 'chartBento' && chart.canvas.id !== 'chartBentoQ') return;
     const { ctx } = chart;
     const totals = chart.data.labels.map((_, i) =>
       chart.data.datasets.reduce((s, d) => s + (d.data[i] || 0), 0));
@@ -1329,6 +1335,56 @@ Chart.register({
   document.getElementById('bentoLegend').innerHTML =
     types.map(ty => `<span><span class="bdot" style="background:${colorFor(ty)}"></span>${ty}</span>`).join('') +
     `<span><span class="bdot" style="background:#B9B9C0"></span>2021–23 (all types)</span>`;
+})();
+
+// ---- Overview bento: same six hyperscalers, by announcement quarter ----
+(function(){
+  const C = DATA.contracts;
+  const HS = C.filter(r => r.operator_type === 'Hyperscaler');
+  const pre = HS.filter(r => r.year <= 2023);
+  const post = HS.filter(r => r.year >= 2024);
+  // post-2024 rows with a resolvable announcement month (YYYY-MM or YYYY-MM-DD)
+  const dated = post.filter(r => r.announced_date && String(r.announced_date).length >= 7);
+  const undated = post.filter(r => !(r.announced_date && String(r.announced_date).length >= 7));
+  // bucket by canonical year (matches the annual chart) + quarter from the disclosed month
+  const qkey = r => {
+    const m = parseInt(String(r.announced_date).slice(5,7), 10);
+    return r.year * 10 + (Math.floor((m-1)/3) + 1);   // e.g. 20241 → 2024 Q1, sortable
+  };
+  const qlabel = k => `'${String(Math.floor(k/10)).slice(2)} Q${k%10}`;
+  const qkeys = [...new Set(dated.map(qkey))].sort((a,b)=>a-b);
+  const labels = ['21–23', ...qkeys.map(qlabel)];
+  const preMW = pre.reduce((s,r)=>s+(r.capacity_mw||0),0);
+  const types = [...new Set(dated.map(r=>r.generation_type))]
+    .filter(ty => dated.some(r => r.generation_type===ty && (r.capacity_mw||0) > 0))
+    .sort((a,b) =>
+      dated.filter(r=>r.generation_type===b).reduce((s,r)=>s+(r.capacity_mw||0),0) -
+      dated.filter(r=>r.generation_type===a).reduce((s,r)=>s+(r.capacity_mw||0),0));
+  const ds = [{ label:'2021–23 (all types)', data:[preMW, ...qkeys.map(()=>0)],
+                backgroundColor:'#B9B9C0', borderWidth:0 }]
+    .concat(types.map(ty => ({
+      label: ty,
+      data: [0, ...qkeys.map(k => dated.filter(r=>qkey(r)===k && r.generation_type===ty)
+                                       .reduce((s,r)=>s+(r.capacity_mw||0),0))],
+      backgroundColor: colorFor(ty), borderWidth: 0 })));
+  new Chart(document.getElementById('chartBentoQ'), {
+    type:'bar',
+    data:{ labels, datasets: ds },
+    options:{ maintainAspectRatio:false, responsive:true,
+      layout:{ padding:{ top:18 } },
+      scales:{ x:{ stacked:true, grid:{ display:false } },
+               y:{ stacked:true, ticks:{ callback:v=>v.toLocaleString() } } },
+      plugins:{ legend:{ display:false },
+                tooltip:{ callbacks:{ label:c=>`${c.dataset.label}: ${c.parsed.y.toLocaleString()} MW` } } }
+    }
+  });
+  document.getElementById('bentoQLegend').innerHTML =
+    types.map(ty => `<span><span class="bdot" style="background:${colorFor(ty)}"></span>${ty}</span>`).join('') +
+    `<span><span class="bdot" style="background:#B9B9C0"></span>2021–23 (all types)</span>`;
+  const undMW = undated.reduce((s,r)=>s+(r.capacity_mw||0),0);
+  document.getElementById('bentoQNote').textContent = undMW > 0
+    ? `+ ${Math.round(undMW).toLocaleString()} MW announced in 2024 onward without a disclosed month — not shown above.`
+    : '';
 })();
 
 // ---- Operator disclosures panel ----
