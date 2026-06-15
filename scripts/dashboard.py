@@ -513,7 +513,7 @@ TEMPLATE = r"""<!doctype html>
     <div class="tab" data-tab="campuses">Campuses</div>
     <div class="tab" data-tab="disclosures">Operator disclosures</div>
     <div class="tab" data-tab="commentary">Commentary Timeline</div>
-    <div class="tab" data-tab="eia">Federal Cross-Check</div>
+    <div class="tab" data-tab="eia">EIA Generation Pipeline</div>
     <div class="tab" data-tab="costs">Costs (LCOE / CAPEX)</div>
     <div class="tab" data-tab="sources">Sources</div>
   </div>
